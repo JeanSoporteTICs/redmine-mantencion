@@ -1,0 +1,57 @@
+[
+    {
+        "fecha": "2026-02-04",
+        "hora_inicio": "17:00:00",
+        "hora_fin": "18:45",
+        "reports": [
+            {
+                "id": "5d7a5820-5ee4-4c9f-8e41-a7a3a0a2968e",
+                "numero": "+56973712780",
+                "mensaje": "avance problema formularios bd reemplazo, reclutamiento, karina",
+                "fecha": "04-02-2026",
+                "hora": "18:28:46",
+                "fecha_inicio": "04-02-2026",
+                "fecha_fin": "04-02-2026",
+                "tipo": "Soporte",
+                "prioridad": "NORMAL",
+                "estado": "procesado",
+                "hora_extra": "SI",
+                "tiempo_estimado": "",
+                "categoria": "Equipos",
+                "unidad": "reclutamiento",
+                "unidad_solicitante": "HBV",
+                "solicitante": "karina",
+                "asunto": "avance problema formularios bd reemplazo \/ reclutamiento",
+                "asignado_a": "42",
+                "asignado_nombre": "Jean Cortés Lorca",
+                "descripcion": "",
+                "redmine_id": 113814,
+                "procesado_ts": "2026-02-04T22:36:23+01:00"
+            },
+            {
+                "id": "93023aff-baa3-4054-b679-9a61b0e69898",
+                "numero": "+56973712780",
+                "mensaje": "instalar equipo, diálisis, daniel",
+                "fecha": "04-02-2026",
+                "hora": "18:42:01",
+                "fecha_inicio": "04-02-2026",
+                "fecha_fin": "04-02-2026",
+                "tipo": "Soporte",
+                "prioridad": "NORMAL",
+                "estado": "procesado",
+                "hora_extra": "SI",
+                "tiempo_estimado": "",
+                "categoria": "Equipos",
+                "unidad": "diálisis",
+                "unidad_solicitante": "DIALISIS HOSPITAL",
+                "solicitante": "daniel",
+                "asunto": "instalar equipo \/ diálisis",
+                "asignado_a": "42",
+                "asignado_nombre": "Jean Cortés Lorca",
+                "descripcion": "",
+                "redmine_id": 113815,
+                "procesado_ts": "2026-02-04T22:42:50+01:00"
+            }
+        ]
+    }
+]

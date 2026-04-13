@@ -1,0 +1,2203 @@
+{
+    "start": "2025-01-01",
+    "end": "2026-01-13",
+    "total": 5742,
+    "tabla": [
+        {
+            "id": "125",
+            "nombre": "Administrativa",
+            "total": 193
+        },
+        {
+            "id": "98",
+            "nombre": "Alfa",
+            "total": 8
+        },
+        {
+            "id": "168",
+            "nombre": "AP",
+            "total": 81
+        },
+        {
+            "id": "642",
+            "nombre": "apertura de candados ",
+            "total": 1
+        },
+        {
+            "id": "161",
+            "nombre": "Apoyo empresa externa",
+            "total": 1
+        },
+        {
+            "id": "421",
+            "nombre": "auditorio ",
+            "total": 3
+        },
+        {
+            "id": "338",
+            "nombre": "autoconsulta",
+            "total": 4
+        },
+        {
+            "id": "207",
+            "nombre": "bodega manager",
+            "total": 1
+        },
+        {
+            "id": "222",
+            "nombre": "brazaletes",
+            "total": 2
+        },
+        {
+            "id": "296",
+            "nombre": "camara web",
+            "total": 1
+        },
+        {
+            "id": "99",
+            "nombre": "Camaras",
+            "total": 422
+        },
+        {
+            "id": "485",
+            "nombre": "cambio nombre de anexo",
+            "total": 4
+        },
+        {
+            "id": "593",
+            "nombre": "Cambio Telefono",
+            "total": 4
+        },
+        {
+            "id": "288",
+            "nombre": "Cambio Vlan",
+            "total": 2
+        },
+        {
+            "id": "610",
+            "nombre": "Capacitación",
+            "total": 1
+        },
+        {
+            "id": "202",
+            "nombre": "carpetas compartidas ",
+            "total": 6
+        },
+        {
+            "id": "175",
+            "nombre": "Carrusel Farmacia",
+            "total": 2
+        },
+        {
+            "id": "177",
+            "nombre": "Caso",
+            "total": 1
+        },
+        {
+            "id": "283",
+            "nombre": "Celular",
+            "total": 2
+        },
+        {
+            "id": "163",
+            "nombre": "chicote",
+            "total": 2
+        },
+        {
+            "id": "500",
+            "nombre": "Ciberseguridad",
+            "total": 1
+        },
+        {
+            "id": "248",
+            "nombre": "compra materiales",
+            "total": 1
+        },
+        {
+            "id": "210",
+            "nombre": "compras",
+            "total": 1
+        },
+        {
+            "id": "615",
+            "nombre": "Comunicados",
+            "total": 1
+        },
+        {
+            "id": "555",
+            "nombre": "Conexion a Internet",
+            "total": 7
+        },
+        {
+            "id": "353",
+            "nombre": "configuracion de equipos",
+            "total": 18
+        },
+        {
+            "id": "647",
+            "nombre": "Configuración Impresora",
+            "total": 5
+        },
+        {
+            "id": "192",
+            "nombre": "configuracion router",
+            "total": 1
+        },
+        {
+            "id": "293",
+            "nombre": "Conflicto IP",
+            "total": 1
+        },
+        {
+            "id": "146",
+            "nombre": "Coordinacion",
+            "total": 1
+        },
+        {
+            "id": "135",
+            "nombre": "CORE",
+            "total": 39
+        },
+        {
+            "id": "108",
+            "nombre": "Correos",
+            "total": 126
+        },
+        {
+            "id": "290",
+            "nombre": "cotizaciones",
+            "total": 4
+        },
+        {
+            "id": "320",
+            "nombre": "Creación de cuentas de usuarios",
+            "total": 1
+        },
+        {
+            "id": "249",
+            "nombre": "dar de baja ",
+            "total": 9
+        },
+        {
+            "id": "245",
+            "nombre": "Data",
+            "total": 11
+        },
+        {
+            "id": "643",
+            "nombre": "doc digital ",
+            "total": 1
+        },
+        {
+            "id": "370",
+            "nombre": "dropbox",
+            "total": 1
+        },
+        {
+            "id": "238",
+            "nombre": "DVR equipo Tele Vigilancia",
+            "total": 4
+        },
+        {
+            "id": "341",
+            "nombre": "ECM",
+            "total": 1
+        },
+        {
+            "id": "251",
+            "nombre": "Entel",
+            "total": 1
+        },
+        {
+            "id": "612",
+            "nombre": "Entrevista",
+            "total": 1
+        },
+        {
+            "id": "156",
+            "nombre": "Equipo Nuevo",
+            "total": 3
+        },
+        {
+            "id": "176",
+            "nombre": "equipo olidata ",
+            "total": 3
+        },
+        {
+            "id": "97",
+            "nombre": "Equipos",
+            "total": 601
+        },
+        {
+            "id": "364",
+            "nombre": "equipos intesis",
+            "total": 1
+        },
+        {
+            "id": "336",
+            "nombre": "equipos opciones",
+            "total": 4
+        },
+        {
+            "id": "155",
+            "nombre": "Etiquetadora",
+            "total": 276
+        },
+        {
+            "id": "209",
+            "nombre": "excel",
+            "total": 39
+        },
+        {
+            "id": "310",
+            "nombre": "Falla de pc",
+            "total": 3
+        },
+        {
+            "id": "211",
+            "nombre": "Firma Electronica",
+            "total": 1
+        },
+        {
+            "id": "127",
+            "nombre": "Gestión de Tareas ",
+            "total": 1
+        },
+        {
+            "id": "247",
+            "nombre": "getionar compra ",
+            "total": 1
+        },
+        {
+            "id": "368",
+            "nombre": "hdmi ",
+            "total": 2
+        },
+        {
+            "id": "253",
+            "nombre": "Huelleros",
+            "total": 63
+        },
+        {
+            "id": "376",
+            "nombre": "icis",
+            "total": 1
+        },
+        {
+            "id": "254",
+            "nombre": "IMED",
+            "total": 6
+        },
+        {
+            "id": "145",
+            "nombre": "IMPAX",
+            "total": 1
+        },
+        {
+            "id": "151",
+            "nombre": "Impresora comodato",
+            "total": 1
+        },
+        {
+            "id": "158",
+            "nombre": "Impresora etiquetas",
+            "total": 15
+        },
+        {
+            "id": "150",
+            "nombre": "Impresora kropsys",
+            "total": 134
+        },
+        {
+            "id": "101",
+            "nombre": "Impresoras",
+            "total": 802
+        },
+        {
+            "id": "294",
+            "nombre": "impresoras con problermas",
+            "total": 34
+        },
+        {
+            "id": "191",
+            "nombre": "impresoras nuevas",
+            "total": 1
+        },
+        {
+            "id": "337",
+            "nombre": "informes de baja ",
+            "total": 5
+        },
+        {
+            "id": "619",
+            "nombre": "instalacion de camaras",
+            "total": 1
+        },
+        {
+            "id": "170",
+            "nombre": "instalacion de equipo",
+            "total": 22
+        },
+        {
+            "id": "543",
+            "nombre": "instalacion de TV",
+            "total": 1
+        },
+        {
+            "id": "628",
+            "nombre": "instalacion infinity",
+            "total": 1
+        },
+        {
+            "id": "539",
+            "nombre": "Instalacion Nube NEXTCLOUD",
+            "total": 4
+        },
+        {
+            "id": "639",
+            "nombre": "Instalación Onlyoffice",
+            "total": 3
+        },
+        {
+            "id": "596",
+            "nombre": "Instalación PC",
+            "total": 28
+        },
+        {
+            "id": "166",
+            "nombre": "Instalacion programas",
+            "total": 53
+        },
+        {
+            "id": "623",
+            "nombre": "instalacion wps",
+            "total": 9
+        },
+        {
+            "id": "102",
+            "nombre": "Internet",
+            "total": 271
+        },
+        {
+            "id": "436",
+            "nombre": "inventario ",
+            "total": 37
+        },
+        {
+            "id": "307",
+            "nombre": "ips",
+            "total": 1
+        },
+        {
+            "id": "95",
+            "nombre": "LAN",
+            "total": 1
+        },
+        {
+            "id": "169",
+            "nombre": "levantamiento de informacion ",
+            "total": 17
+        },
+        {
+            "id": "362",
+            "nombre": "licencia office ",
+            "total": 3
+        },
+        {
+            "id": "188",
+            "nombre": "Licencias Medicas",
+            "total": 58
+        },
+        {
+            "id": "94",
+            "nombre": "Manager",
+            "total": 97
+        },
+        {
+            "id": "275",
+            "nombre": "maquina virtual",
+            "total": 1
+        },
+        {
+            "id": "280",
+            "nombre": "Mercado Publico",
+            "total": 1
+        },
+        {
+            "id": "579",
+            "nombre": "Mini Switch",
+            "total": 1
+        },
+        {
+            "id": "223",
+            "nombre": "monitores",
+            "total": 25
+        },
+        {
+            "id": "105",
+            "nombre": "Mouse",
+            "total": 33
+        },
+        {
+            "id": "217",
+            "nombre": "movimiento de equipos",
+            "total": 37
+        },
+        {
+            "id": "212",
+            "nombre": "Navegador ",
+            "total": 7
+        },
+        {
+            "id": "499",
+            "nombre": "Nextcloud",
+            "total": 164
+        },
+        {
+            "id": "215",
+            "nombre": "notebook",
+            "total": 11
+        },
+        {
+            "id": "181",
+            "nombre": "office",
+            "total": 78
+        },
+        {
+            "id": "626",
+            "nombre": "Onedrive ",
+            "total": 1
+        },
+        {
+            "id": "266",
+            "nombre": "opciones",
+            "total": 1
+        },
+        {
+            "id": "541",
+            "nombre": "ordenamiento bodega",
+            "total": 2
+        },
+        {
+            "id": "225",
+            "nombre": "Outlook",
+            "total": 61
+        },
+        {
+            "id": "637",
+            "nombre": "pagina oficina de partes",
+            "total": 4
+        },
+        {
+            "id": "124",
+            "nombre": "Pagina Web",
+            "total": 54
+        },
+        {
+            "id": "359",
+            "nombre": "parlantes ",
+            "total": 2
+        },
+        {
+            "id": "297",
+            "nombre": "Password",
+            "total": 2
+        },
+        {
+            "id": "473",
+            "nombre": "PC con problemas",
+            "total": 133
+        },
+        {
+            "id": "216",
+            "nombre": "Pc Intesis",
+            "total": 12
+        },
+        {
+            "id": "174",
+            "nombre": "pc opciones",
+            "total": 12
+        },
+        {
+            "id": "265",
+            "nombre": "PDF",
+            "total": 13
+        },
+        {
+            "id": "309",
+            "nombre": "perdida de informacion ",
+            "total": 3
+        },
+        {
+            "id": "122",
+            "nombre": "Petición",
+            "total": 2
+        },
+        {
+            "id": "358",
+            "nombre": "plotter",
+            "total": 2
+        },
+        {
+            "id": "242",
+            "nombre": "prestamo ",
+            "total": 2
+        },
+        {
+            "id": "373",
+            "nombre": "prestamo pc ",
+            "total": 1
+        },
+        {
+            "id": "638",
+            "nombre": "Problemas con WPS",
+            "total": 2
+        },
+        {
+            "id": "214",
+            "nombre": "Programas",
+            "total": 44
+        },
+        {
+            "id": "200",
+            "nombre": "proxy",
+            "total": 12
+        },
+        {
+            "id": "258",
+            "nombre": "RAC",
+            "total": 3
+        },
+        {
+            "id": "257",
+            "nombre": "ras",
+            "total": 3
+        },
+        {
+            "id": "630",
+            "nombre": "Recambio INTESIS",
+            "total": 1
+        },
+        {
+            "id": "311",
+            "nombre": "Recepción de Equipos",
+            "total": 1
+        },
+        {
+            "id": "159",
+            "nombre": "Recuperar Informacion",
+            "total": 4
+        },
+        {
+            "id": "113",
+            "nombre": "Redes",
+            "total": 766
+        },
+        {
+            "id": "316",
+            "nombre": "Reloj Control",
+            "total": 2
+        },
+        {
+            "id": "299",
+            "nombre": "remasterizacion equipo",
+            "total": 29
+        },
+        {
+            "id": "355",
+            "nombre": "renovación de computador ",
+            "total": 1
+        },
+        {
+            "id": "611",
+            "nombre": "renovacion equipos intesis ",
+            "total": 8
+        },
+        {
+            "id": "374",
+            "nombre": "respaldo de informacion",
+            "total": 5
+        },
+        {
+            "id": "622",
+            "nombre": "retiro de equipos ",
+            "total": 5
+        },
+        {
+            "id": "104",
+            "nombre": "Retráctil",
+            "total": 4
+        },
+        {
+            "id": "100",
+            "nombre": "Reunión",
+            "total": 3
+        },
+        {
+            "id": "380",
+            "nombre": "SAHE",
+            "total": 2
+        },
+        {
+            "id": "308",
+            "nombre": "SCANER",
+            "total": 104
+        },
+        {
+            "id": "230",
+            "nombre": "Servidores",
+            "total": 20
+        },
+        {
+            "id": "620",
+            "nombre": "Sidexis",
+            "total": 5
+        },
+        {
+            "id": "110",
+            "nombre": "Sigges",
+            "total": 10
+        },
+        {
+            "id": "348",
+            "nombre": "sirh",
+            "total": 1
+        },
+        {
+            "id": "162",
+            "nombre": "Sistema",
+            "total": 6
+        },
+        {
+            "id": "203",
+            "nombre": "software",
+            "total": 14
+        },
+        {
+            "id": "346",
+            "nombre": "solicitud de celular ",
+            "total": 1
+        },
+        {
+            "id": "172",
+            "nombre": "solicitud de computador",
+            "total": 8
+        },
+        {
+            "id": "590",
+            "nombre": "solicitud de etiquetadora ",
+            "total": 2
+        },
+        {
+            "id": "365",
+            "nombre": "solicitud de huellero",
+            "total": 2
+        },
+        {
+            "id": "190",
+            "nombre": "solicitud de impresoras ",
+            "total": 7
+        },
+        {
+            "id": "356",
+            "nombre": "solicitud de monitor",
+            "total": 3
+        },
+        {
+            "id": "350",
+            "nombre": "solicitud de Tablet",
+            "total": 1
+        },
+        {
+            "id": "325",
+            "nombre": "solicitud de telefono",
+            "total": 1
+        },
+        {
+            "id": "629",
+            "nombre": "suseso",
+            "total": 1
+        },
+        {
+            "id": "272",
+            "nombre": "Tablet ",
+            "total": 19
+        },
+        {
+            "id": "389",
+            "nombre": "taonet",
+            "total": 1
+        },
+        {
+            "id": "221",
+            "nombre": "tareas",
+            "total": 4
+        },
+        {
+            "id": "279",
+            "nombre": "TEAMS",
+            "total": 1
+        },
+        {
+            "id": "106",
+            "nombre": "Teclado",
+            "total": 45
+        },
+        {
+            "id": "329",
+            "nombre": "teclados ",
+            "total": 7
+        },
+        {
+            "id": "96",
+            "nombre": "Telefonia",
+            "total": 185
+        },
+        {
+            "id": "594",
+            "nombre": "tonner",
+            "total": 1
+        },
+        {
+            "id": "321",
+            "nombre": "Totem",
+            "total": 36
+        },
+        {
+            "id": "160",
+            "nombre": "Traslado equipos",
+            "total": 29
+        },
+        {
+            "id": "277",
+            "nombre": "Traslado Informacion",
+            "total": 5
+        },
+        {
+            "id": "604",
+            "nombre": "Turnos",
+            "total": 6
+        },
+        {
+            "id": "597",
+            "nombre": "tv",
+            "total": 10
+        },
+        {
+            "id": "240",
+            "nombre": "ups",
+            "total": 9
+        },
+        {
+            "id": "112",
+            "nombre": "Video Conferencia",
+            "total": 4
+        },
+        {
+            "id": "303",
+            "nombre": "virus",
+            "total": 2
+        },
+        {
+            "id": "613",
+            "nombre": "vlan ",
+            "total": 1
+        },
+        {
+            "id": "128",
+            "nombre": "VPN",
+            "total": 8
+        },
+        {
+            "id": "153",
+            "nombre": "Wifi",
+            "total": 22
+        },
+        {
+            "id": "264",
+            "nombre": "zoom",
+            "total": 3
+        },
+        {
+            "id": "649",
+            "nombre": "contraseñas",
+            "total": 2
+        },
+        {
+            "id": "650",
+            "nombre": "audiovisual",
+            "total": 1
+        },
+        {
+            "id": "648",
+            "nombre": "Transformador PC",
+            "total": 1
+        },
+        {
+            "id": "none",
+            "nombre": "Sin categoría",
+            "total": 12
+        }
+    ],
+    "tabla_unidades": [
+        {
+            "nombre": "HBV",
+            "total": 1760
+        },
+        {
+            "nombre": "COMPUTACION",
+            "total": 667
+        },
+        {
+            "nombre": "FARMACIA H. REGIONAL",
+            "total": 162
+        },
+        {
+            "nombre": "ONCOLOGIA",
+            "total": 151
+        },
+        {
+            "nombre": "URGENCIA ADULTOS",
+            "total": 147
+        },
+        {
+            "nombre": "UCI ADULTO",
+            "total": 127
+        },
+        {
+            "nombre": "MEDICINA",
+            "total": 118
+        },
+        {
+            "nombre": "RECURSOS HUMANOS",
+            "total": 95
+        },
+        {
+            "nombre": "DENTAL",
+            "total": 94
+        },
+        {
+            "nombre": "LABORATORIO",
+            "total": 93
+        },
+        {
+            "nombre": "ALIMENTACION (UCP)",
+            "total": 85
+        },
+        {
+            "nombre": "DIRECCION",
+            "total": 82
+        },
+        {
+            "nombre": "MANTENIMIENTO",
+            "total": 80
+        },
+        {
+            "nombre": "ANATOMIA PATOLOGICA",
+            "total": 78
+        },
+        {
+            "nombre": "ABASTECIMIENTO",
+            "total": 69
+        },
+        {
+            "nombre": "PSIQUIATRIA",
+            "total": 67
+        },
+        {
+            "nombre": "GINECOLOGIA",
+            "total": 66
+        },
+        {
+            "nombre": "PEDIATRIA",
+            "total": 61
+        },
+        {
+            "nombre": "POLI GINECOLOGIA",
+            "total": 60
+        },
+        {
+            "nombre": "NEUROCIRUGIA",
+            "total": 58
+        },
+        {
+            "nombre": "POLI CIRUGIA ADULTO",
+            "total": 54
+        },
+        {
+            "nombre": "RECUPERACION PABELLON CENTRAL",
+            "total": 50
+        },
+        {
+            "nombre": "ARCHIVO",
+            "total": 48
+        },
+        {
+            "nombre": "PABELLON CENTRAL",
+            "total": 47
+        },
+        {
+            "nombre": "POLI OTORRINOLARINGOLOGIA",
+            "total": 43
+        },
+        {
+            "nombre": "PARTO - OBSTETRICIA",
+            "total": 43
+        },
+        {
+            "nombre": "POLI PEDIATRIA",
+            "total": 40
+        },
+        {
+            "nombre": "BANCO DE SANGRE",
+            "total": 40
+        },
+        {
+            "nombre": "POLI CARDIOLOGIA",
+            "total": 39
+        },
+        {
+            "nombre": "POLI TRAUMATOLOGIA",
+            "total": 39
+        },
+        {
+            "nombre": "RADIOLOGIA REGIONAL",
+            "total": 38
+        },
+        {
+            "nombre": "UTI QUIRURGICA",
+            "total": 38
+        },
+        {
+            "nombre": "URGENCIA PEDIATRICA",
+            "total": 38
+        },
+        {
+            "nombre": "URGENCIA GINECO-OBSTETRICIA",
+            "total": 36
+        },
+        {
+            "nombre": "PRAIS",
+            "total": 35
+        },
+        {
+            "nombre": "DEPARTAMENTO OPERACIONES",
+            "total": 31
+        },
+        {
+            "nombre": "CIRUGIA ADULTO",
+            "total": 31
+        },
+        {
+            "nombre": "UCI PEDIATRICA",
+            "total": 31
+        },
+        {
+            "nombre": "POLI UROLOGIA",
+            "total": 31
+        },
+        {
+            "nombre": "KINESITERAPIA",
+            "total": 30
+        },
+        {
+            "nombre": "POLI HEMATOLOGIA",
+            "total": 30
+        },
+        {
+            "nombre": "POLI DERMATOLOGIA",
+            "total": 27
+        },
+        {
+            "nombre": "POLI ENDOCRINOLOGIA",
+            "total": 26
+        },
+        {
+            "nombre": "PREQUIRURGICO",
+            "total": 25
+        },
+        {
+            "nombre": "Poli Respiratorio Infantil",
+            "total": 25
+        },
+        {
+            "nombre": "TRAUMATOLOGIA ADULTO",
+            "total": 24
+        },
+        {
+            "nombre": "LAB. DE HISTOCOMPATIBILIDAD",
+            "total": 24
+        },
+        {
+            "nombre": "POLI NEUROCIRUGIA",
+            "total": 24
+        },
+        {
+            "nombre": "CIRUGIA INFANTIL",
+            "total": 23
+        },
+        {
+            "nombre": "QUIMIO. AMBULATORIA ONCOLOGICA",
+            "total": 23
+        },
+        {
+            "nombre": "SERVICIO SOCIAL",
+            "total": 22
+        },
+        {
+            "nombre": "OFICINA INFOR. Y RECLAMOS OIR",
+            "total": 22
+        },
+        {
+            "nombre": "POLI GASTROENTEROLOGIA",
+            "total": 21
+        },
+        {
+            "nombre": "DIALISIS HOSPITAL",
+            "total": 21
+        },
+        {
+            "nombre": "Prog.alivio Del Dolor",
+            "total": 21
+        },
+        {
+            "nombre": "ESTERILIZACION",
+            "total": 19
+        },
+        {
+            "nombre": "UNIDAD HEMATOLOGIA INTENSIVA",
+            "total": 16
+        },
+        {
+            "nombre": "SAMU",
+            "total": 16
+        },
+        {
+            "nombre": "REDES ELECTRICAS",
+            "total": 16
+        },
+        {
+            "nombre": "ADMISIÓN",
+            "total": 15
+        },
+        {
+            "nombre": "LISTA ESPERA QUIRURGICA Y MACR",
+            "total": 15
+        },
+        {
+            "nombre": "POLI MEDICINA",
+            "total": 15
+        },
+        {
+            "nombre": "GESTION CENTRALIZADA DE CAMAS",
+            "total": 15
+        },
+        {
+            "nombre": "POLI PERSONAL",
+            "total": 14
+        },
+        {
+            "nombre": "POLI NEFROLOGIA",
+            "total": 14
+        },
+        {
+            "nombre": "CONSULTORIO ADOSADO ESPECIAL.",
+            "total": 14
+        },
+        {
+            "nombre": "MOVILIZACION",
+            "total": 13
+        },
+        {
+            "nombre": "NEONATO CUIDADOS  INTERMEDIOS",
+            "total": 13
+        },
+        {
+            "nombre": "PABELLON PARTOS",
+            "total": 13
+        },
+        {
+            "nombre": "POLI PATOLOGIA MAMARIA",
+            "total": 13
+        },
+        {
+            "nombre": "MEDICINA NUCLEAR",
+            "total": 13
+        },
+        {
+            "nombre": "POLI REUMATOLOGIA",
+            "total": 12
+        },
+        {
+            "nombre": "POLI PSIQUIATRIA ADULTO",
+            "total": 11
+        },
+        {
+            "nombre": "UNIDAD SALUD OCUPACIONAL",
+            "total": 10
+        },
+        {
+            "nombre": "UNIDAD DE CALIDAD Y SEGURIDAD DEL PACIENTE",
+            "total": 10
+        },
+        {
+            "nombre": "POLI ONCOLOGIA",
+            "total": 10
+        },
+        {
+            "nombre": "NEONATO CUIDADOS BASICOS",
+            "total": 10
+        },
+        {
+            "nombre": "LAVANDERIA",
+            "total": 9
+        },
+        {
+            "nombre": "NEONATO CUIDADOS INTENSIVOS",
+            "total": 9
+        },
+        {
+            "nombre": "DEPARTAMENTO FINANZAS",
+            "total": 9
+        },
+        {
+            "nombre": "QUIMIOTERAPIA INFANTIL AMBULAT",
+            "total": 9
+        },
+        {
+            "nombre": "POLI OFTALMOLOGIA",
+            "total": 8
+        },
+        {
+            "nombre": "DENTAL (DC)",
+            "total": 8
+        },
+        {
+            "nombre": "RADIOTERAPIA",
+            "total": 7
+        },
+        {
+            "nombre": "POLI DE TAC",
+            "total": 7
+        },
+        {
+            "nombre": "RECUPERACIÓN H",
+            "total": 6
+        },
+        {
+            "nombre": "UCI INTERMEDIA",
+            "total": 6
+        },
+        {
+            "nombre": "POLI NEUROLOGIA INFANTIL",
+            "total": 6
+        },
+        {
+            "nombre": "UNIDAD ONCO_HEMATOLOGIA INFANT",
+            "total": 6
+        },
+        {
+            "nombre": "CAPACITACION",
+            "total": 6
+        },
+        {
+            "nombre": "EQUIPOS MEDICOS",
+            "total": 5
+        },
+        {
+            "nombre": "OFTALMOLOGIA",
+            "total": 5
+        },
+        {
+            "nombre": "UGA",
+            "total": 5
+        },
+        {
+            "nombre": "PSIQUIATRIA DIURNO",
+            "total": 5
+        },
+        {
+            "nombre": "I.h.h",
+            "total": 4
+        },
+        {
+            "nombre": "CUIDADOS PALIATIVOS",
+            "total": 3
+        },
+        {
+            "nombre": "UNIDAD DE COSTOS",
+            "total": 3
+        },
+        {
+            "nombre": "JARDIN INFANTIL",
+            "total": 3
+        },
+        {
+            "nombre": "POLI RESPIRATORIO",
+            "total": 2
+        },
+        {
+            "nombre": "CHILE CRECE CONTIGO",
+            "total": 2
+        },
+        {
+            "nombre": "SUB DPTO DE SERV.LOGIST.",
+            "total": 2
+        },
+        {
+            "nombre": "QUIMIOTERAPIA AMBULATORIA",
+            "total": 2
+        },
+        {
+            "nombre": "EQUIPOS INDUSTRIALES",
+            "total": 2
+        },
+        {
+            "nombre": "POLI CIRUGIA INFANTIL",
+            "total": 2
+        },
+        {
+            "nombre": "POLI INMU-INFECTOLOGIA",
+            "total": 2
+        },
+        {
+            "nombre": "CIRUGIA MAYOR AMBULATORIA",
+            "total": 2
+        },
+        {
+            "nombre": "UTI PEDIATRICA",
+            "total": 2
+        },
+        {
+            "nombre": "POLI BRONCOPULMONAR",
+            "total": 2
+        },
+        {
+            "nombre": "POLI PSIQUIATRIA INFANTIL",
+            "total": 2
+        },
+        {
+            "nombre": "OTORRINOLARINGOLOGIA",
+            "total": 2
+        },
+        {
+            "nombre": "NAVEGADORES EN RED",
+            "total": 1
+        },
+        {
+            "nombre": "CENTRAL TELEFÓNICA",
+            "total": 1
+        },
+        {
+            "nombre": "SUB DPTO MANTEN.DE EQUIP.",
+            "total": 1
+        },
+        {
+            "nombre": "IAAS",
+            "total": 1
+        },
+        {
+            "nombre": "ESTADÍSTICAS",
+            "total": 1
+        },
+        {
+            "nombre": "UN.HOSPIT.DOMICILIARIA",
+            "total": 1
+        },
+        {
+            "nombre": "SERVICIO GENERALES",
+            "total": 1
+        },
+        {
+            "nombre": "PUERPERIO",
+            "total": 1
+        },
+        {
+            "nombre": "SUDEPTO.DE GEST.DE LA DEMA.RED",
+            "total": 1
+        },
+        {
+            "nombre": "DIALISIS AGUDA",
+            "total": 1
+        },
+        {
+            "nombre": "POLI INMUNO-INFECTOLOGIA",
+            "total": 1
+        },
+        {
+            "nombre": "U. EPIDEMIOLOGIA Y REG CANCER",
+            "total": 1
+        },
+        {
+            "nombre": "TRAUMATOLOGIA INFANTIL",
+            "total": 1
+        },
+        {
+            "nombre": "SUB DPTO INFRAESTRUCTURA",
+            "total": 1
+        },
+        {
+            "nombre": "UNIDAD DE MICROBIOLOGIA",
+            "total": 1
+        }
+    ],
+    "total_unidades": 5725,
+    "selected_cats": [
+        {
+            "id": "125",
+            "nombre": "Administrativa",
+            "total": 193
+        },
+        {
+            "id": "98",
+            "nombre": "Alfa",
+            "total": 8
+        },
+        {
+            "id": "168",
+            "nombre": "AP",
+            "total": 81
+        },
+        {
+            "id": "642",
+            "nombre": "apertura de candados ",
+            "total": 1
+        },
+        {
+            "id": "161",
+            "nombre": "Apoyo empresa externa",
+            "total": 1
+        },
+        {
+            "id": "421",
+            "nombre": "auditorio ",
+            "total": 3
+        },
+        {
+            "id": "338",
+            "nombre": "autoconsulta",
+            "total": 4
+        },
+        {
+            "id": "207",
+            "nombre": "bodega manager",
+            "total": 1
+        },
+        {
+            "id": "222",
+            "nombre": "brazaletes",
+            "total": 2
+        },
+        {
+            "id": "296",
+            "nombre": "camara web",
+            "total": 1
+        },
+        {
+            "id": "99",
+            "nombre": "Camaras",
+            "total": 422
+        },
+        {
+            "id": "485",
+            "nombre": "cambio nombre de anexo",
+            "total": 4
+        },
+        {
+            "id": "593",
+            "nombre": "Cambio Telefono",
+            "total": 4
+        },
+        {
+            "id": "288",
+            "nombre": "Cambio Vlan",
+            "total": 2
+        },
+        {
+            "id": "610",
+            "nombre": "Capacitación",
+            "total": 1
+        },
+        {
+            "id": "202",
+            "nombre": "carpetas compartidas ",
+            "total": 6
+        },
+        {
+            "id": "175",
+            "nombre": "Carrusel Farmacia",
+            "total": 2
+        },
+        {
+            "id": "177",
+            "nombre": "Caso",
+            "total": 1
+        },
+        {
+            "id": "283",
+            "nombre": "Celular",
+            "total": 2
+        },
+        {
+            "id": "163",
+            "nombre": "chicote",
+            "total": 2
+        },
+        {
+            "id": "500",
+            "nombre": "Ciberseguridad",
+            "total": 1
+        },
+        {
+            "id": "248",
+            "nombre": "compra materiales",
+            "total": 1
+        },
+        {
+            "id": "210",
+            "nombre": "compras",
+            "total": 1
+        },
+        {
+            "id": "615",
+            "nombre": "Comunicados",
+            "total": 1
+        },
+        {
+            "id": "555",
+            "nombre": "Conexion a Internet",
+            "total": 7
+        },
+        {
+            "id": "353",
+            "nombre": "configuracion de equipos",
+            "total": 18
+        },
+        {
+            "id": "647",
+            "nombre": "Configuración Impresora",
+            "total": 5
+        },
+        {
+            "id": "192",
+            "nombre": "configuracion router",
+            "total": 1
+        },
+        {
+            "id": "293",
+            "nombre": "Conflicto IP",
+            "total": 1
+        },
+        {
+            "id": "146",
+            "nombre": "Coordinacion",
+            "total": 1
+        },
+        {
+            "id": "135",
+            "nombre": "CORE",
+            "total": 39
+        },
+        {
+            "id": "108",
+            "nombre": "Correos",
+            "total": 126
+        },
+        {
+            "id": "290",
+            "nombre": "cotizaciones",
+            "total": 4
+        },
+        {
+            "id": "320",
+            "nombre": "Creación de cuentas de usuarios",
+            "total": 1
+        },
+        {
+            "id": "249",
+            "nombre": "dar de baja ",
+            "total": 9
+        },
+        {
+            "id": "245",
+            "nombre": "Data",
+            "total": 11
+        },
+        {
+            "id": "643",
+            "nombre": "doc digital ",
+            "total": 1
+        },
+        {
+            "id": "370",
+            "nombre": "dropbox",
+            "total": 1
+        },
+        {
+            "id": "238",
+            "nombre": "DVR equipo Tele Vigilancia",
+            "total": 4
+        },
+        {
+            "id": "341",
+            "nombre": "ECM",
+            "total": 1
+        },
+        {
+            "id": "251",
+            "nombre": "Entel",
+            "total": 1
+        },
+        {
+            "id": "612",
+            "nombre": "Entrevista",
+            "total": 1
+        },
+        {
+            "id": "156",
+            "nombre": "Equipo Nuevo",
+            "total": 3
+        },
+        {
+            "id": "176",
+            "nombre": "equipo olidata ",
+            "total": 3
+        },
+        {
+            "id": "97",
+            "nombre": "Equipos",
+            "total": 601
+        },
+        {
+            "id": "364",
+            "nombre": "equipos intesis",
+            "total": 1
+        },
+        {
+            "id": "336",
+            "nombre": "equipos opciones",
+            "total": 4
+        },
+        {
+            "id": "155",
+            "nombre": "Etiquetadora",
+            "total": 276
+        },
+        {
+            "id": "209",
+            "nombre": "excel",
+            "total": 39
+        },
+        {
+            "id": "310",
+            "nombre": "Falla de pc",
+            "total": 3
+        },
+        {
+            "id": "211",
+            "nombre": "Firma Electronica",
+            "total": 1
+        },
+        {
+            "id": "127",
+            "nombre": "Gestión de Tareas ",
+            "total": 1
+        },
+        {
+            "id": "247",
+            "nombre": "getionar compra ",
+            "total": 1
+        },
+        {
+            "id": "368",
+            "nombre": "hdmi ",
+            "total": 2
+        },
+        {
+            "id": "253",
+            "nombre": "Huelleros",
+            "total": 63
+        },
+        {
+            "id": "376",
+            "nombre": "icis",
+            "total": 1
+        },
+        {
+            "id": "254",
+            "nombre": "IMED",
+            "total": 6
+        },
+        {
+            "id": "145",
+            "nombre": "IMPAX",
+            "total": 1
+        },
+        {
+            "id": "151",
+            "nombre": "Impresora comodato",
+            "total": 1
+        },
+        {
+            "id": "158",
+            "nombre": "Impresora etiquetas",
+            "total": 15
+        },
+        {
+            "id": "150",
+            "nombre": "Impresora kropsys",
+            "total": 134
+        },
+        {
+            "id": "101",
+            "nombre": "Impresoras",
+            "total": 802
+        },
+        {
+            "id": "294",
+            "nombre": "impresoras con problermas",
+            "total": 34
+        },
+        {
+            "id": "191",
+            "nombre": "impresoras nuevas",
+            "total": 1
+        },
+        {
+            "id": "337",
+            "nombre": "informes de baja ",
+            "total": 5
+        },
+        {
+            "id": "619",
+            "nombre": "instalacion de camaras",
+            "total": 1
+        },
+        {
+            "id": "170",
+            "nombre": "instalacion de equipo",
+            "total": 22
+        },
+        {
+            "id": "543",
+            "nombre": "instalacion de TV",
+            "total": 1
+        },
+        {
+            "id": "628",
+            "nombre": "instalacion infinity",
+            "total": 1
+        },
+        {
+            "id": "539",
+            "nombre": "Instalacion Nube NEXTCLOUD",
+            "total": 4
+        },
+        {
+            "id": "639",
+            "nombre": "Instalación Onlyoffice",
+            "total": 3
+        },
+        {
+            "id": "596",
+            "nombre": "Instalación PC",
+            "total": 28
+        },
+        {
+            "id": "166",
+            "nombre": "Instalacion programas",
+            "total": 53
+        },
+        {
+            "id": "623",
+            "nombre": "instalacion wps",
+            "total": 9
+        },
+        {
+            "id": "102",
+            "nombre": "Internet",
+            "total": 271
+        },
+        {
+            "id": "436",
+            "nombre": "inventario ",
+            "total": 37
+        },
+        {
+            "id": "307",
+            "nombre": "ips",
+            "total": 1
+        },
+        {
+            "id": "95",
+            "nombre": "LAN",
+            "total": 1
+        },
+        {
+            "id": "169",
+            "nombre": "levantamiento de informacion ",
+            "total": 17
+        },
+        {
+            "id": "362",
+            "nombre": "licencia office ",
+            "total": 3
+        },
+        {
+            "id": "188",
+            "nombre": "Licencias Medicas",
+            "total": 58
+        },
+        {
+            "id": "94",
+            "nombre": "Manager",
+            "total": 97
+        },
+        {
+            "id": "275",
+            "nombre": "maquina virtual",
+            "total": 1
+        },
+        {
+            "id": "280",
+            "nombre": "Mercado Publico",
+            "total": 1
+        },
+        {
+            "id": "579",
+            "nombre": "Mini Switch",
+            "total": 1
+        },
+        {
+            "id": "223",
+            "nombre": "monitores",
+            "total": 25
+        },
+        {
+            "id": "105",
+            "nombre": "Mouse",
+            "total": 33
+        },
+        {
+            "id": "217",
+            "nombre": "movimiento de equipos",
+            "total": 37
+        },
+        {
+            "id": "212",
+            "nombre": "Navegador ",
+            "total": 7
+        },
+        {
+            "id": "499",
+            "nombre": "Nextcloud",
+            "total": 164
+        },
+        {
+            "id": "215",
+            "nombre": "notebook",
+            "total": 11
+        },
+        {
+            "id": "181",
+            "nombre": "office",
+            "total": 78
+        },
+        {
+            "id": "626",
+            "nombre": "Onedrive ",
+            "total": 1
+        },
+        {
+            "id": "266",
+            "nombre": "opciones",
+            "total": 1
+        },
+        {
+            "id": "541",
+            "nombre": "ordenamiento bodega",
+            "total": 2
+        },
+        {
+            "id": "225",
+            "nombre": "Outlook",
+            "total": 61
+        },
+        {
+            "id": "637",
+            "nombre": "pagina oficina de partes",
+            "total": 4
+        },
+        {
+            "id": "124",
+            "nombre": "Pagina Web",
+            "total": 54
+        },
+        {
+            "id": "359",
+            "nombre": "parlantes ",
+            "total": 2
+        },
+        {
+            "id": "297",
+            "nombre": "Password",
+            "total": 2
+        },
+        {
+            "id": "473",
+            "nombre": "PC con problemas",
+            "total": 133
+        },
+        {
+            "id": "216",
+            "nombre": "Pc Intesis",
+            "total": 12
+        },
+        {
+            "id": "174",
+            "nombre": "pc opciones",
+            "total": 12
+        },
+        {
+            "id": "265",
+            "nombre": "PDF",
+            "total": 13
+        },
+        {
+            "id": "309",
+            "nombre": "perdida de informacion ",
+            "total": 3
+        },
+        {
+            "id": "122",
+            "nombre": "Petición",
+            "total": 2
+        },
+        {
+            "id": "358",
+            "nombre": "plotter",
+            "total": 2
+        },
+        {
+            "id": "242",
+            "nombre": "prestamo ",
+            "total": 2
+        },
+        {
+            "id": "373",
+            "nombre": "prestamo pc ",
+            "total": 1
+        },
+        {
+            "id": "638",
+            "nombre": "Problemas con WPS",
+            "total": 2
+        },
+        {
+            "id": "214",
+            "nombre": "Programas",
+            "total": 44
+        },
+        {
+            "id": "200",
+            "nombre": "proxy",
+            "total": 12
+        },
+        {
+            "id": "258",
+            "nombre": "RAC",
+            "total": 3
+        },
+        {
+            "id": "257",
+            "nombre": "ras",
+            "total": 3
+        },
+        {
+            "id": "630",
+            "nombre": "Recambio INTESIS",
+            "total": 1
+        },
+        {
+            "id": "311",
+            "nombre": "Recepción de Equipos",
+            "total": 1
+        },
+        {
+            "id": "159",
+            "nombre": "Recuperar Informacion",
+            "total": 4
+        },
+        {
+            "id": "113",
+            "nombre": "Redes",
+            "total": 766
+        },
+        {
+            "id": "316",
+            "nombre": "Reloj Control",
+            "total": 2
+        },
+        {
+            "id": "299",
+            "nombre": "remasterizacion equipo",
+            "total": 29
+        },
+        {
+            "id": "355",
+            "nombre": "renovación de computador ",
+            "total": 1
+        },
+        {
+            "id": "611",
+            "nombre": "renovacion equipos intesis ",
+            "total": 8
+        },
+        {
+            "id": "374",
+            "nombre": "respaldo de informacion",
+            "total": 5
+        },
+        {
+            "id": "622",
+            "nombre": "retiro de equipos ",
+            "total": 5
+        },
+        {
+            "id": "104",
+            "nombre": "Retráctil",
+            "total": 4
+        },
+        {
+            "id": "100",
+            "nombre": "Reunión",
+            "total": 3
+        },
+        {
+            "id": "380",
+            "nombre": "SAHE",
+            "total": 2
+        },
+        {
+            "id": "308",
+            "nombre": "SCANER",
+            "total": 104
+        },
+        {
+            "id": "230",
+            "nombre": "Servidores",
+            "total": 20
+        },
+        {
+            "id": "620",
+            "nombre": "Sidexis",
+            "total": 5
+        },
+        {
+            "id": "110",
+            "nombre": "Sigges",
+            "total": 10
+        },
+        {
+            "id": "348",
+            "nombre": "sirh",
+            "total": 1
+        },
+        {
+            "id": "162",
+            "nombre": "Sistema",
+            "total": 6
+        },
+        {
+            "id": "203",
+            "nombre": "software",
+            "total": 14
+        },
+        {
+            "id": "346",
+            "nombre": "solicitud de celular ",
+            "total": 1
+        },
+        {
+            "id": "172",
+            "nombre": "solicitud de computador",
+            "total": 8
+        },
+        {
+            "id": "590",
+            "nombre": "solicitud de etiquetadora ",
+            "total": 2
+        },
+        {
+            "id": "365",
+            "nombre": "solicitud de huellero",
+            "total": 2
+        },
+        {
+            "id": "190",
+            "nombre": "solicitud de impresoras ",
+            "total": 7
+        },
+        {
+            "id": "356",
+            "nombre": "solicitud de monitor",
+            "total": 3
+        },
+        {
+            "id": "350",
+            "nombre": "solicitud de Tablet",
+            "total": 1
+        },
+        {
+            "id": "325",
+            "nombre": "solicitud de telefono",
+            "total": 1
+        },
+        {
+            "id": "629",
+            "nombre": "suseso",
+            "total": 1
+        },
+        {
+            "id": "272",
+            "nombre": "Tablet ",
+            "total": 19
+        },
+        {
+            "id": "389",
+            "nombre": "taonet",
+            "total": 1
+        },
+        {
+            "id": "221",
+            "nombre": "tareas",
+            "total": 4
+        },
+        {
+            "id": "279",
+            "nombre": "TEAMS",
+            "total": 1
+        },
+        {
+            "id": "106",
+            "nombre": "Teclado",
+            "total": 45
+        },
+        {
+            "id": "329",
+            "nombre": "teclados ",
+            "total": 7
+        },
+        {
+            "id": "96",
+            "nombre": "Telefonia",
+            "total": 185
+        },
+        {
+            "id": "594",
+            "nombre": "tonner",
+            "total": 1
+        },
+        {
+            "id": "321",
+            "nombre": "Totem",
+            "total": 36
+        },
+        {
+            "id": "160",
+            "nombre": "Traslado equipos",
+            "total": 29
+        },
+        {
+            "id": "277",
+            "nombre": "Traslado Informacion",
+            "total": 5
+        },
+        {
+            "id": "604",
+            "nombre": "Turnos",
+            "total": 6
+        },
+        {
+            "id": "597",
+            "nombre": "tv",
+            "total": 10
+        },
+        {
+            "id": "240",
+            "nombre": "ups",
+            "total": 9
+        },
+        {
+            "id": "112",
+            "nombre": "Video Conferencia",
+            "total": 4
+        },
+        {
+            "id": "303",
+            "nombre": "virus",
+            "total": 2
+        },
+        {
+            "id": "613",
+            "nombre": "vlan ",
+            "total": 1
+        },
+        {
+            "id": "128",
+            "nombre": "VPN",
+            "total": 8
+        },
+        {
+            "id": "153",
+            "nombre": "Wifi",
+            "total": 22
+        },
+        {
+            "id": "264",
+            "nombre": "zoom",
+            "total": 3
+        },
+        {
+            "id": "649",
+            "nombre": "contraseñas",
+            "total": 2
+        },
+        {
+            "id": "650",
+            "nombre": "audiovisual",
+            "total": 1
+        },
+        {
+            "id": "648",
+            "nombre": "Transformador PC",
+            "total": 1
+        },
+        {
+            "id": "none",
+            "nombre": "Sin categoría",
+            "total": 12
+        }
+    ],
+    "selected_sum": 5742,
+    "quick_2m": 809,
+    "quick_6m": 2979,
+    "quick_12m": 5742,
+    "status_totals": {
+        "Cerrada": 5449,
+        "Nueva": 288,
+        "Espera Repuesta": 1,
+        "En curso": 4
+    },
+    "priority_totals": {
+        "Normal": 5718,
+        "Alta": 22,
+        "Urgente": 2
+    },
+    "tracker_totals": {
+        "Soporte": 5540,
+        "Tareas": 185,
+        "Proyecto Soporte": 17
+    },
+    "actualizado": "2026-01-13T16:51:15+01:00"
+}

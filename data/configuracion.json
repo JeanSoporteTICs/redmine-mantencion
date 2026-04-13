@@ -1,0 +1,84 @@
+{
+    "platform_url": "https:\/\/coresalud.cl\/gp\/projects\/backlog-soporte-ti\/issues.json",
+    "platform_token": "",
+    "project_id": 47,
+    "tracker_id": 3,
+    "priority_id": 2,
+    "cf_solicitante": "3",
+    "cf_unidad": "5",
+    "cf_hora_extra": "12",
+    "status_id": 1,
+    "category_id": null,
+    "retencion_horas": 1,
+    "session_timeout": 600,
+    "trackers": [
+        {
+            "id": 2,
+            "nombre": "Tareas",
+            "default": false
+        },
+        {
+            "id": 3,
+            "nombre": "Soporte",
+            "default": true
+        },
+        {
+            "id": 8,
+            "nombre": "Proyecto Soporte",
+            "default": false
+        }
+    ],
+    "prioridades": [
+        {
+            "id": 1,
+            "nombre": "Baja",
+            "default": false
+        },
+        {
+            "id": 2,
+            "nombre": "Normal",
+            "default": true
+        },
+        {
+            "id": 3,
+            "nombre": "Alta",
+            "default": false
+        },
+        {
+            "id": 4,
+            "nombre": "Urgente",
+            "default": false
+        },
+        {
+            "id": 5,
+            "nombre": "Inmediata",
+            "default": false
+        }
+    ],
+    "estados": [
+        {
+            "id": 1,
+            "nombre": "Nueva",
+            "default": true
+        },
+        {
+            "id": 2,
+            "nombre": "En curso",
+            "default": false
+        },
+        {
+            "id": 5,
+            "nombre": "Cerrada",
+            "default": false
+        },
+        {
+            "id": 6,
+            "nombre": "Rechazada",
+            "default": false
+        }
+    ],
+    "project_name": "Backlog Soporte TI",
+    "cf_unidad_solicitante": "11",
+    "categories_url": "https:\/\/coresalud.cl\/gp\/projects\/backlog-soporte-ti\/issue_categories.json",
+    "unidades_url": "https:\/\/coresalud.cl\/gp\/custom_fields.json"
+}
