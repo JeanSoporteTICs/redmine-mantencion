@@ -233,7 +233,8 @@ $csrf = csrf_token();
   .dashboard-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; width: 100%; }
   .dashboard-stat {
     position: relative;
-    padding: 1.15rem 1.2rem;
+    padding: 1.2rem 1.35rem;
+    min-height: 128px;
     border-radius: 24px;
     background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(248,250,255,.88));
     border: 1px solid rgba(15, 23, 42, .08);
@@ -256,20 +257,22 @@ $csrf = csrf_token();
     top: -24px;
     background: rgba(255,255,255,.75);
   }
-  .dashboard-stat__top { display: flex; justify-content: space-between; align-items: center; margin-bottom: .9rem; position: relative; z-index: 1; }
+  .dashboard-stat__top { display: flex; justify-content: flex-start; align-items: center; gap: 1rem; margin-bottom: 0; position: relative; z-index: 1; }
   .dashboard-stat__icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 16px;
+    width: 72px;
+    height: 72px;
+    border-radius: 22px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     color: #fff;
-    font-size: 1.1rem;
+    font-size: 1.7rem;
     box-shadow: 0 14px 28px rgba(15, 23, 42, .14);
+    flex: 0 0 auto;
   }
-  .dashboard-stat__value { font-size: 2rem; font-weight: 700; line-height: 1; margin-bottom: .28rem; position: relative; z-index: 1; }
-  .dashboard-stat__label { color: var(--text-muted); font-weight: 600; font-size: .92rem; position: relative; z-index: 1; }
+  .dashboard-stat__value { font-size: 2.2rem; font-weight: 700; line-height: 1; margin-bottom: .3rem; position: relative; z-index: 1; }
+  .dashboard-stat__label { color: var(--text-muted); font-weight: 600; font-size: 1rem; position: relative; z-index: 1; }
+  .dashboard-stat__content { display: flex; flex-direction: column; justify-content: center; }
   .dashboard-stat--pending .dashboard-stat__icon { background: linear-gradient(135deg, #f59e0b, #f97316); }
   .dashboard-stat--processed .dashboard-stat__icon { background: linear-gradient(135deg, #10b981, #22c55e); }
   .dashboard-stat--error .dashboard-stat__icon { background: linear-gradient(135deg, #ef4444, #fb7185); }
@@ -298,12 +301,56 @@ $csrf = csrf_token();
   .dashboard-table-header h3 { margin: 0; font-size: 1.05rem; font-weight: 700; }
   .dashboard-table-subtitle { color: var(--text-muted); font-size: .9rem; margin-top: .2rem; }
   .dashboard-table { margin-top: 1rem; }
-  .dashboard-table__subject { font-weight: 600; color: var(--text-primary); max-width: 260px; }
+  .dashboard-table__subject { font-weight: 600; color: var(--text-primary); max-width: 460px; min-width: 280px; }
   .dashboard-table__meta { display: block; color: var(--text-muted); font-size: .78rem; margin-top: .2rem; }
+  .dashboard-status-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: .9rem;
+    box-shadow: 0 10px 22px rgba(15, 23, 42, .12);
+  }
+  .dashboard-status-icon--pending { background: linear-gradient(135deg, #f59e0b, #f97316); }
+  .dashboard-status-icon--processed { background: linear-gradient(135deg, #10b981, #22c55e); }
+  .dashboard-status-icon--error { background: linear-gradient(135deg, #ef4444, #fb7185); }
   .dashboard-row-actions { display: flex; flex-wrap: nowrap; align-items: center; gap: .35rem; white-space: nowrap; }
   .dashboard-row-actions form { margin: 0; display: inline-flex; }
   .dashboard-row-actions .btn { min-height: 30px; width: 30px; padding: 0; border-radius: 10px; font-size: .9rem; line-height: 1; display: inline-flex; align-items: center; justify-content: center; }
   .dashboard-row-actions .btn i { margin-right: 0; }
+  .dashboard-scroll-top {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    width: 56px;
+    height: 56px;
+    border: 0;
+    border-radius: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: #fff;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    box-shadow: 0 18px 36px rgba(37, 99, 235, .28);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(14px);
+    transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+    z-index: 1040;
+  }
+  .dashboard-scroll-top.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  #detalleModal .modal-content { max-height: 90vh; }
+  #detalleModal .modal-body { overflow-y: auto; }
+  #detalleModal .modal-footer { position: sticky; bottom: 0; background: #fff; border-top: 1px solid rgba(15, 23, 42, .08); z-index: 2; }
+  #detallePreviewModal .detail-preview-wrap { max-height: 70vh; overflow: auto; }
   @media (max-width: 1200px) { .dashboard-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   @media (max-width: 991px) {
     .dashboard-import-grid { grid-template-columns: 1fr; }
@@ -322,7 +369,7 @@ $csrf = csrf_token();
   <?php
     $heroIcon = 'bi-speedometer2';
     $heroTitle = 'Reportes';
-    $heroSubtitle = 'Panel de estados locales (pendiente / procesado / error)';
+    $heroSubtitle = 'Panel de estados locales';
     $heroExtras = '<span class="badge bg-white bg-opacity-25 text-white border border-white"><i class="bi bi-clock-history"></i> Retención automática: ' . $h($retencionHoras) . ' h</span>'
       . '<span class="badge bg-white bg-opacity-25 text-white border border-white"><i class="bi bi-arrow-repeat"></i> Estado Redmine: ' . $h($estadoRedmineNombre ?: 'No definido') . '</span>';
     include __DIR__ . '/../partials/hero.php';
@@ -381,19 +428,31 @@ $csrf = csrf_token();
 
   <div class="dashboard-stats" id="status-filters">
     <section class="dashboard-stat dashboard-stat--pending is-active" data-filter="pendiente" role="button" tabindex="0">
-      <div class="dashboard-stat__top"><span class="dashboard-stat__icon"><i class="bi bi-hourglass-split"></i></span></div>
-      <div class="dashboard-stat__value"><?= count($pendientes) ?></div>
-      <div class="dashboard-stat__label">Pendientes por revisar</div>
+      <div class="dashboard-stat__top">
+        <span class="dashboard-stat__icon"><i class="bi bi-hourglass-split"></i></span>
+        <div class="dashboard-stat__content">
+          <div class="dashboard-stat__value"><?= count($pendientes) ?></div>
+          <div class="dashboard-stat__label">Pendientes por revisar</div>
+        </div>
+      </div>
     </section>
     <section class="dashboard-stat dashboard-stat--processed" data-filter="procesado" role="button" tabindex="0">
-      <div class="dashboard-stat__top"><span class="dashboard-stat__icon"><i class="bi bi-check2-circle"></i></span></div>
-      <div class="dashboard-stat__value"><?= count($procesados) ?></div>
-      <div class="dashboard-stat__label">Procesados correctamente</div>
+      <div class="dashboard-stat__top">
+        <span class="dashboard-stat__icon"><i class="bi bi-check2-circle"></i></span>
+        <div class="dashboard-stat__content">
+          <div class="dashboard-stat__value"><?= count($procesados) ?></div>
+          <div class="dashboard-stat__label">Procesados correctamente</div>
+        </div>
+      </div>
     </section>
     <section class="dashboard-stat dashboard-stat--error" data-filter="error" role="button" tabindex="0">
-      <div class="dashboard-stat__top"><span class="dashboard-stat__icon"><i class="bi bi-exclamation-octagon"></i></span></div>
-      <div class="dashboard-stat__value"><?= count($errores) ?></div>
-      <div class="dashboard-stat__label">Errores pendientes</div>
+      <div class="dashboard-stat__top">
+        <span class="dashboard-stat__icon"><i class="bi bi-exclamation-octagon"></i></span>
+        <div class="dashboard-stat__content">
+          <div class="dashboard-stat__value"><?= count($errores) ?></div>
+          <div class="dashboard-stat__label">Errores pendientes</div>
+        </div>
+      </div>
     </section>
   </div>
 
@@ -437,7 +496,7 @@ $csrf = csrf_token();
               <th style="width:40px;"><input type="checkbox" id="sel-all-top"></th>
               <th style="width:100px;">Redmine ID</th>
 
-              <th>Asunto</th>
+              <th style="min-width:340px;">Asunto</th>
 
               <th>Solicitante</th>
 
@@ -453,7 +512,7 @@ $csrf = csrf_token();
 
               <th>Estado local</th>
 
-              <th style="width:200px;">Acciones</th>
+              <th style="width:130px;">Acciones</th>
 
             </tr>
 
@@ -502,9 +561,14 @@ $csrf = csrf_token();
               <td><?= $h($m['core_usuario_asignado'] ?? $displayAsignado) ?></td>
 
               <?php
-                $badge = $estado === 'pendiente' ? 'warning' : ($estado === 'procesado' ? 'success' : 'danger');
+                $statusIconClass = $estado === 'pendiente' ? 'dashboard-status-icon--pending' : ($estado === 'procesado' ? 'dashboard-status-icon--processed' : 'dashboard-status-icon--error');
+                $statusIcon = $estado === 'pendiente' ? 'bi-hourglass-split' : ($estado === 'procesado' ? 'bi-check2' : 'bi-exclamation-lg');
               ?>
-              <td><span class="badge bg-<?= $badge ?> text-dark"><?= $h($m['estado'] ?? '') ?></span></td>
+              <td>
+                <span class="dashboard-status-icon <?= $statusIconClass ?> action-tooltip" data-bs-placement="top" title="<?= $h(ucfirst($m['estado'] ?? '')) ?>">
+                  <i class="bi <?= $statusIcon ?>"></i>
+                </span>
+              </td>
 
               <td>
                 <div class="dashboard-row-actions">
@@ -773,32 +837,17 @@ $csrf = csrf_token();
 
             <div class="col-md-3"><label class="form-label">Fecha</label><input name="fecha" id="md-fecha" class="form-control"></div>
 
-            <div class="col-md-3"><label class="form-label">Hora</label><input name="hora" id="md-hora" class="form-control"></div>
+            <div class="col-md-2"><label class="form-label">Hora</label><input name="hora" id="md-hora" class="form-control"></div>
 
             <div class="col-md-3"><label class="form-label">Número</label><input name="numero" id="md-numero" class="form-control"></div>
 
-            <div class="col-md-3"><label class="form-label">Correo</label><input name="core_email" id="md-core_email" class="form-control" type="email"></div>
+            <div class="col-md-5"><label class="form-label">Correo</label><input name="core_email" id="md-core_email" class="form-control" type="email"></div>
 
             <div class="col-12">
-              <label class="form-label">Vista previa de la tabla</label>
-              <div class="table-responsive border rounded">
-                <table class="table table-sm mb-0 align-middle">
-                  <thead class="table-light">
-                    <tr>
-                      <th>Tipo solicitud</th>
-                      <th>RUN</th>
-                      <th>Nombre</th>
-                      <th>Motivo</th>
-                      <th>Otros permisos</th>
-                    </tr>
-                  </thead>
-                  <tbody id="md-preview-body">
-                    <tr>
-                      <td colspan="5" class="text-muted text-center">Sin detalle para previsualizar.</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              <label class="form-label d-block">Vista previa de la tabla</label>
+              <button type="button" class="btn btn-outline-primary" id="open-preview-modal-btn" data-bs-toggle="modal" data-bs-target="#detallePreviewModal">
+                <i class="bi bi-table"></i> Ver tabla
+              </button>
             </div>
 
           </div>
@@ -819,6 +868,40 @@ $csrf = csrf_token();
 
   </div>
 
+</div>
+
+<div class="modal fade" id="detallePreviewModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Vista previa de la tabla</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive border rounded detail-preview-wrap">
+          <table class="table table-sm mb-0 align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>Tipo solicitud</th>
+                <th>RUN</th>
+                <th>Nombre</th>
+                <th>Motivo</th>
+                <th>Otros permisos</th>
+              </tr>
+            </thead>
+            <tbody id="md-preview-body">
+              <tr>
+                <td colspan="5" class="text-muted text-center">Sin detalle para previsualizar.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="modal fade" id="logModal" tabindex="-1" aria-hidden="true">
@@ -856,9 +939,11 @@ $csrf = csrf_token();
       </div>
     </div>
   </div>
-</div>
+ </div>
 
-
+<button type="button" class="dashboard-scroll-top" id="dashboard-scroll-top" aria-label="Volver arriba" title="Volver arriba">
+  <i class="bi bi-arrow-up"></i>
+</button>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -869,6 +954,8 @@ $csrf = csrf_token();
   });
 
   const detalleModal = document.getElementById('detalleModal');
+  const detallePreviewModal = document.getElementById('detallePreviewModal');
+  let reopenDetalleModalAfterPreview = false;
 
   detalleModal.addEventListener('show.bs.modal', event => {
 
@@ -1004,6 +1091,20 @@ $csrf = csrf_token();
   }
 
 });
+
+  if (detallePreviewModal) {
+    detallePreviewModal.addEventListener('show.bs.modal', () => {
+      reopenDetalleModalAfterPreview = true;
+    });
+    detallePreviewModal.addEventListener('hidden.bs.modal', () => {
+      if (!reopenDetalleModalAfterPreview || !detalleModal) {
+        return;
+      }
+      reopenDetalleModalAfterPreview = false;
+      const modal = bootstrap.Modal.getOrCreateInstance(detalleModal);
+      modal.show();
+    });
+  }
 
 
 
@@ -1281,6 +1382,21 @@ if (coreCredentialsModal) {
     if (coreRuntimePassInput) coreRuntimePassInput.value = '';
     if (coreRuntimePassHidden) coreRuntimePassHidden.value = '';
   });
+}
+
+const scrollTopBtn = document.getElementById('dashboard-scroll-top');
+if (scrollTopBtn) {
+  const updateScrollTopVisibility = () => {
+    const formRect = coreImportForm ? coreImportForm.getBoundingClientRect() : null;
+    const shouldShow = !!formRect && formRect.bottom < 0;
+    scrollTopBtn.classList.toggle('is-visible', shouldShow);
+  };
+  scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  window.addEventListener('scroll', updateScrollTopVisibility, { passive: true });
+  window.addEventListener('resize', updateScrollTopVisibility);
+  updateScrollTopVisibility();
 }
 
 refreshDashboardCounters();
