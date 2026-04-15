@@ -2,6 +2,7 @@
 // Controlador de estadísticas: fusiona reportes archivados, reportes vivos y horas extra
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/../init_paths.php';
+require_once __DIR__ . '/dashboard.php';
 
 function normalize_date($str) {
     $str = trim((string)$str);
@@ -15,6 +16,31 @@ function normalize_date($str) {
     return '';
 }
 
+function estadisticas_read_json_file($file) {
+    if (!is_file($file)) return null;
+    $raw = @file_get_contents($file);
+    if (!is_string($raw) || $raw === '') return null;
+    $raw = preg_replace('/^\xEF\xBB\xBF/', '', $raw);
+    $data = json_decode($raw, true);
+    return is_array($data) ? $data : null;
+}
+
+function estadisticas_normalize_message(array $row): array {
+    if (($row['fuente'] ?? '') === 'core') {
+        $row = dashboard_expand_message($row);
+    }
+    $row['asunto'] = trim((string)($row['asunto'] ?? $row['mensaje'] ?? ''));
+    $row['categoria'] = trim((string)($row['categoria'] ?? ''));
+    $row['unidad'] = trim((string)($row['unidad'] ?? ''));
+    if ($row['unidad'] === '' && ($row['fuente'] ?? '') === 'core') {
+        $row['unidad'] = dashboard_resolve_unit_value($row);
+    }
+    $row['unidad_solicitante'] = trim((string)($row['unidad_solicitante'] ?? ($row['core_establecimiento'] ?? '')));
+    $row['usuario_stats'] = trim((string)($row['core_usuario_asignado'] ?? $row['asignado_nombre'] ?? $row['asignado_a'] ?? ''));
+    $row['fecha_stats'] = trim((string)($row['procesado_ts'] ?? $row['core_fecha_creacion'] ?? $row['fecha'] ?? $row['fecha_inicio'] ?? ''));
+    return $row;
+}
+
 function load_report_messages($baseDir) {
     $messages = [];
     if (!is_dir($baseDir)) return $messages;
@@ -22,12 +48,12 @@ function load_report_messages($baseDir) {
     foreach ($years as $yearDir) {
         $files = glob($yearDir . '/*.json');
         foreach ($files as $file) {
-            $data = json_decode(@file_get_contents($file), true);
+            $data = estadisticas_read_json_file($file);
             if (is_array($data)) {
                 foreach ($data as $row) {
                     if (!is_array($row)) continue;
                     $row['_fuente'] = 'reportes';
-                    $messages[] = $row;
+                    $messages[] = estadisticas_normalize_message($row);
                 }
             }
         }
@@ -36,11 +62,12 @@ function load_report_messages($baseDir) {
 }
 
 function load_live_messages($file) {
-    $data = json_decode(@file_get_contents($file), true);
+    $data = load_messages();
     if (!is_array($data)) return [];
     foreach ($data as &$row) {
         if (is_array($row)) {
             $row['_fuente'] = 'mensajes';
+            $row = estadisticas_normalize_message($row);
         }
     }
     return $data;
@@ -53,7 +80,7 @@ function load_extra_messages($baseDir) {
     foreach ($years as $yearDir) {
         $files = glob($yearDir . '/*.json');
         foreach ($files as $file) {
-            $groups = json_decode(@file_get_contents($file), true);
+            $groups = estadisticas_read_json_file($file);
             if (!is_array($groups)) continue;
             foreach ($groups as $group) {
                 if (!isset($group['reports']) || !is_array($group['reports'])) continue;
@@ -62,7 +89,7 @@ function load_extra_messages($baseDir) {
                     if (!is_array($rep)) continue;
                     $rep['fecha'] = $rep['fecha'] ?? $fechaGrupo;
                     $rep['_fuente'] = 'horas_extra';
-                    $messages[] = $rep;
+                    $messages[] = estadisticas_normalize_message($rep);
                 }
             }
         }
@@ -80,7 +107,7 @@ function filter_messages($messages, $filters) {
 
     foreach ($messages as $msg) {
         if (!is_array($msg)) continue;
-        $fechaRaw = $msg['fecha'] ?? ($msg['fecha_inicio'] ?? '');
+        $fechaRaw = $msg['fecha_stats'] ?? $msg['fecha'] ?? ($msg['fecha_inicio'] ?? '');
         $fechaNorm = normalize_date($fechaRaw);
         if ($fechaNorm === '') continue;
 
@@ -90,7 +117,11 @@ function filter_messages($messages, $filters) {
         if ($cat !== '' && strtolower($msg['categoria'] ?? '') !== $cat) continue;
         $unidadMsg = strtolower($msg['unidad'] ?? ($msg['unidad_solicitante'] ?? ''));
         if ($unidad !== '' && $unidadMsg !== $unidad) continue;
-        if ($usuario !== '' && (string)($msg['asignado_a'] ?? '') !== (string)$usuario) continue;
+        if ($usuario !== '') {
+            $usuarioMsg = (string)($msg['asignado_a'] ?? '');
+            $usuarioNombre = (string)($msg['usuario_stats'] ?? '');
+            if ($usuarioMsg !== (string)$usuario && $usuarioNombre !== (string)$usuario) continue;
+        }
 
         $msg['_fecha_norm'] = $fechaNorm;
         $msg['_fecha_mes'] = substr($fechaNorm, 0, 7);
@@ -117,7 +148,7 @@ function compute_stats_from_messages($messages) {
 
     foreach ($messages as $msg) {
         $stats['total']++;
-        $usuario = (string)($msg['asignado_a'] ?? '');
+        $usuario = (string)($msg['usuario_stats'] ?? $msg['asignado_a'] ?? '');
         $cat = (string)($msg['categoria'] ?? '');
         $unidad = (string)($msg['unidad'] ?? ($msg['unidad_solicitante'] ?? ''));
         $estado = (string)($msg['estado'] ?? '');

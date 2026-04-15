@@ -54,6 +54,12 @@ function dashboard_core_compact_keys(): array {
         'core_detalle_motivo',
         'core_detalle_establecimientos',
         'core_detalle_otros_permisos',
+        'core_detalle_fecha_nacimiento',
+        'core_detalle_email',
+        'core_detalle_departamento',
+        'core_detalle_cargo',
+        'core_detalle_rol',
+        'core_detalle_estado',
         'core_detalle_items',
     ];
 }
@@ -115,6 +121,12 @@ function dashboard_core_normalize_detail_row(array $item, array $message = []): 
     $motivo = trim((string)($item['detalle_motivo'] ?? $item['motivo'] ?? ''));
     $establecimientos = trim((string)($item['detalle_establecimientos'] ?? $item['establecimientos'] ?? $item['establecimiento'] ?? ''));
     $otrosPermisos = trim((string)($item['detalle_otros_permisos'] ?? $item['otros permisos'] ?? $item['otros_permisos'] ?? ''));
+    $fechaNacimiento = trim((string)($item['detalle_fecha_nacimiento'] ?? $item['fecha de nacimiento'] ?? $item['fecha_nacimiento'] ?? $item['fec_nacimiento'] ?? ''));
+    $email = dashboard_normalize_email($item['detalle_email'] ?? $item['email'] ?? $item['correo'] ?? '');
+    $departamento = trim((string)($item['detalle_departamento'] ?? $item['departamento'] ?? ''));
+    $cargo = trim((string)($item['detalle_cargo'] ?? $item['cargo'] ?? ''));
+    $rol = trim((string)($item['detalle_rol'] ?? $item['rol'] ?? ''));
+    $estado = trim((string)($item['detalle_estado'] ?? $item['estado'] ?? ''));
     if ($tipo === '') {
         $tipo = trim((string)($message['core_tipo_solicitud'] ?? $message['mensaje'] ?? ''));
     }
@@ -128,6 +140,55 @@ function dashboard_core_normalize_detail_row(array $item, array $message = []): 
         'detalle_motivo' => $motivo,
         'detalle_establecimientos' => $establecimientos,
         'detalle_otros_permisos' => $otrosPermisos,
+        'detalle_fecha_nacimiento' => $fechaNacimiento,
+        'detalle_email' => $email,
+        'detalle_departamento' => $departamento,
+        'detalle_cargo' => $cargo,
+        'detalle_rol' => $rol,
+        'detalle_estado' => $estado,
+    ];
+}
+
+function dashboard_core_is_creation_request(array $message): bool {
+    $tipo = trim((string)($message['core_tipo_solicitud'] ?? $message['mensaje'] ?? ''));
+    return dashboard_normalize_text($tipo) === 'creacion de usuario';
+}
+
+function dashboard_core_is_add_establishment_request(array $message): bool {
+    $tipo = trim((string)($message['core_tipo_solicitud'] ?? $message['mensaje'] ?? ''));
+    return dashboard_normalize_text($tipo) === 'agregar establecimiento';
+}
+
+function dashboard_core_detail_table_schema(array $message): array {
+    if (dashboard_core_is_creation_request($message)) {
+        return [
+            ['label' => 'Tipo Solicitud', 'key' => 'detalle_tipo_solicitud'],
+            ['label' => 'RUN', 'key' => 'detalle_run'],
+            ['label' => 'Nombre', 'key' => 'detalle_nombre'],
+            ['label' => 'Fecha de nacimiento', 'key' => 'detalle_fecha_nacimiento'],
+            ['label' => 'Email', 'key' => 'detalle_email'],
+            ['label' => 'Departamento', 'key' => 'detalle_departamento'],
+            ['label' => 'Cargo', 'key' => 'detalle_cargo'],
+            ['label' => 'Rol', 'key' => 'detalle_rol'],
+            ['label' => 'Estado', 'key' => 'detalle_estado'],
+        ];
+    }
+    if (dashboard_core_is_add_establishment_request($message)) {
+        return [
+            ['label' => 'Tipo solicitud', 'key' => 'detalle_tipo_solicitud'],
+            ['label' => 'RUN', 'key' => 'detalle_run'],
+            ['label' => 'Nombre', 'key' => 'detalle_nombre'],
+            ['label' => 'Motivo', 'key' => 'detalle_motivo'],
+            ['label' => 'Establecimientos', 'key' => 'detalle_establecimientos'],
+            ['label' => 'Otros permisos', 'key' => 'detalle_otros_permisos'],
+        ];
+    }
+    return [
+        ['label' => 'Tipo solicitud', 'key' => 'detalle_tipo_solicitud'],
+        ['label' => 'RUN', 'key' => 'detalle_run'],
+        ['label' => 'Nombre', 'key' => 'detalle_nombre'],
+        ['label' => 'Motivo', 'key' => 'detalle_motivo'],
+        ['label' => 'Otros permisos', 'key' => 'detalle_otros_permisos'],
     ];
 }
 
@@ -155,6 +216,12 @@ function dashboard_build_redmine_core_description(array $message): string {
             'detalle_nombre' => trim((string)($message['core_detalle_nombre'] ?? ($message['solicitante'] ?? ''))),
             'detalle_motivo' => trim((string)($message['core_detalle_motivo'] ?? '')),
             'detalle_otros_permisos' => trim((string)($message['core_detalle_otros_permisos'] ?? '')),
+            'detalle_fecha_nacimiento' => trim((string)($message['core_detalle_fecha_nacimiento'] ?? '')),
+            'detalle_email' => dashboard_normalize_email($message['core_detalle_email'] ?? ''),
+            'detalle_departamento' => trim((string)($message['core_detalle_departamento'] ?? '')),
+            'detalle_cargo' => trim((string)($message['core_detalle_cargo'] ?? '')),
+            'detalle_rol' => trim((string)($message['core_detalle_rol'] ?? '')),
+            'detalle_estado' => trim((string)($message['core_detalle_estado'] ?? '')),
         ], $message);
     }
     $rows = array_values(array_filter($rows, function (array $row): bool {
@@ -168,18 +235,13 @@ function dashboard_build_redmine_core_description(array $message): string {
     if (empty($rows)) {
         return '';
     }
-    $header = '|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|';
+    $schema = dashboard_core_detail_table_schema($message);
+    $header = '|_. ' . implode('|_. ', array_map(fn($column) => $column['label'], $schema)) . '|';
     $lines = [$header];
     foreach ($rows as $row) {
         $values = array_map(
             fn($value) => str_replace(["\r", "\n", '|'], [' ', ' ', '/'], trim((string)$value)),
-            [
-                $row['detalle_tipo_solicitud'] ?? '',
-                $row['detalle_run'] ?? '',
-                $row['detalle_nombre'] ?? '',
-                $row['detalle_motivo'] ?? '',
-                $row['detalle_otros_permisos'] ?? '',
-            ]
+            array_map(fn($column) => $row[$column['key']] ?? '', $schema)
         );
         $lines[] = '|' . implode('|', $values) . '|';
     }
@@ -220,6 +282,12 @@ function dashboard_expand_message(array $message): array {
         fn($item) => is_array($item) ? dashboard_core_normalize_detail_row($item, $message) : null,
         (array)($message['core_detalle_items'] ?? [])
     )));
+    $message['core_detalle_fecha_nacimiento'] = trim((string)($message['core_detalle_fecha_nacimiento'] ?? ''));
+    $message['core_detalle_email'] = dashboard_normalize_email($message['core_detalle_email'] ?? '');
+    $message['core_detalle_departamento'] = trim((string)($message['core_detalle_departamento'] ?? ''));
+    $message['core_detalle_cargo'] = trim((string)($message['core_detalle_cargo'] ?? ''));
+    $message['core_detalle_rol'] = trim((string)($message['core_detalle_rol'] ?? ''));
+    $message['core_detalle_estado'] = trim((string)($message['core_detalle_estado'] ?? ''));
     $message['redmine_id'] = trim((string)($message['redmine_id'] ?? ''));
     $message['procesado_ts'] = trim((string)($message['procesado_ts'] ?? ''));
     return $message;
@@ -731,6 +799,12 @@ function dashboard_core_extract_detail_fields(array $item): array {
         'detalle_motivo' => dashboard_core_pick_first_recursive($item, ['motivo', 'detalle_motivo']),
         'detalle_establecimientos' => dashboard_core_pick_first_recursive($item, ['establecimientos', 'detalle_establecimientos', 'detalle_estab']),
         'detalle_otros_permisos' => dashboard_core_pick_first_recursive($item, ['otros_permisos', 'detalle_otros_permisos', 'permisos_adicionales']),
+        'detalle_fecha_nacimiento' => dashboard_core_pick_first_recursive($item, ['fecha_nacimiento', 'fec_nacimiento', 'detalle_fecha_nacimiento']),
+        'detalle_email' => dashboard_normalize_email(dashboard_core_pick_first_recursive($item, ['email', 'correo', 'detalle_email'])),
+        'detalle_departamento' => dashboard_core_pick_first_recursive($item, ['departamento', 'detalle_departamento']),
+        'detalle_cargo' => dashboard_core_pick_first_recursive($item, ['cargo', 'detalle_cargo']),
+        'detalle_rol' => dashboard_core_pick_first_recursive($item, ['rol', 'detalle_rol']),
+        'detalle_estado' => dashboard_core_pick_first_recursive($item, ['estado', 'detalle_estado']),
     ];
     $blob = dashboard_core_pick_first_recursive($item, ['detalle', 'detalle_solicitud', 'descripcion', 'observacion', 'observaciones']);
     if ($blob !== '') {
@@ -742,6 +816,12 @@ function dashboard_core_extract_detail_fields(array $item): array {
             'detalle_motivo' => ['motivo'],
             'detalle_establecimientos' => ['establecimientos', 'establecimiento'],
             'detalle_otros_permisos' => ['otros permisos', 'permisos'],
+            'detalle_fecha_nacimiento' => ['fecha de nacimiento', 'fecha nacimiento'],
+            'detalle_email' => ['email', 'correo'],
+            'detalle_departamento' => ['departamento'],
+            'detalle_cargo' => ['cargo'],
+            'detalle_rol' => ['rol'],
+            'detalle_estado' => ['estado'],
         ];
         foreach ($patterns as $field => $labels) {
             if ($details[$field] !== '') {
@@ -767,6 +847,12 @@ function dashboard_core_detail_defaults(): array {
         'detalle_motivo' => '',
         'detalle_establecimientos' => '',
         'detalle_otros_permisos' => '',
+        'detalle_fecha_nacimiento' => '',
+        'detalle_email' => '',
+        'detalle_departamento' => '',
+        'detalle_cargo' => '',
+        'detalle_rol' => '',
+        'detalle_estado' => '',
         'detalle_items' => [],
     ];
 }
@@ -1014,6 +1100,12 @@ function dashboard_core_build_message(array $row, array $catalogs, array $users)
     $detalleMotivo = trim((string)($row['detalle_motivo'] ?? ''));
     $detalleEstablecimientos = trim((string)($row['detalle_establecimientos'] ?? ''));
     $detalleOtrosPermisos = trim((string)($row['detalle_otros_permisos'] ?? ''));
+    $detalleFechaNacimiento = trim((string)($row['detalle_fecha_nacimiento'] ?? ''));
+    $detalleEmail = dashboard_normalize_email($row['detalle_email'] ?? '');
+    $detalleDepartamento = trim((string)($row['detalle_departamento'] ?? ''));
+    $detalleCargo = trim((string)($row['detalle_cargo'] ?? ''));
+    $detalleRol = trim((string)($row['detalle_rol'] ?? ''));
+    $detalleEstado = trim((string)($row['detalle_estado'] ?? ''));
     $detalleItems = [];
     foreach ((array)($row['detalle_items'] ?? []) as $detailItem) {
         if (!is_array($detailItem)) {
@@ -1101,6 +1193,12 @@ function dashboard_core_build_message(array $row, array $catalogs, array $users)
         'core_detalle_motivo' => $detalleMotivo,
         'core_detalle_establecimientos' => $detalleEstablecimientos,
         'core_detalle_otros_permisos' => $detalleOtrosPermisos,
+        'core_detalle_fecha_nacimiento' => $detalleFechaNacimiento,
+        'core_detalle_email' => $detalleEmail,
+        'core_detalle_departamento' => $detalleDepartamento,
+        'core_detalle_cargo' => $detalleCargo,
+        'core_detalle_rol' => $detalleRol,
+        'core_detalle_estado' => $detalleEstado,
         'core_detalle_items' => $detalleItems,
     ];
 }

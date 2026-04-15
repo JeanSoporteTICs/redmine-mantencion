@@ -80,9 +80,14 @@ if (file_exists($userPath)) {
     }
   }
 }
-$selectedUserLabel = ($selectedUserId !== '' && isset($users[$selectedUserId]))
-  ? (($users[$selectedUserId] ?? '') . ' (ID ' . $selectedUserId . ')')
-  : '';
+$selectedUserLabel = '';
+if ($selectedUserId !== '') {
+  if (isset($users[$selectedUserId])) {
+    $selectedUserLabel = ($users[$selectedUserId] ?? '') . ' (ID ' . $selectedUserId . ')';
+  } elseif (in_array($selectedUserId, $users, true)) {
+    $selectedUserLabel = $selectedUserId;
+  }
+}
 $userNameMap = $users;
 ?>
 <!doctype html>
@@ -263,10 +268,11 @@ $userNameMap = $users;
       </div>
       <div class="col-sm-6 col-md-3">
         <label class="form-label">Usuario asignado</label>
-        <input list="dl-users" name="usuario" class="form-control" placeholder="Buscar usuario" value="<?= $h($_POST['usuario'] ?? '') ?>">
+        <input list="dl-users" name="usuario" class="form-control" placeholder="Buscar usuario" value="<?= $h($_POST['usuario'] ?? $_GET['usuario'] ?? '') ?>">
         <datalist id="dl-users">
           <option value="">(Todos)</option>
           <?php foreach ($users as $id=>$name): ?>
+            <option value="<?= $h($name) ?>"><?= $h($name) ?></option>
             <option value="<?= $h($id) ?>"><?= $h($name) ?> (ID <?= $h($id) ?>)</option>
           <?php endforeach; ?>
         </datalist>
@@ -323,7 +329,7 @@ $userNameMap = $users;
           <?php $sliceUsuarios = array_slice($stats['por_usuario'] ?? [], 0, 2, true); ?>
           <?php foreach ($sliceUsuarios as $u => $c): ?>
             <li class="list-group-item d-flex justify-content-between">
-              <span><?= $h($userNameMap[$u] ?? $u) ?></span><span class="badge bg-primary rounded-pill"><?= $h($c) ?></span>
+              <span><?= $h($u) ?></span><span class="badge bg-primary rounded-pill"><?= $h($c) ?></span>
             </li>
           <?php endforeach; ?>
           <?php if (empty($sliceUsuarios)): ?><li class="list-group-item text-muted">Sin datos</li><?php endif; ?>
@@ -398,15 +404,15 @@ $userNameMap = $users;
             <?php $idx=0; foreach (($stats['msgs_por_usuario'] ?? []) as $u => $lista): $idx++; $collapseId = 'u-'.$idx; ?>
               <li class="list-group-item">
                 <div class="d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#<?= $collapseId ?>" role="button" aria-expanded="false" aria-controls="<?= $collapseId ?>">
-                  <strong><?= $h($userNameMap[$u] ?? $u) ?></strong>
+                  <strong><?= $h($u) ?></strong>
                   <span class="badge bg-primary"><?= count($lista) ?></span>
                 </div>
                 <div class="collapse mt-2" id="<?= $collapseId ?>">
                   <ul class="list-group list-group-flush">
                     <?php foreach ($lista as $msg): ?>
                       <li class="list-group-item">
-                        <div class="fw-semibold"><?= $h($msg['asunto'] ?? '') ?></div>
-                        <small class="text-muted"><?= $h($msg['fecha'] ?? '') ?> <?= !empty($msg['redmine_id']) ? '- Ticket ' . $h($msg['redmine_id']) : '' ?></small>
+                        <div class="fw-semibold"><?= $h(($msg['asunto'] ?? '') ?: ($msg['mensaje'] ?? '')) ?></div>
+                        <small class="text-muted"><?= $h($msg['fecha_stats'] ?? ($msg['fecha'] ?? '')) ?> <?= !empty($msg['redmine_id']) ? '- Ticket ' . $h($msg['redmine_id']) : '' ?></small>
                       </li>
                     <?php endforeach; ?>
                   </ul>
@@ -440,8 +446,8 @@ $userNameMap = $users;
                   <ul class="list-group list-group-flush">
                     <?php foreach ($lista as $msg): ?>
                       <li class="list-group-item">
-                        <div class="fw-semibold"><?= $h($msg['asunto'] ?? '') ?></div>
-                        <small class="text-muted"><?= $h($msg['fecha'] ?? '') ?> <?= !empty($msg['redmine_id']) ? '- Ticket ' . $h($msg['redmine_id']) : '' ?></small>
+                        <div class="fw-semibold"><?= $h(($msg['asunto'] ?? '') ?: ($msg['mensaje'] ?? '')) ?></div>
+                        <small class="text-muted"><?= $h($msg['fecha_stats'] ?? ($msg['fecha'] ?? '')) ?> <?= !empty($msg['redmine_id']) ? '- Ticket ' . $h($msg['redmine_id']) : '' ?></small>
                       </li>
                     <?php endforeach; ?>
                   </ul>
@@ -475,8 +481,8 @@ $userNameMap = $users;
                   <ul class="list-group list-group-flush">
                     <?php foreach ($lista as $msg): ?>
                       <li class="list-group-item">
-                        <div class="fw-semibold"><?= $h($msg['asunto'] ?? '') ?></div>
-                        <small class="text-muted"><?= $h($msg['fecha'] ?? '') ?> <?= !empty($msg['redmine_id']) ? '- Ticket ' . $h($msg['redmine_id']) : '' ?></small>
+                        <div class="fw-semibold"><?= $h(($msg['asunto'] ?? '') ?: ($msg['mensaje'] ?? '')) ?></div>
+                        <small class="text-muted"><?= $h($msg['fecha_stats'] ?? ($msg['fecha'] ?? '')) ?> <?= !empty($msg['redmine_id']) ? '- Ticket ' . $h($msg['redmine_id']) : '' ?></small>
                       </li>
                     <?php endforeach; ?>
                   </ul>
@@ -994,6 +1000,4 @@ document.addEventListener('DOMContentLoaded', applyInitialMonthSelection);
 </div> <!-- #page-content -->
 </body>
 </html>
-
-
 

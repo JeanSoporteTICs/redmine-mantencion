@@ -591,6 +591,7 @@ $csrf = csrf_token();
                       ], $m);
                   }
                   $previewRowsJson = $h((string)json_encode(array_values($previewRows), JSON_UNESCAPED_UNICODE));
+                  $previewColumnsJson = $h((string)json_encode(dashboard_core_detail_table_schema($m), JSON_UNESCAPED_UNICODE));
                 ?>
                 <button type="button" class="btn btn-sm btn-outline-primary action-tooltip" data-bs-toggle="modal" data-bs-target="#detalleModal" data-bs-placement="top" title="Detalle"
 
@@ -638,6 +639,7 @@ $csrf = csrf_token();
                   data-core_celular="<?= $h($m['core_celular'] ?? '') ?>"
                   data-core_email="<?= $h($m['core_email'] ?? '') ?>"
                   data-preview_rows="<?= $previewRowsJson ?>"
+                  data-preview_columns="<?= $previewColumnsJson ?>"
 
                 ><i class="bi bi-pencil-square"></i></button>
                 <?php if (strtolower($m['estado'] ?? '') === 'error'): ?>
@@ -880,7 +882,7 @@ $csrf = csrf_token();
       <div class="modal-body">
         <div class="table-responsive border rounded detail-preview-wrap">
           <table class="table table-sm mb-0 align-middle">
-            <thead class="table-light">
+            <thead class="table-light" id="md-preview-head">
               <tr>
                 <th>Tipo solicitud</th>
                 <th>RUN</th>
@@ -1032,13 +1034,20 @@ $csrf = csrf_token();
 
   set('md-core_email', 'data-core_email');
 
+  const previewHead = document.getElementById('md-preview-head');
   const previewBody = document.getElementById('md-preview-body');
-  if (previewBody) {
+  if (previewBody && previewHead) {
     let previewRows = [];
+    let previewColumns = [];
     try {
       previewRows = JSON.parse(btn.getAttribute('data-preview_rows') || '[]');
     } catch (error) {
       previewRows = [];
+    }
+    try {
+      previewColumns = JSON.parse(btn.getAttribute('data-preview_columns') || '[]');
+    } catch (error) {
+      previewColumns = [];
     }
     const escapeHtml = value => String(value ?? '')
       .replace(/&/g, '&amp;')
@@ -1046,16 +1055,22 @@ $csrf = csrf_token();
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#039;');
+    const columns = Array.isArray(previewColumns) && previewColumns.length
+      ? previewColumns
+      : [
+          { label: 'Tipo solicitud', key: 'detalle_tipo_solicitud' },
+          { label: 'RUN', key: 'detalle_run' },
+          { label: 'Nombre', key: 'detalle_nombre' },
+          { label: 'Motivo', key: 'detalle_motivo' },
+          { label: 'Otros permisos', key: 'detalle_otros_permisos' }
+        ];
+    previewHead.innerHTML = `<tr>${columns.map(col => `<th>${escapeHtml(col.label || '')}</th>`).join('')}</tr>`;
     if (!Array.isArray(previewRows) || previewRows.length === 0) {
-      previewBody.innerHTML = '<tr><td colspan="5" class="text-muted text-center">Sin detalle para previsualizar.</td></tr>';
+      previewBody.innerHTML = `<tr><td colspan="${columns.length}" class="text-muted text-center">Sin detalle para previsualizar.</td></tr>`;
     } else {
       previewBody.innerHTML = previewRows.map(row => `
         <tr>
-          <td>${escapeHtml(row.detalle_tipo_solicitud || '')}</td>
-          <td>${escapeHtml(row.detalle_run || '')}</td>
-          <td>${escapeHtml(row.detalle_nombre || '')}</td>
-          <td>${escapeHtml(row.detalle_motivo || '')}</td>
-          <td>${escapeHtml(row.detalle_otros_permisos || '')}</td>
+          ${columns.map(col => `<td>${escapeHtml(row[col.key] || '')}</td>`).join('')}
         </tr>
       `).join('');
     }
