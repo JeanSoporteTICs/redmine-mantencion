@@ -5896,3 +5896,38 @@
     },
     "message_id": "core-5daaed6d50538230cfd7"
 }
+{
+    "ts": "2026-04-15T18:12:28+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120223,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"assigned_to\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro De Salud Familiar Coñaripe\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Usuario|15623751-5|Oscar Leiva  Gonzalez|FIN CONTRATO|DESACTIVACION|\",\"start_date\":\"2026-04-15\",\"due_date\":\"2026-04-15\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Nayadet Cofre Catricheo\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro De Salud Familiar Coñaripe\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"jefesomecesfamconaripe@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T16:12:28Z\",\"updated_on\":\"2026-04-15T16:12:28Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro De Salud Familiar Coñaripe",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Usuario|15623751-5|Oscar Leiva  Gonzalez|FIN CONTRATO|DESACTIVACION|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-15",
+            "due_date": "2026-04-15",
+            "assigned_to_id": "167",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Nayadet Cofre Catricheo"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro De Salud Familiar Coñaripe"
+                },
+                {
+                    "id": 8,
+                    "value": "jefesomecesfamconaripe@gmail.com"
+                }
+            ]
+        }
+    },
+    "message_id": "core-9cb9a03cef084044c9a7"
+}
