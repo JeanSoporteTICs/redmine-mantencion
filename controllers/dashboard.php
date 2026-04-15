@@ -54,6 +54,7 @@ function dashboard_core_compact_keys(): array {
         'core_detalle_motivo',
         'core_detalle_establecimientos',
         'core_detalle_otros_permisos',
+        'core_detalle_items',
     ];
 }
 
@@ -107,6 +108,29 @@ function dashboard_normalize_email(?string $value): string {
     return strtolower($email);
 }
 
+function dashboard_core_normalize_detail_row(array $item, array $message = []): array {
+    $tipo = trim((string)($item['detalle_tipo_solicitud'] ?? $item['tipo solicitud'] ?? $item['tipo_solicitud'] ?? $item['tipo de solicitud'] ?? ''));
+    $run = trim((string)($item['detalle_run'] ?? $item['run'] ?? $item['rut'] ?? ''));
+    $nombre = trim((string)($item['detalle_nombre'] ?? $item['nombre'] ?? ''));
+    $motivo = trim((string)($item['detalle_motivo'] ?? $item['motivo'] ?? ''));
+    $establecimientos = trim((string)($item['detalle_establecimientos'] ?? $item['establecimientos'] ?? $item['establecimiento'] ?? ''));
+    $otrosPermisos = trim((string)($item['detalle_otros_permisos'] ?? $item['otros permisos'] ?? $item['otros_permisos'] ?? ''));
+    if ($tipo === '') {
+        $tipo = trim((string)($message['core_tipo_solicitud'] ?? $message['mensaje'] ?? ''));
+    }
+    if ($nombre === '') {
+        $nombre = trim((string)($message['core_detalle_nombre'] ?? $message['solicitante'] ?? ''));
+    }
+    return [
+        'detalle_tipo_solicitud' => $tipo,
+        'detalle_run' => $run,
+        'detalle_nombre' => $nombre,
+        'detalle_motivo' => $motivo,
+        'detalle_establecimientos' => $establecimientos,
+        'detalle_otros_permisos' => $otrosPermisos,
+    ];
+}
+
 function dashboard_resolve_unit_value(array $message): string {
     $unidad = dashboard_resolve_department_value($message);
     $establecimiento = trim((string)($message['core_establecimiento'] ?? $message['unidad_solicitante'] ?? ''));
@@ -117,25 +141,49 @@ function dashboard_resolve_unit_value(array $message): string {
 }
 
 function dashboard_build_redmine_core_description(array $message): string {
-    $columns = [
-        'Tipo solicitud' => trim((string)($message['core_tipo_solicitud'] ?? $message['mensaje'] ?? '')),
-        'RUN' => trim((string)($message['core_detalle_run'] ?? '')),
-        'Nombre' => trim((string)($message['core_detalle_nombre'] ?? ($message['solicitante'] ?? ''))),
-        'Motivo' => trim((string)($message['core_detalle_motivo'] ?? '')),
-        'Establecimientos' => trim((string)($message['core_detalle_establecimientos'] ?? '')),
-        'Otros permisos' => trim((string)($message['core_detalle_otros_permisos'] ?? '')),
-    ];
-    $columns = array_filter($columns, fn($value) => $value !== '');
-    if (empty($columns)) {
+    $rows = [];
+    foreach ((array)($message['core_detalle_items'] ?? []) as $item) {
+        if (!is_array($item)) {
+            continue;
+        }
+        $rows[] = dashboard_core_normalize_detail_row($item, $message);
+    }
+    if (empty($rows)) {
+        $rows[] = dashboard_core_normalize_detail_row([
+            'detalle_tipo_solicitud' => trim((string)($message['core_tipo_solicitud'] ?? $message['mensaje'] ?? '')),
+            'detalle_run' => trim((string)($message['core_detalle_run'] ?? '')),
+            'detalle_nombre' => trim((string)($message['core_detalle_nombre'] ?? ($message['solicitante'] ?? ''))),
+            'detalle_motivo' => trim((string)($message['core_detalle_motivo'] ?? '')),
+            'detalle_otros_permisos' => trim((string)($message['core_detalle_otros_permisos'] ?? '')),
+        ], $message);
+    }
+    $rows = array_values(array_filter($rows, function (array $row): bool {
+        foreach ($row as $value) {
+            if (trim((string)$value) !== '') {
+                return true;
+            }
+        }
+        return false;
+    }));
+    if (empty($rows)) {
         return '';
     }
-    $header = '|_. ' . implode('|_. ', array_keys($columns)) . '|';
-    $values = array_map(
-        fn($value) => str_replace(["\r", "\n", '|'], [' ', ' ', '/'], $value),
-        array_values($columns)
-    );
-    $row = '|' . implode('|', $values) . '|';
-    return $header . "\n" . $row;
+    $header = '|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|';
+    $lines = [$header];
+    foreach ($rows as $row) {
+        $values = array_map(
+            fn($value) => str_replace(["\r", "\n", '|'], [' ', ' ', '/'], trim((string)$value)),
+            [
+                $row['detalle_tipo_solicitud'] ?? '',
+                $row['detalle_run'] ?? '',
+                $row['detalle_nombre'] ?? '',
+                $row['detalle_motivo'] ?? '',
+                $row['detalle_otros_permisos'] ?? '',
+            ]
+        );
+        $lines[] = '|' . implode('|', $values) . '|';
+    }
+    return implode("\n", $lines);
 }
 
 function dashboard_expand_message(array $message): array {
@@ -168,6 +216,10 @@ function dashboard_expand_message(array $message): array {
     $message['asignado_nombre'] = trim((string)($message['core_usuario_asignado'] ?? ''));
     $message['hora_extra'] = trim((string)($message['hora_extra'] ?? '')) !== '' ? $message['hora_extra'] : '0';
     $message['tiempo_estimado'] = trim((string)($message['tiempo_estimado'] ?? ''));
+    $message['core_detalle_items'] = array_values(array_filter(array_map(
+        fn($item) => is_array($item) ? dashboard_core_normalize_detail_row($item, $message) : null,
+        (array)($message['core_detalle_items'] ?? [])
+    )));
     $message['redmine_id'] = trim((string)($message['redmine_id'] ?? ''));
     $message['procesado_ts'] = trim((string)($message['procesado_ts'] ?? ''));
     return $message;
@@ -520,6 +572,74 @@ function dashboard_core_extract_rows(string $html): array {
     return $rows;
 }
 
+function dashboard_core_extract_detail_table_rows(string $html): array {
+    $requiredHeaders = [
+        'tipo solicitud',
+        'run',
+        'nombre',
+        'motivo',
+        'otros permisos',
+    ];
+    $rows = [];
+    if ($html === '') {
+        return $rows;
+    }
+    if (!preg_match_all('/<table\b[^>]*>(.*?)<\/table>/is', $html, $tables, PREG_SET_ORDER)) {
+        return $rows;
+    }
+    foreach ($tables as $tableMatch) {
+        $tableHtml = $tableMatch[1] ?? '';
+        if (!preg_match_all('/<th\b[^>]*>(.*?)<\/th>/is', $tableHtml, $headerMatches)) {
+            continue;
+        }
+        $headers = [];
+        foreach (($headerMatches[1] ?? []) as $headerHtml) {
+            $headers[] = dashboard_normalize_text(trim(html_entity_decode(strip_tags($headerHtml), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
+        }
+        if (empty($headers)) {
+            continue;
+        }
+        if (!empty(array_diff($requiredHeaders, $headers))) {
+            continue;
+        }
+        if (!preg_match_all('/<tr\b[^>]*>(.*?)<\/tr>/is', $tableHtml, $rowMatches, PREG_SET_ORDER)) {
+            continue;
+        }
+        foreach ($rowMatches as $rowIndex => $trMatch) {
+            if ($rowIndex === 0) {
+                continue;
+            }
+            $rowHtml = $trMatch[1] ?? '';
+            if (!preg_match_all('/<td\b[^>]*>(.*?)<\/td>/is', $rowHtml, $cellMatches)) {
+                continue;
+            }
+            $cells = $cellMatches[1] ?? [];
+            if (count($cells) < count($headers)) {
+                continue;
+            }
+            $row = [];
+            foreach ($headers as $index => $headerText) {
+                $row[$headerText] = trim(html_entity_decode(strip_tags($cells[$index] ?? ''), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+            }
+            $normalized = dashboard_core_normalize_detail_row($row);
+            $hasValue = false;
+            foreach ($normalized as $value) {
+                if (trim((string)$value) !== '' && trim((string)$value) !== '-') {
+                    $hasValue = true;
+                    break;
+                }
+            }
+            if ($hasValue) {
+                $rows[] = $normalized;
+            }
+        }
+        if (!empty($rows)) {
+            return $rows;
+        }
+    }
+    return $rows;
+}
+
 function dashboard_array_is_list(array $value): bool {
     $index = 0;
     foreach (array_keys($value) as $key) {
@@ -583,6 +703,26 @@ function dashboard_core_pick_first_recursive(array $item, array $keys): string {
     return '';
 }
 
+function dashboard_core_collect_recursive_strings(mixed $value): array {
+    $strings = [];
+    if (is_string($value)) {
+        $trimmed = trim($value);
+        if ($trimmed !== '') {
+            $strings[] = $trimmed;
+        }
+        return $strings;
+    }
+    if (!is_array($value)) {
+        return $strings;
+    }
+    foreach ($value as $child) {
+        foreach (dashboard_core_collect_recursive_strings($child) as $item) {
+            $strings[] = $item;
+        }
+    }
+    return $strings;
+}
+
 function dashboard_core_extract_detail_fields(array $item): array {
     $details = [
         'detalle_tipo_solicitud' => dashboard_core_pick_first_recursive($item, ['detalle_tipo_solicitud', 'tipo_solicitud_detalle', 'detalle_tipo', 'detalle_tipo_sol']),
@@ -627,11 +767,29 @@ function dashboard_core_detail_defaults(): array {
         'detalle_motivo' => '',
         'detalle_establecimientos' => '',
         'detalle_otros_permisos' => '',
+        'detalle_items' => [],
     ];
 }
 
 function dashboard_core_merge_detail_fields(array $base, array $extra): array {
     foreach (dashboard_core_detail_defaults() as $key => $default) {
+        if ($key === 'detalle_items') {
+            $baseItems = [];
+            foreach ((array)($base[$key] ?? []) as $item) {
+                if (is_array($item)) {
+                    $baseItems[] = dashboard_core_normalize_detail_row($item);
+                }
+            }
+            if (empty($baseItems)) {
+                foreach ((array)($extra[$key] ?? []) as $item) {
+                    if (is_array($item)) {
+                        $baseItems[] = dashboard_core_normalize_detail_row($item);
+                    }
+                }
+            }
+            $base[$key] = $baseItems;
+            continue;
+        }
         if (trim((string)($base[$key] ?? '')) === '' && trim((string)($extra[$key] ?? '')) !== '') {
             $base[$key] = trim((string)$extra[$key]);
         }
@@ -666,7 +824,46 @@ function dashboard_core_extract_detail_from_body(string $body): array {
     $details = dashboard_core_detail_defaults();
     $json = json_decode($body, true);
     if (is_array($json)) {
+        $jsonItems = dashboard_array_is_list($json) ? $json : [$json];
+        $normalizedItems = [];
+        foreach ($jsonItems as $jsonItem) {
+            if (!is_array($jsonItem)) {
+                continue;
+            }
+            $normalizedRow = dashboard_core_normalize_detail_row($jsonItem);
+            $hasValue = false;
+            foreach ($normalizedRow as $value) {
+                if (trim((string)$value) !== '' && trim((string)$value) !== '-') {
+                    $hasValue = true;
+                    break;
+                }
+            }
+            if ($hasValue) {
+                $normalizedItems[] = $normalizedRow;
+            }
+        }
+        if (!empty($normalizedItems)) {
+            $details['detalle_items'] = $normalizedItems;
+            $details = dashboard_core_merge_detail_fields($details, $normalizedItems[0]);
+        }
         $details = dashboard_core_merge_detail_fields($details, dashboard_core_extract_detail_fields($json));
+        foreach (dashboard_core_collect_recursive_strings($json) as $candidateHtml) {
+            $detailItems = dashboard_core_extract_detail_table_rows($candidateHtml);
+            if (!empty($detailItems)) {
+                $details['detalle_items'] = $detailItems;
+                $details = dashboard_core_merge_detail_fields($details, $detailItems[0]);
+                break;
+            }
+        }
+    }
+    if (empty($details['detalle_items'])) {
+        $detailItems = dashboard_core_extract_detail_table_rows($body);
+    } else {
+        $detailItems = [];
+    }
+    if (!empty($detailItems)) {
+        $details['detalle_items'] = $detailItems;
+        $details = dashboard_core_merge_detail_fields($details, $detailItems[0]);
     }
     $normalizedBody = preg_replace("/\r\n?/", "\n", html_entity_decode(strip_tags($body), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
     if ($normalizedBody === null) {
@@ -817,6 +1014,16 @@ function dashboard_core_build_message(array $row, array $catalogs, array $users)
     $detalleMotivo = trim((string)($row['detalle_motivo'] ?? ''));
     $detalleEstablecimientos = trim((string)($row['detalle_establecimientos'] ?? ''));
     $detalleOtrosPermisos = trim((string)($row['detalle_otros_permisos'] ?? ''));
+    $detalleItems = [];
+    foreach ((array)($row['detalle_items'] ?? []) as $detailItem) {
+        if (!is_array($detailItem)) {
+            continue;
+        }
+        $detalleItems[] = dashboard_core_normalize_detail_row($detailItem, [
+            'core_tipo_solicitud' => $tipoSolicitud,
+            'solicitante' => $solicitante,
+        ]);
+    }
     $numero = dashboard_normalize_phone($celular !== '' ? $celular : $telefono);
     $descripcion = implode("\n", array_filter([
         'Tipo de solicitud: ' . $tipoSolicitud,
@@ -894,6 +1101,7 @@ function dashboard_core_build_message(array $row, array $catalogs, array $users)
         'core_detalle_motivo' => $detalleMotivo,
         'core_detalle_establecimientos' => $detalleEstablecimientos,
         'core_detalle_otros_permisos' => $detalleOtrosPermisos,
+        'core_detalle_items' => $detalleItems,
     ];
 }
 

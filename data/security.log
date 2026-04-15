@@ -104,3 +104,10 @@
 [15-04-2026 12:09:52] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
 [15-04-2026 12:10:41] CSRF_ALERT - Token=NULL session=NULL
 [15-04-2026 12:10:48] LOGIN_SUCCESS - User Fernanda Leal Figueroa (167)
+[15-04-2026 12:31:39] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
+[15-04-2026 12:32:54] LOGIN_FAILURE - Intento con "root"
+[15-04-2026 12:32:59] LOGIN_FAILURE - Intento con "root"
+[15-04-2026 12:33:03] LOGIN_SUCCESS - User root (1)
+[15-04-2026 12:44:53] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
+[15-04-2026 13:22:03] CSRF_ALERT - Token=NULL session=NULL
+[15-04-2026 13:22:07] LOGIN_SUCCESS - User Jean Cortes Lorca (42)

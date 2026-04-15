@@ -300,8 +300,10 @@ $csrf = csrf_token();
   .dashboard-table { margin-top: 1rem; }
   .dashboard-table__subject { font-weight: 600; color: var(--text-primary); max-width: 260px; }
   .dashboard-table__meta { display: block; color: var(--text-muted); font-size: .78rem; margin-top: .2rem; }
-  .dashboard-row-actions { display: flex; flex-wrap: wrap; gap: .45rem; }
-  .dashboard-row-actions .btn { min-height: 38px; padding: .55rem .85rem; border-radius: 12px; font-size: .86rem; }
+  .dashboard-row-actions { display: flex; flex-wrap: nowrap; align-items: center; gap: .35rem; white-space: nowrap; }
+  .dashboard-row-actions form { margin: 0; display: inline-flex; }
+  .dashboard-row-actions .btn { min-height: 30px; width: 30px; padding: 0; border-radius: 10px; font-size: .9rem; line-height: 1; display: inline-flex; align-items: center; justify-content: center; }
+  .dashboard-row-actions .btn i { margin-right: 0; }
   @media (max-width: 1200px) { .dashboard-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   @media (max-width: 991px) {
     .dashboard-import-grid { grid-template-columns: 1fr; }
@@ -507,7 +509,26 @@ $csrf = csrf_token();
               <td>
                 <div class="dashboard-row-actions">
 
-                <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#detalleModal"
+                <?php
+                  $previewRows = [];
+                  foreach ((array)($m['core_detalle_items'] ?? []) as $detailItem) {
+                      if (!is_array($detailItem)) {
+                          continue;
+                      }
+                      $previewRows[] = dashboard_core_normalize_detail_row($detailItem, $m);
+                  }
+                  if (empty($previewRows)) {
+                      $previewRows[] = dashboard_core_normalize_detail_row([
+                          'detalle_tipo_solicitud' => trim((string)($m['core_tipo_solicitud'] ?? $m['mensaje'] ?? '')),
+                          'detalle_run' => trim((string)($m['core_detalle_run'] ?? '')),
+                          'detalle_nombre' => trim((string)($m['core_detalle_nombre'] ?? ($m['solicitante'] ?? ''))),
+                          'detalle_motivo' => trim((string)($m['core_detalle_motivo'] ?? '')),
+                          'detalle_otros_permisos' => trim((string)($m['core_detalle_otros_permisos'] ?? '')),
+                      ], $m);
+                  }
+                  $previewRowsJson = $h((string)json_encode(array_values($previewRows), JSON_UNESCAPED_UNICODE));
+                ?>
+                <button type="button" class="btn btn-sm btn-outline-primary action-tooltip" data-bs-toggle="modal" data-bs-target="#detalleModal" data-bs-placement="top" title="Detalle"
 
                   data-id="<?= $h($m['id'] ?? '') ?>"
 
@@ -520,7 +541,6 @@ $csrf = csrf_token();
                   data-prioridad="<?= $h($m['prioridad'] ?? '') ?>"
 
                   data-categoria="<?= $h($m['categoria'] ?? '') ?>"
-                  data-descripcion="<?= $h($m['descripcion'] ?? '') ?>"
 
                   data-asignado_a="<?= $h($m['asignado_a'] ?? '') ?>"
                   data-asignado_nombre="<?= $h($asignadoNombre) ?>"
@@ -553,8 +573,9 @@ $csrf = csrf_token();
                   data-core_telefono="<?= $h($m['core_telefono'] ?? '') ?>"
                   data-core_celular="<?= $h($m['core_celular'] ?? '') ?>"
                   data-core_email="<?= $h($m['core_email'] ?? '') ?>"
+                  data-preview_rows="<?= $previewRowsJson ?>"
 
-                ><i class="bi bi-pencil-square"></i> Detalle</button>
+                ><i class="bi bi-pencil-square"></i></button>
                 <?php if (strtolower($m['estado'] ?? '') === 'error'): ?>
                   <?php
                     $logText = '';
@@ -562,14 +583,14 @@ $csrf = csrf_token();
                         $logText = implode("\n", $logsByMessage[$m['id']]);
                     }
                   ?>
-                  <button type="button" class="btn btn-sm btn-outline-danger log-btn" data-log="<?= $h($logText) ?>" data-bs-toggle="modal" data-bs-target="#logModal"><i class="bi bi-journal-text"></i> Log</button>
+                  <button type="button" class="btn btn-sm btn-outline-danger log-btn action-tooltip" data-log="<?= $h($logText) ?>" data-bs-toggle="modal" data-bs-target="#logModal" data-bs-placement="top" title="Log"><i class="bi bi-journal-text"></i></button>
                 <?php endif; ?>
 
                 <form method="post" onsubmit="return confirm('Eliminar este mensaje?')">
                   <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
                   <input type="hidden" name="id" value="<?= $h($m['id'] ?? '') ?>">
                   <input type="hidden" name="action" value="delete">
-                  <button class="btn btn-sm btn-danger"><i class="bi bi-trash3"></i> Eliminar</button>
+                  <button class="btn btn-sm btn-danger action-tooltip" type="submit" data-bs-placement="top" title="Eliminar"><i class="bi bi-trash3"></i></button>
                 </form>
                 </div>
               </td>
@@ -758,7 +779,27 @@ $csrf = csrf_token();
 
             <div class="col-md-3"><label class="form-label">Correo</label><input name="core_email" id="md-core_email" class="form-control" type="email"></div>
 
-            <div class="col-12"><label class="form-label">Mensaje</label><textarea name="descripcion" id="md-mensaje" class="form-control" rows="2"></textarea></div>
+            <div class="col-12">
+              <label class="form-label">Vista previa de la tabla</label>
+              <div class="table-responsive border rounded">
+                <table class="table table-sm mb-0 align-middle">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Tipo solicitud</th>
+                      <th>RUN</th>
+                      <th>Nombre</th>
+                      <th>Motivo</th>
+                      <th>Otros permisos</th>
+                    </tr>
+                  </thead>
+                  <tbody id="md-preview-body">
+                    <tr>
+                      <td colspan="5" class="text-muted text-center">Sin detalle para previsualizar.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
           </div>
 
@@ -822,6 +863,10 @@ $csrf = csrf_token();
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+
+  document.querySelectorAll('.action-tooltip').forEach(el => {
+    new bootstrap.Tooltip(el);
+  });
 
   const detalleModal = document.getElementById('detalleModal');
 
@@ -900,9 +945,34 @@ $csrf = csrf_token();
 
   set('md-core_email', 'data-core_email');
 
-  set('md-mensaje', 'data-descripcion');
-
-
+  const previewBody = document.getElementById('md-preview-body');
+  if (previewBody) {
+    let previewRows = [];
+    try {
+      previewRows = JSON.parse(btn.getAttribute('data-preview_rows') || '[]');
+    } catch (error) {
+      previewRows = [];
+    }
+    const escapeHtml = value => String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+    if (!Array.isArray(previewRows) || previewRows.length === 0) {
+      previewBody.innerHTML = '<tr><td colspan="5" class="text-muted text-center">Sin detalle para previsualizar.</td></tr>';
+    } else {
+      previewBody.innerHTML = previewRows.map(row => `
+        <tr>
+          <td>${escapeHtml(row.detalle_tipo_solicitud || '')}</td>
+          <td>${escapeHtml(row.detalle_run || '')}</td>
+          <td>${escapeHtml(row.detalle_nombre || '')}</td>
+          <td>${escapeHtml(row.detalle_motivo || '')}</td>
+          <td>${escapeHtml(row.detalle_otros_permisos || '')}</td>
+        </tr>
+      `).join('');
+    }
+  }
 
   const estadoInput = document.getElementById('md-estado');
   const estadoHelp = document.getElementById('estado-help');
