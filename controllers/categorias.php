@@ -36,6 +36,43 @@ function categorias_api_url($platformUrl) {
     return $scheme . '://' . $host . $port . '/issue_categories.json';
 }
 
+function categorias_request_url(string $url): string {
+    $url = trim($url);
+    if ($url === '') {
+        return '';
+    }
+    if (preg_match('#/settings/categories/?$#', $url)) {
+        return preg_replace('#/settings/categories/?$#', '/issue_categories.json', $url);
+    }
+    return $url;
+}
+
+function categorias_parse_html($html) {
+    $cats = [];
+    if (!is_string($html) || trim($html) === '') {
+        return $cats;
+    }
+    if (preg_match_all('/<tr\b[^>]*id\s*=\s*"issue-category-([^"]+)"[^>]*>(.*?)<\/tr>/is', $html, $rows, PREG_SET_ORDER)) {
+        foreach ($rows as $row) {
+            $id = trim(html_entity_decode($row[1] ?? '', ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+            $content = $row[2] ?? '';
+            $name = '';
+            if (preg_match('/<a\b[^>]*>(.*?)<\/a>/is', $content, $nameMatch)) {
+                $name = trim(html_entity_decode(strip_tags($nameMatch[1]), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+            } else {
+                $cells = preg_split('/<\/td>/i', $content);
+                if (isset($cells[0])) {
+                    $name = trim(html_entity_decode(strip_tags($cells[0]), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+                }
+            }
+            if ($id !== '' && $name !== '') {
+                $cats[] = ['id' => $id, 'nombre' => $name];
+            }
+        }
+    }
+    return $cats;
+}
+
 function user_api_token_fallback($usersFile) {
     if (!function_exists('auth_get_user_id')) return '';
     $uid = auth_get_user_id();
@@ -59,6 +96,7 @@ function sync_categorias_desde_api($configPath, $dataPath) {
     $userToken = user_api_token_fallback($GLOBALS['USERS_FILE']);
     if (!$apiKey && $userToken) $apiKey = $userToken;
     $url = !empty($cfg['categories_url']) ? $cfg['categories_url'] : categorias_api_url($platformUrl);
+    $url = categorias_request_url($url);
     if (!$url) {
         return ['error' => 'Falta platform_url o categories_url en configuraci&oacute;n.'];
     }
@@ -85,17 +123,21 @@ function sync_categorias_desde_api($configPath, $dataPath) {
     if ($code >= 400) {
         return ['error' => "HTTP $code al consultar issue_categories."];
     }
-    $json = json_decode($resp, true);
-    if (!isset($json['issue_categories']) || !is_array($json['issue_categories'])) {
-        return ['error' => 'La respuesta no contiene issue_categories.'];
-    }
     $cats = [];
-    foreach ($json['issue_categories'] as $cat) {
-        if (!is_array($cat)) continue;
-        $cats[] = [
-            'id' => (string)($cat['id'] ?? ''),
-            'nombre' => $cat['name'] ?? ''
-        ];
+    $json = json_decode($resp, true);
+    if (isset($json['issue_categories']) && is_array($json['issue_categories'])) {
+        foreach ($json['issue_categories'] as $cat) {
+            if (!is_array($cat)) continue;
+            $cats[] = [
+                'id' => (string)($cat['id'] ?? ''),
+                'nombre' => $cat['name'] ?? ''
+            ];
+        }
+    } else {
+        $cats = categorias_parse_html($resp);
+    }
+    if (empty($cats)) {
+        return ['error' => 'La respuesta no contiene categor&iacute;as v&aacute;lidas.'];
     }
     save_categorias($dataPath, $cats);
     return ['ok' => count($cats)];

@@ -14,12 +14,13 @@ function usuarios_consume_flash(): ?string {
 }
 
 function usuarios_redirect_back(): void {
-    $location = $_SERVER['REQUEST_URI'] ?? '/redmine/views/Usuarios/usuarios.php';
+    $location = $_SERVER['REQUEST_URI'] ?? '/redmine-mantencion/views/Usuarios/usuarios.php';
     header('Location: ' . $location);
     exit;
 }
-// CRUD básico para usuarios usando data/usuarios.json
+
 $DATA_FILE = __DIR__ . '/../data/usuarios.json';
+$CONFIG_FILE = __DIR__ . '/../data/configuracion.json';
 
 function rut_base($rut) {
     $clean = preg_replace('/[^0-9kK]/', '', $rut ?? '');
@@ -52,6 +53,16 @@ function ensure_user_fields(array &$item) {
             $item[$key] = $value;
         }
     }
+    $nombre = trim((string)($item['nombre'] ?? ''));
+    $apellido = trim((string)($item['apellido'] ?? ''));
+    if ($apellido !== '' && stripos($nombre, $apellido) === false) {
+        $item['nombre'] = trim($nombre . ' ' . $apellido);
+    }
+    $item['apellido'] = '';
+    $item['numero_celular'] = '';
+    $item['rut_sin_dv'] = '';
+    $item['rut'] = '';
+    $item['estamento'] = '';
 }
 
 function load_usuarios($path) {
@@ -100,39 +111,8 @@ function has_duplicate_rut(array $rows, string $rutBase, string $excludeId = '')
     return false;
 }
 
-function normalize_phone(string $value): string {
-    $digits = preg_replace('/[^0-9]/', '', $value ?? '');
-    if ($digits === '') return '';
-    if (strlen($digits) === 9 && strpos($digits, '9') === 0) {
-        return '+56' . $digits;
-    }
-    if (strlen($digits) === 11 && strpos($digits, '56') === 0) {
-        return '+' . $digits;
-    }
-    if (strpos($digits, '569') === 0 && strlen($digits) === 11) {
-        return '+' . $digits;
-    }
-    return '+' . ltrim($digits, '0');
-}
-
-function has_duplicate_phone(array $rows, string $phone, string $excludeId = ''): bool {
-    if ($phone === '') return false;
-    foreach ($rows as $row) {
-        if ($excludeId !== '' && (string)($row['id'] ?? '') === (string)$excludeId) {
-            continue;
-        }
-        $existing = normalize_phone($row['numero_celular'] ?? '');
-        if ($existing === $phone && $existing !== '') return true;
-    }
-    return false;
-}
-
 function sanitize_input(string $value): string {
     return trim(filter_var($value, FILTER_UNSAFE_RAW) ?? '');
-}
-
-function sanitize_phone(string $value): string {
-    return preg_replace('/[^0-9+]/', '', $value ?? '');
 }
 
 function format_rut_value(string $rut): string {
@@ -146,6 +126,170 @@ function format_rut_value(string $rut): string {
     return $body . '-' . $dv;
 }
 
+function usuarios_user_api_token(): string {
+    if (!function_exists('auth_get_user_id')) {
+        return '';
+    }
+    $userId = auth_get_user_id();
+    if ($userId === '') {
+        return '';
+    }
+    global $DATA_FILE;
+    if (!file_exists($DATA_FILE)) {
+        return '';
+    }
+    $users = json_decode(file_get_contents($DATA_FILE), true);
+    if (!is_array($users)) {
+        return '';
+    }
+    foreach ($users as $user) {
+        if (!is_array($user)) {
+            continue;
+        }
+        if ((string)($user['id'] ?? '') === (string)$userId) {
+            return trim((string)($user['api'] ?? ''));
+        }
+    }
+    return '';
+}
+
+function usuarios_members_url_from_config(): string {
+    global $CONFIG_FILE;
+    $cfg = file_exists($CONFIG_FILE) ? json_decode(file_get_contents($CONFIG_FILE), true) : [];
+    if (is_array($cfg)) {
+        $custom = trim((string)($cfg['users_members_url'] ?? ''));
+        if ($custom !== '') {
+            return $custom;
+        }
+        $platformUrl = trim((string)($cfg['platform_url'] ?? ''));
+        if ($platformUrl !== '' && preg_match('#/issues\.json$#', $platformUrl)) {
+            return preg_replace('#/issues\.json$#', '/settings/members', $platformUrl);
+        }
+    }
+    return 'https://coresalud.cl/gp/projects/backlog-mantencion-ti/settings/members';
+}
+
+function usuarios_members_api_url(string $url): string {
+    $url = trim($url);
+    if ($url === '') {
+        return '';
+    }
+    if (preg_match('#/settings/members/?$#', $url)) {
+        return preg_replace('#/settings/members/?$#', '/memberships.json', $url);
+    }
+    if (preg_match('#/issues\.json$#', $url)) {
+        return preg_replace('#/issues\.json$#', '/memberships.json', $url);
+    }
+    return $url;
+}
+
+function usuarios_split_name(string $fullName): array {
+    $fullName = trim($fullName);
+    if ($fullName === '') {
+        return ['', ''];
+    }
+    $parts = preg_split('/\s+/', $fullName);
+    if (!$parts || count($parts) === 1) {
+        return [$fullName, ''];
+    }
+    $first = array_shift($parts);
+    return [trim($first . ' ' . implode(' ', $parts)), ''];
+}
+
+function usuarios_sync_remote(array &$rows): array {
+    global $CONFIG_FILE, $DATA_FILE;
+    $cfg = file_exists($CONFIG_FILE) ? json_decode(file_get_contents($CONFIG_FILE), true) : [];
+    $apiKey = is_array($cfg) ? trim((string)($cfg['platform_token'] ?? '')) : '';
+    if ($apiKey === '') {
+        $apiKey = usuarios_user_api_token();
+    }
+    if ($apiKey === '') {
+        return ['error' => 'Falta token API para importar usuarios.'];
+    }
+    $url = usuarios_members_api_url(usuarios_members_url_from_config());
+    if ($url === '') {
+        return ['error' => 'Falta URL de miembros para importar usuarios.'];
+    }
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER => [
+            'X-Redmine-API-Key: ' . $apiKey,
+            'Accept: application/json',
+        ],
+        CURLOPT_TIMEOUT => 20,
+    ]);
+    $resp = curl_exec($ch);
+    if ($resp === false) {
+        $err = curl_error($ch);
+        curl_close($ch);
+        return ['error' => 'No se pudo conectar para importar usuarios: ' . $err];
+    }
+    $code = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    if ($code >= 400) {
+        return ['error' => 'HTTP ' . $code . ' al consultar members.'];
+    }
+    $json = json_decode($resp, true);
+    $memberships = is_array($json['memberships'] ?? null) ? $json['memberships'] : [];
+    if (empty($memberships)) {
+        return ['error' => 'La respuesta no contiene memberships validos.'];
+    }
+    $indexed = [];
+    foreach ($rows as $idx => $row) {
+        if (is_array($row) && isset($row['id'])) {
+            $indexed[(string)$row['id']] = $idx;
+        }
+    }
+    $created = 0;
+    $updated = 0;
+    foreach ($memberships as $membership) {
+        if (!is_array($membership)) {
+            continue;
+        }
+        $user = $membership['user'] ?? null;
+        if (!is_array($user)) {
+            continue;
+        }
+        $id = trim((string)($user['id'] ?? ''));
+        $name = trim((string)($user['name'] ?? ''));
+        if ($id === '' || $name === '') {
+            continue;
+        }
+        if (isset($indexed[$id])) {
+            $idx = $indexed[$id];
+            $currentName = trim((string)($rows[$idx]['nombre'] ?? ''));
+            if ($currentName !== $name) {
+                $rows[$idx]['nombre'] = $name;
+                $rows[$idx]['apellido'] = '';
+                $rows[$idx]['rut_sin_dv'] = '';
+                $rows[$idx]['rut'] = '';
+                $rows[$idx]['estamento'] = '';
+                $updated++;
+            }
+            continue;
+        }
+        [$nombre, $apellido] = usuarios_split_name($name);
+        $rows[] = [
+            'id' => $id,
+            'rut_sin_dv' => '',
+            'nombre' => $nombre !== '' ? $name : $name,
+            'apellido' => $apellido,
+            'rut' => '',
+            'numero_celular' => '',
+            'estamento' => '',
+            'api' => '',
+            'rol' => 'usuario',
+            'password' => '',
+            'permisos' => [],
+        ];
+        $indexed[$id] = count($rows) - 1;
+        $created++;
+    }
+    save_usuarios($DATA_FILE, $rows);
+    return ['ok' => true, 'created' => $created, 'updated' => $updated];
+}
+
 function handle_usuarios() {
     global $DATA_FILE;
     $rows = load_usuarios($DATA_FILE);
@@ -153,24 +297,11 @@ function handle_usuarios() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (function_exists('csrf_validate')) csrf_validate();
         $action = $_POST['action'] ?? '';
-        $rut_input = preg_replace('/[^0-9kK]/', '', $_POST['rut'] ?? '');
-        $rut_sin_dv = rut_base($rut_input);
-        $id_input = sanitize_input($_POST['rut_sin_dv'] ?? '');
-        $phone_input = sanitize_phone($_POST['numero_celular'] ?? '');
-        $phone_base = normalize_phone($phone_input);
+        $id_input = sanitize_input($_POST['id_manual'] ?? '');
 
         if ($action === 'create') {
-            if ($rut_input !== '' && $rut_sin_dv === '') {
-                return [$rows, 'Error: RUT inválido'];
-            }
-            if ($hasDupId = ($id_input !== '' && has_duplicate_id($rows, $id_input))) {
+            if ($id_input !== '' && has_duplicate_id($rows, $id_input)) {
                 return [$rows, 'Error: el ID ya existe'];
-            }
-            if (has_duplicate_rut($rows, $rut_sin_dv)) {
-                return [$rows, 'Error: el RUT ya existe'];
-            }
-            if (has_duplicate_phone($rows, $phone_base)) {
-                return [$rows, 'Error: el celular ya existe'];
             }
             $pwd = sanitize_input($_POST['password'] ?? '');
             $pwd2 = sanitize_input($_POST['password_confirm'] ?? '');
@@ -188,21 +319,17 @@ function handle_usuarios() {
                 }
             }
             $requiredName = sanitize_input($_POST['nombre'] ?? '');
-            $requiredLast = sanitize_input($_POST['apellido'] ?? '');
-            if ($requiredName === '' || $requiredLast === '') {
-                return [$rows, 'Error: nombre y apellido son obligatorios'];
-            }
-            if ($phone_base === '') {
-                return [$rows, 'Error: el celular debe contener dígitos válidos'];
+            if ($requiredName === '') {
+                return [$rows, 'Error: el nombre es obligatorio'];
             }
             $rows[] = [
-                'id' => $id_input !== '' ? $id_input : ($rut_sin_dv ?: uniqid('', true)),
-                'rut_sin_dv' => $rut_sin_dv,
+                'id' => $id_input !== '' ? $id_input : uniqid('', true),
+                'rut_sin_dv' => '',
                 'nombre' => $requiredName,
-                'apellido' => $requiredLast,
-                'rut' => format_rut_value($rut_input),
-                'numero_celular' => $phone_base,
-                'estamento' => sanitize_input($_POST['estamento'] ?? ''),
+                'apellido' => '',
+                'rut' => '',
+                'numero_celular' => '',
+                'estamento' => '',
                 'rol' => $assignedRole,
                 'api' => sanitize_input($_POST['api'] ?? ''),
                 'password' => $hash,
@@ -216,14 +343,6 @@ function handle_usuarios() {
             $index = find_user_index($rows, $id);
             if ($index === null) return [$rows, 'Error: usuario no encontrado'];
             $current = &$rows[$index];
-            $rut_input = $rut_input ?: ($current['rut'] ?? '');
-            $rut_sin_dv = rut_base($rut_input) ?: ($current['rut_sin_dv'] ?? '');
-            if (has_duplicate_rut($rows, $rut_sin_dv, $id)) {
-                return [$rows, 'Error: el RUT ya existe'];
-            }
-            if (has_duplicate_phone($rows, $phone_base, $id)) {
-                return [$rows, 'Error: el celular ya existe'];
-            }
             $pwd = sanitize_input($_POST['password'] ?? '');
             $pwd2 = sanitize_input($_POST['password_confirm'] ?? '');
             if ($pwd !== '' || $pwd2 !== '') {
@@ -233,19 +352,15 @@ function handle_usuarios() {
                 $current['password'] = password_hash($pwd, PASSWORD_DEFAULT);
             }
             $requiredNameUp = sanitize_input($_POST['nombre'] ?? $current['nombre']);
-            $requiredLastUp = sanitize_input($_POST['apellido'] ?? $current['apellido']);
-            if ($requiredNameUp === '' || $requiredLastUp === '') {
-                return [$rows, 'Error: nombre y apellido son obligatorios'];
+            if ($requiredNameUp === '') {
+                return [$rows, 'Error: el nombre es obligatorio'];
             }
-            if ($phone_base === '') {
-                return [$rows, 'Error: el celular debe contener dígitos válidos'];
-            }
-            $current['rut_sin_dv'] = $rut_sin_dv;
+            $current['rut_sin_dv'] = '';
             $current['nombre'] = $requiredNameUp;
-            $current['apellido'] = $requiredLastUp;
-            $current['rut'] = format_rut_value($rut_input);
-            $current['numero_celular'] = $phone_base;
-            $current['estamento'] = sanitize_input($_POST['estamento'] ?? $current['estamento']);
+            $current['apellido'] = '';
+            $current['rut'] = '';
+            $current['numero_celular'] = '';
+            $current['estamento'] = '';
             $current['rol'] = sanitize_input($_POST['rol'] ?? ($current['rol'] ?? 'usuario'));
             $current['api'] = sanitize_input($_POST['api'] ?? $current['api']);
             save_usuarios($DATA_FILE, $rows);
@@ -256,6 +371,13 @@ function handle_usuarios() {
             $rows = array_values(array_filter($rows, fn($r) => (string)($r['id'] ?? '') !== (string)$id));
             save_usuarios($DATA_FILE, $rows);
             usuarios_set_flash('Usuario eliminado');
+            usuarios_redirect_back();
+        } elseif ($action === 'sync_remote') {
+            $res = usuarios_sync_remote($rows);
+            if (isset($res['error'])) {
+                return [$rows, $res['error']];
+            }
+            usuarios_set_flash('Usuarios importados. Nuevos: ' . (int)($res['created'] ?? 0) . ' | actualizados: ' . (int)($res['updated'] ?? 0));
             usuarios_redirect_back();
         }
     }

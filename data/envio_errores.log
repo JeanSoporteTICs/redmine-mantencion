@@ -5255,3 +5255,644 @@
     },
     "message_id": "ed06a494-4294-49a2-9317-88c259f0fdc1"
 }
+{
+    "ts": "2026-04-14T19:35:26+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120091,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro De Salud Familiar Rio Bueno \/ N\/A\",\"description\":\"| Tipo solicitud | RUN | Nombre | Motivo | Establecimientos | Otros permisos |\\r\\n| --- | --- | --- | --- | --- | --- |\\r\\n| Modificar Usuario | 15145284-1 | Carolina Andrea Valdes Acuña | Reactivar clave CORE |  | Odontóloga CESFAM Río Bueno, examenes e imagenes |\\r\\n\\r\\nCorreo: claudiabrulepuentes@gmail.com\",\"start_date\":\"2026-04-13\",\"due_date\":\"2026-04-13\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Claudia Veronica Brule Puentes\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"N\/A\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-14T17:35:26Z\",\"updated_on\":\"2026-04-14T17:35:26Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro De Salud Familiar Rio Bueno \/ N\/A",
+            "description": "| Tipo solicitud | RUN | Nombre | Motivo | Establecimientos | Otros permisos |\n| --- | --- | --- | --- | --- | --- |\n| Modificar Usuario | 15145284-1 | Carolina Andrea Valdes Acuña | Reactivar clave CORE |  | Odontóloga CESFAM Río Bueno, examenes e imagenes |\n\nCorreo: claudiabrulepuentes@gmail.com",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-13",
+            "due_date": "2026-04-13",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": "3",
+                    "value": "Claudia Veronica Brule Puentes"
+                },
+                {
+                    "id": "5",
+                    "value": "N\/A"
+                },
+                {
+                    "id": "11",
+                    "value": "CENTRO DE SALUD FAMILIAR RIO BUENO"
+                },
+                {
+                    "id": "12",
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-f81e47da10236ca9f9aa"
+}
+{
+    "ts": "2026-04-14T19:37:49+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120092,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Hospitalización Gineco-Obstétrica\",\"description\":\"| Tipo solicitud | RUN | Nombre | Motivo | Establecimientos | Otros permisos |\\r\\n| --- | --- | --- | --- | --- | --- |\\r\\n| Modificar Usuario | 20016853-4 | Ann Michel Yavar Godoy | matrona clinica |  | modulo urgencia |\\r\\n\\r\\nCorreo: maryann.roberts@redsalud.gob.cl\",\"start_date\":\"2026-04-13\",\"due_date\":\"2026-04-13\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Maryann Roberts Jimenez\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad Hospitalización Gineco-Obstétrica\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-14T17:37:49Z\",\"updated_on\":\"2026-04-14T17:37:49Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Hospitalización Gineco-Obstétrica",
+            "description": "| Tipo solicitud | RUN | Nombre | Motivo | Establecimientos | Otros permisos |\n| --- | --- | --- | --- | --- | --- |\n| Modificar Usuario | 20016853-4 | Ann Michel Yavar Godoy | matrona clinica |  | modulo urgencia |\n\nCorreo: maryann.roberts@redsalud.gob.cl",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-13",
+            "due_date": "2026-04-13",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": "3",
+                    "value": "Maryann Roberts Jimenez"
+                },
+                {
+                    "id": "5",
+                    "value": "Unidad Hospitalización Gineco-Obstétrica"
+                },
+                {
+                    "id": "11",
+                    "value": "HOSPITAL CLINICO REGIONAL (VALDIVIA)"
+                },
+                {
+                    "id": "12",
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-3f7a9c605545b77160f2"
+}
+{
+    "ts": "2026-04-14T23:11:33+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120122,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Urgencia\",\"description\":\"| Tipo solicitud | RUN | Nombre | Motivo | Establecimientos | Otros permisos |\\r\\n| --- | --- | --- | --- | --- | --- |\\r\\n| Modificar Usuario | 21130142-2 | Valentina Ana Paulina Gutiérrez Duarte | Reemplazo hasta 31\/05 |  | activación cuenta, perfil enfermera de urgencia |\\r\\n\\r\\nCorreo: ignacio.espinoza@redsalud.gob.cl\",\"start_date\":\"2026-04-13\",\"due_date\":\"2026-04-13\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"ignacio.espinoza@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-14T21:11:33Z\",\"updated_on\":\"2026-04-14T21:11:33Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Urgencia",
+            "description": "| Tipo solicitud | RUN | Nombre | Motivo | Establecimientos | Otros permisos |\n| --- | --- | --- | --- | --- | --- |\n| Modificar Usuario | 21130142-2 | Valentina Ana Paulina Gutiérrez Duarte | Reemplazo hasta 31\/05 |  | activación cuenta, perfil enfermera de urgencia |\n\nCorreo: ignacio.espinoza@redsalud.gob.cl",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-13",
+            "due_date": "2026-04-13",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 8,
+                    "value": "ignacio.espinoza@redsalud.gob.cl"
+                }
+            ]
+        }
+    },
+    "message_id": "core-909b871ae8ca126eaedc"
+}
+{
+    "ts": "2026-04-14T23:11:33+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120123,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro De Salud Familiar Las Animas \/ N\/A\",\"description\":\"| Tipo solicitud | RUN | Nombre | Motivo | Establecimientos | Otros permisos |\\r\\n| --- | --- | --- | --- | --- | --- |\\r\\n| Modificar Usuario | 16805169-7 | Myriam Elisabeth Alocilla Silva | ACTIVAR CLAVE CORE CESFAM LAS ANIMAS (ENFERMERA) |  | PERFIL PROFESIONAL NO MEDICO + DIGITADOR |\\r\\n\\r\\nCorreo: jgonzalezojeda@gmail.com\",\"start_date\":\"2026-04-13\",\"due_date\":\"2026-04-13\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"jgonzalezojeda@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-14T21:11:34Z\",\"updated_on\":\"2026-04-14T21:11:34Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro De Salud Familiar Las Animas \/ N\/A",
+            "description": "| Tipo solicitud | RUN | Nombre | Motivo | Establecimientos | Otros permisos |\n| --- | --- | --- | --- | --- | --- |\n| Modificar Usuario | 16805169-7 | Myriam Elisabeth Alocilla Silva | ACTIVAR CLAVE CORE CESFAM LAS ANIMAS (ENFERMERA) |  | PERFIL PROFESIONAL NO MEDICO + DIGITADOR |\n\nCorreo: jgonzalezojeda@gmail.com",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-13",
+            "due_date": "2026-04-13",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 8,
+                    "value": "jgonzalezojeda@gmail.com"
+                }
+            ]
+        }
+    },
+    "message_id": "core-8bfcfdf360fc97105eaa"
+}
+{
+    "ts": "2026-04-14T23:11:33+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120124,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro De Salud Familiar Angachilla \/ N\/A\",\"description\":\"| Tipo solicitud | RUN | Nombre | Motivo | Establecimientos | Otros permisos |\\r\\n| --- | --- | --- | --- | --- | --- |\\r\\n| Modificar Usuario | 15820820-2 | Cecilia Villanueva Contreras | Usuario olvido su clave. |  | Cambio de contraseña. |\\r\\n\\r\\nCorreo: soporteinfo.angachilla@gmail.com\",\"start_date\":\"2026-04-13\",\"due_date\":\"2026-04-13\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"soporteinfo.angachilla@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-14T21:11:34Z\",\"updated_on\":\"2026-04-14T21:11:34Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro De Salud Familiar Angachilla \/ N\/A",
+            "description": "| Tipo solicitud | RUN | Nombre | Motivo | Establecimientos | Otros permisos |\n| --- | --- | --- | --- | --- | --- |\n| Modificar Usuario | 15820820-2 | Cecilia Villanueva Contreras | Usuario olvido su clave. |  | Cambio de contraseña. |\n\nCorreo: soporteinfo.angachilla@gmail.com",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-13",
+            "due_date": "2026-04-13",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 8,
+                    "value": "soporteinfo.angachilla@gmail.com"
+                }
+            ]
+        }
+    },
+    "message_id": "core-cb68145d4693fffbd279"
+}
+{
+    "ts": "2026-04-14T23:11:33+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120125,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Servicio De Salud Los Rios \/ N\/A\",\"description\":\"| Tipo solicitud | RUN | Nombre | Motivo | Establecimientos | Otros permisos |\\r\\n| --- | --- | --- | --- | --- | --- |\\r\\n| Modificar Usuario | 15548308-3 | Claudio Andrtes Carvajal Elgueta | De solicita envio de nuevas credenciales a usuario |  | De solicita envio de nuevas credenciales a usuario |\\r\\n\\r\\nCorreo: alex.lorca@redsalud.gob.cl\",\"start_date\":\"2026-04-13\",\"due_date\":\"2026-04-13\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"alex.lorca@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-14T21:11:34Z\",\"updated_on\":\"2026-04-14T21:11:34Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Servicio De Salud Los Rios \/ N\/A",
+            "description": "| Tipo solicitud | RUN | Nombre | Motivo | Establecimientos | Otros permisos |\n| --- | --- | --- | --- | --- | --- |\n| Modificar Usuario | 15548308-3 | Claudio Andrtes Carvajal Elgueta | De solicita envio de nuevas credenciales a usuario |  | De solicita envio de nuevas credenciales a usuario |\n\nCorreo: alex.lorca@redsalud.gob.cl",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-13",
+            "due_date": "2026-04-13",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 8,
+                    "value": "alex.lorca@redsalud.gob.cl"
+                }
+            ]
+        }
+    },
+    "message_id": "core-1d203a3c6923223e6670"
+}
+{
+    "ts": "2026-04-14T23:11:34+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120126,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Hematología Intensiva Y Quimioterapia Ambulatoria\",\"description\":\"| Tipo solicitud | RUN | Nombre | Motivo | Establecimientos | Otros permisos |\\r\\n| --- | --- | --- | --- | --- | --- |\\r\\n| Modificar Usuario | 18372023-6 | Fabian  Vargas Saa | PROFESIONAL CERTIFICADO COMO INSTALADOR EXPERTO DEL COMITE DE ACCESO VASCULAR. POR LO QUE DEBE INICIAR REGISTRO DE INSTALACIONES REALIZADAS EN TURNO. |  | AGREGAR MODULO RCA. |\\r\\n\\r\\nCorreo: irma.catrilaf@redsalud.gob.cl\",\"start_date\":\"2026-04-13\",\"due_date\":\"2026-04-13\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"irma.catrilaf@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-14T21:11:34Z\",\"updated_on\":\"2026-04-14T21:11:34Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Hematología Intensiva Y Quimioterapia Ambulatoria",
+            "description": "| Tipo solicitud | RUN | Nombre | Motivo | Establecimientos | Otros permisos |\n| --- | --- | --- | --- | --- | --- |\n| Modificar Usuario | 18372023-6 | Fabian  Vargas Saa | PROFESIONAL CERTIFICADO COMO INSTALADOR EXPERTO DEL COMITE DE ACCESO VASCULAR. POR LO QUE DEBE INICIAR REGISTRO DE INSTALACIONES REALIZADAS EN TURNO. |  | AGREGAR MODULO RCA. |\n\nCorreo: irma.catrilaf@redsalud.gob.cl",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-13",
+            "due_date": "2026-04-13",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 8,
+                    "value": "irma.catrilaf@redsalud.gob.cl"
+                }
+            ]
+        }
+    },
+    "message_id": "core-2d5689311e5bd51dbea3"
+}
+{
+    "ts": "2026-04-14T23:11:34+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120127,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro De Salud Familiar Externo Valdivia \/ N\/A\",\"description\":\"| Tipo solicitud | RUN | Nombre | Motivo | Establecimientos | Otros permisos |\\r\\n| --- | --- | --- | --- | --- | --- |\\r\\n| Modificar Usuario | 20074516-7 | Catalina Roman San Martin | Profesional inicia docencia asistencial en nuestro CESFAM |  | Habilitar perfil de MATRONA en CESFAM Externo hasta el 11.07.2026 |\\r\\n\\r\\nCorreo: jefesome2021@gmail.com\",\"start_date\":\"2026-04-13\",\"due_date\":\"2026-04-13\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"jefesome2021@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-14T21:11:34Z\",\"updated_on\":\"2026-04-14T21:11:34Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro De Salud Familiar Externo Valdivia \/ N\/A",
+            "description": "| Tipo solicitud | RUN | Nombre | Motivo | Establecimientos | Otros permisos |\n| --- | --- | --- | --- | --- | --- |\n| Modificar Usuario | 20074516-7 | Catalina Roman San Martin | Profesional inicia docencia asistencial en nuestro CESFAM |  | Habilitar perfil de MATRONA en CESFAM Externo hasta el 11.07.2026 |\n\nCorreo: jefesome2021@gmail.com",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-13",
+            "due_date": "2026-04-13",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 8,
+                    "value": "jefesome2021@gmail.com"
+                }
+            ]
+        }
+    },
+    "message_id": "core-4889b1af9ea9ed240374"
+}
+{
+    "ts": "2026-04-14T23:11:34+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120128,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Servicio Laboratorio Clínico\",\"description\":\"| Tipo solicitud | RUN | Nombre | Motivo | Establecimientos | Otros permisos |\\r\\n| --- | --- | --- | --- | --- | --- |\\r\\n| Modificar Usuario | 10984022-K | Jasna Cecilia Puratich Solar | Reintegro indefinido post licencia médica |  | Desbanear perfil |\\r\\n\\r\\nCorreo: coordinacion.labhbv@redsalud.gob.cl\",\"start_date\":\"2026-04-13\",\"due_date\":\"2026-04-13\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"coordinacion.labhbv@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-14T21:11:34Z\",\"updated_on\":\"2026-04-14T21:11:34Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Servicio Laboratorio Clínico",
+            "description": "| Tipo solicitud | RUN | Nombre | Motivo | Establecimientos | Otros permisos |\n| --- | --- | --- | --- | --- | --- |\n| Modificar Usuario | 10984022-K | Jasna Cecilia Puratich Solar | Reintegro indefinido post licencia médica |  | Desbanear perfil |\n\nCorreo: coordinacion.labhbv@redsalud.gob.cl",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-13",
+            "due_date": "2026-04-13",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 8,
+                    "value": "coordinacion.labhbv@redsalud.gob.cl"
+                }
+            ]
+        }
+    },
+    "message_id": "core-caa17122a35af1f89659"
+}
+{
+    "ts": "2026-04-15T14:46:02+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120154,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro De Salud Familiar Los Lagos \/ Centro De Salud Familiar Los Lagos\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Usuario|16161343-6|María Elena Marchant Molina|Favor desbloquear credenciales a profesional Odontologa x favor|Favor desbloquear credenciales a profesional Odontologa x favor|\",\"start_date\":\"2026-04-14\",\"due_date\":\"2026-04-14\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"ingfcortezv@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T12:46:03Z\",\"updated_on\":\"2026-04-15T12:46:03Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro De Salud Familiar Los Lagos \/ Centro De Salud Familiar Los Lagos",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Usuario|16161343-6|María Elena Marchant Molina|Favor desbloquear credenciales a profesional Odontologa x favor|Favor desbloquear credenciales a profesional Odontologa x favor|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-14",
+            "due_date": "2026-04-14",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 8,
+                    "value": "ingfcortezv@gmail.com"
+                }
+            ]
+        }
+    },
+    "message_id": "core-cddb302d35e4014b03db"
+}
+{
+    "ts": "2026-04-15T14:53:37+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120159,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Medicina Transfusional\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Usuario|15293377-0|Jazmín Yuhasz Guerra|Funcionaria fue baneada porque la función a realizar no implica mucho uso de CORE.|Solicito por favor reactivar CORE para funcionaria que fue baneada por no uso.|\",\"start_date\":\"2026-04-14\",\"due_date\":\"2026-04-14\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Carlos Andres Leyton Sapiains\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Subdepto. Medicina Transfusional\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"crlos.leyton.sapiains@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T12:53:38Z\",\"updated_on\":\"2026-04-15T12:53:38Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Medicina Transfusional",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Usuario|15293377-0|Jazmín Yuhasz Guerra|Funcionaria fue baneada porque la función a realizar no implica mucho uso de CORE.|Solicito por favor reactivar CORE para funcionaria que fue baneada por no uso.|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-14",
+            "due_date": "2026-04-14",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Carlos Andres Leyton Sapiains"
+                },
+                {
+                    "id": 5,
+                    "value": "Subdepto. Medicina Transfusional"
+                },
+                {
+                    "id": 8,
+                    "value": "crlos.leyton.sapiains@gmail.com"
+                }
+            ]
+        }
+    },
+    "message_id": "core-ae635eda49471bde6f77"
+}
+{
+    "ts": "2026-04-15T14:54:10+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120160,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro De Salud Familiar Los Lagos\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Usuario|20075205-8|Diego Diaz Sanchez|Favor reenviar credenciales de ingreso al siguiente emial: diegodiazsanchez99@gmail.com, debiod a que anterior solicitud llego a correo equivocado.|Favor reenviar credenciales de ingreso al siguiente emial: diegodiazsanchez99@gmail.com, debiod a que anterior solicitud llego a correo equivocado.|\",\"start_date\":\"2026-04-14\",\"due_date\":\"2026-04-14\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Alexis Francisco Cortez Villanueva\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro De Salud Familiar Los Lagos\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"ingfcortezv@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T12:54:10Z\",\"updated_on\":\"2026-04-15T12:54:10Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro De Salud Familiar Los Lagos",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Usuario|20075205-8|Diego Diaz Sanchez|Favor reenviar credenciales de ingreso al siguiente emial: diegodiazsanchez99@gmail.com, debiod a que anterior solicitud llego a correo equivocado.|Favor reenviar credenciales de ingreso al siguiente emial: diegodiazsanchez99@gmail.com, debiod a que anterior solicitud llego a correo equivocado.|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-14",
+            "due_date": "2026-04-14",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Alexis Francisco Cortez Villanueva"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro De Salud Familiar Los Lagos"
+                },
+                {
+                    "id": 8,
+                    "value": "ingfcortezv@gmail.com"
+                }
+            ]
+        }
+    },
+    "message_id": "core-d63c651ed64cb0bfe95f"
+}
+{
+    "ts": "2026-04-15T14:54:31+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120161,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Lavanderia\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Usuario|15294303-2|Claudio Andres Pozo Valenzuela|PARA MANTENER INFORMACION ACTUALIZADA Y SEGUIMIENTOS A MIS CONVENIOS DE SUMINISTRO QUE TENGO EN EL SERVICIO (FACTURAS, OC)|MODULO LICITACIONES|\",\"start_date\":\"2026-04-14\",\"due_date\":\"2026-04-14\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Claudio Andres Pozo Valenzuela\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad Lavanderia\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"claudio.pozo@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T12:54:31Z\",\"updated_on\":\"2026-04-15T12:54:31Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Lavanderia",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Usuario|15294303-2|Claudio Andres Pozo Valenzuela|PARA MANTENER INFORMACION ACTUALIZADA Y SEGUIMIENTOS A MIS CONVENIOS DE SUMINISTRO QUE TENGO EN EL SERVICIO (FACTURAS, OC)|MODULO LICITACIONES|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-14",
+            "due_date": "2026-04-14",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Claudio Andres Pozo Valenzuela"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad Lavanderia"
+                },
+                {
+                    "id": 8,
+                    "value": "claudio.pozo@redsalud.gob.cl"
+                }
+            ]
+        }
+    },
+    "message_id": "core-8cb5910e91b01ac5db6b"
+}
+{
+    "ts": "2026-04-15T14:54:31+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120162,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"subject\":\"Creación de Usuario \/ Centro De Salud Familiar Los Lagos\",\"description\":\"|_. Tipo solicitud|\\r\\n|Creación de Usuario|\",\"start_date\":\"2026-04-14\",\"due_date\":\"2026-04-14\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Alexis Francisco Cortez Villanueva\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro De Salud Familiar Los Lagos\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"informatica@saludloslagos.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T12:54:31Z\",\"updated_on\":\"2026-04-15T12:54:31Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Creación de Usuario \/ Centro De Salud Familiar Los Lagos",
+            "description": "|_. Tipo solicitud|\n|Creación de Usuario|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-14",
+            "due_date": "2026-04-14",
+            "assigned_to_id": "42",
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Alexis Francisco Cortez Villanueva"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro De Salud Familiar Los Lagos"
+                },
+                {
+                    "id": 8,
+                    "value": "informatica@saludloslagos.cl"
+                }
+            ]
+        }
+    },
+    "message_id": "core-a23e3a38be7ba9152b58"
+}
+{
+    "ts": "2026-04-15T14:54:31+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120163,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"subject\":\"Creación de Usuario \/ Hospital Clinico Regional (Valdivia) \/ Servicio Laboratorio Clínico\",\"description\":\"|_. Tipo solicitud|\\r\\n|Creación de Usuario|\",\"start_date\":\"2026-04-14\",\"due_date\":\"2026-04-14\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Jessica Gallardo González\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Servicio Laboratorio Clínico\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"coordinacion.labhbv@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T12:54:32Z\",\"updated_on\":\"2026-04-15T12:54:32Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Creación de Usuario \/ Hospital Clinico Regional (Valdivia) \/ Servicio Laboratorio Clínico",
+            "description": "|_. Tipo solicitud|\n|Creación de Usuario|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-14",
+            "due_date": "2026-04-14",
+            "assigned_to_id": "42",
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Jessica Gallardo González"
+                },
+                {
+                    "id": 5,
+                    "value": "Servicio Laboratorio Clínico"
+                },
+                {
+                    "id": 8,
+                    "value": "coordinacion.labhbv@redsalud.gob.cl"
+                }
+            ]
+        }
+    },
+    "message_id": "core-6e7bbf68caaa2da3940c"
+}
+{
+    "ts": "2026-04-15T14:54:31+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120164,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro De Salud Familiar Externo Valdivia\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Usuario|20366788-4|Rodrigo Andrés Márquez Rifo|Profesional continuará prestando servicios en nuestro establecimiento|Habilitar perfil NO MEDICO en CESFAM Externo hasta 31.12.2026|\",\"start_date\":\"2026-04-14\",\"due_date\":\"2026-04-14\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Luis Nelson Fuica Benitez\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro De Salud Familiar Externo Valdivia\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"jefesome2021@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T12:54:32Z\",\"updated_on\":\"2026-04-15T12:54:32Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro De Salud Familiar Externo Valdivia",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Usuario|20366788-4|Rodrigo Andrés Márquez Rifo|Profesional continuará prestando servicios en nuestro establecimiento|Habilitar perfil NO MEDICO en CESFAM Externo hasta 31.12.2026|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-14",
+            "due_date": "2026-04-14",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Luis Nelson Fuica Benitez"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro De Salud Familiar Externo Valdivia"
+                },
+                {
+                    "id": 8,
+                    "value": "jefesome2021@gmail.com"
+                }
+            ]
+        }
+    },
+    "message_id": "core-cffdfdbcfbd7ce1d5fa1"
+}
+{
+    "ts": "2026-04-15T14:54:31+02:00",
+    "http_code": 422,
+    "error": "",
+    "body": "{\"errors\":[\"Correo no es válido\"]}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Esterilización",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Usuario|18590801-1|Constanza Salinas Nonque|PARA SUBROGANCIA EN CASO DE AUCENCIA DE JEFATURA DE UNIDAD MARIBEL MOLINA|AÑADIR RECURSOS HUMANOS UNIDAD DE ESTERILIZACION|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-14",
+            "due_date": "2026-04-14",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Maribel Yenny Molina Perez"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad De Esterilización"
+                },
+                {
+                    "id": 8,
+                    "value": "MARIBEL.MOLINA@redsalud.gob.cl"
+                }
+            ]
+        }
+    },
+    "message_id": "core-5daaed6d50538230cfd7"
+}
+{
+    "ts": "2026-04-15T14:54:32+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120165,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"subject\":\"Creación de Usuario \/ Centro De Salud Familiar Coñaripe\",\"description\":\"|_. Tipo solicitud|\\r\\n|Creación de Usuario|\",\"start_date\":\"2026-04-14\",\"due_date\":\"2026-04-14\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Nayadet Cofre Catricheo\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro De Salud Familiar Coñaripe\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"jefesomecesfamconaripe@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T12:54:32Z\",\"updated_on\":\"2026-04-15T12:54:32Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Creación de Usuario \/ Centro De Salud Familiar Coñaripe",
+            "description": "|_. Tipo solicitud|\n|Creación de Usuario|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-14",
+            "due_date": "2026-04-14",
+            "assigned_to_id": "42",
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Nayadet Cofre Catricheo"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro De Salud Familiar Coñaripe"
+                },
+                {
+                    "id": 8,
+                    "value": "jefesomecesfamconaripe@gmail.com"
+                }
+            ]
+        }
+    },
+    "message_id": "core-ffba528d97b1a1465922"
+}
+{
+    "ts": "2026-04-15T14:54:32+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120166,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro De Salud Familiar Externo Valdivia\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Usuario|20385065-4|Valeria Beatriz Quezada Erices|Matrona prestará funciones en todas las dependencias|Habilitar perfiles perfil Matrona en CESFAM externo, como también en todos los CECOSF dependientes (Barrios Bajos, Guacamayo y Pablo Neruda), habilitar hasta el 31.08.2026|\",\"start_date\":\"2026-04-14\",\"due_date\":\"2026-04-14\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Luis Nelson Fuica Benitez\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro De Salud Familiar Externo Valdivia\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"jefesome2021@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T12:54:32Z\",\"updated_on\":\"2026-04-15T12:54:32Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro De Salud Familiar Externo Valdivia",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Usuario|20385065-4|Valeria Beatriz Quezada Erices|Matrona prestará funciones en todas las dependencias|Habilitar perfiles perfil Matrona en CESFAM externo, como también en todos los CECOSF dependientes (Barrios Bajos, Guacamayo y Pablo Neruda), habilitar hasta el 31.08.2026|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-14",
+            "due_date": "2026-04-14",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Luis Nelson Fuica Benitez"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro De Salud Familiar Externo Valdivia"
+                },
+                {
+                    "id": 8,
+                    "value": "jefesome2021@gmail.com"
+                }
+            ]
+        }
+    },
+    "message_id": "core-73015a7620bc07c14bf8"
+}
+{
+    "ts": "2026-04-15T14:58:07+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120168,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Esterilización\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Usuario|18590801-1|Constanza Salinas Nonque|PARA SUBROGANCIA EN CASO DE AUCENCIA DE JEFATURA DE UNIDAD MARIBEL MOLINA|AÑADIR RECURSOS HUMANOS UNIDAD DE ESTERILIZACION|\",\"start_date\":\"2026-04-14\",\"due_date\":\"2026-04-14\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Maribel Yenny Molina Perez\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad De Esterilización\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"maribel.molina@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T12:58:08Z\",\"updated_on\":\"2026-04-15T12:58:08Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Esterilización",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Usuario|18590801-1|Constanza Salinas Nonque|PARA SUBROGANCIA EN CASO DE AUCENCIA DE JEFATURA DE UNIDAD MARIBEL MOLINA|AÑADIR RECURSOS HUMANOS UNIDAD DE ESTERILIZACION|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-14",
+            "due_date": "2026-04-14",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Maribel Yenny Molina Perez"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad De Esterilización"
+                },
+                {
+                    "id": 8,
+                    "value": "maribel.molina@redsalud.gob.cl"
+                }
+            ]
+        }
+    },
+    "message_id": "core-5daaed6d50538230cfd7"
+}

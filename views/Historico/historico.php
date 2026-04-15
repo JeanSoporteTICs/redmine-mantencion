@@ -1,20 +1,31 @@
 ﻿<?php
 require_once __DIR__ . '/../../controllers/auth.php';
-auth_require_login('/redmine/login.php');
+auth_require_login('/redmine-mantencion/login.php');
+require_once __DIR__ . '/../../controllers/dashboard.php';
 if (!auth_can('historico')) {
-  header('Location: /redmine/views/Dashboard/dashboard.php');
+  header('Location: /redmine-mantencion/views/Dashboard/dashboard.php');
   exit;
 }
 
 $h = fn($v) => htmlspecialchars($v ?? '', ENT_QUOTES, 'UTF-8');
+
+function historico_read_json_file(string $file): array {
+  $raw = @file_get_contents($file);
+  if (!is_string($raw) || $raw === '') return [];
+  if (str_starts_with($raw, "\xEF\xBB\xBF")) {
+    $raw = substr($raw, 3);
+  }
+  $data = json_decode($raw, true);
+  return is_array($data) ? $data : [];
+}
 
 // --- Helpers para eliminar registros ---
 function delete_reporte(string $base, string $id): bool {
   $changed = false;
   if (!is_dir($base)) return false;
   foreach (glob($base . '/*/*.json') as $file) {
-    $data = json_decode(@file_get_contents($file), true);
-    if (!is_array($data)) continue;
+    $data = historico_read_json_file($file);
+    if (!$data) continue;
     $new = array_values(array_filter($data, fn($r) => !is_array($r) || ($r['id'] ?? '') !== $id));
     if (count($new) !== count($data)) {
       file_put_contents($file, json_encode($new, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
@@ -28,8 +39,8 @@ function delete_horas_extra(string $base, string $id): bool {
   $changed = false;
   if (!is_dir($base)) return false;
   foreach (glob($base . '/*/*.json') as $file) {
-    $groups = json_decode(@file_get_contents($file), true);
-    if (!is_array($groups)) continue;
+    $groups = historico_read_json_file($file);
+    if (!$groups) continue;
     $newGroups = [];
     foreach ($groups as $g) {
       if (!isset($g['reports']) || !is_array($g['reports'])) continue;
@@ -75,10 +86,11 @@ function load_reportes(string $base): array {
   $out = [];
   if (!is_dir($base)) return $out;
   foreach (glob($base . '/*/*.json') as $file) {
-    $data = json_decode(@file_get_contents($file), true);
-    if (!is_array($data)) continue;
+    $data = historico_read_json_file($file);
+    if (!$data) continue;
     foreach ($data as $row) {
       if (!is_array($row)) continue;
+      $row = dashboard_expand_message($row);
       $row['_fuente'] = 'reportes';
       $out[] = $row;
     }
@@ -90,8 +102,8 @@ function load_horas_extras(string $base): array {
   $out = [];
   if (!is_dir($base)) return $out;
   foreach (glob($base . '/*/*.json') as $file) {
-    $groups = json_decode(@file_get_contents($file), true);
-    if (!is_array($groups)) continue;
+    $groups = historico_read_json_file($file);
+    if (!$groups) continue;
     foreach ($groups as $g) {
       if (!isset($g['reports']) || !is_array($g['reports'])) continue;
       $fechaGrupo = $g['fecha'] ?? '';
@@ -107,20 +119,30 @@ function load_horas_extras(string $base): array {
   return $out;
 }
 
-function load_mensajes(string $file): array {
-  $data = json_decode(@file_get_contents($file), true);
-  if (!is_array($data)) return [];
-  foreach ($data as &$row) {
-    if (is_array($row)) $row['_fuente'] = 'mensajes';
+function historico_record_matches_current_user(array $row, string $userId, array $userNames): bool {
+  $assignedId = trim((string)($row['asignado_a'] ?? ''));
+  if ($assignedId !== '' && $assignedId === $userId) {
+    return true;
   }
-  return $data;
+  $candidates = [
+    trim((string)($row['core_usuario_asignado'] ?? '')),
+    trim((string)($row['asignado_nombre'] ?? '')),
+  ];
+  foreach ($userNames as $expected) {
+    if ($expected === '') continue;
+    foreach ($candidates as $candidate) {
+      if ($candidate !== '' && dashboard_name_tokens_match($expected, $candidate)) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 $f_desde     = norm_date($_GET['desde'] ?? '');
 $f_hasta     = norm_date($_GET['hasta'] ?? '');
 $f_usuario   = trim($_GET['usuario'] ?? '');
 $f_categoria = strtolower(trim($_GET['categoria'] ?? ''));
-$f_unidad    = strtolower(trim($_GET['unidad'] ?? ''));
 $f_fuente    = $_GET['fuente'] ?? '';
 $roles       = auth_load_roles();
 $roleName    = auth_get_user_role();
@@ -139,31 +161,30 @@ if ($scopePermitido === 'asignados') {
   $f_scope = 'asignados';
 }
 $userId = (string)auth_get_user_id();
+$userNames = array_values(array_filter([
+  trim((string)($_SESSION['user']['nombre'] ?? '')),
+  trim((string)((auth_find_user_by_id($userId)['nombre'] ?? ''))),
+], fn($value) => $value !== ''));
 
 $items  = [];
 $items  = array_merge($items, load_reportes(__DIR__ . '/../../data/reportes'));
 $items  = array_merge($items, load_horas_extras(__DIR__ . '/../../data/horasExtras'));
-$items  = array_merge($items, load_mensajes(__DIR__ . '/../../data/mensaje.json'));
 
 $filtered = [];
 foreach ($items as $row) {
   if (!is_array($row)) continue;
+  if (strtolower(trim((string)($row['estado'] ?? ''))) !== 'procesado') continue;
   $fecha = norm_date($row['fecha'] ?? ($row['fecha_inicio'] ?? ''));
   if ($fecha === '') continue;
   if ($f_desde && $fecha < $f_desde) continue;
   if ($f_hasta && $fecha > $f_hasta) continue;
-  if ($f_fuente === 'otros') {
-    if (in_array($row['_fuente'] ?? '', ['reportes','horas_extra'], true)) continue;
-  } elseif ($f_fuente && ($row['_fuente'] ?? '') !== $f_fuente) {
+  if ($f_fuente && ($row['_fuente'] ?? '') !== $f_fuente) {
     continue;
   }
   if ($f_usuario !== '' && (string)($row['asignado_a'] ?? '') !== (string)$f_usuario) continue;
-  if ($f_scope === 'asignados' && (string)($row['asignado_a'] ?? '') !== $userId) continue;
+  if ($f_scope === 'asignados' && !historico_record_matches_current_user($row, $userId, $userNames)) continue;
   $cat = strtolower($row['categoria'] ?? '');
   if ($f_categoria !== '' && $cat !== $f_categoria) continue;
-  $uni = strtolower($row['unidad_solicitante'] ?? ($row['unidad'] ?? ''));
-  if ($f_unidad !== '' && $uni !== $f_unidad) continue;
-
   $row['_fecha_norm'] = $fecha;
   $filtered[] = $row;
 }
@@ -174,16 +195,13 @@ usort($filtered, function ($a, $b) {
 
 $usuariosSel = [];
 $catsSel     = [];
-$uniSel      = [];
 foreach ($items as $r) {
   if (!is_array($r)) continue;
   $usuariosSel[(string)($r['asignado_a'] ?? '')] = $r['asignado_nombre'] ?? ($r['asignado_a'] ?? '');
   $catsSel[strtolower($r['categoria'] ?? '')]    = $r['categoria'] ?? '';
-  $uniSel[strtolower($r['unidad_solicitante'] ?? ($r['unidad'] ?? ''))] = $r['unidad_solicitante'] ?? ($r['unidad'] ?? '');
 }
 ksort($usuariosSel);
 ksort($catsSel);
-ksort($uniSel);
 ?>
 <!doctype html>
 <html lang="es">
@@ -193,7 +211,7 @@ ksort($uniSel);
   <title>Histórico</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="/redmine/assets/theme.css" rel="stylesheet">
+  <link href="/redmine-mantencion/assets/theme.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 <?php $activeNav = 'historico'; include __DIR__ . '/../partials/navbar.php'; ?>
@@ -203,7 +221,7 @@ ksort($uniSel);
   <?php
     $heroIcon = 'bi-archive';
     $heroTitle = 'Histórico';
-    $heroSubtitle = 'Reportes archivados, horas extra y reportes vigentes.';
+    $heroSubtitle = 'Registros procesados archivados y horas extra.';
     include __DIR__ . '/../partials/hero.php';
   ?>
 
@@ -220,7 +238,7 @@ ksort($uniSel);
         $filterFields = [
           ['label' => 'Desde', 'name' => 'desde', 'type' => 'date', 'value' => $f_desde, 'col' => 3, 'aria_label' => 'Fecha desde'],
           ['label' => 'Hasta', 'name' => 'hasta', 'type' => 'date', 'value' => $f_hasta, 'col' => 3, 'aria_label' => 'Fecha hasta'],
-          ['label' => 'Fuente', 'name' => 'fuente', 'type' => 'select', 'options' => ['' => 'Todas', 'reportes' => 'Reportes', 'horas_extra' => 'Horas extra', 'otros' => 'Otros'], 'value' => $f_fuente, 'col' => 2],
+          ['label' => 'Fuente', 'name' => 'fuente', 'type' => 'select', 'options' => ['' => 'Todas', 'reportes' => 'Reportes', 'horas_extra' => 'Horas extra'], 'value' => $f_fuente, 'col' => 2],
         ];
         if (!$scopeBloqueado) {
           $filterFields[] = [
@@ -238,14 +256,6 @@ ksort($uniSel);
           'type' => 'select',
           'options' => ['' => 'Todas'] + $catsSel,
           'value' => $f_categoria,
-          'col' => 2,
-        ];
-        $filterFields[] = [
-          'label' => 'Unidad solicitante',
-          'name' => 'unidad',
-          'type' => 'select',
-          'options' => ['' => 'Todas'] + $uniSel,
-          'value' => $f_unidad,
           'col' => 2,
         ];
       ?>
@@ -293,12 +303,13 @@ ksort($uniSel);
           <thead class="table-light">
             <tr class="position-sticky top-0 bg-light">
               <th scope="col">Fecha</th>
-              <th scope="col" class="text-truncate" style="max-width: 200px;">Asunto</th>
-              <th scope="col" class="text-truncate" style="max-width: 140px;">Asignado</th>
-              <th scope="col">Categoría</th>
-              <th scope="col">Unidad solicitante</th>
-              <th scope="col">Estado</th>
-              <th scope="col">Redmine ID</th>
+              <th scope="col" class="text-truncate" style="max-width: 160px;">Solicitante</th>
+              <th scope="col" class="text-truncate" style="max-width: 220px;">Tipo solicitud</th>
+              <th scope="col" class="text-truncate" style="max-width: 140px;">Establecimiento</th>
+              <th scope="col" class="text-truncate" style="max-width: 140px;">Departamento</th>
+              <th scope="col" class="text-truncate" style="max-width: 140px;">Asignado CORE</th>
+              <th scope="col">Estado CORE</th>
+              <th scope="col">Estado local</th>
               <th scope="col">Fuente</th>
               <?php if ($showActions): ?>
                 <th scope="col">Acciones</th>
@@ -312,29 +323,25 @@ ksort($uniSel);
               <?php foreach ($filtered as $row): ?>
                 <tr>
                   <td><?= $h($row['_fecha_norm'] ?? '') ?></td>
-                  <td class="text-truncate" style="max-width: 250px;" title="<?= $h($row['asunto'] ?? '') ?>"><?= $h($row['asunto'] ?? '') ?></td>
-                  <td class="text-truncate" style="max-width: 140px;" title="<?= $h($row['asignado_nombre'] ?? ($row['asignado_a'] ?? '')) ?>"><?= $h($row['asignado_nombre'] ?? ($row['asignado_a'] ?? '')) ?></td>
-                  <td class="text-truncate" style="max-width: 140px;" title="<?= $h($row['categoria'] ?? '') ?>"><?= $h($row['categoria'] ?? '') ?></td>
-                  <td class="text-truncate" style="max-width: 140px;" title="<?= $h($row['unidad_solicitante'] ?? ($row['unidad'] ?? '')) ?>"><?= $h($row['unidad_solicitante'] ?? ($row['unidad'] ?? '')) ?></td>
+                  <td class="text-truncate" style="max-width: 160px;" title="<?= $h($row['solicitante'] ?? '') ?>"><?= $h($row['solicitante'] ?? '') ?></td>
+                  <td class="text-truncate" style="max-width: 220px;" title="<?= $h($row['core_tipo_solicitud'] ?? ($row['asunto'] ?? '')) ?>"><?= $h($row['core_tipo_solicitud'] ?? ($row['asunto'] ?? '')) ?></td>
+                  <td class="text-truncate" style="max-width: 140px;" title="<?= $h($row['core_establecimiento'] ?? ($row['unidad_solicitante'] ?? '')) ?>"><?= $h($row['core_establecimiento'] ?? ($row['unidad_solicitante'] ?? '')) ?></td>
+                  <td class="text-truncate" style="max-width: 140px;" title="<?= $h($row['core_departamento'] ?? ($row['unidad'] ?? '')) ?>"><?= $h($row['core_departamento'] ?? ($row['unidad'] ?? '')) ?></td>
+                  <td class="text-truncate" style="max-width: 140px;" title="<?= $h($row['core_usuario_asignado'] ?? ($row['asignado_nombre'] ?? ($row['asignado_a'] ?? ''))) ?>"><?= $h($row['core_usuario_asignado'] ?? ($row['asignado_nombre'] ?? ($row['asignado_a'] ?? ''))) ?></td>
+                  <td><?= $h($row['core_estado'] ?? '') ?></td>
                   <td><?= $h($row['estado'] ?? '') ?></td>
-                  <td><?= $h($row['redmine_id'] ?? '') ?></td>
-                  <?php
-                    $fuenteLabel = $row['_fuente'] ?? '';
-                    if ($fuenteLabel === 'mensajes') $fuenteLabel = 'otros';
-                  ?>
+                  <?php $fuenteLabel = $row['_fuente'] ?? ''; ?>
                   <td><span class="badge bg-secondary"><?= $h($fuenteLabel) ?></span></td>
                   <?php if ($showActions): ?>
                     <td>
-                      <?php if (($row['_fuente'] ?? '') !== 'mensajes'): ?>
-                        <form method="post" class="m-0">
-                          <input type="hidden" name="action" value="delete">
-                          <input type="hidden" name="id" value="<?= $h($row['id'] ?? '') ?>">
-                          <input type="hidden" name="fuente" value="<?= $h($row['_fuente'] ?? '') ?>">
-                          <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Eliminar este registro del hist&oacute;rico?')">
-                            <i class="bi bi-trash"></i>
-                          </button>
-                        </form>
-                      <?php endif; ?>
+                      <form method="post" class="m-0">
+                        <input type="hidden" name="action" value="delete">
+                        <input type="hidden" name="id" value="<?= $h($row['id'] ?? '') ?>">
+                        <input type="hidden" name="fuente" value="<?= $h($row['_fuente'] ?? '') ?>">
+                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Eliminar este registro del hist&oacute;rico?')">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </form>
                     </td>
                   <?php endif; ?>
                 </tr>
@@ -386,4 +393,3 @@ ksort($uniSel);
 </div> <!-- #page-content -->
 </body>
 </html>
-

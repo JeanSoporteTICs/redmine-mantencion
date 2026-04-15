@@ -1,7 +1,8 @@
 ﻿<?php
 require_once __DIR__ . '/../../controllers/auth.php';
-auth_require_role(['root','administrador','gestor'], '/redmine/login.php');
+auth_require_role(['root','administrador','gestor'], '/redmine-mantencion/login.php');
 require_once __DIR__ . '/../../controllers/configuracion.php';
+require_once __DIR__ . '/../../controllers/categorias.php';
 [$cfg, $flash, $opts] = handle_configuracion();
 $h = fn($v) => htmlspecialchars($v ?? '', ENT_QUOTES, 'UTF-8');
 $role = auth_get_user_role();
@@ -130,7 +131,6 @@ if (empty($rolesData)) {
       'historico_acciones' => true,
       'configuracion' => true,
       'estadisticas' => true,
-      'estadisticas_manual' => true,
       'usuarios' => true,
       'categorias' => true,
       'unidades' => true,
@@ -156,7 +156,6 @@ if (empty($rolesData)) {
       'historico_acciones' => true,
       'configuracion' => true,
       'estadisticas' => true,
-      'estadisticas_manual' => true,
       'usuarios' => true,
       'categorias' => true,
       'unidades' => true,
@@ -180,7 +179,6 @@ if (empty($rolesData)) {
       'historico_acciones' => false,
       'configuracion' => true,
       'estadisticas' => true,
-      'estadisticas_manual' => true,
       'usuarios' => false,
       'categorias' => true,
       'unidades' => true,
@@ -206,7 +204,6 @@ if (empty($rolesData)) {
       'historico_acciones' => false,
       'configuracion' => false,
       'estadisticas' => false,
-      'estadisticas_manual' => false,
       'usuarios' => false,
       'categorias' => false,
       'unidades' => false,
@@ -259,7 +256,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           'historico_acciones' => isset($_POST['perm_historico_acciones']),
           'configuracion' => true,
           'estadisticas' => true,
-          'estadisticas_manual' => true,
           'usuarios' => true,
           'categorias' => true,
           'unidades' => true,
@@ -285,7 +281,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           'historico_acciones' => isset($_POST['perm_historico_acciones']),
           'configuracion' => isset($_POST['perm_configuracion']),
           'estadisticas' => isset($_POST['perm_estadisticas']),
-          'estadisticas_manual' => isset($_POST['perm_estadisticas_manual']),
           'usuarios' => isset($_POST['perm_usuarios']),
           'categorias' => isset($_POST['perm_categorias']),
           'unidades' => isset($_POST['perm_unidades']),
@@ -337,7 +332,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'historico_scope' => ($_POST['u_historico_scope'] ?? 'asignados'),
         'configuracion' => isset($_POST['u_perm_configuracion']),
         'estadisticas' => isset($_POST['u_perm_estadisticas']),
-        'estadisticas_manual' => isset($_POST['u_perm_estadisticas_manual']),
         'usuarios' => isset($_POST['u_perm_usuarios']),
         'categorias' => isset($_POST['u_perm_categorias']),
         'unidades' => isset($_POST['u_perm_unidades']),
@@ -376,7 +370,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
   if (function_exists('csrf_validate')) csrf_validate();
   $res = $syncUnidades();
   $msg = isset($res['error']) ? $res['error'] : ('Unidades sincronizadas (' . ($res['ok'] ?? 0) . ' registros).');
-  header('Location: /redmine/views/Configuracion/configuracion.php?synuni=' . urlencode($msg));
+  header('Location: /redmine-mantencion/views/Configuracion/configuracion.php?synuni=' . urlencode($msg));
+  exit;
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'sync_remote') {
+  if (function_exists('csrf_validate')) csrf_validate();
+  $res = sync_categorias_desde_api(__DIR__ . '/../../data/configuracion.json', __DIR__ . '/../../data/categorias.json');
+  $msg = isset($res['error']) ? $res['error'] : ('Categorías sincronizadas (' . ($res['ok'] ?? 0) . ' registros).');
+  header('Location: /redmine-mantencion/views/Configuracion/configuracion.php?synccat=' . urlencode($msg));
   exit;
 }
 ?>
@@ -388,7 +389,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
   <title>configuracion</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="/redmine/assets/theme.css" rel="stylesheet">
+  <link href="/redmine-mantencion/assets/theme.css" rel="stylesheet">
   <style>
     /* Fallback modal styles si Bootstrap no carga */
     .modal {
@@ -590,25 +591,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
           <table class="table table-sm align-middle">
             <thead class="table-light"><tr><th>ID</th><th>Nombre</th><th>Default</th><th>Acciones</th></tr></thead>
             <tbody>
-            <?php foreach ($items as $o): ?>
+            <?php foreach ($items as $index => $o): ?>
+              <?php $rowFormId = $type . '-edit-' . $index . '-' . preg_replace('/[^a-zA-Z0-9_-]/', '-', (string)($o['id'] ?? '')); ?>
+              <?php $deleteFormId = $type . '-delete-' . $index . '-' . preg_replace('/[^a-zA-Z0-9_-]/', '-', (string)($o['id'] ?? '')); ?>
               <tr>
-                <form method="post" class="d-flex align-items-center gap-2">
-                  <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
-                  <input type="hidden" name="opt_type" value="<?= $h($type) ?>">
-                  <input type="hidden" name="opt_action" value="update">
-                  <td style="width:120px"><input name="opt_id" class="form-control form-control-sm" value="<?= $h($o['id']) ?>" readonly></td>
-                  <td><input name="opt_nombre" class="form-control form-control-sm" value="<?= $h($o['nombre']) ?>"></td>
-                  <td class="text-center"><input class="form-check-input" type="checkbox" name="opt_default" <?= !empty($o['default']) ? 'checked' : '' ?>></td>
+                  <td style="width:120px">
+                    <input form="<?= $h($rowFormId) ?>" name="opt_id" class="form-control form-control-sm" value="<?= $h($o['id']) ?>">
+                  </td>
+                  <td>
+                    <input form="<?= $h($rowFormId) ?>" name="opt_nombre" class="form-control form-control-sm" value="<?= $h($o['nombre']) ?>">
+                  </td>
+                  <td class="text-center">
+                    <input form="<?= $h($rowFormId) ?>" class="form-check-input" type="checkbox" name="opt_default" <?= !empty($o['default']) ? 'checked' : '' ?>>
+                  </td>
                   <td class="d-flex gap-2">
-                    <button class="btn btn-success btn-sm">Guardar</button>
-                </form>
-                <form method="post" onsubmit="return confirm('Eliminar?')" class="m-0">
-                  <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
-                  <input type="hidden" name="opt_type" value="<?= $h($type) ?>">
-                  <input type="hidden" name="opt_action" value="delete">
-                  <input type="hidden" name="opt_id" value="<?= $h($o['id']) ?>">
-                  <button class="btn btn-danger btn-sm">Eliminar</button>
-                </form>
+                    <form method="post" id="<?= $h($rowFormId) ?>" class="m-0">
+                      <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
+                      <input type="hidden" name="opt_type" value="<?= $h($type) ?>">
+                      <input type="hidden" name="opt_action" value="update">
+                      <input type="hidden" name="opt_id_original" value="<?= $h($o['id']) ?>">
+                      <button class="btn btn-success btn-sm" type="submit">Guardar</button>
+                    </form>
+                    <form method="post" id="<?= $h($deleteFormId) ?>" onsubmit="return confirm('Eliminar?')" class="m-0">
+                      <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
+                      <input type="hidden" name="opt_type" value="<?= $h($type) ?>">
+                      <input type="hidden" name="opt_action" value="delete">
+                      <input type="hidden" name="opt_id_original" value="<?= $h($o['id']) ?>">
+                      <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+                    </form>
                   </td>
               </tr>
             <?php endforeach; ?>
@@ -633,7 +643,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
       <div class="modal-header">
         <div>
           <h5 class="modal-title mb-0">Categor&iacute;as (solo lectura)</h5>
-          <div class="text-muted small">Sincronizadas desde Redmine (issue_categories.json). Usa el bot&oacute;n para actualizar.</div>
+          <div class="text-muted small">Sincronizadas desde Redmine. Soporta `issue_categories.json` y `settings/categories`.</div>
         </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
@@ -646,7 +656,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             <span class="badge bg-light text-dark border">Total: <?= $h(is_array($categoriasData) ? count($categoriasData) : 0) ?></span>
           </div>
           <div class="d-flex gap-2">
-            <form action="../Categorias/categorias.php" method="post" class="m-0 d-inline" id="sync-cat-form">
+            <form action="../Configuracion/configuracion.php" method="post" class="m-0 d-inline" id="sync-cat-form">
               <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
               <input type="hidden" name="action" value="sync_remote">
               <button class="btn btn-primary btn-icon" type="submit"><i class="bi bi-arrow-repeat"></i> Actualizar desde API</button>
@@ -741,14 +751,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         <form method="post" class="row g-3">
           <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
           <div class="col-12">
+            <label class="form-label">URL administrador CORE</label>
+            <input name="core_admin_url" class="form-control" value="<?= $h($cfg['core_admin_url'] ?? 'https://www.hbvaldivia.cl/core/solicitudes/administrador') ?>">
+          </div>
+          <div class="col-12">
+            <label class="form-label">URL histórico CORE</label>
+            <input name="core_historico_url" class="form-control" value="<?= $h($cfg['core_historico_url'] ?? 'https://www.hbvaldivia.cl/core/solicitudes/administrador/obtener_solicitudes_historicas') ?>">
+            <div class="form-text">Usa la URL del apartado hist&oacute;rico desde donde se listar&aacute;n las solicitudes filtradas.</div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Intervalo sync CORE (min)</label>
+            <input type="number" min="1" name="core_sync_minutes" class="form-control" value="<?= $h($cfg['core_sync_minutes'] ?? 2) ?>">
+          </div>
+          <div class="col-md-8">
+            <label class="form-label">Estado sincronizaci&oacute;n CORE</label>
+            <input class="form-control" value="<?= $h(($cfg['core_last_sync'] ?? '') !== '' ? ('Ultima: ' . $cfg['core_last_sync']) . (($cfg['core_last_error'] ?? '') !== '' ? ' | Error: ' . $cfg['core_last_error'] : '') : 'Sin sincronizaciones registradas') ?>" readonly>
+          </div>
+          <div class="col-12">
             <label class="form-label">URL issues.json</label>
             <input name="platform_url" class="form-control" value="<?= $h($cfg['platform_url'] ?? '') ?>" required>
-            <div class="form-text">Se usa como base para sincronizar categor&iacute;as (issue_categories.json) y unidades (custom_fields/11.json).</div>
+            <div class="form-text">Se usa como base para sincronizar categor&iacute;as y unidades (custom_fields/11.json).</div>
           </div>
           <div class="col-12">
             <label class="form-label">URL categor&iacute;as (opcional)</label>
-            <input name="categories_url" class="form-control" value="<?= $h($cfg['categories_url'] ?? '') ?>" placeholder="Ej: https://tu-host/projects/xxx/issue_categories.json">
-            <div class="form-text">Si se deja vac&iacute;o, se deriva desde la URL base.</div>
+            <input name="categories_url" class="form-control" value="<?= $h($cfg['categories_url'] ?? '') ?>" placeholder="Ej: https://tu-host/projects/xxx/settings/categories">
+            <div class="form-text">Puede ser `issue_categories.json` o la nueva ruta `settings/categories`.</div>
           </div>
           <div class="col-12">
             <label class="form-label">URL unidades solicitantes (opcional)</label>
@@ -990,13 +1017,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
               </div>
               <div class="col-md-4">
                 <div class="form-check">
-                  <!-- Controla el acceso al panel manual de estadísticas -->
-                  <input class="form-check-input" type="checkbox" name="u_perm_estadisticas_manual" id="u_perm_estadisticas_manual_chk" <?= $uHas('estadisticas_manual') ? 'checked' : '' ?>>
-                  <label class="form-check-label" for="u_perm_estadisticas_manual_chk">Estad&iacute;sticas manuales (Redmine API)</label>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-check">
                   <input class="form-check-input" type="checkbox" name="u_perm_usuarios" id="u_perm_usuarios_chk" <?= $uHas('usuarios') ? 'checked' : '' ?>>
                   <label class="form-check-label" for="u_perm_usuarios_chk">Usuarios</label>
                 </div>
@@ -1026,7 +1046,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
               <div class="col-md-4">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" name="u_perm_simulador" id="u_perm_simulador_chk" <?= $uHas('simulador') ? 'checked' : '' ?>>
-                  <label class="form-check-label" for="u_perm_simulador_chk">Simular webhook</label>
+                  <label class="form-check-label" for="u_perm_simulador_chk">Ingresar pendiente manual</label>
                 </div>
               </div>
               <div class="col-md-4">
@@ -1188,13 +1208,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
               </div>
               <div class="col-md-4">
                 <div class="form-check">
-                  <!-- Permite mostrar el enlace a estadísticas manuales en la barra -->
-                  <input class="form-check-input" type="checkbox" name="perm_estadisticas_manual" id="permEstManual" <?= !empty($selCfg['estadisticas_manual']) ? 'checked' : '' ?>>
-                  <label class="form-check-label" for="permEstManual">Estad&iacute;sticas manuales (Redmine API)</label>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-check">
                   <input class="form-check-input" type="checkbox" name="perm_usuarios" id="permUsr" <?= !empty($selCfg['usuarios']) ? 'checked' : '' ?>>
                   <label class="form-check-label" for="permUsr">Usuarios</label>
                 </div>
@@ -1224,7 +1237,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
               <div class="col-md-4">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" name="perm_simulador" id="permSim" <?= !empty($selCfg['simulador']) ? 'checked' : '' ?>>
-                  <label class="form-check-label" for="permSim">Simular webhook</label>
+                  <label class="form-check-label" for="permSim">Ingresar pendiente manual</label>
                 </div>
               </div>
               <div class="col-md-4">
@@ -1448,13 +1461,3 @@ document.addEventListener('DOMContentLoaded', () => {
 </div> <!-- #page-content -->
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-

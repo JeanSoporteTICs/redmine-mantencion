@@ -1,7 +1,7 @@
 <?php
 // Endpoint mínimo para sincronizar categorías desde la API y volver a configuración.
 require_once __DIR__ . '/../../controllers/auth.php';
-auth_require_login('/redmine/login.php');
+auth_require_login('/redmine-mantencion/login.php');
 require_once __DIR__ . '/../../controllers/categorias.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -20,5 +20,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     $msg = 'Método no permitido.';
 }
-header('Location: /redmine/views/Configuracion/configuracion.php?synccat=' . urlencode($msg));
+header('Location: /redmine-mantencion/views/Configuracion/configuracion.php?synccat=' . urlencode($msg));
 exit;

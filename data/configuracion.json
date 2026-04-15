@@ -1,20 +1,25 @@
 {
-    "platform_url": "https:\/\/coresalud.cl\/gp\/projects\/backlog-soporte-ti\/issues.json",
+    "platform_url": "https:\/\/coresalud.cl\/gp\/projects\/backlog-mantencion-ti\/issues.json",
     "platform_token": "",
-    "project_id": 47,
+    "project_id": 48,
     "tracker_id": 3,
     "priority_id": 2,
-    "cf_solicitante": "3",
-    "cf_unidad": "5",
-    "cf_hora_extra": "12",
+    "cf_solicitante": 3,
+    "cf_unidad": 5,
+    "cf_hora_extra": null,
     "status_id": 1,
     "category_id": null,
     "retencion_horas": 1,
     "session_timeout": 600,
     "trackers": [
         {
-            "id": 2,
-            "nombre": "Tareas",
+            "id": 1,
+            "nombre": "Errores",
+            "default": false
+        },
+        {
+            "id": 10,
+            "nombre": "Servidores",
             "default": false
         },
         {
@@ -23,8 +28,8 @@
             "default": true
         },
         {
-            "id": 8,
-            "nombre": "Proyecto Soporte",
+            "id": 14,
+            "nombre": "Estadisticas",
             "default": false
         }
     ],
@@ -60,25 +65,17 @@
             "id": 1,
             "nombre": "Nueva",
             "default": true
-        },
-        {
-            "id": 2,
-            "nombre": "En curso",
-            "default": false
-        },
-        {
-            "id": 5,
-            "nombre": "Cerrada",
-            "default": false
-        },
-        {
-            "id": 6,
-            "nombre": "Rechazada",
-            "default": false
         }
     ],
-    "project_name": "Backlog Soporte TI",
-    "cf_unidad_solicitante": "11",
-    "categories_url": "https:\/\/coresalud.cl\/gp\/projects\/backlog-soporte-ti\/issue_categories.json",
-    "unidades_url": "https:\/\/coresalud.cl\/gp\/custom_fields.json"
+    "project_name": "Backlog Mantencion TI",
+    "cf_unidad_solicitante": null,
+    "categories_url": "https:\/\/coresalud.cl\/gp\/projects\/backlog-mantencion-ti\/settings\/categories",
+    "unidades_url": "https:\/\/coresalud.cl\/gp\/custom_fields.json",
+    "source_mode": "core",
+    "core_enabled": true,
+    "core_admin_url": "https:\/\/www.hbvaldivia.cl\/core\/solicitudes\/administrador",
+    "core_historico_url": "https:\/\/www.hbvaldivia.cl\/core\/solicitudes\/administrador\/obtener_solicitudes_historicas",
+    "core_sync_minutes": 2,
+    "core_last_sync": "2026-04-15T14:35:29+02:00",
+    "core_last_error": ""
 }

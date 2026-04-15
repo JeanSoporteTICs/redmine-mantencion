@@ -107,7 +107,7 @@ function auth_login($username, $password) {
         session_regenerate_id(true);
         $_SESSION['user'] = [
             'id' => $user['id'] ?? '',
-            'nombre' => trim(($user['nombre'] ?? '') . ' ' . ($user['apellido'] ?? '')),
+            'nombre' => trim((string)($user['nombre'] ?? '')),
             'rut' => $user['rut'] ?? '',
             'rol' => $user['rol'] ?? 'usuario',
         ];
@@ -130,7 +130,7 @@ function auth_logout() {
     session_destroy();
 }
 
-function auth_require_login($redirect = '/redmine/login.php') {
+function auth_require_login($redirect = '/redmine-mantencion/login.php') {
     auth_start_session();
     $timeout = auth_config_timeout();
     $last = $_SESSION['last_activity'] ?? 0;
@@ -247,12 +247,12 @@ function csrf_validate() {
     if (!$token || !$sess || !hash_equals($sess, $token)) {
         // Cierra sesiÃ³n para evitar estados inconsistentes y redirige a login
         auth_logout();
-        header('Location: /redmine/login.php?err=csrf');
+        header('Location: /redmine-mantencion/login.php?err=csrf');
         exit;
     }
 }
 
-function auth_require_role(array $rolesAllowed, $redirect = '/redmine/login.php') {
+function auth_require_role(array $rolesAllowed, $redirect = '/redmine-mantencion/login.php') {
     auth_require_login($redirect);
     $role = auth_get_user_role();
     // rol gestor hereda permisos de root
@@ -260,9 +260,7 @@ function auth_require_role(array $rolesAllowed, $redirect = '/redmine/login.php'
         return;
     }
     if (!in_array($role, $rolesAllowed, true)) {
-        header('Location: /redmine/views/Dashboard/dashboard.php');
+        header('Location: /redmine-mantencion/views/Dashboard/dashboard.php');
         exit;
     }
 }
-
-

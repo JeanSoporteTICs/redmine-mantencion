@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../../controllers/auth.php';
-auth_require_login('/redmine/login.php');
+auth_require_login('/redmine-mantencion/login.php');
 require_once __DIR__ . '/../../controllers/dashboard.php';
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -22,6 +22,10 @@ $procesados = array_filter($messages, fn($m) => strtolower($m['estado'] ?? '') =
 $errores = array_filter($messages, fn($m) => strtolower($m['estado'] ?? '') === 'error');
 
 $cfg = load_platform_config();
+$coreDesde = $_GET['core_desde'] ?? date('Y-m-d');
+$coreHasta = $_GET['core_hasta'] ?? date('Y-m-d');
+$coreAssignedName = $_GET['core_assigned_name'] ?? dashboard_default_core_assigned_name();
+$currentRole = auth_get_user_role();
 
 function normalize_phone_key($value) {
     $digits = preg_replace('/\D/', '', $value ?? '');
@@ -215,7 +219,7 @@ $csrf = csrf_token();
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="/redmine/assets/theme.css" rel="stylesheet">
+  <link href="/redmine-mantencion/assets/theme.css" rel="stylesheet">
 
 </head>
 
@@ -224,7 +228,94 @@ $csrf = csrf_token();
 <?php $activeNav = 'mensajes'; include __DIR__ . '/../partials/navbar.php'; ?>
 
 <div id="page-content">
+<style>
+  .dashboard-shell { display: grid; gap: 1.25rem; }
+  .dashboard-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; width: 100%; }
+  .dashboard-stat {
+    position: relative;
+    padding: 1.15rem 1.2rem;
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(248,250,255,.88));
+    border: 1px solid rgba(15, 23, 42, .08);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, .08);
+    overflow: hidden;
+  }
+  .dashboard-stat[data-filter] { cursor: pointer; }
+  .dashboard-stat[data-filter].is-active {
+    border-color: rgba(37, 99, 235, .28);
+    box-shadow: 0 26px 54px rgba(37, 99, 235, .18);
+    transform: translateY(-2px);
+  }
+  .dashboard-stat::after {
+    content: '';
+    position: absolute;
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    right: -24px;
+    top: -24px;
+    background: rgba(255,255,255,.75);
+  }
+  .dashboard-stat__top { display: flex; justify-content: space-between; align-items: center; margin-bottom: .9rem; position: relative; z-index: 1; }
+  .dashboard-stat__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.1rem;
+    box-shadow: 0 14px 28px rgba(15, 23, 42, .14);
+  }
+  .dashboard-stat__value { font-size: 2rem; font-weight: 700; line-height: 1; margin-bottom: .28rem; position: relative; z-index: 1; }
+  .dashboard-stat__label { color: var(--text-muted); font-weight: 600; font-size: .92rem; position: relative; z-index: 1; }
+  .dashboard-stat--pending .dashboard-stat__icon { background: linear-gradient(135deg, #f59e0b, #f97316); }
+  .dashboard-stat--processed .dashboard-stat__icon { background: linear-gradient(135deg, #10b981, #22c55e); }
+  .dashboard-stat--error .dashboard-stat__icon { background: linear-gradient(135deg, #ef4444, #fb7185); }
+  .dashboard-stat--total .dashboard-stat__icon { background: linear-gradient(135deg, #0ea5e9, #8b5cf6); }
+  .dashboard-panel { padding: 1.15rem; border-radius: 24px; background: rgba(255,255,255,.88); border: 1px solid rgba(255,255,255,.6); box-shadow: 0 22px 55px rgba(15, 23, 42, .09); }
+  .dashboard-panel__header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+  .dashboard-panel__title { margin: 0; font-size: 1.05rem; font-weight: 700; }
+  .dashboard-panel__desc { margin: .25rem 0 0; color: var(--text-muted); font-size: .92rem; }
+  .dashboard-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
+  .dashboard-toolbar__actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+  .dashboard-selection,
+  .dashboard-table-count {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    padding: .55rem .9rem;
+    border-radius: 999px;
+    font-weight: 700;
+  }
+  .dashboard-selection { background: rgba(15,23,42,.06); color: var(--text-primary); }
+  .dashboard-table-count { background: rgba(56,189,248,.12); color: #0f4c81; }
+  .dashboard-import-grid { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: end; }
+  .dashboard-import-button { min-width: 220px; min-height: 52px; font-weight: 700; }
+  .dashboard-table-card .card-body { padding: 0; }
+  .dashboard-table-header { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.05rem 1.2rem 0; }
+  .dashboard-table-header h3 { margin: 0; font-size: 1.05rem; font-weight: 700; }
+  .dashboard-table-subtitle { color: var(--text-muted); font-size: .9rem; margin-top: .2rem; }
+  .dashboard-table { margin-top: 1rem; }
+  .dashboard-table__subject { font-weight: 600; color: var(--text-primary); max-width: 260px; }
+  .dashboard-table__meta { display: block; color: var(--text-muted); font-size: .78rem; margin-top: .2rem; }
+  .dashboard-row-actions { display: flex; flex-wrap: wrap; gap: .45rem; }
+  .dashboard-row-actions .btn { min-height: 38px; padding: .55rem .85rem; border-radius: 12px; font-size: .86rem; }
+  @media (max-width: 1200px) { .dashboard-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 991px) {
+    .dashboard-import-grid { grid-template-columns: 1fr; }
+    .dashboard-import-button { width: 100%; min-width: 0; }
+  }
+  @media (max-width: 767px) {
+    .dashboard-stats { grid-template-columns: 1fr; }
+    .dashboard-toolbar, .dashboard-panel__header, .dashboard-table-header { flex-direction: column; align-items: stretch; }
+    .dashboard-toolbar__actions { width: 100%; }
+    .dashboard-toolbar__actions .btn { flex: 1 1 100%; }
+  }
+</style>
 <div class="container-fluid py-4">
+<div class="dashboard-shell">
 
   <?php
     $heroIcon = 'bi-speedometer2';
@@ -235,38 +326,107 @@ $csrf = csrf_token();
     include __DIR__ . '/../partials/hero.php';
   ?>
 
-    <div class="d-flex flex-wrap align-items-center justify-content-between mb-3 gap-2">
-    <ul class="nav nav-pills mb-0" id="status-filters">
-      <li class="nav-item"><button class="nav-link active" data-filter="pendiente" type="button">Pendientes (<?= count($pendientes) ?>)</button></li>
-      <li class="nav-item"><button class="nav-link" data-filter="procesado" type="button">Procesados (<?= count($procesados) ?>)</button></li>
-      <li class="nav-item"><button class="nav-link" data-filter="error" type="button">Errores (<?= count($errores) ?>)</button></li>
-    </ul>
-    <div class="d-flex gap-2 align-items-center">
-      <button type="button" id="process-btn" class="btn btn-success btn-sm btn-icon d-none">
-        <i class="bi bi-check2-circle"></i> Enviar reportes a Redmine
-      </button>
-      <button type="button" id="archive-btn" class="btn btn-warning btn-sm btn-icon d-none">
-        <i class="bi bi-archive"></i> Archivar
-      </button>
-      <button type="button" id="reset-errors-btn" class="btn btn-secondary btn-sm btn-icon d-none">
-        <i class="bi bi-arrow-counterclockwise"></i> Reintentar errores (marcar pendientes)
-      </button>
-    </div>
-  </div>
-
   <?php if ($flash): ?>
     <div class="alert alert-success" id="flash-msg"><?= $h($flash) ?></div>
   <?php endif; ?>
 
+  <form method="post" class="dashboard-panel" id="core-import-form">
+    <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
+    <input type="hidden" name="action" value="import_core_history">
+    <input type="hidden" name="core_runtime_user" id="core-runtime-user-hidden" value="">
+    <input type="hidden" name="core_runtime_pass" id="core-runtime-pass-hidden" value="">
+    <div class="dashboard-panel__header">
+      <div>
+        <h3 class="dashboard-panel__title">Consulta rápida a CORE</h3>
+        <p class="dashboard-panel__desc">Trae solicitudes por rango de fechas y usuario asignado con un flujo más claro.</p>
+      </div>
+    </div>
+    <div class="dashboard-import-grid">
+      <div class="row g-3 align-items-end">
+      <div class="col-md-4">
+        <label class="form-label">CORE desde</label>
+        <input type="date" name="core_desde" class="form-control" value="<?= $h($coreDesde) ?>">
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">CORE hasta</label>
+        <input type="date" name="core_hasta" class="form-control" value="<?= $h($coreHasta) ?>">
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Asignado CORE</label>
+        <?php if ($currentRole === 'root'): ?>
+          <select name="core_assigned_name" class="form-select">
+            <option value="">Todos</option>
+            <?php foreach ($userOptions as $userOption): ?>
+              <?php $optionName = trim((string)($userOption['nombre'] ?? '')); ?>
+              <?php if ($optionName === '') continue; ?>
+              <option value="<?= $h($optionName) ?>" <?= $optionName === (string)$coreAssignedName ? 'selected' : '' ?>>
+                <?= $h($optionName) ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        <?php else: ?>
+          <input type="text" name="core_assigned_name" class="form-control" value="<?= $h($coreAssignedName) ?>" placeholder="Opcional" readonly>
+        <?php endif; ?>
+      </div>
+      </div>
+      <button type="button" class="btn btn-primary dashboard-import-button" data-bs-toggle="modal" data-bs-target="#coreCredentialsModal">
+        <i class="bi bi-cloud-download"></i> Importar desde CORE
+      </button>
+    </div>
+  </form>
 
 
-  <div class="card">
+
+  <div class="dashboard-stats" id="status-filters">
+    <section class="dashboard-stat dashboard-stat--pending is-active" data-filter="pendiente" role="button" tabindex="0">
+      <div class="dashboard-stat__top"><span class="dashboard-stat__icon"><i class="bi bi-hourglass-split"></i></span></div>
+      <div class="dashboard-stat__value"><?= count($pendientes) ?></div>
+      <div class="dashboard-stat__label">Pendientes por revisar</div>
+    </section>
+    <section class="dashboard-stat dashboard-stat--processed" data-filter="procesado" role="button" tabindex="0">
+      <div class="dashboard-stat__top"><span class="dashboard-stat__icon"><i class="bi bi-check2-circle"></i></span></div>
+      <div class="dashboard-stat__value"><?= count($procesados) ?></div>
+      <div class="dashboard-stat__label">Procesados correctamente</div>
+    </section>
+    <section class="dashboard-stat dashboard-stat--error" data-filter="error" role="button" tabindex="0">
+      <div class="dashboard-stat__top"><span class="dashboard-stat__icon"><i class="bi bi-exclamation-octagon"></i></span></div>
+      <div class="dashboard-stat__value"><?= count($errores) ?></div>
+      <div class="dashboard-stat__label">Errores pendientes</div>
+    </section>
+  </div>
+
+  <div class="card dashboard-table-card">
 
     <div class="card-body">
+      <div class="dashboard-table-header">
+        <div>
+          <h3>Solicitudes activas</h3>
+          <div class="dashboard-table-subtitle">Gestiona la cola actual con mejor visibilidad del estado y de las acciones disponibles.</div>
+        </div>
+        <div class="dashboard-table-count"><i class="bi bi-table"></i> Filas visibles: <span id="visible-count">0</span></div>
+      </div>
+
+      <div class="dashboard-toolbar px-3 pt-3">
+        <div class="dashboard-toolbar__actions">
+          <span class="dashboard-selection"><i class="bi bi-check2-square"></i> Seleccionados: <strong id="selection-count">0</strong></span>
+          <button type="button" id="process-btn" class="btn btn-success btn-icon d-none" disabled>
+            <i class="bi bi-check2-circle"></i> Enviar reportes a Redmine
+          </button>
+          <button type="button" id="archive-btn" class="btn btn-warning btn-icon d-none" disabled>
+            <i class="bi bi-archive"></i> Archivar
+          </button>
+          <button type="button" id="delete-selected-btn" class="btn btn-danger btn-icon" disabled>
+            <i class="bi bi-trash3"></i> Eliminar seleccionados
+          </button>
+          <button type="button" id="reset-errors-btn" class="btn btn-secondary btn-icon d-none" disabled>
+            <i class="bi bi-arrow-counterclockwise"></i> Reintentar errores (marcar pendientes)
+          </button>
+        </div>
+      </div>
 
       <div class="table-responsive">
 
-        <table class="table table-striped align-middle w-100">
+        <table class="table table-striped align-middle w-100 dashboard-table">
 
           <thead class="table-light position-sticky top-0" style="z-index:1;">
 
@@ -277,17 +437,19 @@ $csrf = csrf_token();
 
               <th>Asunto</th>
 
-              <th>Categorías</th>
+              <th>Solicitante</th>
 
-              <th>Asignado a</th>
+              <th>Fecha creación</th>
 
-              <th>Unidad</th>
+              <th>Tipo solicitud</th>
 
-              <th>Unidad Solicitante</th>
+              <th>Establecimiento</th>
 
-              <th>Fecha Inicio</th>
+              <th>Departamento</th>
 
-              <th>Estado</th>
+              <th>Asignado CORE</th>
+
+              <th>Estado local</th>
 
               <th style="width:200px;">Acciones</th>
 
@@ -320,26 +482,31 @@ $csrf = csrf_token();
               <td><input type="checkbox" class="msg-check" value="<?= $h($m['id'] ?? '') ?>"></td>
               <td><?= $h($m['redmine_id'] ?? '') ?></td>
 
-              <td><?= $h($asunto) ?></td>
+              <td>
+                <div class="dashboard-table__subject"><?= $h($asunto) ?></div>
+              </td>
 
-              <td><?= $h($m['categoria'] ?? '') ?></td>
+              <td><?= $h($m['solicitante'] ?? '') ?></td>
 
-              <td><?= $h($displayAsignado) ?></td>
+              <td><?= $h($m['core_fecha_creacion'] ?? (($m['fecha'] ?? '') . ' ' . ($m['hora'] ?? ''))) ?></td>
 
-              <td><?= $h($m['unidad'] ?? '') ?></td>
+              <td><?= $h($m['core_tipo_solicitud'] ?? $asunto) ?></td>
 
-              <td><?= $h($m['unidad_solicitante'] ?? '') ?></td>
+              <td><?= $h($m['core_establecimiento'] ?? ($m['unidad_solicitante'] ?? '')) ?></td>
 
-              <td><?= $h($m['fecha_inicio'] ?? '') ?></td>
+              <td><?= $h($m['core_departamento'] ?? ($m['unidad'] ?? '')) ?></td>
+
+              <td><?= $h($m['core_usuario_asignado'] ?? $displayAsignado) ?></td>
 
               <?php
                 $badge = $estado === 'pendiente' ? 'warning' : ($estado === 'procesado' ? 'success' : 'danger');
               ?>
               <td><span class="badge bg-<?= $badge ?> text-dark"><?= $h($m['estado'] ?? '') ?></span></td>
 
-              <td class="d-flex gap-1 flex-wrap">
+              <td>
+                <div class="dashboard-row-actions">
 
-                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#detalleModal"
+                <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#detalleModal"
 
                   data-id="<?= $h($m['id'] ?? '') ?>"
 
@@ -376,8 +543,17 @@ $csrf = csrf_token();
                   data-hora="<?= $h($m['hora'] ?? '') ?>"
 
                   data-numero="<?= $h($m['numero'] ?? '') ?>"
+                  data-core_fecha_creacion="<?= $h($m['core_fecha_creacion'] ?? '') ?>"
+                  data-core_tipo_solicitud="<?= $h($m['core_tipo_solicitud'] ?? '') ?>"
+                  data-core_establecimiento="<?= $h($m['core_establecimiento'] ?? '') ?>"
+                  data-core_departamento="<?= $h($m['core_departamento'] ?? '') ?>"
+                  data-core_usuario_asignado="<?= $h($m['core_usuario_asignado'] ?? '') ?>"
+                  data-core_estado="<?= $h($m['core_estado'] ?? '') ?>"
+                  data-core_telefono="<?= $h($m['core_telefono'] ?? '') ?>"
+                  data-core_celular="<?= $h($m['core_celular'] ?? '') ?>"
+                  data-core_email="<?= $h($m['core_email'] ?? '') ?>"
 
-                >Detalle / Editar</button>
+                ><i class="bi bi-pencil-square"></i> Detalle</button>
                 <?php if (strtolower($m['estado'] ?? '') === 'error'): ?>
                   <?php
                     $logText = '';
@@ -385,16 +561,16 @@ $csrf = csrf_token();
                         $logText = implode("\n", $logsByMessage[$m['id']]);
                     }
                   ?>
-                  <button type="button" class="btn btn-sm btn-outline-danger log-btn" data-log="<?= $h($logText) ?>" data-bs-toggle="modal" data-bs-target="#logModal">Log</button>
+                  <button type="button" class="btn btn-sm btn-outline-danger log-btn" data-log="<?= $h($logText) ?>" data-bs-toggle="modal" data-bs-target="#logModal"><i class="bi bi-journal-text"></i> Log</button>
                 <?php endif; ?>
 
                 <form method="post" onsubmit="return confirm('Eliminar este mensaje?')">
                   <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
                   <input type="hidden" name="id" value="<?= $h($m['id'] ?? '') ?>">
                   <input type="hidden" name="action" value="delete">
-                  <button class="btn btn-sm btn-danger">Eliminar</button>
+                  <button class="btn btn-sm btn-danger"><i class="bi bi-trash3"></i> Eliminar</button>
                 </form>
-
+                </div>
               </td>
 
             </tr>
@@ -471,6 +647,33 @@ $csrf = csrf_token();
 </datalist>
 
 
+
+<div class="modal fade" id="coreCredentialsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Credenciales CORE</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label">Usuario CORE</label>
+            <input type="text" class="form-control" id="core-runtime-user-input" placeholder="RUT sin DV o email" autocomplete="username">
+          </div>
+          <div class="col-12">
+            <label class="form-label">Contraseña CORE</label>
+            <input type="password" class="form-control" id="core-runtime-pass-input" placeholder="Solo se usa para esta consulta" autocomplete="current-password">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary" form="core-import-form">Consultar CORE</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="modal fade" id="detalleModal" tabindex="-1" aria-hidden="true">
 
@@ -552,6 +755,8 @@ $csrf = csrf_token();
 
             <div class="col-md-3"><label class="form-label">Número</label><input name="numero" id="md-numero" class="form-control"></div>
 
+            <div class="col-md-3"><label class="form-label">Correo</label><input name="core_email" id="md-core_email" class="form-control" type="email"></div>
+
             <div class="col-12"><label class="form-label">Mensaje</label><textarea name="descripcion" id="md-mensaje" class="form-control" rows="2"></textarea></div>
 
           </div>
@@ -586,6 +791,26 @@ $csrf = csrf_token();
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteSelectedModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmar eliminación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-0">Se eliminarán <strong id="delete-selected-count">0</strong> mensaje(s) seleccionados. Esta acción no se puede deshacer.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="confirm-delete-selected-btn">
+          <i class="bi bi-trash3"></i> Eliminar seleccionados
+        </button>
       </div>
     </div>
   </div>
@@ -672,6 +897,8 @@ $csrf = csrf_token();
 
   set('md-numero', 'data-numero');
 
+  set('md-core_email', 'data-core_email');
+
   set('md-mensaje', 'data-descripcion');
 
 
@@ -715,11 +942,43 @@ function setAllChecks(checked) {
 
 }
 
+function getVisibleRows() {
+  return Array.from(document.querySelectorAll('table tbody tr')).filter(tr => tr.style.display !== 'none');
+}
+
+function getSelectedVisibleChecks() {
+  return Array.from(document.querySelectorAll('.msg-check')).filter(cb => {
+    if (!cb.checked || !cb.value) return false;
+    const row = cb.closest('tr');
+    return !!row && row.style.display !== 'none';
+  });
+}
+
+function refreshDashboardCounters() {
+  const visibleCount = document.getElementById('visible-count');
+  const selectionCount = document.getElementById('selection-count');
+  const visibleRows = getVisibleRows();
+  const selectedChecks = getSelectedVisibleChecks();
+  if (visibleCount) visibleCount.textContent = String(visibleRows.length);
+  if (selectionCount) selectionCount.textContent = String(selectedChecks.length);
+  const processBtn = document.getElementById('process-btn');
+  const archiveBtn = document.getElementById('archive-btn');
+  const deleteSelectedBtn = document.getElementById('delete-selected-btn');
+  const resetErrorsBtn = document.getElementById('reset-errors-btn');
+  if (processBtn) processBtn.disabled = selectedChecks.length === 0;
+  if (archiveBtn) archiveBtn.disabled = selectedChecks.length === 0;
+  if (deleteSelectedBtn) deleteSelectedBtn.disabled = selectedChecks.length === 0;
+  if (resetErrorsBtn) resetErrorsBtn.disabled = selectedChecks.length === 0;
+}
+
 const selAllTop = document.getElementById('sel-all-top');
 
 if (selAllTop) {
 
-  selAllTop.addEventListener('change', () => setAllChecks(selAllTop.checked));
+  selAllTop.addEventListener('change', () => {
+    setAllChecks(selAllTop.checked);
+    refreshDashboardCounters();
+  });
 
 }
 
@@ -736,6 +995,7 @@ if (selAllBtn) {
     setAllChecks(!allChecked);
 
     if (selAllTop) selAllTop.checked = !allChecked;
+    refreshDashboardCounters();
 
   });
 
@@ -772,6 +1032,8 @@ if (processForm && processIds) {
 
     }
 
+    refreshDashboardCounters();
+
   });
 
 }
@@ -783,6 +1045,7 @@ function filterRows(filter) {
     const status = (tr.getAttribute('data-status') || '').toLowerCase();
     tr.style.display = (filter === 'all' || status === filter) ? '' : 'none';
   });
+  refreshDashboardCounters();
 }
 
 function applyFilterButtons(filter) {
@@ -799,11 +1062,12 @@ function applyFilterButtons(filter) {
   if (resetErrorsBtn) {
     resetErrorsBtn.classList.toggle('d-none', filter !== 'error');
   }
+  refreshDashboardCounters();
 }
 
 if (filterNav) {
 
-  const initialFilter = filterNav.querySelector('.nav-link.active')?.getAttribute('data-filter') || 'pendiente';
+  const initialFilter = filterNav.querySelector('[data-filter].is-active')?.getAttribute('data-filter') || 'pendiente';
   filterRows(initialFilter);
   applyFilterButtons(initialFilter);
 
@@ -817,16 +1081,28 @@ if (filterNav) {
 
     const filter = btn.getAttribute('data-filter');
 
-    filterNav.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+    filterNav.querySelectorAll('[data-filter]').forEach(link => link.classList.remove('is-active'));
 
-    btn.classList.add('active');
+    btn.classList.add('is-active');
 
     filterRows(filter);
     applyFilterButtons(filter);
 
   });
 
+  filterNav.addEventListener('keydown', (e) => {
+    const card = e.target.closest('[data-filter]');
+    if (!card) return;
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    e.preventDefault();
+    card.click();
+  });
+
 }
+
+document.querySelectorAll('.msg-check').forEach(cb => {
+  cb.addEventListener('change', refreshDashboardCounters);
+});
 
 const processBtn = document.getElementById('process-btn');
 if (processBtn && processForm) {
@@ -840,6 +1116,33 @@ const archiveBtn = document.getElementById('archive-btn');
 if (archiveBtn && processForm && processAction) {
   archiveBtn.addEventListener('click', () => {
     processAction.value = 'archive_selected';
+    processForm.requestSubmit();
+  });
+}
+
+const deleteSelectedBtn = document.getElementById('delete-selected-btn');
+const deleteSelectedModalEl = document.getElementById('deleteSelectedModal');
+const deleteSelectedCount = document.getElementById('delete-selected-count');
+const confirmDeleteSelectedBtn = document.getElementById('confirm-delete-selected-btn');
+const deleteSelectedModal = deleteSelectedModalEl ? new bootstrap.Modal(deleteSelectedModalEl) : null;
+if (deleteSelectedBtn && processForm && processAction) {
+  deleteSelectedBtn.addEventListener('click', () => {
+    const selected = getSelectedVisibleChecks();
+    if (selected.length === 0) {
+      alert('Selecciona al menos un mensaje para eliminar.');
+      return;
+    }
+    if (deleteSelectedCount) {
+      deleteSelectedCount.textContent = String(selected.length);
+    }
+    deleteSelectedModal?.show();
+  });
+}
+
+if (confirmDeleteSelectedBtn && processForm && processAction) {
+  confirmDeleteSelectedBtn.addEventListener('click', () => {
+    processAction.value = 'delete_selected';
+    deleteSelectedModal?.hide();
     processForm.requestSubmit();
   });
 }
@@ -884,24 +1187,38 @@ if (logModal) {
 
 }
 
+const coreImportForm = document.getElementById('core-import-form');
+const coreRuntimeUserInput = document.getElementById('core-runtime-user-input');
+const coreRuntimePassInput = document.getElementById('core-runtime-pass-input');
+const coreRuntimeUserHidden = document.getElementById('core-runtime-user-hidden');
+const coreRuntimePassHidden = document.getElementById('core-runtime-pass-hidden');
+const coreCredentialsModal = document.getElementById('coreCredentialsModal');
+
+if (coreImportForm) {
+  coreImportForm.addEventListener('submit', event => {
+    if (coreRuntimeUserHidden) coreRuntimeUserHidden.value = coreRuntimeUserInput?.value || '';
+    if (coreRuntimePassHidden) coreRuntimePassHidden.value = coreRuntimePassInput?.value || '';
+    if (!coreRuntimeUserHidden?.value.trim() || !coreRuntimePassHidden?.value.trim()) {
+      event.preventDefault();
+      alert('Debes ingresar usuario y contraseña de CORE.');
+    }
+  });
+}
+
+if (coreCredentialsModal) {
+  coreCredentialsModal.addEventListener('hidden.bs.modal', () => {
+    if (coreRuntimePassInput) coreRuntimePassInput.value = '';
+    if (coreRuntimePassHidden) coreRuntimePassHidden.value = '';
+  });
+}
+
+refreshDashboardCounters();
+
 </script>
 
+</div>
+</div>
 </div> <!-- #page-content -->
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

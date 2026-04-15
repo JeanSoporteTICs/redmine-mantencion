@@ -1,1026 +1,786 @@
 [
     {
-        "id": "125",
-        "nombre": "Administrativa"
+        "id": "130",
+        "nombre": "Abastecimiento"
     },
     {
-        "id": "137",
-        "nombre": "Agenda"
+        "id": "497",
+        "nombre": "Acceso Jasper"
     },
     {
-        "id": "98",
-        "nombre": "Alfa"
+        "id": "141",
+        "nombre": "Activo Fijo"
     },
     {
-        "id": "397",
-        "nombre": "Antivirus"
+        "id": "461",
+        "nombre": "Actualización Arancel MAI 2023"
     },
     {
-        "id": "168",
-        "nombre": "AP"
+        "id": "583",
+        "nombre": "Actualización de prestaciones"
     },
     {
-        "id": "642",
-        "nombre": "apertura de candados "
+        "id": "676",
+        "nombre": "Agregar cama Aislamiento modulo alimentación"
     },
     {
-        "id": "161",
-        "nombre": "Apoyo empresa externa"
+        "id": "447",
+        "nombre": "Agregar Establecimiento Usuario Core"
     },
     {
-        "id": "281",
-        "nombre": "armario omnicell"
+        "id": "471",
+        "nombre": "Agregar Imagen en Baner"
     },
     {
-        "id": "228",
-        "nombre": "asesoria equipos externos"
+        "id": "665",
+        "nombre": "Agregar Policlinico"
     },
     {
-        "id": "650",
-        "nombre": "audiovisual "
+        "id": "487",
+        "nombre": "Agregar Policlinico en Core"
     },
     {
-        "id": "421",
-        "nombre": "auditorio "
+        "id": "401",
+        "nombre": "Agregar Prestaciones en Core"
     },
     {
-        "id": "338",
-        "nombre": "autoconsulta"
+        "id": "194",
+        "nombre": "Ampliar Perfil Manager"
     },
     {
-        "id": "332",
-        "nombre": "biblioredes"
+        "id": "131",
+        "nombre": "Anatomia"
     },
     {
-        "id": "287",
-        "nombre": "BitDefender Antivirus"
+        "id": "633",
+        "nombre": "Apoyo comisión reconocimiento"
     },
     {
-        "id": "207",
-        "nombre": "bodega manager"
+        "id": "529",
+        "nombre": "Apoyo documentos Desarrollo"
     },
     {
-        "id": "222",
-        "nombre": "brazaletes"
+        "id": "466",
+        "nombre": "Apoyo en Proyectos de Desarrollo"
     },
     {
-        "id": "296",
-        "nombre": "camara web"
+        "id": "478",
+        "nombre": "Apoyo recepción"
     },
     {
-        "id": "99",
-        "nombre": "Camaras"
+        "id": "566",
+        "nombre": "Apoyo Sumarial"
     },
     {
-        "id": "485",
-        "nombre": "cambio nombre de anexo"
+        "id": "467",
+        "nombre": "Archivo"
     },
     {
-        "id": "593",
-        "nombre": "Cambio Telefono"
+        "id": "441",
+        "nombre": "Atencion telefonica CORE"
     },
     {
-        "id": "288",
-        "nombre": "Cambio Vlan"
+        "id": "262",
+        "nombre": "AyudaCore WhatsApp"
     },
     {
-        "id": "610",
-        "nombre": "Capacitación"
+        "id": "140",
+        "nombre": "Banco de Sangre"
     },
     {
-        "id": "144",
-        "nombre": "Capacitación usuario"
+        "id": "469",
+        "nombre": "Banear Usuario Core"
     },
     {
-        "id": "202",
-        "nombre": "carpetas compartidas "
+        "id": "584",
+        "nombre": "BANNER"
     },
     {
-        "id": "175",
-        "nombre": "Carrusel Farmacia"
+        "id": "537",
+        "nombre": "Biologia Molecular"
     },
     {
-        "id": "177",
-        "nombre": "Caso"
+        "id": "528",
+        "nombre": "Bloqueo clave Core"
     },
     {
-        "id": "283",
-        "nombre": "Celular"
+        "id": "462",
+        "nombre": "Cambio Establecimiento"
     },
     {
-        "id": "295",
-        "nombre": "Certificado Digital"
+        "id": "347",
+        "nombre": "CENSO Establecimiento CORE"
     },
     {
-        "id": "163",
-        "nombre": "chicote"
+        "id": "400",
+        "nombre": "CENSOS CORE HOSPITAL BASE VALDIVIA"
     },
     {
-        "id": "500",
-        "nombre": "Ciberseguridad"
+        "id": "143",
+        "nombre": "Central Telefonica"
     },
     {
-        "id": "248",
-        "nombre": "compra materiales"
+        "id": "669",
+        "nombre": "Cita RCA"
     },
     {
-        "id": "210",
-        "nombre": "compras"
+        "id": "486",
+        "nombre": "Codigo de prestacion "
     },
     {
-        "id": "206",
-        "nombre": "compras fondo fijo"
+        "id": "199",
+        "nombre": "Codigo Profesional"
     },
     {
-        "id": "615",
-        "nombre": "Comunicados"
+        "id": "479",
+        "nombre": "Comite Oncologico"
     },
     {
-        "id": "555",
-        "nombre": "Conexion a Internet"
+        "id": "426",
+        "nombre": "Compras de Servicios"
     },
     {
-        "id": "353",
-        "nombre": "configuracion de equipos"
+        "id": "508",
+        "nombre": "Conexion a LIS"
     },
     {
-        "id": "647",
-        "nombre": "Configuración Impresora"
+        "id": "503",
+        "nombre": "Contabilidad"
     },
     {
-        "id": "271",
-        "nombre": "Configuración Regional"
+        "id": "631",
+        "nombre": "Contactabilidad"
     },
     {
-        "id": "192",
-        "nombre": "configuracion router"
+        "id": "482",
+        "nombre": "Correccion Item Presupuestario"
     },
     {
-        "id": "312",
-        "nombre": "Configuración SWITCH"
+        "id": "460",
+        "nombre": "Corregir Datos IMPAX"
     },
     {
-        "id": "293",
-        "nombre": "Conflicto IP"
-    },
-    {
-        "id": "649",
-        "nombre": "contraseñas "
-    },
-    {
-        "id": "146",
-        "nombre": "Coordinacion"
-    },
-    {
-        "id": "135",
-        "nombre": "CORE"
-    },
-    {
-        "id": "108",
+        "id": "666",
         "nombre": "Correos"
     },
     {
-        "id": "331",
-        "nombre": "corte de energia "
+        "id": "439",
+        "nombre": "Creación de Policlínico "
     },
     {
-        "id": "290",
-        "nombre": "cotizaciones"
+        "id": "607",
+        "nombre": "Crear Prestaciones"
     },
     {
-        "id": "320",
-        "nombre": "Creación de cuentas de usuarios"
+        "id": "672",
+        "nombre": "Crear usuarios en nube"
     },
     {
-        "id": "363",
-        "nombre": "cuenta publica "
+        "id": "438",
+        "nombre": "Credencial ALFA"
     },
     {
-        "id": "249",
-        "nombre": "dar de baja "
+        "id": "115",
+        "nombre": "Credencial CORE"
     },
     {
-        "id": "245",
-        "nombre": "Data"
+        "id": "196",
+        "nombre": "Credencial CORE y MANAGER"
     },
     {
-        "id": "276",
-        "nombre": "Dau Urgencia"
+        "id": "430",
+        "nombre": "Credencial Gestor de Proyectos"
     },
     {
-        "id": "340",
-        "nombre": "deco"
+        "id": "116",
+        "nombre": "Credencial Intranet"
     },
     {
-        "id": "343",
-        "nombre": "despacho a servicio"
+        "id": "114",
+        "nombre": "Credencial Manager"
     },
     {
-        "id": "443",
-        "nombre": "directrices "
+        "id": "121",
+        "nombre": "Credenciales"
     },
     {
-        "id": "513",
-        "nombre": "DNS CAIDOS"
+        "id": "490",
+        "nombre": "Datos del Paciente"
     },
     {
-        "id": "643",
-        "nombre": "doc digital "
+        "id": "588",
+        "nombre": "Datos Trazabilidad Pabellon"
     },
     {
-        "id": "370",
-        "nombre": "dropbox"
+        "id": "571",
+        "nombre": "Derivacion a soporte tecnico "
     },
     {
-        "id": "238",
-        "nombre": "DVR equipo Tele Vigilancia"
+        "id": "432",
+        "nombre": "DIGITACIÓN ALFA"
     },
     {
-        "id": "341",
-        "nombre": "ECM"
+        "id": "433",
+        "nombre": "Digitación IPD"
     },
     {
-        "id": "556",
-        "nombre": "Encuesta"
+        "id": "662",
+        "nombre": "Doc Digital"
     },
     {
-        "id": "251",
-        "nombre": "Entel"
+        "id": "634",
+        "nombre": "DocDigital"
     },
     {
-        "id": "205",
-        "nombre": "entrega de informacion "
+        "id": "514",
+        "nombre": "Documentación de procedimientos"
     },
     {
-        "id": "263",
-        "nombre": "ENTREGA DE TARJETAS SIM"
+        "id": "632",
+        "nombre": "Documentacion sumario administrativo"
     },
     {
-        "id": "612",
-        "nombre": "Entrevista"
+        "id": "381",
+        "nombre": "Documento Secretaría"
     },
     {
-        "id": "270",
-        "nombre": "Epi Vigila"
+        "id": "580",
+        "nombre": "Edición de Videos"
     },
     {
-        "id": "187",
-        "nombre": "equipo intesis"
+        "id": "501",
+        "nombre": "Eliminar Credenciales"
     },
     {
-        "id": "189",
-        "nombre": "equipo lenovo"
+        "id": "496",
+        "nombre": "Eliminar DAU"
     },
     {
-        "id": "201",
-        "nombre": "EQUIPO LENOVO REMASTERIZADO"
+        "id": "565",
+        "nombre": "Eliminar documento"
     },
     {
-        "id": "156",
-        "nombre": "Equipo Nuevo"
+        "id": "488",
+        "nombre": "Eliminar Error"
     },
     {
-        "id": "186",
-        "nombre": "equipo nuevo lenovo"
+        "id": "641",
+        "nombre": "Eliminar Hospitalización"
     },
     {
-        "id": "176",
-        "nombre": "equipo olidata "
+        "id": "663",
+        "nombre": "Eliminar Interconsulta Hospitalizado"
     },
     {
-        "id": "352",
-        "nombre": "Equipo Tecnodata"
+        "id": "557",
+        "nombre": "Eliminar IPD"
     },
     {
-        "id": "306",
-        "nombre": "Equipo UACH"
+        "id": "512",
+        "nombre": "Eliminar Protocolo"
     },
     {
-        "id": "97",
-        "nombre": "Equipos"
+        "id": "674",
+        "nombre": "Eliminar registro IPD"
     },
     {
-        "id": "204",
-        "nombre": "equipos de baja "
+        "id": "568",
+        "nombre": "Eliminar solicitud de campra examnen"
     },
     {
-        "id": "364",
-        "nombre": "equipos intesis"
+        "id": "509",
+        "nombre": "Eliminar solicitud de Pabellon"
     },
     {
-        "id": "336",
-        "nombre": "equipos opciones"
+        "id": "603",
+        "nombre": "Eliminar Solicitud pabellon manager"
     },
     {
-        "id": "330",
-        "nombre": "equipos tecnodata "
+        "id": "644",
+        "nombre": "Enlazar PoliClínico a CORE"
     },
     {
-        "id": "268",
-        "nombre": "Escritorio Remoto"
+        "id": "182",
+        "nombre": "Epicrisis"
     },
     {
-        "id": "155",
-        "nombre": "Etiquetadora"
+        "id": "449",
+        "nombre": "Error de Integración Imagenología"
     },
     {
-        "id": "209",
-        "nombre": "excel"
+        "id": "489",
+        "nombre": "Error digitación Citometría de flujo"
     },
     {
-        "id": "310",
-        "nombre": "Falla de pc"
+        "id": "382",
+        "nombre": "Error digitación examen PAP"
     },
     {
-        "id": "211",
-        "nombre": "Firma Electronica"
+        "id": "576",
+        "nombre": "Error Digitación Examenes"
     },
     {
-        "id": "237",
-        "nombre": "Fondo Fijo"
+        "id": "446",
+        "nombre": "Error digitación modulo Central Telefónica"
     },
     {
-        "id": "291",
-        "nombre": "formateo e instalacion de programas"
+        "id": "385",
+        "nombre": "Error digitación Rayos"
     },
     {
-        "id": "278",
-        "nombre": "fotocopiadora"
+        "id": "511",
+        "nombre": "Error exámenes Biopsias"
     },
     {
-        "id": "289",
-        "nombre": "FTP"
+        "id": "345",
+        "nombre": "Error Examenes LAB"
     },
     {
-        "id": "127",
-        "nombre": "Gestión de Tareas "
+        "id": "484",
+        "nombre": "Error nominas PAP"
     },
     {
-        "id": "247",
-        "nombre": "getionar compra "
+        "id": "675",
+        "nombre": "Establecimiento "
     },
     {
-        "id": "368",
-        "nombre": "hdmi "
+        "id": "260",
+        "nombre": "Establecimiento PAP"
     },
     {
-        "id": "253",
-        "nombre": "Huelleros"
+        "id": "136",
+        "nombre": "Estadisticas"
     },
     {
-        "id": "376",
-        "nombre": "icis"
+        "id": "458",
+        "nombre": "ESTUDIO MICROBIOLOGÍA"
     },
     {
-        "id": "254",
-        "nombre": "IMED"
+        "id": "126",
+        "nombre": "Examenes"
     },
     {
-        "id": "145",
-        "nombre": "IMPAX"
+        "id": "118",
+        "nombre": "Farmacia"
     },
     {
-        "id": "151",
-        "nombre": "Impresora comodato"
+        "id": "218",
+        "nombre": "FC"
     },
     {
-        "id": "158",
-        "nombre": "Impresora etiquetas"
+        "id": "581",
+        "nombre": "Ficha clinica contactabilidad"
     },
     {
-        "id": "150",
-        "nombre": "Impresora kropsys"
+        "id": "132",
+        "nombre": "Finanzas"
     },
     {
-        "id": "101",
-        "nombre": "Impresoras"
+        "id": "635",
+        "nombre": "FirmaGob"
     },
     {
-        "id": "294",
-        "nombre": "impresoras con problermas"
+        "id": "664",
+        "nombre": "Formulario"
     },
     {
-        "id": "191",
-        "nombre": "impresoras nuevas"
+        "id": "547",
+        "nombre": "Formularios Google"
     },
     {
-        "id": "252",
-        "nombre": "Inducción Practicantes"
+        "id": "142",
+        "nombre": "Gestion de Camas"
     },
     {
-        "id": "337",
-        "nombre": "informes de baja "
+        "id": "586",
+        "nombre": "Gestor de Proyectos HBV"
     },
     {
-        "id": "619",
-        "nombre": "instalacion de camaras"
+        "id": "179",
+        "nombre": "GRD"
     },
     {
-        "id": "170",
-        "nombre": "instalacion de equipo"
+        "id": "652",
+        "nombre": "Homologar Perfil \/ ACL"
     },
     {
-        "id": "543",
-        "nombre": "instalacion de TV"
+        "id": "504",
+        "nombre": "IMAGENOLOGIA"
     },
     {
-        "id": "195",
-        "nombre": "instalacion firma electronica"
+        "id": "548",
+        "nombre": "Informe"
     },
     {
-        "id": "628",
-        "nombre": "instalacion infinity"
+        "id": "567",
+        "nombre": "Informe atenciones RCA"
     },
     {
-        "id": "539",
-        "nombre": "Instalacion Nube NEXTCLOUD"
+        "id": "388",
+        "nombre": "INFORME IAAS"
     },
     {
-        "id": "639",
-        "nombre": "Instalación Onlyoffice"
+        "id": "506",
+        "nombre": "Informe Jasper"
     },
     {
-        "id": "596",
-        "nombre": "Instalación PC"
+        "id": "392",
+        "nombre": "Informe Nómina Biopsias"
     },
     {
-        "id": "335",
-        "nombre": "instalacion pc tecnodata"
+        "id": "544",
+        "nombre": "INFORME PROCEDIMIENTO CONO LEEP"
     },
     {
-        "id": "166",
-        "nombre": "Instalacion programas"
+        "id": "453",
+        "nombre": "INFORME RDT"
     },
     {
-        "id": "538",
-        "nombre": "instalacion SSD"
+        "id": "516",
+        "nombre": "Informe Registro del Cancer "
     },
     {
-        "id": "371",
-        "nombre": "instalacion torre"
+        "id": "391",
+        "nombre": "INFORMES COMGES"
     },
     {
-        "id": "623",
-        "nombre": "instalacion wps"
+        "id": "536",
+        "nombre": "Informes Jasper"
     },
     {
-        "id": "102",
-        "nombre": "Internet"
+        "id": "502",
+        "nombre": "INFORMES PRODUCCION PABELLON"
     },
     {
-        "id": "436",
-        "nombre": "inventario "
+        "id": "616",
+        "nombre": "Insumos Bodega general"
     },
     {
-        "id": "527",
-        "nombre": "Investigación Sumaria"
+        "id": "542",
+        "nombre": "Integracion Agfa"
     },
     {
-        "id": "307",
-        "nombre": "ips"
+        "id": "546",
+        "nombre": "Integración CORE-LIS Infinity"
     },
     {
-        "id": "322",
-        "nombre": "Jasper"
+        "id": "464",
+        "nombre": "Integración Microbiología"
     },
     {
-        "id": "95",
-        "nombre": "LAN"
+        "id": "457",
+        "nombre": "Integracion VPH"
     },
     {
-        "id": "269",
-        "nombre": "Lector de Codigo"
+        "id": "495",
+        "nombre": "kerMic"
     },
     {
-        "id": "169",
-        "nombre": "levantamiento de informacion "
+        "id": "450",
+        "nombre": "Laboratorio Central"
     },
     {
-        "id": "362",
-        "nombre": "licencia office "
+        "id": "582",
+        "nombre": "Link Transparencia"
     },
     {
-        "id": "188",
-        "nombre": "Licencias Medicas"
+        "id": "393",
+        "nombre": "Lista Espera"
     },
     {
-        "id": "284",
-        "nombre": "licitacion"
+        "id": "510",
+        "nombre": "Log Core"
     },
     {
-        "id": "304",
-        "nombre": "Lista de Distribución correo masivo."
-    },
-    {
-        "id": "357",
-        "nombre": "LWS"
-    },
-    {
-        "id": "94",
+        "id": "148",
         "nombre": "Manager"
     },
     {
-        "id": "282",
-        "nombre": "manual de procedimientos servicio tecnico"
+        "id": "660",
+        "nombre": "Mantención Correctiva TI"
     },
     {
-        "id": "275",
-        "nombre": "maquina virtual"
+        "id": "553",
+        "nombre": "Mantención de datos"
     },
     {
-        "id": "109",
-        "nombre": "Medipass"
+        "id": "134",
+        "nombre": "Manuales y Procedimientos"
     },
     {
-        "id": "280",
-        "nombre": "Mercado Publico"
+        "id": "454",
+        "nombre": "Modificación Reportes Jasper"
     },
     {
-        "id": "579",
-        "nombre": "Mini Switch"
+        "id": "472",
+        "nombre": "Modificar datos de Hospitalizacion"
     },
     {
-        "id": "223",
-        "nombre": "monitores"
+        "id": "480",
+        "nombre": "Modificar datos en Protocolos"
     },
     {
-        "id": "105",
-        "nombre": "Mouse"
+        "id": "609",
+        "nombre": "Modificar Datos Epicrisis"
     },
     {
-        "id": "217",
-        "nombre": "movimiento de equipos"
+        "id": "154",
+        "nombre": "Modificar Perfil CORE"
     },
     {
-        "id": "212",
-        "nombre": "Navegador "
+        "id": "585",
+        "nombre": "MODIFICAR SALAS HOSPITALIZADOS"
     },
     {
-        "id": "499",
+        "id": "564",
+        "nombre": "Modificar Suspenciones "
+    },
+    {
+        "id": "390",
+        "nombre": "Modulo Archivo"
+    },
+    {
+        "id": "474",
+        "nombre": "Modulo Contratos"
+    },
+    {
+        "id": "569",
+        "nombre": "Modulo Equipo Medico"
+    },
+    {
+        "id": "519",
+        "nombre": "Módulo Equipos Médicos"
+    },
+    {
+        "id": "570",
+        "nombre": "Modulo Gestion Documental "
+    },
+    {
+        "id": "437",
+        "nombre": "Modulo Hospitalizados"
+    },
+    {
+        "id": "618",
+        "nombre": "Modulo RCH"
+    },
+    {
+        "id": "491",
+        "nombre": "Modulo Recursos Humanos"
+    },
+    {
+        "id": "147",
+        "nombre": "Modulos CORE"
+    },
+    {
+        "id": "515",
         "nombre": "Nextcloud"
     },
     {
-        "id": "215",
-        "nombre": "notebook"
+        "id": "180",
+        "nombre": "N° Despacho"
     },
     {
-        "id": "181",
-        "nombre": "office"
+        "id": "498",
+        "nombre": "OIRS"
     },
     {
-        "id": "626",
-        "nombre": "Onedrive "
+        "id": "477",
+        "nombre": "Operativos"
     },
     {
-        "id": "266",
-        "nombre": "opciones"
-    },
-    {
-        "id": "541",
-        "nombre": "ordenamiento bodega"
-    },
-    {
-        "id": "225",
-        "nombre": "Outlook"
-    },
-    {
-        "id": "103",
+        "id": "165",
         "nombre": "Owncloud"
     },
     {
-        "id": "637",
-        "nombre": "pagina oficina de partes"
+        "id": "120",
+        "nombre": "Pabellon"
     },
     {
-        "id": "124",
+        "id": "481",
+        "nombre": "Paciente con Problemas"
+    },
+    {
+        "id": "157",
         "nombre": "Pagina Web"
     },
     {
-        "id": "261",
-        "nombre": "pandemia"
+        "id": "465",
+        "nombre": "Permisos Core"
     },
     {
-        "id": "359",
-        "nombre": "parlantes "
+        "id": "589",
+        "nombre": "Prestaciones"
     },
     {
-        "id": "297",
-        "nombre": "Password"
+        "id": "468",
+        "nombre": "Problemas con RECH"
     },
     {
-        "id": "473",
-        "nombre": "PC con problemas"
+        "id": "455",
+        "nombre": "Problemas Interfaz Omnicell"
     },
     {
-        "id": "216",
-        "nombre": "Pc Intesis"
+        "id": "552",
+        "nombre": "Problemas Labstats"
     },
     {
-        "id": "174",
-        "nombre": "pc opciones"
+        "id": "608",
+        "nombre": "RCA Borrar adendum"
     },
     {
-        "id": "333",
-        "nombre": "pcs tecnodata "
+        "id": "563",
+        "nombre": "RCA borrar documento"
     },
     {
-        "id": "265",
-        "nombre": "PDF"
+        "id": "602",
+        "nombre": "RCA cerrar atención"
     },
     {
-        "id": "292",
-        "nombre": "PENDRIVE"
+        "id": "399",
+        "nombre": "RCA Eliminar Atención"
     },
     {
-        "id": "309",
-        "nombre": "perdida de informacion "
+        "id": "384",
+        "nombre": "RCA Error Digitación"
     },
     {
-        "id": "122",
-        "nombre": "Petición"
+        "id": "452",
+        "nombre": "RCA Módulo"
     },
     {
-        "id": "305",
-        "nombre": "Pizarra Interactiva."
+        "id": "386",
+        "nombre": "RCA Prestaciones"
     },
     {
-        "id": "358",
-        "nombre": "plotter"
+        "id": "387",
+        "nombre": "RCA Procedimientos inyectable"
     },
     {
-        "id": "378",
-        "nombre": "presentacion "
+        "id": "667",
+        "nombre": "RCA Reabrir Atención"
     },
     {
-        "id": "242",
-        "nombre": "prestamo "
+        "id": "383",
+        "nombre": "RCA Registro Atención"
     },
     {
-        "id": "372",
-        "nombre": "prestamo cargador notebook"
+        "id": "456",
+        "nombre": "RCA Suspensión de horas atención"
     },
     {
-        "id": "246",
-        "nombre": "Prestamo Data"
+        "id": "627",
+        "nombre": "Reactivación Usuario CORE"
     },
     {
-        "id": "241",
-        "nombre": "Préstamo Disco Duro externo"
+        "id": "653",
+        "nombre": "Rebajar DAU"
     },
     {
-        "id": "324",
-        "nombre": "prestamo escala "
+        "id": "562",
+        "nombre": "Rebajar Deuda"
     },
     {
-        "id": "339",
-        "nombre": "prestamo hdd"
+        "id": "133",
+        "nombre": "Recaudación"
     },
     {
-        "id": "369",
-        "nombre": "prestamo hdmi "
+        "id": "505",
+        "nombre": "RECH"
     },
     {
-        "id": "232",
-        "nombre": "Prestamo Notebooks"
+        "id": "476",
+        "nombre": "Referentes CORE"
     },
     {
-        "id": "373",
-        "nombre": "prestamo pc "
+        "id": "494",
+        "nombre": "Registro de Cancer"
     },
     {
-        "id": "318",
-        "nombre": "prestamo webcam "
+        "id": "520",
+        "nombre": "registro de hospitalización"
     },
     {
-        "id": "208",
-        "nombre": "problema RAS"
+        "id": "423",
+        "nombre": "Registro Duplicado"
     },
     {
-        "id": "640",
-        "nombre": "Problemas con Onlyoffice"
+        "id": "661",
+        "nombre": "Registro en Core"
     },
     {
-        "id": "638",
-        "nombre": "Problemas con WPS"
+        "id": "402",
+        "nombre": "REGISTRO OMNICELL"
     },
     {
-        "id": "214",
-        "nombre": "Programas"
+        "id": "483",
+        "nombre": "REGISTROS SECCIONALES"
     },
     {
-        "id": "200",
-        "nombre": "proxy"
+        "id": "549",
+        "nombre": "Rem Biopsias"
     },
     {
-        "id": "334",
-        "nombre": "qclass"
+        "id": "545",
+        "nombre": "RRHH "
     },
     {
-        "id": "258",
-        "nombre": "RAC"
+        "id": "507",
+        "nombre": "Seccionales FC"
     },
     {
-        "id": "257",
-        "nombre": "ras"
-    },
-    {
-        "id": "630",
-        "nombre": "Recambio INTESIS"
-    },
-    {
-        "id": "311",
-        "nombre": "Recepción de Equipos"
-    },
-    {
-        "id": "367",
-        "nombre": "recepcion de materia (bodega)"
-    },
-    {
-        "id": "159",
-        "nombre": "Recuperar Informacion"
-    },
-    {
-        "id": "113",
-        "nombre": "Redes"
-    },
-    {
-        "id": "316",
-        "nombre": "Reloj Control"
-    },
-    {
-        "id": "299",
-        "nombre": "remasterizacion equipo"
-    },
-    {
-        "id": "470",
-        "nombre": "renovacion de anexo telefonico"
-    },
-    {
-        "id": "355",
-        "nombre": "renovación de computador "
-    },
-    {
-        "id": "611",
-        "nombre": "renovacion equipos intesis "
-    },
-    {
-        "id": "300",
-        "nombre": "reparacion cable poder"
-    },
-    {
-        "id": "167",
-        "nombre": "reporte equipo intesis"
-    },
-    {
-        "id": "302",
-        "nombre": "reporte equipo opciones "
-    },
-    {
-        "id": "107",
-        "nombre": "Reporte HP"
-    },
-    {
-        "id": "374",
-        "nombre": "respaldo de informacion"
-    },
-    {
-        "id": "622",
-        "nombre": "retiro de equipos "
-    },
-    {
-        "id": "104",
-        "nombre": "Retráctil"
-    },
-    {
-        "id": "100",
-        "nombre": "Reunión"
-    },
-    {
-        "id": "227",
-        "nombre": "reunion "
-    },
-    {
-        "id": "255",
-        "nombre": "revision equipo nuevo"
-    },
-    {
-        "id": "380",
-        "nombre": "SAHE"
-    },
-    {
-        "id": "298",
-        "nombre": "SAMU"
-    },
-    {
-        "id": "308",
-        "nombre": "SCANER"
-    },
-    {
-        "id": "138",
-        "nombre": "Segmento"
-    },
-    {
-        "id": "250",
-        "nombre": "seguimiento"
-    },
-    {
-        "id": "171",
-        "nombre": "Sema"
-    },
-    {
-        "id": "244",
-        "nombre": "sema"
-    },
-    {
-        "id": "267",
-        "nombre": "seminario on line "
-    },
-    {
-        "id": "230",
+        "id": "183",
         "nombre": "Servidores"
     },
     {
-        "id": "620",
-        "nombre": "Sidexis"
+        "id": "475",
+        "nombre": "SOLICITA COMPARTIR PERFIL EN OUWCLOUD"
     },
     {
-        "id": "193",
-        "nombre": "sigfe"
+        "id": "492",
+        "nombre": "Solicitud de Credencial CORE"
     },
     {
-        "id": "110",
-        "nombre": "Sigges"
+        "id": "575",
+        "nombre": "Solicitud de examenes Anatomía Patologica"
     },
     {
-        "id": "348",
-        "nombre": "sirh"
+        "id": "587",
+        "nombre": "Solicitud de VPn"
     },
     {
-        "id": "162",
-        "nombre": "Sistema"
+        "id": "442",
+        "nombre": "Soporte Inventario"
     },
     {
-        "id": "203",
-        "nombre": "software"
+        "id": "578",
+        "nombre": "Subdepto. de Proyectos e Iniciativas de Inversión"
     },
     {
-        "id": "346",
-        "nombre": "solicitud de celular "
+        "id": "451",
+        "nombre": "Subdepto. Imagenología"
     },
     {
-        "id": "319",
-        "nombre": "solicitud de compra "
+        "id": "459",
+        "nombre": "Subir Documentos"
     },
     {
-        "id": "172",
-        "nombre": "solicitud de computador"
+        "id": "659",
+        "nombre": "Sumario Administrivo"
     },
     {
-        "id": "590",
-        "nombre": "solicitud de etiquetadora "
+        "id": "493",
+        "nombre": "Unidad de Dialisis"
     },
     {
-        "id": "365",
-        "nombre": "solicitud de huellero"
+        "id": "448",
+        "nombre": "Unidad de Lavandería y Ropería"
     },
     {
-        "id": "190",
-        "nombre": "solicitud de impresoras "
+        "id": "119",
+        "nombre": "Urgencia"
     },
     {
-        "id": "356",
-        "nombre": "solicitud de monitor"
-    },
-    {
-        "id": "327",
-        "nombre": "solicitud de parlantes "
-    },
-    {
-        "id": "328",
-        "nombre": "solicitud de salida a celular y red fija"
-    },
-    {
-        "id": "326",
-        "nombre": "Solicitud de switch"
-    },
-    {
-        "id": "350",
-        "nombre": "solicitud de Tablet"
-    },
-    {
-        "id": "366",
-        "nombre": "solicitud de tablets"
-    },
-    {
-        "id": "325",
-        "nombre": "solicitud de telefono"
-    },
-    {
-        "id": "315",
-        "nombre": "solicitud de webcam"
-    },
-    {
-        "id": "629",
-        "nombre": "suseso"
-    },
-    {
-        "id": "272",
-        "nombre": "Tablet "
-    },
-    {
-        "id": "389",
-        "nombre": "taonet"
-    },
-    {
-        "id": "221",
-        "nombre": "tareas"
-    },
-    {
-        "id": "279",
-        "nombre": "TEAMS"
-    },
-    {
-        "id": "106",
-        "nombre": "Teclado"
-    },
-    {
-        "id": "329",
-        "nombre": "teclados "
-    },
-    {
-        "id": "235",
-        "nombre": "Tele Consultoria"
-    },
-    {
-        "id": "96",
-        "nombre": "Telefonia"
-    },
-    {
-        "id": "123",
-        "nombre": "Telemedicina"
-    },
-    {
-        "id": "594",
-        "nombre": "tonner"
-    },
-    {
-        "id": "321",
-        "nombre": "Totem"
-    },
-    {
-        "id": "648",
-        "nombre": "Transformador PC"
-    },
-    {
-        "id": "160",
-        "nombre": "Traslado equipos"
-    },
-    {
-        "id": "277",
-        "nombre": "Traslado Informacion"
-    },
-    {
-        "id": "604",
-        "nombre": "Turnos"
-    },
-    {
-        "id": "597",
-        "nombre": "tv"
-    },
-    {
-        "id": "240",
-        "nombre": "ups"
-    },
-    {
-        "id": "112",
-        "nombre": "Video Conferencia"
-    },
-    {
-        "id": "303",
-        "nombre": "virus"
-    },
-    {
-        "id": "317",
-        "nombre": "visita a terreno "
-    },
-    {
-        "id": "613",
-        "nombre": "vlan "
-    },
-    {
-        "id": "128",
-        "nombre": "VPN"
-    },
-    {
-        "id": "274",
-        "nombre": "WebCam"
-    },
-    {
-        "id": "153",
-        "nombre": "Wifi"
-    },
-    {
-        "id": "264",
-        "nombre": "zoom"
+        "id": "636",
+        "nombre": "Video Tutorial"
     }
 ]

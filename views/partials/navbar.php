@@ -18,7 +18,7 @@ $role = auth_get_user_role();
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link <?= $activeNav === 'mensajes' ? 'active' : '' ?>" href="../Dashboard/dashboard.php">Reportes</a></li>
         <?php if (auth_can('simulador')): ?>
-          <li class="nav-item"><a class="nav-link <?= $activeNav === 'webhook' ? 'active' : '' ?>" href="../Webhook/simulador.php">Simular webhook</a></li>
+          <li class="nav-item"><a class="nav-link <?= $activeNav === 'manual' ? 'active' : '' ?>" href="../Pendientes/manual.php">Pendiente manual</a></li>
         <?php endif; ?>
         <?php if (auth_can('horas_extra')): ?>
           <li class="nav-item"><a class="nav-link <?= $activeNav === 'horas' ? 'active' : '' ?>" href="../HorasExtra/horas_extra.php">Horas extra</a></li>
@@ -35,9 +35,6 @@ $role = auth_get_user_role();
         <?php if (auth_can('estadisticas')): ?>
           <li class="nav-item"><a class="nav-link <?= $activeNav === 'estadisticas' ? 'active' : '' ?>" href="../Estadisticas/estadisticas.php">Estad&iacute;sticas</a></li>
         <?php endif; ?>
-        <?php if (auth_can('estadisticas_manual')): ?>
-          <li class="nav-item"><a class="nav-link <?= $activeNav === 'estadisticas_api' ? 'active' : '' ?>" href="../Estadisticas/estadisticas_manual.php">Estad&iacute;sticas Redmine API</a></li>
-        <?php endif; ?>
         <?php if (auth_can('actividad')): ?>
           <li class="nav-item"><a class="nav-link <?= $activeNav === 'security' ? 'active' : '' ?>" href="../Security/activity.php">Actividad reciente</a></li>
         <?php endif; ?>
@@ -49,7 +46,7 @@ $role = auth_get_user_role();
         <?php if (!empty($_SESSION['user']['nombre'])): ?>
           <span class="text-white-50 small d-none d-sm-inline">Hola, <strong><?= $h($_SESSION['user']['nombre']) ?></strong></span>
         <?php endif; ?>
-        <a class="btn btn-outline-light btn-sm" href="/redmine/logout.php"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a>
+        <a class="btn btn-outline-light btn-sm" href="/redmine-mantencion/logout.php"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a>
       </div>
     </div>
   </div>
@@ -150,7 +147,7 @@ window.addEventListener('load', () => {
   const textEl = document.getElementById('session-timer-text') || el;
   const baseTimeout = el ? (parseInt(el.getAttribute('data-timeout'), 10) || 300) : 300;
   let remaining = el ? (parseInt(el.getAttribute('data-remaining'), 10) || baseTimeout) : baseTimeout;
-  const logoutUrl = '/redmine/logout.php';
+  const logoutUrl = '/redmine-mantencion/logout.php';
   const modalEl = document.getElementById('sessionModal');
   const modal = (window.bootstrap && modalEl) ? new bootstrap.Modal(modalEl) : null;
   let modalShown = false;
@@ -204,7 +201,7 @@ window.addEventListener('load', () => {
         return;
       }
       try {
-        const resp = await fetch('/redmine/session_extend.php', {
+        const resp = await fetch('/redmine-mantencion/session_extend.php', {
           method: 'POST',
           headers: {'Content-Type': 'application/x-www-form-urlencoded'},
           body: 'password=' + encodeURIComponent(pwd)

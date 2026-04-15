@@ -1,8 +1,8 @@
 ﻿<?php
 require_once __DIR__ . '/../../controllers/auth.php';
-auth_require_login('/redmine/login.php');
+auth_require_login('/redmine-mantencion/login.php');
 if (!auth_can('estadisticas')) {
-  header('Location: /redmine/views/Dashboard/dashboard.php');
+  header('Location: /redmine-mantencion/views/Dashboard/dashboard.php');
   exit;
 }
 // Si es gestor, solo ve sus propios reportes
@@ -93,7 +93,7 @@ $userNameMap = $users;
   <title>Estad&iacute;sticas</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="/redmine/assets/theme.css" rel="stylesheet">
+  <link href="/redmine-mantencion/assets/theme.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     .timeline-box {
@@ -994,7 +994,6 @@ document.addEventListener('DOMContentLoaded', applyInitialMonthSelection);
 </div> <!-- #page-content -->
 </body>
 </html>
-
 
 
 

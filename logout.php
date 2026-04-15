@@ -1,6 +1,5 @@
 ﻿<?php
 require_once __DIR__ . '/controllers/auth.php';
 auth_logout();
-header('Location: /redmine/login.php');
+header('Location: /redmine-mantencion/login.php');
 exit;
-

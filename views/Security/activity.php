@@ -1,9 +1,9 @@
 <?php
 require_once __DIR__ . '/../../controllers/auth.php';
 require_once __DIR__ . '/../../controllers/security.php';
-auth_require_role(['root', 'administrador', 'gestor'], '/redmine/login.php');
+auth_require_role(['root', 'administrador', 'gestor'], '/redmine-mantencion/login.php');
 if (!auth_can('actividad')) {
-  header('Location: /redmine/views/Dashboard/dashboard.php');
+  header('Location: /redmine-mantencion/views/Dashboard/dashboard.php');
   exit;
 }
 
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         security_clear_events();
         $_SESSION['security_flash'] = 'Actividad reciente borrada.';
     }
-    header('Location: /redmine/views/Security/activity.php');
+    header('Location: /redmine-mantencion/views/Security/activity.php');
     exit;
 }
 
@@ -46,7 +46,7 @@ $csrf = csrf_token();
   <title>Actividad de seguridad</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="/redmine/assets/theme.css" rel="stylesheet">
+  <link href="/redmine-mantencion/assets/theme.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 <?php $activeNav = 'security'; include __DIR__ . '/../partials/navbar.php'; ?>
