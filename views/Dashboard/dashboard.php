@@ -468,6 +468,7 @@ $csrf = csrf_token();
               $assignFromMap = $userMap[$idAsignado] ?? '';
               $asignadoNombre = $m['asignado_nombre'] ?? $assignFromMap ?: $idAsignado;
               $displayAsignado = $asignadoNombre;
+              $displayDepartamento = dashboard_resolve_department_value($m);
             ?>
 
             <tr
@@ -494,7 +495,7 @@ $csrf = csrf_token();
 
               <td><?= $h($m['core_establecimiento'] ?? ($m['unidad_solicitante'] ?? '')) ?></td>
 
-              <td><?= $h($m['core_departamento'] ?? ($m['unidad'] ?? '')) ?></td>
+              <td><?= $h($displayDepartamento) ?></td>
 
               <td><?= $h($m['core_usuario_asignado'] ?? $displayAsignado) ?></td>
 
