@@ -6,7 +6,7 @@
     "priority_id": 2,
     "cf_solicitante": 3,
     "cf_unidad": 5,
-    "cf_hora_extra": null,
+    "cf_hora_extra": 12,
     "status_id": 1,
     "category_id": null,
     "retencion_horas": 1,

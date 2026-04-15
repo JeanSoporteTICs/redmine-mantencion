@@ -1466,6 +1466,9 @@ function build_redmine_issue_payload(array $message, array $cfg, array $catMap, 
             $customFields[] = ['id' => 8, 'value' => $normalizedEmail];
         }
         $cfHoraExtra = $cfg['cf_hora_extra'] ?? null;
+        if ($cfHoraExtra === null || $cfHoraExtra === '') {
+            $cfHoraExtra = 12;
+        }
         if ($cfHoraExtra) {
             $customFields[] = ['id' => $cfHoraExtra, 'value' => normalize_hour_extra_value($message['hora_extra'] ?? '')];
         }
@@ -1547,6 +1550,9 @@ function build_redmine_issue_payload(array $message, array $cfg, array $catMap, 
         $customFields[] = ['id' => 8, 'value' => $coreEmail];
     }
     $cfHoraExtra = $cfg['cf_hora_extra'] ?? null;
+    if ($cfHoraExtra === null || $cfHoraExtra === '') {
+        $cfHoraExtra = 12;
+    }
     if ($cfHoraExtra) {
         $customFields[] = ['id' => $cfHoraExtra, 'value' => normalize_hour_extra_value($message['hora_extra'] ?? '')];
     }
