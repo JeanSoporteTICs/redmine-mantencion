@@ -111,3 +111,15 @@
 [15-04-2026 12:44:53] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
 [15-04-2026 13:22:03] CSRF_ALERT - Token=NULL session=NULL
 [15-04-2026 13:22:07] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
+[15-04-2026 13:31:40] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
+[15-04-2026 14:11:50] CSRF_ALERT - Token=NULL session=NULL
+[15-04-2026 14:11:54] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
+[15-04-2026 14:20:17] CSRF_ALERT - Token=NULL session=NULL
+[15-04-2026 14:20:21] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
+[15-04-2026 14:29:47] CSRF_ALERT - Token=NULL session=NULL
+[15-04-2026 14:29:50] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
+[15-04-2026 14:35:32] CSRF_ALERT - Token=NULL session=NULL
+[15-04-2026 14:35:39] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
+[15-04-2026 15:22:14] CSRF_ALERT - Token=NULL session=NULL
+[15-04-2026 15:22:19] LOGIN_SUCCESS - User Fernanda Leal Figueroa (167)
+[15-04-2026 15:35:36] CSRF_ALERT - Token=NULL session=NULL

@@ -5931,3 +5931,624 @@
     },
     "message_id": "core-9cb9a03cef084044c9a7"
 }
+{
+    "ts": "2026-04-15T20:12:31+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120232,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Servicio Laboratorio Clínico\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|17359137-3|Carla Baeza Vargas|TENS PERMANENTE LABORATORIO CLINICO|DESBANEAR PERFIL|\\r\\n|Modificar Perfil|20015980-2|Francisca Carolina Rivera Pantoja|REEMPLAZO VIGENTE HASTA 06\/05\/2026|DESBANEAR PERFIL|\",\"start_date\":\"2026-04-15\",\"due_date\":\"2026-04-15\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Jessica Gallardo González\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Servicio Laboratorio Clínico\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"coordinacion.labhbv@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T18:12:31Z\",\"updated_on\":\"2026-04-15T18:12:31Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Servicio Laboratorio Clínico",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|17359137-3|Carla Baeza Vargas|TENS PERMANENTE LABORATORIO CLINICO|DESBANEAR PERFIL|\n|Modificar Perfil|20015980-2|Francisca Carolina Rivera Pantoja|REEMPLAZO VIGENTE HASTA 06\/05\/2026|DESBANEAR PERFIL|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-15",
+            "due_date": "2026-04-15",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Jessica Gallardo González"
+                },
+                {
+                    "id": 5,
+                    "value": "Servicio Laboratorio Clínico"
+                },
+                {
+                    "id": 8,
+                    "value": "coordinacion.labhbv@redsalud.gob.cl"
+                }
+            ]
+        }
+    },
+    "message_id": "core-c704688c7deeb0daa9e9"
+}
+{
+    "ts": "2026-04-15T20:21:26+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120233,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":130,\"name\":\"Abastecimiento\"},\"subject\":\"esto es una prueba\",\"description\":\"sfsdfsdfsdf\",\"start_date\":\"2026-04-15\",\"due_date\":\"2026-04-15\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":5.0,\"total_estimated_hours\":5.0,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"el pp\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"633030\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Abastecimiento\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T18:21:25Z\",\"updated_on\":\"2026-04-15T18:21:25Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "esto es una prueba",
+            "description": "sfsdfsdfsdf",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "is_private": false,
+            "start_date": "2026-04-15",
+            "due_date": "2026-04-15",
+            "estimated_hours": 5,
+            "assigned_to_id": "42",
+            "category_id": 130,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "el pp"
+                },
+                {
+                    "id": 5,
+                    "value": "Abastecimiento"
+                },
+                {
+                    "id": 4,
+                    "value": "633030"
+                }
+            ]
+        }
+    },
+    "message_id": "manual-69dfd712dff4c7.61023485"
+}
+{
+    "ts": "2026-04-15T20:30:37+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120235,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":141,\"name\":\"Activo Fijo\"},\"subject\":\"prueba 2\",\"description\":\"aasdasd\",\"start_date\":\"2026-04-15\",\"due_date\":\"2026-04-15\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":2.0,\"total_estimated_hours\":2.0,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"hola\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"mundo\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Activo Fijo\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"jean.cortes@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"1\"}],\"created_on\":\"2026-04-15T18:30:37Z\",\"updated_on\":\"2026-04-15T18:30:37Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "prueba 2",
+            "description": "aasdasd",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "is_private": false,
+            "start_date": "2026-04-15",
+            "due_date": "2026-04-15",
+            "estimated_hours": 2,
+            "assigned_to_id": "42",
+            "category_id": 141,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "hola"
+                },
+                {
+                    "id": 5,
+                    "value": "Activo Fijo"
+                },
+                {
+                    "id": 4,
+                    "value": "mundo"
+                },
+                {
+                    "id": 8,
+                    "value": "jean.cortes@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "1"
+                }
+            ]
+        }
+    },
+    "message_id": "manual-69dfd9438ddd83.35315086"
+}
+{
+    "ts": "2026-04-15T21:24:21+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120265,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"assigned_to\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Central Producción De Alimentos\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|19739769-1|Paula Fernanda Carrasco Lobos|Nutricionista con contrato de proteccion a la maternidad iniciando funciones el dia de hoy|Desbaneo de Cuenta Core. y Añadir Modulo de Solicitud Alimentacion para pacientes con perfil Clinico, y modulo de Gestion documental|\",\"start_date\":\"2026-04-15\",\"due_date\":\"2026-04-15\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Matias Ignacio Gallardo Alarcon\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad Central Producción De Alimentos\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"matias.gallardo@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T19:24:21Z\",\"updated_on\":\"2026-04-15T19:24:21Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Central Producción De Alimentos",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|19739769-1|Paula Fernanda Carrasco Lobos|Nutricionista con contrato de proteccion a la maternidad iniciando funciones el dia de hoy|Desbaneo de Cuenta Core. y Añadir Modulo de Solicitud Alimentacion para pacientes con perfil Clinico, y modulo de Gestion documental|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-15",
+            "due_date": "2026-04-15",
+            "assigned_to_id": "167",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Matias Ignacio Gallardo Alarcon"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad Central Producción De Alimentos"
+                },
+                {
+                    "id": 8,
+                    "value": "matias.gallardo@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-2636f644b9a306eb6700"
+}
+{
+    "ts": "2026-04-15T21:24:22+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120266,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"assigned_to\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Hospitalización Gineco-Obstétrica\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|19649110-4|Nicolas Alejandro Contreras Silva|ingresar solicitud de exámenes R8|modulo examenes|\",\"start_date\":\"2026-04-15\",\"due_date\":\"2026-04-15\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Maryann Roberts Jimenez\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad Hospitalización Gineco-Obstétrica\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"maryann.roberts@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T19:24:21Z\",\"updated_on\":\"2026-04-15T19:24:21Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Hospitalización Gineco-Obstétrica",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|19649110-4|Nicolas Alejandro Contreras Silva|ingresar solicitud de exámenes R8|modulo examenes|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-15",
+            "due_date": "2026-04-15",
+            "assigned_to_id": "167",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Maryann Roberts Jimenez"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad Hospitalización Gineco-Obstétrica"
+                },
+                {
+                    "id": 8,
+                    "value": "maryann.roberts@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-99ec2928d0db82560656"
+}
+{
+    "ts": "2026-04-15T21:24:22+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120267,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"assigned_to\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro De Salud Familiar Juan Santa Maria Bonet\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Agregar Establecimiento|20622412-6|Francisca Mancilla Carrasco|Solicito habilitar perfil en Cesfam Juan Santamaria Bonet, ya que inicio atenciones en este centro de salud.||\",\"start_date\":\"2026-04-15\",\"due_date\":\"2026-04-15\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Carolina Lehuey Quinchahual\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro De Salud Familiar Juan Santa Maria Bonet\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"carolinalehueyq@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T19:24:22Z\",\"updated_on\":\"2026-04-15T19:24:22Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro De Salud Familiar Juan Santa Maria Bonet",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Agregar Establecimiento|20622412-6|Francisca Mancilla Carrasco|Solicito habilitar perfil en Cesfam Juan Santamaria Bonet, ya que inicio atenciones en este centro de salud.||",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-15",
+            "due_date": "2026-04-15",
+            "assigned_to_id": "167",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Carolina Lehuey Quinchahual"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro De Salud Familiar Juan Santa Maria Bonet"
+                },
+                {
+                    "id": 8,
+                    "value": "carolinalehueyq@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-b5bfbed09e63f93f7d70"
+}
+{
+    "ts": "2026-04-15T21:24:23+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120268,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"assigned_to\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"subject\":\"Creación de Usuario \/ Centro De Salud Familiar Juan Santa Maria Bonet\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Creación de Usuario|||||\",\"start_date\":\"2026-04-15\",\"due_date\":\"2026-04-15\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Carolina Lehuey Quinchahual\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro De Salud Familiar Juan Santa Maria Bonet\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"carolinalehueyq@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T19:24:23Z\",\"updated_on\":\"2026-04-15T19:24:23Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Creación de Usuario \/ Centro De Salud Familiar Juan Santa Maria Bonet",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Creación de Usuario|||||",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-15",
+            "due_date": "2026-04-15",
+            "assigned_to_id": "167",
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Carolina Lehuey Quinchahual"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro De Salud Familiar Juan Santa Maria Bonet"
+                },
+                {
+                    "id": 8,
+                    "value": "carolinalehueyq@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-aabd2e7e6e01ea8f7e84"
+}
+{
+    "ts": "2026-04-15T21:24:24+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120269,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"assigned_to\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Servicio Laboratorio Clínico\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|13610083-1|Pamela Dianet Zuñiga Aravena|REEMPLAZO ACTIVA HASTA 18\/04\/2026|DESBANEAR PERFIL|\",\"start_date\":\"2026-04-15\",\"due_date\":\"2026-04-15\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Jessica Gallardo González\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Servicio Laboratorio Clínico\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"coordinacion.labhbv@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T19:24:23Z\",\"updated_on\":\"2026-04-15T19:24:23Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Servicio Laboratorio Clínico",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|13610083-1|Pamela Dianet Zuñiga Aravena|REEMPLAZO ACTIVA HASTA 18\/04\/2026|DESBANEAR PERFIL|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-15",
+            "due_date": "2026-04-15",
+            "assigned_to_id": "167",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Jessica Gallardo González"
+                },
+                {
+                    "id": 5,
+                    "value": "Servicio Laboratorio Clínico"
+                },
+                {
+                    "id": 8,
+                    "value": "coordinacion.labhbv@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-c755789a67d3efae4eba"
+}
+{
+    "ts": "2026-04-15T21:24:24+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120270,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"assigned_to\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"subject\":\"Creación de Usuario \/ Centro De Salud Familiar Juan Santa Maria Bonet\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Creación de Usuario|||||\",\"start_date\":\"2026-04-15\",\"due_date\":\"2026-04-15\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Carolina Lehuey Quinchahual\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro De Salud Familiar Juan Santa Maria Bonet\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"carolinalehueyq@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T19:24:24Z\",\"updated_on\":\"2026-04-15T19:24:24Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Creación de Usuario \/ Centro De Salud Familiar Juan Santa Maria Bonet",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Creación de Usuario|||||",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-15",
+            "due_date": "2026-04-15",
+            "assigned_to_id": "167",
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Carolina Lehuey Quinchahual"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro De Salud Familiar Juan Santa Maria Bonet"
+                },
+                {
+                    "id": 8,
+                    "value": "carolinalehueyq@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-7af8d0adc998d4156137"
+}
+{
+    "ts": "2026-04-15T23:21:15+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120301,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Urgencia\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|20156217-1|Frank Esteban Fuentes Perez|activar cuenta por reemplazo|perfil enfermero de urgencia|\",\"start_date\":\"2026-04-15\",\"due_date\":\"2026-04-15\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Ignacio Espinoza Sanhueza\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Subdepto. Urgencia\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"ignacio.espinoza@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T21:21:15Z\",\"updated_on\":\"2026-04-15T21:21:15Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Urgencia",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|20156217-1|Frank Esteban Fuentes Perez|activar cuenta por reemplazo|perfil enfermero de urgencia|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-15",
+            "due_date": "2026-04-15",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Ignacio Espinoza Sanhueza"
+                },
+                {
+                    "id": 5,
+                    "value": "Subdepto. Urgencia"
+                },
+                {
+                    "id": 8,
+                    "value": "ignacio.espinoza@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-d112eedf6fe538937324"
+}
+{
+    "ts": "2026-04-15T23:21:15+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120302,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro De Salud Familiar Los Lagos\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|20703812-1|Paula Contreras Aravena|Favor resetear clave de acceso a Doctora Paula Contreras Aravena. Email : dra.paula.contreras.aravena@gmail.com|Favor resetear clave de acceso a Doctora Paula Contreras Aravena. Email : dra.paula.contreras.aravena@gmail.com|\",\"start_date\":\"2026-04-15\",\"due_date\":\"2026-04-15\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Alexis Francisco Cortez Villanueva\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro De Salud Familiar Los Lagos\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"ingfcortezv@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T21:21:15Z\",\"updated_on\":\"2026-04-15T21:21:15Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro De Salud Familiar Los Lagos",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|20703812-1|Paula Contreras Aravena|Favor resetear clave de acceso a Doctora Paula Contreras Aravena. Email : dra.paula.contreras.aravena@gmail.com|Favor resetear clave de acceso a Doctora Paula Contreras Aravena. Email : dra.paula.contreras.aravena@gmail.com|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-15",
+            "due_date": "2026-04-15",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Alexis Francisco Cortez Villanueva"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro De Salud Familiar Los Lagos"
+                },
+                {
+                    "id": 8,
+                    "value": "ingfcortezv@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-225e0c938d71d8d609e4"
+}
+{
+    "ts": "2026-04-15T23:21:16+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120303,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"subject\":\"Creación de Usuario \/ Centro De Salud Familiar Panguipulli\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Creación de Usuario|||||\",\"start_date\":\"2026-04-15\",\"due_date\":\"2026-04-15\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Claudio Schman Vargas\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro De Salud Familiar Panguipulli\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"somepanguipulli@cmpanguipulli.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T21:21:16Z\",\"updated_on\":\"2026-04-15T21:21:16Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Creación de Usuario \/ Centro De Salud Familiar Panguipulli",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Creación de Usuario|||||",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-15",
+            "due_date": "2026-04-15",
+            "assigned_to_id": "42",
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Claudio Schman Vargas"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro De Salud Familiar Panguipulli"
+                },
+                {
+                    "id": 8,
+                    "value": "somepanguipulli@cmpanguipulli.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-79cef49c03938a42f67c"
+}
+{
+    "ts": "2026-04-15T23:21:17+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120304,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Consultas Médicas Y No Médicas\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|14470511-4|Alicia Frias Sierra|Gestión de agendas.|Agregar en módulo RCA, el botón para \\\"anular citas\\\"|\",\"start_date\":\"2026-04-15\",\"due_date\":\"2026-04-15\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Susana  Quiñones  Mancilla\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Subdepto. Consultas Médicas Y No Médicas\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"susana.quinones@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T21:21:16Z\",\"updated_on\":\"2026-04-15T21:21:16Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Consultas Médicas Y No Médicas",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|14470511-4|Alicia Frias Sierra|Gestión de agendas.|Agregar en módulo RCA, el botón para \"anular citas\"|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-15",
+            "due_date": "2026-04-15",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Susana  Quiñones  Mancilla"
+                },
+                {
+                    "id": 5,
+                    "value": "Subdepto. Consultas Médicas Y No Médicas"
+                },
+                {
+                    "id": 8,
+                    "value": "susana.quinones@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-697f207aaa01574a70dd"
+}
+{
+    "ts": "2026-04-15T23:21:17+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120305,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Consultas Médicas Y No Médicas\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|11590782-4|Marcela Vidal Avendaño|Gestión de agendas.|Agregar en módulo RCA, el botón para \\\"anular citas\\\"|\",\"start_date\":\"2026-04-15\",\"due_date\":\"2026-04-15\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Susana  Quiñones  Mancilla\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Subdepto. Consultas Médicas Y No Médicas\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"susana.quinones@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T21:21:17Z\",\"updated_on\":\"2026-04-15T21:21:17Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Consultas Médicas Y No Médicas",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|11590782-4|Marcela Vidal Avendaño|Gestión de agendas.|Agregar en módulo RCA, el botón para \"anular citas\"|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-15",
+            "due_date": "2026-04-15",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Susana  Quiñones  Mancilla"
+                },
+                {
+                    "id": 5,
+                    "value": "Subdepto. Consultas Médicas Y No Médicas"
+                },
+                {
+                    "id": 8,
+                    "value": "susana.quinones@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-79c08f431e6ae36d5d61"
+}
+{
+    "ts": "2026-04-15T23:21:18+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120306,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Consultas Médicas Y No Médicas\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|12389794-3|Nelida Rios Salazar|Gestión de agendas.|Agregar en módulo RCA, el botón para \\\"anular citas\\\"|\",\"start_date\":\"2026-04-15\",\"due_date\":\"2026-04-15\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Susana  Quiñones  Mancilla\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Subdepto. Consultas Médicas Y No Médicas\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"susana.quinones@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T21:21:18Z\",\"updated_on\":\"2026-04-15T21:21:18Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Consultas Médicas Y No Médicas",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|12389794-3|Nelida Rios Salazar|Gestión de agendas.|Agregar en módulo RCA, el botón para \"anular citas\"|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-15",
+            "due_date": "2026-04-15",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Susana  Quiñones  Mancilla"
+                },
+                {
+                    "id": 5,
+                    "value": "Subdepto. Consultas Médicas Y No Médicas"
+                },
+                {
+                    "id": 8,
+                    "value": "susana.quinones@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-e4a7bcd5d6b37fa9bb69"
+}
+{
+    "ts": "2026-04-15T23:21:19+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120307,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Imagenología\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|17035297-1|Doris Anyel Fuentes Schoer|funcionaria debe hacer ingreso a plataforma para poder generar permiso sin goce de remuneraciones|habilitar cuenta que se encuentra bloqueada|\",\"start_date\":\"2026-04-15\",\"due_date\":\"2026-04-15\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Yesse Obando Pineda\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Subdepto. Imagenología\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"yesse.obando@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-15T21:21:18Z\",\"updated_on\":\"2026-04-15T21:21:18Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Imagenología",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|17035297-1|Doris Anyel Fuentes Schoer|funcionaria debe hacer ingreso a plataforma para poder generar permiso sin goce de remuneraciones|habilitar cuenta que se encuentra bloqueada|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-15",
+            "due_date": "2026-04-15",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Yesse Obando Pineda"
+                },
+                {
+                    "id": 5,
+                    "value": "Subdepto. Imagenología"
+                },
+                {
+                    "id": 8,
+                    "value": "yesse.obando@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-3f0824d5f25e0732e33f"
+}
