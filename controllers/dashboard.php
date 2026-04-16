@@ -151,7 +151,10 @@ function dashboard_core_normalize_detail_row(array $item, array $message = []): 
 
 function dashboard_core_is_creation_request(array $message): bool {
     $tipo = trim((string)($message['core_tipo_solicitud'] ?? $message['mensaje'] ?? ''));
-    return dashboard_normalize_text($tipo) === 'creacion de usuario';
+    $normalized = dashboard_normalize_text($tipo);
+    return $normalized === 'creacion de usuario'
+        || $normalized === 'creacion usuario'
+        || (str_contains($normalized, 'creacion') && str_contains($normalized, 'usuario'));
 }
 
 function dashboard_core_is_add_establishment_request(array $message): bool {
@@ -404,18 +407,49 @@ function dashboard_infer_catalog_match(string $value, array $catalog, string $fa
     return $fallback;
 }
 
+function dashboard_catalog_similarity_score(string $needle, string $candidate): float {
+    if ($needle === '' || $candidate === '') {
+        return 0.0;
+    }
+    if ($needle === $candidate) {
+        return 1.0;
+    }
+    if (str_contains($candidate, $needle) || str_contains($needle, $candidate)) {
+        return 0.9;
+    }
+    similar_text($needle, $candidate, $similarPercent);
+    $similarity = ((float)$similarPercent) / 100.0;
+    $distance = levenshtein($needle, $candidate);
+    $maxLength = max(strlen($needle), strlen($candidate), 1);
+    $distanceScore = 1.0 - min(1.0, $distance / $maxLength);
+    $needleTokens = array_values(array_filter(explode(' ', $needle)));
+    $candidateTokens = array_values(array_filter(explode(' ', $candidate)));
+    $intersection = count(array_intersect($needleTokens, $candidateTokens));
+    $union = count(array_unique(array_merge($needleTokens, $candidateTokens)));
+    $tokenScore = $union > 0 ? ($intersection / $union) : 0.0;
+    return max($similarity, $distanceScore, $tokenScore);
+}
+
 function dashboard_core_category_aliases(): array {
     return [
         'modificar usuario' => 'Modificar Perfil CORE',
+        'creacion de usuario' => 'Credencial CORE',
+        'creacion usuario' => 'Credencial CORE',
     ];
 }
 
 function dashboard_core_resolve_category(string $tipoSolicitud, array $catalog): string {
     $tipoSolicitud = trim($tipoSolicitud);
     if ($tipoSolicitud === '') {
-        return 'Equipos';
+        return 'Modificar Perfil CORE';
     }
     $normalizedType = dashboard_normalize_text($tipoSolicitud);
+    $aliases = dashboard_core_category_aliases();
+    if (isset($aliases[$normalizedType])) {
+        return $aliases[$normalizedType];
+    }
+    $bestCandidate = '';
+    $bestScore = 0.0;
     foreach ($catalog as $candidate) {
         $normalizedCandidate = dashboard_normalize_text((string)$candidate);
         if ($normalizedCandidate === '') {
@@ -424,15 +458,16 @@ function dashboard_core_resolve_category(string $tipoSolicitud, array $catalog):
         if ($normalizedCandidate === $normalizedType) {
             return (string)$candidate;
         }
-        if (str_contains($normalizedCandidate, $normalizedType) || str_contains($normalizedType, $normalizedCandidate)) {
-            return (string)$candidate;
+        $score = dashboard_catalog_similarity_score($normalizedType, $normalizedCandidate);
+        if ($score > $bestScore) {
+            $bestScore = $score;
+            $bestCandidate = (string)$candidate;
         }
     }
-    $aliases = dashboard_core_category_aliases();
-    if (isset($aliases[$normalizedType])) {
-        return $aliases[$normalizedType];
+    if ($bestCandidate !== '' && $bestScore >= 0.45) {
+        return $bestCandidate;
     }
-    return dashboard_infer_catalog_match($tipoSolicitud, $catalog, 'Equipos');
+    return 'Modificar Perfil CORE';
 }
 
 function dashboard_load_user_maps(): array {
