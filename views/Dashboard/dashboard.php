@@ -624,7 +624,7 @@ $csrf = csrf_token();
                   <?php
                     $logText = '';
                     if (!empty($m['id']) && isset($logsByMessage[$m['id']])) {
-                        $logText = implode("\n", $logsByMessage[$m['id']]);
+                        $logText = (string)$logsByMessage[$m['id']];
                     }
                   ?>
                   <button type="button" class="btn btn-sm btn-outline-danger log-btn action-tooltip" data-log="<?= $h($logText) ?>" data-bs-toggle="modal" data-bs-target="#logModal" data-bs-placement="top" title="Log"><i class="bi bi-journal-text"></i></button>
