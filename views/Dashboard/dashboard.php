@@ -564,28 +564,15 @@ $csrf = csrf_token();
                 <div class="dashboard-row-actions">
 
                 <?php
-                  $previewRows = [];
-                  foreach ((array)($m['core_detalle_items'] ?? []) as $detailItem) {
-                      if (!is_array($detailItem)) {
-                          continue;
-                      }
-                      $previewRows[] = dashboard_core_normalize_detail_row($detailItem, $m);
-                  }
-                  if (empty($previewRows)) {
-                      $previewRows[] = dashboard_core_normalize_detail_row([
-                          'detalle_tipo_solicitud' => trim((string)($m['core_tipo_solicitud'] ?? $m['mensaje'] ?? '')),
-                          'detalle_run' => trim((string)($m['core_detalle_run'] ?? '')),
-                          'detalle_nombre' => trim((string)($m['core_detalle_nombre'] ?? ($m['solicitante'] ?? ''))),
-                          'detalle_motivo' => trim((string)($m['core_detalle_motivo'] ?? '')),
-                          'detalle_otros_permisos' => trim((string)($m['core_detalle_otros_permisos'] ?? '')),
-                      ], $m);
-                  }
+                  $previewRows = dashboard_detail_preview_rows($m);
                   $previewRowsJson = $h((string)json_encode(array_values($previewRows), JSON_UNESCAPED_UNICODE));
                   $previewColumnsJson = $h((string)json_encode(dashboard_core_detail_table_schema($m), JSON_UNESCAPED_UNICODE));
                 ?>
                 <button type="button" class="btn btn-sm btn-outline-primary action-tooltip" data-bs-toggle="modal" data-bs-target="#detalleModal" data-bs-placement="top" title="Detalle"
 
                   data-id="<?= $h($m['id'] ?? '') ?>"
+
+                  data-fuente="<?= $h($m['fuente'] ?? '') ?>"
 
                   data-tipo="<?= $h($m['tipo'] ?? '') ?>"
 
@@ -619,6 +606,7 @@ $csrf = csrf_token();
                   data-hora="<?= $h($m['hora'] ?? '') ?>"
 
                   data-numero="<?= $h($m['numero'] ?? '') ?>"
+                  data-descripcion="<?= $h($m['descripcion'] ?? '') ?>"
                   data-core_fecha_creacion="<?= $h($m['core_fecha_creacion'] ?? '') ?>"
                   data-core_tipo_solicitud="<?= $h($m['core_tipo_solicitud'] ?? '') ?>"
                   data-core_establecimiento="<?= $h($m['core_establecimiento'] ?? '') ?>"
@@ -835,6 +823,11 @@ $csrf = csrf_token();
 
             <div class="col-md-5"><label class="form-label">Correo</label><input name="core_email" id="md-core_email" class="form-control" type="email"></div>
 
+            <div class="col-12 d-none" id="md-descripcion-wrap">
+              <label class="form-label">Descripcion</label>
+              <textarea name="descripcion" id="md-descripcion" class="form-control" rows="5"></textarea>
+            </div>
+
             <div class="col-12">
               <label class="form-label d-block">Vista previa de la tabla</label>
               <button type="button" class="btn btn-outline-primary" id="open-preview-modal-btn" data-bs-toggle="modal" data-bs-target="#detallePreviewModal">
@@ -1022,7 +1015,14 @@ $csrf = csrf_token();
 
   set('md-numero', 'data-numero');
 
+  set('md-descripcion', 'data-descripcion');
+
   set('md-core_email', 'data-core_email');
+
+  const descripcionWrap = document.getElementById('md-descripcion-wrap');
+  if (descripcionWrap) {
+    descripcionWrap.classList.toggle('d-none', (btn.getAttribute('data-fuente') || '') !== 'manual');
+  }
 
   const previewHead = document.getElementById('md-preview-head');
   const previewBody = document.getElementById('md-preview-body');
