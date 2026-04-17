@@ -161,17 +161,7 @@ $prioridadOptions = [];
 $estadoOptions = ['pendiente', 'procesado', 'error']; // estados locales (dashboard)
 $estadoRedmineId = null;
 $estadoRedmineNombre = null;
-$logsByMessage = [];
-$logPath = __DIR__ . '/../../data/envio_errores.log';
-if (file_exists($logPath)) {
-    foreach (file($logPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) as $line) {
-        $decoded = json_decode($line, true);
-        if (!is_array($decoded)) continue;
-        $mid = $decoded['message_id'] ?? '';
-        if ($mid === '') continue;
-        $logsByMessage[$mid][] = $line;
-    }
-}
+$logsByMessage = load_redmine_logs_by_message();
 $cfgPath = __DIR__ . '/../../data/configuracion.json';
 if (file_exists($cfgPath)) {
     $cfgData = json_decode(file_get_contents($cfgPath), true);

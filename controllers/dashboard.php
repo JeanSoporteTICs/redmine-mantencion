@@ -106,6 +106,37 @@ function dashboard_resolve_department_value(array $message): string {
     return $departamento;
 }
 
+function dashboard_expand_manual_message(array $message): array {
+    $unidad = trim((string)($message['unidad'] ?? ''));
+    $unidadSolicitante = trim((string)($message['unidad_solicitante'] ?? ''));
+    if ($unidadSolicitante === '') {
+        $unidadSolicitante = $unidad;
+    }
+    $categoria = trim((string)($message['categoria'] ?? ''));
+    $tipo = trim((string)($message['tipo'] ?? $message['core_tipo_solicitud'] ?? ''));
+    $asignadoId = trim((string)($message['asignado_a'] ?? ''));
+    $asignadoNombre = trim((string)($message['asignado_nombre'] ?? ''));
+    if ($asignadoNombre === '' && $asignadoId !== '') {
+        $asignadoNombre = dashboard_find_user_name($asignadoId);
+    }
+    $fecha = trim((string)($message['fecha'] ?? ''));
+    $hora = trim((string)($message['hora'] ?? ''));
+    $message['unidad'] = $unidad;
+    $message['unidad_solicitante'] = $unidadSolicitante;
+    $message['categoria'] = $categoria;
+    $message['tipo'] = $tipo !== '' ? $tipo : 'Soporte';
+    $message['asignado_nombre'] = $asignadoNombre;
+    $message['core_tipo_solicitud'] = $message['tipo'];
+    $message['core_establecimiento'] = $unidadSolicitante !== '' ? $unidadSolicitante : $unidad;
+    $message['core_departamento'] = $categoria;
+    $message['core_usuario_asignado'] = $asignadoNombre;
+    $message['core_estado'] = trim((string)($message['core_estado'] ?? '')) !== '' ? trim((string)$message['core_estado']) : 'Manual';
+    if (trim((string)($message['core_fecha_creacion'] ?? '')) === '') {
+        $message['core_fecha_creacion'] = trim($fecha . ' ' . $hora);
+    }
+    return $message;
+}
+
 function dashboard_normalize_email(?string $value): string {
     $email = trim((string)$value);
     if ($email === '') {
@@ -252,6 +283,9 @@ function dashboard_build_redmine_core_description(array $message): string {
 }
 
 function dashboard_expand_message(array $message): array {
+    if (($message['fuente'] ?? '') === 'manual') {
+        return dashboard_expand_manual_message($message);
+    }
     if (($message['fuente'] ?? '') !== 'core') {
         return $message;
     }
@@ -1784,6 +1818,63 @@ function append_redmine_log(array $entry): void {
     file_put_contents($path, json_encode($entry, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . PHP_EOL, FILE_APPEND | LOCK_EX);
 }
 
+function load_redmine_logs_by_message(): array {
+    $path = redmine_log_path();
+    if (!file_exists($path)) {
+        return [];
+    }
+    $raw = file_get_contents($path);
+    if ($raw === false || trim($raw) === '') {
+        return [];
+    }
+    $entries = [];
+    $buffer = '';
+    $depth = 0;
+    $inString = false;
+    $escape = false;
+    $length = strlen($raw);
+    for ($i = 0; $i < $length; $i++) {
+        $char = $raw[$i];
+        if ($depth === 0 && trim($char) === '') {
+            continue;
+        }
+        $buffer .= $char;
+        if ($escape) {
+            $escape = false;
+            continue;
+        }
+        if ($char === '\\') {
+            $escape = true;
+            continue;
+        }
+        if ($char === '"') {
+            $inString = !$inString;
+            continue;
+        }
+        if ($inString) {
+            continue;
+        }
+        if ($char === '{') {
+            $depth++;
+            continue;
+        }
+        if ($char === '}') {
+            $depth--;
+            if ($depth === 0) {
+                $decoded = json_decode($buffer, true);
+                if (is_array($decoded)) {
+                    $mid = trim((string)($decoded['message_id'] ?? ''));
+                    if ($mid !== '') {
+                        $entries[$mid][] = $buffer;
+                    }
+                }
+                $buffer = '';
+            }
+        }
+    }
+    return $entries;
+}
+
 function load_user_api_token(?string $userId): string {
     $path = __DIR__ . '/../data/usuarios.json';
     if (!$userId || !file_exists($path)) {
@@ -2132,6 +2223,9 @@ function handle_request(): array {
                         if (isset($_POST[$field])) {
                             $message[$field] = $_POST[$field];
                         }
+                    }
+                    if (($message['fuente'] ?? '') === 'manual') {
+                        $message = dashboard_expand_manual_message($message);
                     }
                     $updated = true;
                     $updatedMessage = $message;
