@@ -265,6 +265,15 @@ function dashboard_filter_detail_rows(array $rows): array {
     }));
 }
 
+function dashboard_sanitize_redmine_text($value): string {
+    $text = trim((string)$value);
+    if ($text === '') {
+        return '';
+    }
+    $text = preg_replace('/[\x{200D}\x{FE0F}\x{1F000}-\x{1FAFF}\x{2600}-\x{27BF}]/u', '', $text) ?? $text;
+    return trim($text);
+}
+
 function dashboard_render_textile_table(array $schema, array $rows): string {
     if (empty($schema) || empty($rows)) {
         return '';
@@ -273,7 +282,7 @@ function dashboard_render_textile_table(array $schema, array $rows): string {
     $lines = [$header];
     foreach ($rows as $row) {
         $values = array_map(
-            fn($value) => str_replace(["\r", "\n", '|'], [' ', ' ', '/'], trim((string)$value)),
+            fn($value) => str_replace(["\r", "\n", '|'], [' ', ' ', '/'], dashboard_sanitize_redmine_text($value)),
             array_map(fn($column) => $row[$column['key']] ?? '', $schema)
         );
         $lines[] = '|' . implode('|', $values) . '|';
@@ -1613,7 +1622,7 @@ function build_redmine_issue_payload(array $message, array $cfg, array $catMap, 
         $issue = [
             'project_id' => (int)($message['project_id'] ?? ($cfg['project_id'] ?? 48)),
             'subject' => trim((string)($message['asunto'] ?? $message['mensaje'] ?? '')),
-            'description' => $description,
+            'description' => $description !== '' ? $description : dashboard_sanitize_redmine_text($message['descripcion'] ?? ''),
             'tracker_id' => (int)($message['tipo_id'] ?? ($cfg['tracker_id'] ?? 3)),
             'priority_id' => (int)($message['priority_id'] ?? ($cfg['priority_id'] ?? 2)),
             'status_id' => (int)($message['status_id'] ?? ($cfg['status_id'] ?? 1)),
