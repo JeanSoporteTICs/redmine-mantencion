@@ -327,10 +327,7 @@ function dashboard_build_redmine_core_description(array $message): string {
 }
 
 function dashboard_build_redmine_manual_description(array $message): string {
-    return dashboard_render_textile_table(
-        dashboard_core_detail_table_schema($message),
-        dashboard_detail_preview_rows($message)
-    );
+    return dashboard_sanitize_redmine_text($message['descripcion'] ?? '');
 }
 
 function dashboard_expand_message(array $message): array {
@@ -1622,7 +1619,7 @@ function build_redmine_issue_payload(array $message, array $cfg, array $catMap, 
         $issue = [
             'project_id' => (int)($message['project_id'] ?? ($cfg['project_id'] ?? 48)),
             'subject' => trim((string)($message['asunto'] ?? $message['mensaje'] ?? '')),
-            'description' => $description !== '' ? $description : dashboard_sanitize_redmine_text($message['descripcion'] ?? ''),
+            'description' => $description,
             'tracker_id' => (int)($message['tipo_id'] ?? ($cfg['tracker_id'] ?? 3)),
             'priority_id' => (int)($message['priority_id'] ?? ($cfg['priority_id'] ?? 2)),
             'status_id' => (int)($message['status_id'] ?? ($cfg['status_id'] ?? 1)),
