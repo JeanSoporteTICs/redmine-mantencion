@@ -194,6 +194,15 @@ function dashboard_core_is_add_establishment_request(array $message): bool {
 }
 
 function dashboard_core_detail_table_schema(array $message): array {
+    if (($message['fuente'] ?? '') === 'manual') {
+        return [
+            ['label' => 'Tipo solicitud', 'key' => 'detalle_tipo_solicitud'],
+            ['label' => 'Solicitante', 'key' => 'detalle_solicitante'],
+            ['label' => 'Categoria', 'key' => 'detalle_categoria'],
+            ['label' => 'Unidad', 'key' => 'detalle_unidad'],
+            ['label' => 'Descripcion', 'key' => 'detalle_descripcion'],
+        ];
+    }
     if (dashboard_core_is_creation_request($message)) {
         return [
             ['label' => 'Tipo Solicitud', 'key' => 'detalle_tipo_solicitud'],
@@ -235,7 +244,47 @@ function dashboard_resolve_unit_value(array $message): string {
     return $unidad;
 }
 
-function dashboard_build_redmine_core_description(array $message): string {
+function dashboard_manual_detail_row(array $message): array {
+    return [
+        'detalle_tipo_solicitud' => trim((string)($message['tipo'] ?? $message['core_tipo_solicitud'] ?? $message['mensaje'] ?? '')),
+        'detalle_solicitante' => trim((string)($message['solicitante'] ?? '')),
+        'detalle_categoria' => trim((string)($message['categoria'] ?? '')),
+        'detalle_unidad' => trim((string)($message['unidad'] ?? $message['unidad_solicitante'] ?? '')),
+        'detalle_descripcion' => trim((string)($message['descripcion'] ?? '')),
+    ];
+}
+
+function dashboard_filter_detail_rows(array $rows): array {
+    return array_values(array_filter($rows, function (array $row): bool {
+        foreach ($row as $value) {
+            if (trim((string)$value) !== '') {
+                return true;
+            }
+        }
+        return false;
+    }));
+}
+
+function dashboard_render_textile_table(array $schema, array $rows): string {
+    if (empty($schema) || empty($rows)) {
+        return '';
+    }
+    $header = '|_. ' . implode('|_. ', array_map(fn($column) => $column['label'], $schema)) . '|';
+    $lines = [$header];
+    foreach ($rows as $row) {
+        $values = array_map(
+            fn($value) => str_replace(["\r", "\n", '|'], [' ', ' ', '/'], trim((string)$value)),
+            array_map(fn($column) => $row[$column['key']] ?? '', $schema)
+        );
+        $lines[] = '|' . implode('|', $values) . '|';
+    }
+    return implode("\n", $lines);
+}
+
+function dashboard_detail_preview_rows(array $message): array {
+    if (($message['fuente'] ?? '') === 'manual') {
+        return dashboard_filter_detail_rows([dashboard_manual_detail_row($message)]);
+    }
     $rows = [];
     foreach ((array)($message['core_detalle_items'] ?? []) as $item) {
         if (!is_array($item)) {
@@ -258,28 +307,21 @@ function dashboard_build_redmine_core_description(array $message): string {
             'detalle_estado' => trim((string)($message['core_detalle_estado'] ?? '')),
         ], $message);
     }
-    $rows = array_values(array_filter($rows, function (array $row): bool {
-        foreach ($row as $value) {
-            if (trim((string)$value) !== '') {
-                return true;
-            }
-        }
-        return false;
-    }));
-    if (empty($rows)) {
-        return '';
-    }
-    $schema = dashboard_core_detail_table_schema($message);
-    $header = '|_. ' . implode('|_. ', array_map(fn($column) => $column['label'], $schema)) . '|';
-    $lines = [$header];
-    foreach ($rows as $row) {
-        $values = array_map(
-            fn($value) => str_replace(["\r", "\n", '|'], [' ', ' ', '/'], trim((string)$value)),
-            array_map(fn($column) => $row[$column['key']] ?? '', $schema)
-        );
-        $lines[] = '|' . implode('|', $values) . '|';
-    }
-    return implode("\n", $lines);
+    return dashboard_filter_detail_rows($rows);
+}
+
+function dashboard_build_redmine_core_description(array $message): string {
+    return dashboard_render_textile_table(
+        dashboard_core_detail_table_schema($message),
+        dashboard_detail_preview_rows($message)
+    );
+}
+
+function dashboard_build_redmine_manual_description(array $message): string {
+    return dashboard_render_textile_table(
+        dashboard_core_detail_table_schema($message),
+        dashboard_detail_preview_rows($message)
+    );
 }
 
 function dashboard_expand_message(array $message): array {
@@ -1566,10 +1608,11 @@ function parse_issue_date(string $value): ?string {
 
 function build_redmine_issue_payload(array $message, array $cfg, array $catMap, array $unitMap): array {
     if (($message['fuente'] ?? '') === 'manual') {
+        $description = dashboard_build_redmine_manual_description($message);
         $issue = [
             'project_id' => (int)($message['project_id'] ?? ($cfg['project_id'] ?? 48)),
             'subject' => trim((string)($message['asunto'] ?? $message['mensaje'] ?? '')),
-            'description' => trim((string)($message['descripcion'] ?? '')),
+            'description' => $description !== '' ? $description : trim((string)($message['descripcion'] ?? '')),
             'tracker_id' => (int)($message['tipo_id'] ?? ($cfg['tracker_id'] ?? 3)),
             'priority_id' => (int)($message['priority_id'] ?? ($cfg['priority_id'] ?? 2)),
             'status_id' => (int)($message['status_id'] ?? ($cfg['status_id'] ?? 1)),
