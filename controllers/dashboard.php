@@ -1607,12 +1607,13 @@ function parse_issue_date(string $value): ?string {
 }
 
 function build_redmine_issue_payload(array $message, array $cfg, array $catMap, array $unitMap): array {
-    if (($message['fuente'] ?? '') === 'manual') {
+    $isManual = ($message['fuente'] ?? '') === 'manual' || str_starts_with((string)($message['id'] ?? ''), 'manual-');
+    if ($isManual) {
         $description = dashboard_build_redmine_manual_description($message);
         $issue = [
             'project_id' => (int)($message['project_id'] ?? ($cfg['project_id'] ?? 48)),
             'subject' => trim((string)($message['asunto'] ?? $message['mensaje'] ?? '')),
-            'description' => $description !== '' ? $description : trim((string)($message['descripcion'] ?? '')),
+            'description' => $description,
             'tracker_id' => (int)($message['tipo_id'] ?? ($cfg['tracker_id'] ?? 3)),
             'priority_id' => (int)($message['priority_id'] ?? ($cfg['priority_id'] ?? 2)),
             'status_id' => (int)($message['status_id'] ?? ($cfg['status_id'] ?? 1)),
@@ -1652,7 +1653,7 @@ function build_redmine_issue_payload(array $message, array $cfg, array $catMap, 
                     $value = trim((string)($message['solicitante'] ?? ''));
                     break;
                 case 'cf_unidad':
-                    $value = dashboard_resolve_unit_value($message);
+                    $value = trim((string)($message['unidad'] ?? $message['unidad_solicitante'] ?? ''));
                     break;
                 case 'cf_unidad_solicitante':
                     $value = strtoupper(trim((string)($message['unidad_solicitante'] ?? $message['unidad'] ?? '')));
@@ -1861,7 +1862,7 @@ function append_redmine_log(array $entry): void {
     file_put_contents($path, json_encode($entry, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . PHP_EOL, FILE_APPEND | LOCK_EX);
 }
 
-function load_redmine_logs_by_message(): array {
+function parse_redmine_log_entries(): array {
     $path = redmine_log_path();
     if (!file_exists($path)) {
         return [];
@@ -1906,16 +1907,54 @@ function load_redmine_logs_by_message(): array {
             if ($depth === 0) {
                 $decoded = json_decode($buffer, true);
                 if (is_array($decoded)) {
-                    $mid = trim((string)($decoded['message_id'] ?? ''));
-                    if ($mid !== '') {
-                        $entries[$mid][] = $buffer;
-                    }
+                    $entries[] = [
+                        'message_id' => trim((string)($decoded['message_id'] ?? '')),
+                        'raw' => $buffer,
+                        'decoded' => $decoded,
+                    ];
                 }
                 $buffer = '';
             }
         }
     }
     return $entries;
+}
+
+function load_redmine_logs_by_message(): array {
+    $grouped = [];
+    foreach (parse_redmine_log_entries() as $entry) {
+        $mid = trim((string)($entry['message_id'] ?? ''));
+        if ($mid === '') {
+            continue;
+        }
+        $decoded = is_array($entry['decoded'] ?? null) ? $entry['decoded'] : [];
+        $grouped[$mid] = json_encode($decoded, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    }
+    return $grouped;
+}
+
+function remove_redmine_logs_for_messages(array $ids): void {
+    $ids = array_values(array_filter(array_map('trim', $ids)));
+    if (empty($ids)) {
+        return;
+    }
+    $kept = [];
+    foreach (parse_redmine_log_entries() as $entry) {
+        $mid = trim((string)($entry['message_id'] ?? ''));
+        if ($mid !== '' && in_array($mid, $ids, true)) {
+            continue;
+        }
+        $raw = trim((string)($entry['raw'] ?? ''));
+        if ($raw !== '') {
+            $kept[] = $raw;
+        }
+    }
+    $path = redmine_log_path();
+    if (empty($kept)) {
+        file_put_contents($path, '');
+        return;
+    }
+    file_put_contents($path, implode(PHP_EOL, $kept) . PHP_EOL, LOCK_EX);
 }
 
 function load_user_api_token(?string $userId): string {
@@ -2370,6 +2409,7 @@ function handle_request(): array {
                 }
                 unset($message);
                 if ($updated > 0) {
+                    remove_redmine_logs_for_messages($ids);
                     save_messages($messages);
                     $flashMsg = $updated . ' error(es) marcados como pendientes.';
                 } else {
