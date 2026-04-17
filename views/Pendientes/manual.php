@@ -112,7 +112,9 @@ $csrf = csrf_token();
               </select>
             </div>
             <div class="field-label">Fecha de inicio</div>
-            <div><input type="date" name="fecha_inicio" class="form-control" value="<?= $h($form['fecha_inicio'] ?? '') ?>"></div>
+            <div>
+              <input type="text" name="fecha_inicio" class="form-control" value="<?= $h($form['fecha_inicio'] ?? '') ?>" placeholder="dd-mm-aaaa" pattern="\d{2}-\d{2}-\d{4}" inputmode="numeric">
+            </div>
           </div>
 
           <div class="field-row">
@@ -127,7 +129,9 @@ $csrf = csrf_token();
               </select>
             </div>
             <div class="field-label">Fecha fin</div>
-            <div><input type="date" name="fecha_fin" class="form-control" value="<?= $h($form['fecha_fin'] ?? '') ?>"></div>
+            <div>
+              <input type="text" name="fecha_fin" class="form-control" value="<?= $h($form['fecha_fin'] ?? '') ?>" placeholder="dd-mm-aaaa" pattern="\d{2}-\d{2}-\d{4}" inputmode="numeric">
+            </div>
           </div>
 
           <div class="field-row">
