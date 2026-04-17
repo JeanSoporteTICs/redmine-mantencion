@@ -824,8 +824,11 @@ $csrf = csrf_token();
             <div class="col-md-5"><label class="form-label">Correo</label><input name="core_email" id="md-core_email" class="form-control" type="email"></div>
 
             <div class="col-12 d-none" id="md-descripcion-wrap">
-              <label class="form-label">Descripcion</label>
-              <textarea name="descripcion" id="md-descripcion" class="form-control" rows="5"></textarea>
+              <label class="form-label d-block">Descripcion</label>
+              <input type="hidden" name="descripcion" id="md-descripcion">
+              <button type="button" class="btn btn-outline-secondary" id="open-descripcion-modal-btn" data-bs-toggle="modal" data-bs-target="#descripcionModal">
+                <i class="bi bi-text-paragraph"></i> Editar descripcion
+              </button>
             </div>
 
             <div class="col-12">
@@ -889,6 +892,25 @@ $csrf = csrf_token();
   </div>
 </div>
 
+<div class="modal fade" id="descripcionModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar descripcion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label class="form-label" for="md-descripcion-editor">Descripcion</label>
+        <textarea id="md-descripcion-editor" class="form-control" rows="10"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success" id="save-descripcion-btn">Guardar descripcion</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="logModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-scrollable">
     <div class="modal-content">
@@ -940,7 +962,12 @@ $csrf = csrf_token();
 
   const detalleModal = document.getElementById('detalleModal');
   const detallePreviewModal = document.getElementById('detallePreviewModal');
+  const descripcionModal = document.getElementById('descripcionModal');
+  const descripcionEditor = document.getElementById('md-descripcion-editor');
+  const descripcionHidden = document.getElementById('md-descripcion');
+  const saveDescripcionBtn = document.getElementById('save-descripcion-btn');
   let reopenDetalleModalAfterPreview = false;
+  let reopenDetalleModalAfterDescripcion = false;
 
   detalleModal.addEventListener('show.bs.modal', event => {
 
@@ -1108,6 +1135,35 @@ $csrf = csrf_token();
       reopenDetalleModalAfterPreview = false;
       const modal = bootstrap.Modal.getOrCreateInstance(detalleModal);
       modal.show();
+    });
+  }
+
+  if (descripcionModal) {
+    descripcionModal.addEventListener('show.bs.modal', () => {
+      reopenDetalleModalAfterDescripcion = true;
+      if (descripcionEditor) {
+        descripcionEditor.value = descripcionHidden ? (descripcionHidden.value || '') : '';
+      }
+    });
+    descripcionModal.addEventListener('hidden.bs.modal', () => {
+      if (!reopenDetalleModalAfterDescripcion || !detalleModal) {
+        return;
+      }
+      reopenDetalleModalAfterDescripcion = false;
+      const modal = bootstrap.Modal.getOrCreateInstance(detalleModal);
+      modal.show();
+    });
+  }
+
+  if (saveDescripcionBtn) {
+    saveDescripcionBtn.addEventListener('click', () => {
+      if (descripcionHidden && descripcionEditor) {
+        descripcionHidden.value = descripcionEditor.value || '';
+      }
+      if (descripcionModal) {
+        const modal = bootstrap.Modal.getOrCreateInstance(descripcionModal);
+        modal.hide();
+      }
     });
   }
 
