@@ -1,0 +1,626 @@
+[
+    {
+        "id": "ARCHIVO",
+        "nombre": "ARCHIVO"
+    },
+    {
+        "id": "ABASTECIMIENTO",
+        "nombre": "ABASTECIMIENTO"
+    },
+    {
+        "id": "ADMISIÓN",
+        "nombre": "ADMISIÓN"
+    },
+    {
+        "id": "ALIMENTACION (UCP)",
+        "nombre": "ALIMENTACION (UCP)"
+    },
+    {
+        "id": "ANATOMIA PATOLOGICA",
+        "nombre": "ANATOMIA PATOLOGICA"
+    },
+    {
+        "id": "ARO - OBSTETRICIA",
+        "nombre": "ARO - OBSTETRICIA"
+    },
+    {
+        "id": "BANCO DE SANGRE",
+        "nombre": "BANCO DE SANGRE"
+    },
+    {
+        "id": "C. DIALISIS VIDADIAL LANCO",
+        "nombre": "C. DIALISIS VIDADIAL LANCO"
+    },
+    {
+        "id": "CAPACITACION",
+        "nombre": "CAPACITACION"
+    },
+    {
+        "id": "CATARATAS Y VITRECTOMIAS",
+        "nombre": "CATARATAS Y VITRECTOMIAS"
+    },
+    {
+        "id": "CENTRO CORTA ESTADIA",
+        "nombre": "CENTRO CORTA ESTADIA"
+    },
+    {
+        "id": "CENTRO SALUD HOSPITAL DE DIA",
+        "nombre": "CENTRO SALUD HOSPITAL DE DIA"
+    },
+    {
+        "id": "CHILE CRECE CONTIGO",
+        "nombre": "CHILE CRECE CONTIGO"
+    },
+    {
+        "id": "CIRUGIA ADULTO",
+        "nombre": "CIRUGIA ADULTO"
+    },
+    {
+        "id": "CIRUGIA INFANTIL",
+        "nombre": "CIRUGIA INFANTIL"
+    },
+    {
+        "id": "CIRUGIA MAYOR AMBULATORIA",
+        "nombre": "CIRUGIA MAYOR AMBULATORIA"
+    },
+    {
+        "id": "CLINICA COSTANERA VALDIVIA",
+        "nombre": "CLINICA COSTANERA VALDIVIA"
+    },
+    {
+        "id": "COMPUTACION",
+        "nombre": "COMPUTACION"
+    },
+    {
+        "id": "CONSULTORIO ADOSADO ESPECIAL.",
+        "nombre": "CONSULTORIO ADOSADO ESPECIAL."
+    },
+    {
+        "id": "DENTAL",
+        "nombre": "DENTAL"
+    },
+    {
+        "id": "DENTAL (DC)",
+        "nombre": "DENTAL (DC)"
+    },
+    {
+        "id": "DEPARTAMENTO FINANZAS",
+        "nombre": "DEPARTAMENTO FINANZAS"
+    },
+    {
+        "id": "DEPARTAMENTO OPERACIONES",
+        "nombre": "DEPARTAMENTO OPERACIONES"
+    },
+    {
+        "id": "DIALISIS AGUDA",
+        "nombre": "DIALISIS AGUDA"
+    },
+    {
+        "id": "DIALISIS HOSPITAL",
+        "nombre": "DIALISIS HOSPITAL"
+    },
+    {
+        "id": "DIRECCION",
+        "nombre": "DIRECCION"
+    },
+    {
+        "id": "EQUIPOS INDUSTRIALES",
+        "nombre": "EQUIPOS INDUSTRIALES"
+    },
+    {
+        "id": "EQUIPOS MEDICOS",
+        "nombre": "EQUIPOS MEDICOS"
+    },
+    {
+        "id": "ESTERILIZACION",
+        "nombre": "ESTERILIZACION"
+    },
+    {
+        "id": "FARMACIA H. REGIONAL",
+        "nombre": "FARMACIA H. REGIONAL"
+    },
+    {
+        "id": "GESTION CENTRALIZADA DE CAMAS",
+        "nombre": "GESTION CENTRALIZADA DE CAMAS"
+    },
+    {
+        "id": "GINECOLOGIA",
+        "nombre": "GINECOLOGIA"
+    },
+    {
+        "id": "IAAS",
+        "nombre": "IAAS"
+    },
+    {
+        "id": "JARDIN INFANTIL",
+        "nombre": "JARDIN INFANTIL"
+    },
+    {
+        "id": "KINESITERAPIA",
+        "nombre": "KINESITERAPIA"
+    },
+    {
+        "id": "LAB. DE HISTOCOMPATIBILIDAD",
+        "nombre": "LAB. DE HISTOCOMPATIBILIDAD"
+    },
+    {
+        "id": "LABORATORIO",
+        "nombre": "LABORATORIO"
+    },
+    {
+        "id": "LAVANDERIA",
+        "nombre": "LAVANDERIA"
+    },
+    {
+        "id": "LISTA ESPERA QUIRURGICA Y MACR",
+        "nombre": "LISTA ESPERA QUIRURGICA Y MACR"
+    },
+    {
+        "id": "LOS RIOS VALDIVIA",
+        "nombre": "LOS RIOS VALDIVIA"
+    },
+    {
+        "id": "MANTENIMIENTO",
+        "nombre": "MANTENIMIENTO"
+    },
+    {
+        "id": "MARCAPASOS",
+        "nombre": "MARCAPASOS"
+    },
+    {
+        "id": "MEDICINA",
+        "nombre": "MEDICINA"
+    },
+    {
+        "id": "MEDICINA NUCLEAR",
+        "nombre": "MEDICINA NUCLEAR"
+    },
+    {
+        "id": "MOVILIZACION",
+        "nombre": "MOVILIZACION"
+    },
+    {
+        "id": "NEONATO CUIDADOS  INTERMEDIOS",
+        "nombre": "NEONATO CUIDADOS  INTERMEDIOS"
+    },
+    {
+        "id": "NEONATO CUIDADOS BASICOS",
+        "nombre": "NEONATO CUIDADOS BASICOS"
+    },
+    {
+        "id": "NEONATO CUIDADOS INTENSIVOS",
+        "nombre": "NEONATO CUIDADOS INTENSIVOS"
+    },
+    {
+        "id": "NEPHRO CARE LA UNION",
+        "nombre": "NEPHRO CARE LA UNION"
+    },
+    {
+        "id": "NEPHRO CARE VALDIVIA",
+        "nombre": "NEPHRO CARE VALDIVIA"
+    },
+    {
+        "id": "NEUROCIRUGIA",
+        "nombre": "NEUROCIRUGIA"
+    },
+    {
+        "id": "NUTRICION CLINICA",
+        "nombre": "NUTRICION CLINICA"
+    },
+    {
+        "id": "OFICINA INFOR. Y RECLAMOS OIR",
+        "nombre": "OFICINA INFOR. Y RECLAMOS OIR"
+    },
+    {
+        "id": "OFTALMOLOGIA",
+        "nombre": "OFTALMOLOGIA"
+    },
+    {
+        "id": "ONCOLOGIA",
+        "nombre": "ONCOLOGIA"
+    },
+    {
+        "id": "OTORRINOLARINGOLOGIA",
+        "nombre": "OTORRINOLARINGOLOGIA"
+    },
+    {
+        "id": "OXIGENO TERAPIA",
+        "nombre": "OXIGENO TERAPIA"
+    },
+    {
+        "id": "PABELLON CENTRAL",
+        "nombre": "PABELLON CENTRAL"
+    },
+    {
+        "id": "PABELLON PARTOS",
+        "nombre": "PABELLON PARTOS"
+    },
+    {
+        "id": "PARTO - OBSTETRICIA",
+        "nombre": "PARTO - OBSTETRICIA"
+    },
+    {
+        "id": "PEDIATRIA",
+        "nombre": "PEDIATRIA"
+    },
+    {
+        "id": "PENSIONADO",
+        "nombre": "PENSIONADO"
+    },
+    {
+        "id": "PERITONEODIALISIS",
+        "nombre": "PERITONEODIALISIS"
+    },
+    {
+        "id": "POLI BRONCOPULMONAR",
+        "nombre": "POLI BRONCOPULMONAR"
+    },
+    {
+        "id": "POLI CARDIOLOGIA",
+        "nombre": "POLI CARDIOLOGIA"
+    },
+    {
+        "id": "POLI CIRUGIA ADULTO",
+        "nombre": "POLI CIRUGIA ADULTO"
+    },
+    {
+        "id": "POLI CIRUGIA INFANTIL",
+        "nombre": "POLI CIRUGIA INFANTIL"
+    },
+    {
+        "id": "POLI DE TAC",
+        "nombre": "POLI DE TAC"
+    },
+    {
+        "id": "POLI DERMATOLOGIA",
+        "nombre": "POLI DERMATOLOGIA"
+    },
+    {
+        "id": "POLI ENDOCRINOLOGIA",
+        "nombre": "POLI ENDOCRINOLOGIA"
+    },
+    {
+        "id": "POLI FIBROSIS QUISTICA",
+        "nombre": "POLI FIBROSIS QUISTICA"
+    },
+    {
+        "id": "POLI GASTROENTEROLOGIA",
+        "nombre": "POLI GASTROENTEROLOGIA"
+    },
+    {
+        "id": "POLI GASTROENTEROLOGIA INF.",
+        "nombre": "POLI GASTROENTEROLOGIA INF."
+    },
+    {
+        "id": "POLI GINECOLOGIA",
+        "nombre": "POLI GINECOLOGIA"
+    },
+    {
+        "id": "POLI HEMATOLOGIA",
+        "nombre": "POLI HEMATOLOGIA"
+    },
+    {
+        "id": "POLI INMU-INFECTOLOGIA",
+        "nombre": "POLI INMU-INFECTOLOGIA"
+    },
+    {
+        "id": "POLI INMUNO-INFECTOLOGIA",
+        "nombre": "POLI INMUNO-INFECTOLOGIA"
+    },
+    {
+        "id": "POLI MEDICINA",
+        "nombre": "POLI MEDICINA"
+    },
+    {
+        "id": "POLI MEDICINA F¿SICA Y REHABIL",
+        "nombre": "POLI MEDICINA F¿SICA Y REHABIL"
+    },
+    {
+        "id": "POLI NEFROLOGIA",
+        "nombre": "POLI NEFROLOGIA"
+    },
+    {
+        "id": "POLI NEUROCIRUGIA",
+        "nombre": "POLI NEUROCIRUGIA"
+    },
+    {
+        "id": "POLI NEUROLOGIA INFANTIL",
+        "nombre": "POLI NEUROLOGIA INFANTIL"
+    },
+    {
+        "id": "POLI OFTALMOLOGIA",
+        "nombre": "POLI OFTALMOLOGIA"
+    },
+    {
+        "id": "POLI ONCOLOGIA",
+        "nombre": "POLI ONCOLOGIA"
+    },
+    {
+        "id": "POLI OTORRINOLARINGOLOGIA",
+        "nombre": "POLI OTORRINOLARINGOLOGIA"
+    },
+    {
+        "id": "POLI PATOLOGIA CERVICAL",
+        "nombre": "POLI PATOLOGIA CERVICAL"
+    },
+    {
+        "id": "POLI PATOLOGIA MAMARIA",
+        "nombre": "POLI PATOLOGIA MAMARIA"
+    },
+    {
+        "id": "POLI PEDIATRIA",
+        "nombre": "POLI PEDIATRIA"
+    },
+    {
+        "id": "POLI PERSONAL",
+        "nombre": "POLI PERSONAL"
+    },
+    {
+        "id": "POLI PIE DIABETICO",
+        "nombre": "POLI PIE DIABETICO"
+    },
+    {
+        "id": "POLI PSIQUIATRIA ADULTO",
+        "nombre": "POLI PSIQUIATRIA ADULTO"
+    },
+    {
+        "id": "POLI PSIQUIATRIA INFANTIL",
+        "nombre": "POLI PSIQUIATRIA INFANTIL"
+    },
+    {
+        "id": "POLI RESPIRATORIO",
+        "nombre": "POLI RESPIRATORIO"
+    },
+    {
+        "id": "POLI REUMATOLOGIA",
+        "nombre": "POLI REUMATOLOGIA"
+    },
+    {
+        "id": "POLI TRAUMATOLOGIA",
+        "nombre": "POLI TRAUMATOLOGIA"
+    },
+    {
+        "id": "POLI ULCERAS VENOSAS",
+        "nombre": "POLI ULCERAS VENOSAS"
+    },
+    {
+        "id": "POLI UROLOGIA",
+        "nombre": "POLI UROLOGIA"
+    },
+    {
+        "id": "PRAIS",
+        "nombre": "PRAIS"
+    },
+    {
+        "id": "PREQUIRURGICO",
+        "nombre": "PREQUIRURGICO"
+    },
+    {
+        "id": "CUIDADOS PALIATIVOS",
+        "nombre": "CUIDADOS PALIATIVOS"
+    },
+    {
+        "id": "PROGRAMA PRENEC",
+        "nombre": "PROGRAMA PRENEC"
+    },
+    {
+        "id": "PSIQUIATRIA",
+        "nombre": "PSIQUIATRIA"
+    },
+    {
+        "id": "PSIQUIATRIA DIURNO",
+        "nombre": "PSIQUIATRIA DIURNO"
+    },
+    {
+        "id": "PUERPERIO",
+        "nombre": "PUERPERIO"
+    },
+    {
+        "id": "QUIMIO. AMBULATORIA ONCOLOGICA",
+        "nombre": "QUIMIO. AMBULATORIA ONCOLOGICA"
+    },
+    {
+        "id": "QUIMIOTERAPIA INFANTIL AMBULAT",
+        "nombre": "QUIMIOTERAPIA INFANTIL AMBULAT"
+    },
+    {
+        "id": "QUIMIOTERAPIA AMBULATORIA",
+        "nombre": "QUIMIOTERAPIA AMBULATORIA"
+    },
+    {
+        "id": "RADIOLOGIA REGIONAL",
+        "nombre": "RADIOLOGIA REGIONAL"
+    },
+    {
+        "id": "RADIOTERAPIA",
+        "nombre": "RADIOTERAPIA"
+    },
+    {
+        "id": "RECUPERACION PABELLON CENTRAL",
+        "nombre": "RECUPERACION PABELLON CENTRAL"
+    },
+    {
+        "id": "RECURSOS HUMANOS",
+        "nombre": "RECURSOS HUMANOS"
+    },
+    {
+        "id": "REDES ELECTRICAS",
+        "nombre": "REDES ELECTRICAS"
+    },
+    {
+        "id": "RESONANCIA",
+        "nombre": "RESONANCIA"
+    },
+    {
+        "id": "SAMU",
+        "nombre": "SAMU"
+    },
+    {
+        "id": "SALA CUNA",
+        "nombre": "SALA CUNA"
+    },
+    {
+        "id": "SERVICIO GENERALES",
+        "nombre": "SERVICIO GENERALES"
+    },
+    {
+        "id": "SERVICIO SOCIAL",
+        "nombre": "SERVICIO SOCIAL"
+    },
+    {
+        "id": "SOU (SALA OBSERVACION ADULTO)",
+        "nombre": "SOU (SALA OBSERVACION ADULTO)"
+    },
+    {
+        "id": "SOU (SALA OBSERVACION INFANTIL",
+        "nombre": "SOU (SALA OBSERVACION INFANTIL"
+    },
+    {
+        "id": "SUB DPTO DE SERV.LOGIST.",
+        "nombre": "SUB DPTO DE SERV.LOGIST."
+    },
+    {
+        "id": "SUB DPTO INFRAESTRUCTURA",
+        "nombre": "SUB DPTO INFRAESTRUCTURA"
+    },
+    {
+        "id": "SUB DPTO MANTEN.DE EQUIP.",
+        "nombre": "SUB DPTO MANTEN.DE EQUIP."
+    },
+    {
+        "id": "SUBDPTO CONTROL DE PRODUCCION",
+        "nombre": "SUBDPTO CONTROL DE PRODUCCION"
+    },
+    {
+        "id": "SUDEPTO.DE GEST.DE LA DEMA.RED",
+        "nombre": "SUDEPTO.DE GEST.DE LA DEMA.RED"
+    },
+    {
+        "id": "TOMOGRAFIA",
+        "nombre": "TOMOGRAFIA"
+    },
+    {
+        "id": "TRAUMATOLOGIA ADULTO",
+        "nombre": "TRAUMATOLOGIA ADULTO"
+    },
+    {
+        "id": "TRAUMATOLOGIA INFANTIL",
+        "nombre": "TRAUMATOLOGIA INFANTIL"
+    },
+    {
+        "id": "TRAUMATOLOGIA PROTESIS",
+        "nombre": "TRAUMATOLOGIA PROTESIS"
+    },
+    {
+        "id": "U. EPIDEMIOLOGIA Y REG CANCER",
+        "nombre": "U. EPIDEMIOLOGIA Y REG CANCER"
+    },
+    {
+        "id": "URGENCIA ADULTOS",
+        "nombre": "URGENCIA ADULTOS"
+    },
+    {
+        "id": "URGENCIA GINECO-OBSTETRICIA",
+        "nombre": "URGENCIA GINECO-OBSTETRICIA"
+    },
+    {
+        "id": "URGENCIA PEDIATRICA",
+        "nombre": "URGENCIA PEDIATRICA"
+    },
+    {
+        "id": "UCI ADULTO",
+        "nombre": "UCI ADULTO"
+    },
+    {
+        "id": "UCI INTERMEDIA",
+        "nombre": "UCI INTERMEDIA"
+    },
+    {
+        "id": "UCI PEDIATRICA",
+        "nombre": "UCI PEDIATRICA"
+    },
+    {
+        "id": "UN.HOSPIT.DOMICILIARIA",
+        "nombre": "UN.HOSPIT.DOMICILIARIA"
+    },
+    {
+        "id": "UNIDAD ANALISIS REG.CLINICOS",
+        "nombre": "UNIDAD ANALISIS REG.CLINICOS"
+    },
+    {
+        "id": "UNIDAD DE CALIDAD Y SEGURIDAD DEL PACIENTE",
+        "nombre": "UNIDAD DE CALIDAD Y SEGURIDAD DEL PACIENTE"
+    },
+    {
+        "id": "UNIDAD DE COSTOS",
+        "nombre": "UNIDAD DE COSTOS"
+    },
+    {
+        "id": "UNIDAD DE HEMODIALISIS",
+        "nombre": "UNIDAD DE HEMODIALISIS"
+    },
+    {
+        "id": "UNIDAD DE MICROBIOLOGIA",
+        "nombre": "UNIDAD DE MICROBIOLOGIA"
+    },
+    {
+        "id": "UNIDAD HEMATOLOGIA INTENSIVA",
+        "nombre": "UNIDAD HEMATOLOGIA INTENSIVA"
+    },
+    {
+        "id": "UNIDAD ONCO_HEMATOLOGIA INFANT",
+        "nombre": "UNIDAD ONCO_HEMATOLOGIA INFANT"
+    },
+    {
+        "id": "UNIDAD SALUD OCUPACIONAL",
+        "nombre": "UNIDAD SALUD OCUPACIONAL"
+    },
+    {
+        "id": "UROLOGIA",
+        "nombre": "UROLOGIA"
+    },
+    {
+        "id": "UTI PEDIATRICA",
+        "nombre": "UTI PEDIATRICA"
+    },
+    {
+        "id": "UTI QUIRURGICA",
+        "nombre": "UTI QUIRURGICA"
+    },
+    {
+        "id": "UGA",
+        "nombre": "UGA"
+    },
+    {
+        "id": "VIDA DIAN PAILLACO",
+        "nombre": "VIDA DIAN PAILLACO"
+    },
+    {
+        "id": "NAVEGADORES EN RED",
+        "nombre": "NAVEGADORES EN RED"
+    },
+    {
+        "id": "CENTRAL TELEFÓNICA",
+        "nombre": "CENTRAL TELEFÓNICA"
+    },
+    {
+        "id": "ESTADÍSTICAS",
+        "nombre": "ESTADÍSTICAS"
+    },
+    {
+        "id": "RECUPERACIÓN H",
+        "nombre": "RECUPERACIÓN H"
+    },
+    {
+        "id": "ECOCARDIO",
+        "nombre": "ECOCARDIO"
+    },
+    {
+        "id": "SSLR",
+        "nombre": "SSLR"
+    },
+    {
+        "id": "HBV",
+        "nombre": "HBV"
+    }
+]

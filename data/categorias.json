@@ -1,0 +1,786 @@
+[
+    {
+        "id": "130",
+        "nombre": "Abastecimiento"
+    },
+    {
+        "id": "497",
+        "nombre": "Acceso Jasper"
+    },
+    {
+        "id": "141",
+        "nombre": "Activo Fijo"
+    },
+    {
+        "id": "461",
+        "nombre": "Actualización Arancel MAI 2023"
+    },
+    {
+        "id": "583",
+        "nombre": "Actualización de prestaciones"
+    },
+    {
+        "id": "676",
+        "nombre": "Agregar cama Aislamiento modulo alimentación"
+    },
+    {
+        "id": "447",
+        "nombre": "Agregar Establecimiento Usuario Core"
+    },
+    {
+        "id": "471",
+        "nombre": "Agregar Imagen en Baner"
+    },
+    {
+        "id": "665",
+        "nombre": "Agregar Policlinico"
+    },
+    {
+        "id": "487",
+        "nombre": "Agregar Policlinico en Core"
+    },
+    {
+        "id": "401",
+        "nombre": "Agregar Prestaciones en Core"
+    },
+    {
+        "id": "194",
+        "nombre": "Ampliar Perfil Manager"
+    },
+    {
+        "id": "131",
+        "nombre": "Anatomia"
+    },
+    {
+        "id": "633",
+        "nombre": "Apoyo comisión reconocimiento"
+    },
+    {
+        "id": "529",
+        "nombre": "Apoyo documentos Desarrollo"
+    },
+    {
+        "id": "466",
+        "nombre": "Apoyo en Proyectos de Desarrollo"
+    },
+    {
+        "id": "478",
+        "nombre": "Apoyo recepción"
+    },
+    {
+        "id": "566",
+        "nombre": "Apoyo Sumarial"
+    },
+    {
+        "id": "467",
+        "nombre": "Archivo"
+    },
+    {
+        "id": "441",
+        "nombre": "Atencion telefonica CORE"
+    },
+    {
+        "id": "262",
+        "nombre": "AyudaCore WhatsApp"
+    },
+    {
+        "id": "140",
+        "nombre": "Banco de Sangre"
+    },
+    {
+        "id": "469",
+        "nombre": "Banear Usuario Core"
+    },
+    {
+        "id": "584",
+        "nombre": "BANNER"
+    },
+    {
+        "id": "537",
+        "nombre": "Biologia Molecular"
+    },
+    {
+        "id": "528",
+        "nombre": "Bloqueo clave Core"
+    },
+    {
+        "id": "462",
+        "nombre": "Cambio Establecimiento"
+    },
+    {
+        "id": "347",
+        "nombre": "CENSO Establecimiento CORE"
+    },
+    {
+        "id": "400",
+        "nombre": "CENSOS CORE HOSPITAL BASE VALDIVIA"
+    },
+    {
+        "id": "143",
+        "nombre": "Central Telefonica"
+    },
+    {
+        "id": "669",
+        "nombre": "Cita RCA"
+    },
+    {
+        "id": "486",
+        "nombre": "Codigo de prestacion "
+    },
+    {
+        "id": "199",
+        "nombre": "Codigo Profesional"
+    },
+    {
+        "id": "479",
+        "nombre": "Comite Oncologico"
+    },
+    {
+        "id": "426",
+        "nombre": "Compras de Servicios"
+    },
+    {
+        "id": "508",
+        "nombre": "Conexion a LIS"
+    },
+    {
+        "id": "503",
+        "nombre": "Contabilidad"
+    },
+    {
+        "id": "631",
+        "nombre": "Contactabilidad"
+    },
+    {
+        "id": "482",
+        "nombre": "Correccion Item Presupuestario"
+    },
+    {
+        "id": "460",
+        "nombre": "Corregir Datos IMPAX"
+    },
+    {
+        "id": "666",
+        "nombre": "Correos"
+    },
+    {
+        "id": "439",
+        "nombre": "Creación de Policlínico "
+    },
+    {
+        "id": "607",
+        "nombre": "Crear Prestaciones"
+    },
+    {
+        "id": "672",
+        "nombre": "Crear usuarios en nube"
+    },
+    {
+        "id": "438",
+        "nombre": "Credencial ALFA"
+    },
+    {
+        "id": "115",
+        "nombre": "Credencial CORE"
+    },
+    {
+        "id": "196",
+        "nombre": "Credencial CORE y MANAGER"
+    },
+    {
+        "id": "430",
+        "nombre": "Credencial Gestor de Proyectos"
+    },
+    {
+        "id": "116",
+        "nombre": "Credencial Intranet"
+    },
+    {
+        "id": "114",
+        "nombre": "Credencial Manager"
+    },
+    {
+        "id": "121",
+        "nombre": "Credenciales"
+    },
+    {
+        "id": "490",
+        "nombre": "Datos del Paciente"
+    },
+    {
+        "id": "588",
+        "nombre": "Datos Trazabilidad Pabellon"
+    },
+    {
+        "id": "571",
+        "nombre": "Derivacion a soporte tecnico "
+    },
+    {
+        "id": "432",
+        "nombre": "DIGITACIÓN ALFA"
+    },
+    {
+        "id": "433",
+        "nombre": "Digitación IPD"
+    },
+    {
+        "id": "662",
+        "nombre": "Doc Digital"
+    },
+    {
+        "id": "634",
+        "nombre": "DocDigital"
+    },
+    {
+        "id": "514",
+        "nombre": "Documentación de procedimientos"
+    },
+    {
+        "id": "632",
+        "nombre": "Documentacion sumario administrativo"
+    },
+    {
+        "id": "381",
+        "nombre": "Documento Secretaría"
+    },
+    {
+        "id": "580",
+        "nombre": "Edición de Videos"
+    },
+    {
+        "id": "501",
+        "nombre": "Eliminar Credenciales"
+    },
+    {
+        "id": "496",
+        "nombre": "Eliminar DAU"
+    },
+    {
+        "id": "565",
+        "nombre": "Eliminar documento"
+    },
+    {
+        "id": "488",
+        "nombre": "Eliminar Error"
+    },
+    {
+        "id": "641",
+        "nombre": "Eliminar Hospitalización"
+    },
+    {
+        "id": "663",
+        "nombre": "Eliminar Interconsulta Hospitalizado"
+    },
+    {
+        "id": "557",
+        "nombre": "Eliminar IPD"
+    },
+    {
+        "id": "512",
+        "nombre": "Eliminar Protocolo"
+    },
+    {
+        "id": "674",
+        "nombre": "Eliminar registro IPD"
+    },
+    {
+        "id": "568",
+        "nombre": "Eliminar solicitud de campra examnen"
+    },
+    {
+        "id": "509",
+        "nombre": "Eliminar solicitud de Pabellon"
+    },
+    {
+        "id": "603",
+        "nombre": "Eliminar Solicitud pabellon manager"
+    },
+    {
+        "id": "644",
+        "nombre": "Enlazar PoliClínico a CORE"
+    },
+    {
+        "id": "182",
+        "nombre": "Epicrisis"
+    },
+    {
+        "id": "449",
+        "nombre": "Error de Integración Imagenología"
+    },
+    {
+        "id": "489",
+        "nombre": "Error digitación Citometría de flujo"
+    },
+    {
+        "id": "382",
+        "nombre": "Error digitación examen PAP"
+    },
+    {
+        "id": "576",
+        "nombre": "Error Digitación Examenes"
+    },
+    {
+        "id": "446",
+        "nombre": "Error digitación modulo Central Telefónica"
+    },
+    {
+        "id": "385",
+        "nombre": "Error digitación Rayos"
+    },
+    {
+        "id": "511",
+        "nombre": "Error exámenes Biopsias"
+    },
+    {
+        "id": "345",
+        "nombre": "Error Examenes LAB"
+    },
+    {
+        "id": "484",
+        "nombre": "Error nominas PAP"
+    },
+    {
+        "id": "675",
+        "nombre": "Establecimiento "
+    },
+    {
+        "id": "260",
+        "nombre": "Establecimiento PAP"
+    },
+    {
+        "id": "136",
+        "nombre": "Estadisticas"
+    },
+    {
+        "id": "458",
+        "nombre": "ESTUDIO MICROBIOLOGÍA"
+    },
+    {
+        "id": "126",
+        "nombre": "Examenes"
+    },
+    {
+        "id": "118",
+        "nombre": "Farmacia"
+    },
+    {
+        "id": "218",
+        "nombre": "FC"
+    },
+    {
+        "id": "581",
+        "nombre": "Ficha clinica contactabilidad"
+    },
+    {
+        "id": "132",
+        "nombre": "Finanzas"
+    },
+    {
+        "id": "635",
+        "nombre": "FirmaGob"
+    },
+    {
+        "id": "664",
+        "nombre": "Formulario"
+    },
+    {
+        "id": "547",
+        "nombre": "Formularios Google"
+    },
+    {
+        "id": "142",
+        "nombre": "Gestion de Camas"
+    },
+    {
+        "id": "586",
+        "nombre": "Gestor de Proyectos HBV"
+    },
+    {
+        "id": "179",
+        "nombre": "GRD"
+    },
+    {
+        "id": "652",
+        "nombre": "Homologar Perfil \/ ACL"
+    },
+    {
+        "id": "504",
+        "nombre": "IMAGENOLOGIA"
+    },
+    {
+        "id": "548",
+        "nombre": "Informe"
+    },
+    {
+        "id": "567",
+        "nombre": "Informe atenciones RCA"
+    },
+    {
+        "id": "388",
+        "nombre": "INFORME IAAS"
+    },
+    {
+        "id": "506",
+        "nombre": "Informe Jasper"
+    },
+    {
+        "id": "392",
+        "nombre": "Informe Nómina Biopsias"
+    },
+    {
+        "id": "544",
+        "nombre": "INFORME PROCEDIMIENTO CONO LEEP"
+    },
+    {
+        "id": "453",
+        "nombre": "INFORME RDT"
+    },
+    {
+        "id": "516",
+        "nombre": "Informe Registro del Cancer "
+    },
+    {
+        "id": "391",
+        "nombre": "INFORMES COMGES"
+    },
+    {
+        "id": "536",
+        "nombre": "Informes Jasper"
+    },
+    {
+        "id": "502",
+        "nombre": "INFORMES PRODUCCION PABELLON"
+    },
+    {
+        "id": "616",
+        "nombre": "Insumos Bodega general"
+    },
+    {
+        "id": "542",
+        "nombre": "Integracion Agfa"
+    },
+    {
+        "id": "546",
+        "nombre": "Integración CORE-LIS Infinity"
+    },
+    {
+        "id": "464",
+        "nombre": "Integración Microbiología"
+    },
+    {
+        "id": "457",
+        "nombre": "Integracion VPH"
+    },
+    {
+        "id": "495",
+        "nombre": "kerMic"
+    },
+    {
+        "id": "450",
+        "nombre": "Laboratorio Central"
+    },
+    {
+        "id": "582",
+        "nombre": "Link Transparencia"
+    },
+    {
+        "id": "393",
+        "nombre": "Lista Espera"
+    },
+    {
+        "id": "510",
+        "nombre": "Log Core"
+    },
+    {
+        "id": "148",
+        "nombre": "Manager"
+    },
+    {
+        "id": "660",
+        "nombre": "Mantención Correctiva TI"
+    },
+    {
+        "id": "553",
+        "nombre": "Mantención de datos"
+    },
+    {
+        "id": "134",
+        "nombre": "Manuales y Procedimientos"
+    },
+    {
+        "id": "454",
+        "nombre": "Modificación Reportes Jasper"
+    },
+    {
+        "id": "472",
+        "nombre": "Modificar datos de Hospitalizacion"
+    },
+    {
+        "id": "480",
+        "nombre": "Modificar datos en Protocolos"
+    },
+    {
+        "id": "609",
+        "nombre": "Modificar Datos Epicrisis"
+    },
+    {
+        "id": "154",
+        "nombre": "Modificar Perfil CORE"
+    },
+    {
+        "id": "585",
+        "nombre": "MODIFICAR SALAS HOSPITALIZADOS"
+    },
+    {
+        "id": "564",
+        "nombre": "Modificar Suspenciones "
+    },
+    {
+        "id": "390",
+        "nombre": "Modulo Archivo"
+    },
+    {
+        "id": "474",
+        "nombre": "Modulo Contratos"
+    },
+    {
+        "id": "569",
+        "nombre": "Modulo Equipo Medico"
+    },
+    {
+        "id": "519",
+        "nombre": "Módulo Equipos Médicos"
+    },
+    {
+        "id": "570",
+        "nombre": "Modulo Gestion Documental "
+    },
+    {
+        "id": "437",
+        "nombre": "Modulo Hospitalizados"
+    },
+    {
+        "id": "618",
+        "nombre": "Modulo RCH"
+    },
+    {
+        "id": "491",
+        "nombre": "Modulo Recursos Humanos"
+    },
+    {
+        "id": "147",
+        "nombre": "Modulos CORE"
+    },
+    {
+        "id": "515",
+        "nombre": "Nextcloud"
+    },
+    {
+        "id": "180",
+        "nombre": "N° Despacho"
+    },
+    {
+        "id": "498",
+        "nombre": "OIRS"
+    },
+    {
+        "id": "477",
+        "nombre": "Operativos"
+    },
+    {
+        "id": "165",
+        "nombre": "Owncloud"
+    },
+    {
+        "id": "120",
+        "nombre": "Pabellon"
+    },
+    {
+        "id": "481",
+        "nombre": "Paciente con Problemas"
+    },
+    {
+        "id": "157",
+        "nombre": "Pagina Web"
+    },
+    {
+        "id": "465",
+        "nombre": "Permisos Core"
+    },
+    {
+        "id": "589",
+        "nombre": "Prestaciones"
+    },
+    {
+        "id": "468",
+        "nombre": "Problemas con RECH"
+    },
+    {
+        "id": "455",
+        "nombre": "Problemas Interfaz Omnicell"
+    },
+    {
+        "id": "552",
+        "nombre": "Problemas Labstats"
+    },
+    {
+        "id": "608",
+        "nombre": "RCA Borrar adendum"
+    },
+    {
+        "id": "563",
+        "nombre": "RCA borrar documento"
+    },
+    {
+        "id": "602",
+        "nombre": "RCA cerrar atención"
+    },
+    {
+        "id": "399",
+        "nombre": "RCA Eliminar Atención"
+    },
+    {
+        "id": "384",
+        "nombre": "RCA Error Digitación"
+    },
+    {
+        "id": "452",
+        "nombre": "RCA Módulo"
+    },
+    {
+        "id": "386",
+        "nombre": "RCA Prestaciones"
+    },
+    {
+        "id": "387",
+        "nombre": "RCA Procedimientos inyectable"
+    },
+    {
+        "id": "667",
+        "nombre": "RCA Reabrir Atención"
+    },
+    {
+        "id": "383",
+        "nombre": "RCA Registro Atención"
+    },
+    {
+        "id": "456",
+        "nombre": "RCA Suspensión de horas atención"
+    },
+    {
+        "id": "627",
+        "nombre": "Reactivación Usuario CORE"
+    },
+    {
+        "id": "653",
+        "nombre": "Rebajar DAU"
+    },
+    {
+        "id": "562",
+        "nombre": "Rebajar Deuda"
+    },
+    {
+        "id": "133",
+        "nombre": "Recaudación"
+    },
+    {
+        "id": "505",
+        "nombre": "RECH"
+    },
+    {
+        "id": "476",
+        "nombre": "Referentes CORE"
+    },
+    {
+        "id": "494",
+        "nombre": "Registro de Cancer"
+    },
+    {
+        "id": "520",
+        "nombre": "registro de hospitalización"
+    },
+    {
+        "id": "423",
+        "nombre": "Registro Duplicado"
+    },
+    {
+        "id": "661",
+        "nombre": "Registro en Core"
+    },
+    {
+        "id": "402",
+        "nombre": "REGISTRO OMNICELL"
+    },
+    {
+        "id": "483",
+        "nombre": "REGISTROS SECCIONALES"
+    },
+    {
+        "id": "549",
+        "nombre": "Rem Biopsias"
+    },
+    {
+        "id": "545",
+        "nombre": "RRHH "
+    },
+    {
+        "id": "507",
+        "nombre": "Seccionales FC"
+    },
+    {
+        "id": "183",
+        "nombre": "Servidores"
+    },
+    {
+        "id": "475",
+        "nombre": "SOLICITA COMPARTIR PERFIL EN OUWCLOUD"
+    },
+    {
+        "id": "492",
+        "nombre": "Solicitud de Credencial CORE"
+    },
+    {
+        "id": "575",
+        "nombre": "Solicitud de examenes Anatomía Patologica"
+    },
+    {
+        "id": "587",
+        "nombre": "Solicitud de VPn"
+    },
+    {
+        "id": "442",
+        "nombre": "Soporte Inventario"
+    },
+    {
+        "id": "578",
+        "nombre": "Subdepto. de Proyectos e Iniciativas de Inversión"
+    },
+    {
+        "id": "451",
+        "nombre": "Subdepto. Imagenología"
+    },
+    {
+        "id": "459",
+        "nombre": "Subir Documentos"
+    },
+    {
+        "id": "659",
+        "nombre": "Sumario Administrivo"
+    },
+    {
+        "id": "493",
+        "nombre": "Unidad de Dialisis"
+    },
+    {
+        "id": "448",
+        "nombre": "Unidad de Lavandería y Ropería"
+    },
+    {
+        "id": "119",
+        "nombre": "Urgencia"
+    },
+    {
+        "id": "636",
+        "nombre": "Video Tutorial"
+    }
+]
