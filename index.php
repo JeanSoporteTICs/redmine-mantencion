@@ -1,5 +1,6 @@
 <?php
-// Vista principal redirige a Mensajes
-header("Location: views/Dashboard/dashboard.php");
-exit;
-?>
+
+require_once __DIR__ . '/app/bootstrap.php';
+
+$controller = new App\Controllers\HomeController();
+$controller->index();

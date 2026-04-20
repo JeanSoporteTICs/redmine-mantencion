@@ -1,5 +1,6 @@
-﻿<?php
-require_once __DIR__ . '/controllers/auth.php';
-auth_logout();
-header('Location: /redmine-mantencion/login.php');
-exit;
+<?php
+
+require_once __DIR__ . '/app/bootstrap.php';
+
+$controller = new App\Controllers\AuthController();
+$controller->logout();
