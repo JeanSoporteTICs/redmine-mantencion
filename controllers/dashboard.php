@@ -1612,6 +1612,15 @@ function parse_issue_date(string $value): ?string {
     return null;
 }
 
+function dashboard_normalize_stored_date($value): string {
+    $parsed = parse_issue_date((string)$value);
+    if ($parsed === null) {
+        return trim((string)$value);
+    }
+    $dt = DateTimeImmutable::createFromFormat('Y-m-d', $parsed);
+    return $dt instanceof DateTimeImmutable ? $dt->format('d-m-Y') : trim((string)$value);
+}
+
 function build_redmine_issue_payload(array $message, array $cfg, array $catMap, array $unitMap): array {
     $isManual = ($message['fuente'] ?? '') === 'manual' || str_starts_with((string)($message['id'] ?? ''), 'manual-');
     if ($isManual) {
@@ -2309,7 +2318,11 @@ function handle_request(): array {
                     }
                     foreach ($fields as $field) {
                         if (isset($_POST[$field])) {
-                            $message[$field] = $_POST[$field];
+                            $value = $_POST[$field];
+                            if (in_array($field, ['fecha_inicio', 'fecha_fin', 'fecha'], true)) {
+                                $value = dashboard_normalize_stored_date($value);
+                            }
+                            $message[$field] = $value;
                         }
                     }
                     if (($message['fuente'] ?? '') === 'manual') {
