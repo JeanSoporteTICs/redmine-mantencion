@@ -6552,3 +6552,1014 @@
     },
     "message_id": "core-3f0824d5f25e0732e33f"
 }
+{
+    "ts": "2026-04-16T22:57:29+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120449,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Endoscopía\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|18132505-4|Ivonne Ruiz Montecinos|verificar los documentos de endoscopia subidos a los pacientes que se realizan procedimientos|se podra solicitar la habilitar la pestaña a la administrativa de documentos de la parte de fichas clinica debido que no puede verificar que se suban los documentos como consentimientos entre otros por favor|\",\"start_date\":\"2026-04-16\",\"due_date\":\"2026-04-16\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Veronica Zapata Contreras\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad De Endoscopía\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"veronicazapatac2430@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-16T20:57:29Z\",\"updated_on\":\"2026-04-16T20:57:29Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Endoscopía",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|18132505-4|Ivonne Ruiz Montecinos|verificar los documentos de endoscopia subidos a los pacientes que se realizan procedimientos|se podra solicitar la habilitar la pestaña a la administrativa de documentos de la parte de fichas clinica debido que no puede verificar que se suban los documentos como consentimientos entre otros por favor|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-16",
+            "due_date": "2026-04-16",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Veronica Zapata Contreras"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad De Endoscopía"
+                },
+                {
+                    "id": 8,
+                    "value": "veronicazapatac2430@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-af671ce9fe7e02f6e306"
+}
+{
+    "ts": "2026-04-16T22:57:30+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120450,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Psiquiatría Infanto Juvenil\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|19941872-6|Camila Andrea Carrasco Lemarie|Plan de mejoramiento del manejo de información sensible.|Añadir en cola de trabajo visualización de Interconsultas del mesón y bloquear en Ficha el apartado de opciones toda posibilidad de información (Atención clínica, contrareferencia, referencia, informes, etc.)|\",\"start_date\":\"2026-04-16\",\"due_date\":\"2026-04-16\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Ruben David Zuniga Zuniga\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad Psiquiatría Infanto Juvenil\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"rubenzuniga10@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-16T20:57:30Z\",\"updated_on\":\"2026-04-16T20:57:30Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Psiquiatría Infanto Juvenil",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|19941872-6|Camila Andrea Carrasco Lemarie|Plan de mejoramiento del manejo de información sensible.|Añadir en cola de trabajo visualización de Interconsultas del mesón y bloquear en Ficha el apartado de opciones toda posibilidad de información (Atención clínica, contrareferencia, referencia, informes, etc.)|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-16",
+            "due_date": "2026-04-16",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Ruben David Zuniga Zuniga"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad Psiquiatría Infanto Juvenil"
+                },
+                {
+                    "id": 8,
+                    "value": "rubenzuniga10@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-9dd1d71b92e9d403b7c8"
+}
+{
+    "ts": "2026-04-16T22:57:30+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120451,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Uti Adulto\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|21273759-3|Valeska Scarlet Soto Garrido|Funcionaria retoma Reemplazos en UTI 1 y UTI 2|Favor reactivar cuenta CORE|\",\"start_date\":\"2026-04-16\",\"due_date\":\"2026-04-16\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Felix Rodas Corvalan\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Subdepto. Uti Adulto\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"felix.rodas@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-16T20:57:31Z\",\"updated_on\":\"2026-04-16T20:57:31Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Uti Adulto",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|21273759-3|Valeska Scarlet Soto Garrido|Funcionaria retoma Reemplazos en UTI 1 y UTI 2|Favor reactivar cuenta CORE|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-16",
+            "due_date": "2026-04-16",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Felix Rodas Corvalan"
+                },
+                {
+                    "id": 5,
+                    "value": "Subdepto. Uti Adulto"
+                },
+                {
+                    "id": 8,
+                    "value": "felix.rodas@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-df22c75bd2134c016161"
+}
+{
+    "ts": "2026-04-16T22:57:31+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120452,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Urgencia Gineco-Obstétrica\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|18427903-7|Valeria Alejandra  Gutiérrez Sandoval|Funcionaria es Matrona Coordinadora de Pabellón GO.|En módulo Pabellón incorporar opción: \\\"Suspensiones\\\", para poder extraer información necesaria.|\",\"start_date\":\"2026-04-16\",\"due_date\":\"2026-04-16\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Evelyn Cardenas Picticar\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad De Urgencia Gineco-Obstétrica\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"evelyn.gyp@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-16T20:57:31Z\",\"updated_on\":\"2026-04-16T20:57:31Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Urgencia Gineco-Obstétrica",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|18427903-7|Valeria Alejandra  Gutiérrez Sandoval|Funcionaria es Matrona Coordinadora de Pabellón GO.|En módulo Pabellón incorporar opción: \"Suspensiones\", para poder extraer información necesaria.|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-16",
+            "due_date": "2026-04-16",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Evelyn Cardenas Picticar"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad De Urgencia Gineco-Obstétrica"
+                },
+                {
+                    "id": 8,
+                    "value": "evelyn.gyp@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-ef618a3e07c458dacd5d"
+}
+{
+    "ts": "2026-04-16T22:57:32+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120453,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Urgencia Gineco-Obstétrica\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|19809888-4|Camila Constanza Arteaga Herrera|Matrona clínica en Pabellón GO.|Incorporar en Módulo Pabellón: Opción \\\"Confirmar Tabla\\\".|\",\"start_date\":\"2026-04-16\",\"due_date\":\"2026-04-16\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Evelyn Cardenas Picticar\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad De Urgencia Gineco-Obstétrica\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"evelyn.gyp@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-16T20:57:32Z\",\"updated_on\":\"2026-04-16T20:57:32Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Urgencia Gineco-Obstétrica",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|19809888-4|Camila Constanza Arteaga Herrera|Matrona clínica en Pabellón GO.|Incorporar en Módulo Pabellón: Opción \"Confirmar Tabla\".|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-16",
+            "due_date": "2026-04-16",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Evelyn Cardenas Picticar"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad De Urgencia Gineco-Obstétrica"
+                },
+                {
+                    "id": 8,
+                    "value": "evelyn.gyp@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-5562060e6d86b09f7d5e"
+}
+{
+    "ts": "2026-04-16T22:57:32+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120454,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Consultas Médicas Y No Médicas\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|18758675-5|Cristian Esteban Sasso Aguirre|remplazo|favor agregar en modulo archivo  HEMATOLOGIA ADULTO\\t978|\",\"start_date\":\"2026-04-16\",\"due_date\":\"2026-04-16\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Alejandra Antonieta Mella Alvarez\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Subdepto. Consultas Médicas Y No Médicas\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"alejandra.mella@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-16T20:57:33Z\",\"updated_on\":\"2026-04-16T20:57:33Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Consultas Médicas Y No Médicas",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|18758675-5|Cristian Esteban Sasso Aguirre|remplazo|favor agregar en modulo archivo  HEMATOLOGIA ADULTO\t978|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-16",
+            "due_date": "2026-04-16",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Alejandra Antonieta Mella Alvarez"
+                },
+                {
+                    "id": 5,
+                    "value": "Subdepto. Consultas Médicas Y No Médicas"
+                },
+                {
+                    "id": 8,
+                    "value": "alejandra.mella@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-1dcc655d8a77c97554bd"
+}
+{
+    "ts": "2026-04-16T22:57:33+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120455,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Urgencia\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|18872039-0|José Ignacio Muñoz Kortmann|se incorpora como reemplazo a honorarios en la unidad|cambiar perfil a médico y habilitar permisos de medico en urgencia|\",\"start_date\":\"2026-04-16\",\"due_date\":\"2026-04-16\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Vicente Schild Wenzel\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Subdepto. Urgencia\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"vschildw@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-16T20:57:33Z\",\"updated_on\":\"2026-04-16T20:57:33Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Urgencia",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|18872039-0|José Ignacio Muñoz Kortmann|se incorpora como reemplazo a honorarios en la unidad|cambiar perfil a médico y habilitar permisos de medico en urgencia|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-16",
+            "due_date": "2026-04-16",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Vicente Schild Wenzel"
+                },
+                {
+                    "id": 5,
+                    "value": "Subdepto. Urgencia"
+                },
+                {
+                    "id": 8,
+                    "value": "vschildw@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-a7f88413cff24e33d67f"
+}
+{
+    "ts": "2026-04-17T17:57:19+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120523,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"assigned_to\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Depto. Gestión Del Cuidado Matronería\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|16048869-7|Evelyn Muñoz Mancilla|Funcionaria TENS realiza seguimiento y evaluación de usuarias y RN hospitalizados, además desde este modulo revisa y obtiene información diaria y mensual para elaboración de informes estadísticos.|Solicito habilitar en su perfil el modulo: HOSPITALIZACIÓN|\",\"start_date\":\"2026-04-16\",\"due_date\":\"2026-04-16\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Ricardo Alberto Uribe Aviles\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Depto. Gestión Del Cuidado Matronería\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"ricardo.uribe@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-17T15:57:20Z\",\"updated_on\":\"2026-04-17T15:57:20Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Depto. Gestión Del Cuidado Matronería",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|16048869-7|Evelyn Muñoz Mancilla|Funcionaria TENS realiza seguimiento y evaluación de usuarias y RN hospitalizados, además desde este modulo revisa y obtiene información diaria y mensual para elaboración de informes estadísticos.|Solicito habilitar en su perfil el modulo: HOSPITALIZACIÓN|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-16",
+            "due_date": "2026-04-16",
+            "assigned_to_id": "167",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Ricardo Alberto Uribe Aviles"
+                },
+                {
+                    "id": 5,
+                    "value": "Depto. Gestión Del Cuidado Matronería"
+                },
+                {
+                    "id": 8,
+                    "value": "ricardo.uribe@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-98d5bab264fbe925a3cc"
+}
+{
+    "ts": "2026-04-17T17:57:20+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120524,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"assigned_to\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Especialidades Odontológicas\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|10672923-9|Claudia Crisosto Jara|revisión pedidos mensuales|abastecimiento|\",\"start_date\":\"2026-04-16\",\"due_date\":\"2026-04-16\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"María Paz García Pedraza\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad De Especialidades Odontológicas\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"maria.garciapedraza@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-17T15:57:20Z\",\"updated_on\":\"2026-04-17T15:57:20Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Especialidades Odontológicas",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|10672923-9|Claudia Crisosto Jara|revisión pedidos mensuales|abastecimiento|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-16",
+            "due_date": "2026-04-16",
+            "assigned_to_id": "167",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "María Paz García Pedraza"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad De Especialidades Odontológicas"
+                },
+                {
+                    "id": 8,
+                    "value": "maria.garciapedraza@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-b605ec955f45c0f54644"
+}
+{
+    "ts": "2026-04-17T17:57:20+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120525,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"assigned_to\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro De Salud Familiar Coñaripe\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|20482827-K|Renato Andres Olguin Aliste|recuperación de clave|recuperación de clave|\",\"start_date\":\"2026-04-16\",\"due_date\":\"2026-04-16\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Javiera Salazar Vasquez\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro De Salud Familiar Coñaripe\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"coordinadorsomeconaripe@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-17T15:57:21Z\",\"updated_on\":\"2026-04-17T15:57:21Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro De Salud Familiar Coñaripe",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|20482827-K|Renato Andres Olguin Aliste|recuperación de clave|recuperación de clave|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-16",
+            "due_date": "2026-04-16",
+            "assigned_to_id": "167",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Javiera Salazar Vasquez"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro De Salud Familiar Coñaripe"
+                },
+                {
+                    "id": 8,
+                    "value": "coordinadorsomeconaripe@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-926681a6fdfadaacd2d2"
+}
+{
+    "ts": "2026-04-17T17:57:21+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120526,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"assigned_to\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro De Salud Familiar Coñaripe\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|20407071-7|Manuel Ignacio Dinamarca Lazo|recuperación de clave|recuperación de clave|\",\"start_date\":\"2026-04-16\",\"due_date\":\"2026-04-16\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Javiera Salazar Vasquez\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro De Salud Familiar Coñaripe\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"coordinadorsomeconaripe@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-17T15:57:22Z\",\"updated_on\":\"2026-04-17T15:57:22Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro De Salud Familiar Coñaripe",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|20407071-7|Manuel Ignacio Dinamarca Lazo|recuperación de clave|recuperación de clave|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-16",
+            "due_date": "2026-04-16",
+            "assigned_to_id": "167",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Javiera Salazar Vasquez"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro De Salud Familiar Coñaripe"
+                },
+                {
+                    "id": 8,
+                    "value": "coordinadorsomeconaripe@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-e24ce6f0fe56c54de099"
+}
+{
+    "ts": "2026-04-17T17:57:22+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120527,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"assigned_to\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Psiquiatría Infanto Juvenil\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|13521134-6|Marlys Saavedra Delgado|Plan de mejoramiento de información sensible.|Añadir en cola de trabajo visualización de Interconsultas del mesón y bloquear en Ficha el apartado de opciones toda posibilidad de información (Atención clínica, contrareferencia, referencia, informes, etc.)|\",\"start_date\":\"2026-04-16\",\"due_date\":\"2026-04-16\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Ruben David Zuniga Zuniga\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad Psiquiatría Infanto Juvenil\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"rubenzuniga10@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-17T15:57:22Z\",\"updated_on\":\"2026-04-17T15:57:22Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Psiquiatría Infanto Juvenil",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|13521134-6|Marlys Saavedra Delgado|Plan de mejoramiento de información sensible.|Añadir en cola de trabajo visualización de Interconsultas del mesón y bloquear en Ficha el apartado de opciones toda posibilidad de información (Atención clínica, contrareferencia, referencia, informes, etc.)|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-16",
+            "due_date": "2026-04-16",
+            "assigned_to_id": "167",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Ruben David Zuniga Zuniga"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad Psiquiatría Infanto Juvenil"
+                },
+                {
+                    "id": 8,
+                    "value": "rubenzuniga10@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-b00c6aec292b8dc2e3f2"
+}
+{
+    "ts": "2026-04-17T17:57:22+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120528,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"assigned_to\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Consultas Médicas Y No Médicas\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|17116906-2|Luis Gabriel Araya Saldias|poder crear protocolos operatorios y epicrisis.|favor activar  módulo de hospitalizado para poder crear protocolos operatorios y epicrisis.|\",\"start_date\":\"2026-04-16\",\"due_date\":\"2026-04-16\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Alejandra Antonieta Mella Alvarez\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Subdepto. Consultas Médicas Y No Médicas\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"alejandra.mella@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-17T15:57:23Z\",\"updated_on\":\"2026-04-17T15:57:23Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Consultas Médicas Y No Médicas",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|17116906-2|Luis Gabriel Araya Saldias|poder crear protocolos operatorios y epicrisis.|favor activar  módulo de hospitalizado para poder crear protocolos operatorios y epicrisis.|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-16",
+            "due_date": "2026-04-16",
+            "assigned_to_id": "167",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Alejandra Antonieta Mella Alvarez"
+                },
+                {
+                    "id": 5,
+                    "value": "Subdepto. Consultas Médicas Y No Médicas"
+                },
+                {
+                    "id": 8,
+                    "value": "alejandra.mella@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-09dea525b1fd7ea3e60a"
+}
+{
+    "ts": "2026-04-17T17:57:23+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120529,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"assigned_to\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Urgencia Gineco-Obstétrica\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|19624172-8|Cristopher Alejandro Castillo Paullancar|Matrón con funciones clínicas em Bloque Urgencia GO.|Solicito incorporar visualización resultados VDRL, tal como tienen todos los y las matrones del Bloque Urgencia.|\",\"start_date\":\"2026-04-16\",\"due_date\":\"2026-04-16\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Evelyn Cardenas Picticar\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad De Urgencia Gineco-Obstétrica\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"evelyn.gyp@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-17T15:57:24Z\",\"updated_on\":\"2026-04-17T15:57:24Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Urgencia Gineco-Obstétrica",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|19624172-8|Cristopher Alejandro Castillo Paullancar|Matrón con funciones clínicas em Bloque Urgencia GO.|Solicito incorporar visualización resultados VDRL, tal como tienen todos los y las matrones del Bloque Urgencia.|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-16",
+            "due_date": "2026-04-16",
+            "assigned_to_id": "167",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Evelyn Cardenas Picticar"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad De Urgencia Gineco-Obstétrica"
+                },
+                {
+                    "id": 8,
+                    "value": "evelyn.gyp@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-f25379e7eae26ca2e363"
+}
+{
+    "ts": "2026-04-17T17:57:23+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120530,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"assigned_to\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro De Salud Familiar Coñaripe\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|18139592-3|Javiera Salazar Vasquez|cambio de contraseña subrogante|cambio de contraseña subrogante|\",\"start_date\":\"2026-04-16\",\"due_date\":\"2026-04-16\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Nayadet Cofre Catricheo\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro De Salud Familiar Coñaripe\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"jefesomecesfamconaripe@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-17T15:57:24Z\",\"updated_on\":\"2026-04-17T15:57:24Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro De Salud Familiar Coñaripe",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|18139592-3|Javiera Salazar Vasquez|cambio de contraseña subrogante|cambio de contraseña subrogante|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-16",
+            "due_date": "2026-04-16",
+            "assigned_to_id": "167",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Nayadet Cofre Catricheo"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro De Salud Familiar Coñaripe"
+                },
+                {
+                    "id": 8,
+                    "value": "jefesomecesfamconaripe@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-da6952cfad33c04ba295"
+}
+{
+    "ts": "2026-04-17T17:57:24+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120531,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"assigned_to\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Medicina\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|19181045-7|Diego Rojas Leonard|se desempeña em medicina área MQ alejado de secretaría. Casos clínicos en estudio|agregar a compra de servicio, opción exámenes valorizados|\",\"start_date\":\"2026-04-16\",\"due_date\":\"2026-04-16\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Paul Andre Klee Negron\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Subdepto. Medicina\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"dr.paulklee@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-17T15:57:25Z\",\"updated_on\":\"2026-04-17T15:57:25Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Medicina",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|19181045-7|Diego Rojas Leonard|se desempeña em medicina área MQ alejado de secretaría. Casos clínicos en estudio|agregar a compra de servicio, opción exámenes valorizados|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-16",
+            "due_date": "2026-04-16",
+            "assigned_to_id": "167",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Paul Andre Klee Negron"
+                },
+                {
+                    "id": 5,
+                    "value": "Subdepto. Medicina"
+                },
+                {
+                    "id": 8,
+                    "value": "dr.paulklee@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-327f01ee889e1c6abe01"
+}
+{
+    "ts": "2026-04-17T17:57:25+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120532,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"assigned_to\":{\"id\":167,\"name\":\"Fernanda Leal Figueroa\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro De Salud Familiar Angachilla\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|20074516-7|Catalina Roman San Martin|Solicitamos acceso a perl matrona de CESFAM Angachilla|Solicitamos acceso a perl matrona de CESFAM Angachilla|\",\"start_date\":\"2026-04-16\",\"due_date\":\"2026-04-16\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Víctor Sahr Corral\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro De Salud Familiar Angachilla\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"soporteinfo.angachilla@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-17T15:57:26Z\",\"updated_on\":\"2026-04-17T15:57:26Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro De Salud Familiar Angachilla",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|20074516-7|Catalina Roman San Martin|Solicitamos acceso a perl matrona de CESFAM Angachilla|Solicitamos acceso a perl matrona de CESFAM Angachilla|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-16",
+            "due_date": "2026-04-16",
+            "assigned_to_id": "167",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Víctor Sahr Corral"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro De Salud Familiar Angachilla"
+                },
+                {
+                    "id": 8,
+                    "value": "soporteinfo.angachilla@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-3c2f2f04a2fd20a43468"
+}
+{
+    "ts": "2026-04-17T21:08:24+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120556,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":627,\"name\":\"Reactivación Usuario CORE\"},\"subject\":\"reactivar usuario CORE \/ ayuda CORE WhatsApp\",\"description\":\"|_. Tipo solicitud|_. Solicitante|_. Categoria|_. Unidad|_. Descripcion|\\r\\n|Soporte|18775610-3|Reactivación Usuario CORE|LAVANDERIA|[12:54, 17\/4\/2026] +56 9 4040 2650: Hola, me bloquearon mi usuario  [12:54, 17\/4\/2026] +56 9 4040 2650: 18775610-3  [13:04, 17\/4\/2026] AyudaCore: Estimado\/a,  Favor actualizar la página he intente nuevamente con su clave actual  [13:25, 17\/4\/2026] +56 9 4040 2650: Gracias|\",\"start_date\":\"2026-04-17\",\"due_date\":\"2026-04-17\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"18775610-3\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"LAVANDERIA\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"1\"}],\"created_on\":\"2026-04-17T19:08:25Z\",\"updated_on\":\"2026-04-17T19:08:25Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "reactivar usuario CORE \/ ayuda CORE WhatsApp",
+            "description": "|_. Tipo solicitud|_. Solicitante|_. Categoria|_. Unidad|_. Descripcion|\n|Soporte|18775610-3|Reactivación Usuario CORE|LAVANDERIA|[12:54, 17\/4\/2026] +56 9 4040 2650: Hola, me bloquearon mi usuario  [12:54, 17\/4\/2026] +56 9 4040 2650: 18775610-3  [13:04, 17\/4\/2026] AyudaCore: Estimado\/a,  Favor actualizar la página he intente nuevamente con su clave actual  [13:25, 17\/4\/2026] +56 9 4040 2650: Gracias|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "is_private": false,
+            "start_date": "2026-04-17",
+            "due_date": "2026-04-17",
+            "assigned_to_id": "42",
+            "category_id": 627,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "18775610-3"
+                },
+                {
+                    "id": 5,
+                    "value": "LAVANDERIA"
+                },
+                {
+                    "id": 12,
+                    "value": "1"
+                }
+            ]
+        }
+    },
+    "message_id": "manual-69e26e194a7507.45309489"
+}
+{
+    "ts": "2026-04-17T21:17:28+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120557,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":262,\"name\":\"AyudaCore WhatsApp\"},\"subject\":\"cambio contraseña usuario CORE  \/ whatsapp\",\"description\":\"|_. Tipo solicitud|_. Solicitante|_. Categoria|_. Unidad|_. Descripcion|\\r\\n|Soporte|claudio pozo|AyudaCore WhatsApp|lavandería|Estimado   actualmente se encuentra registrado el correo indicado claudio.pozo@redsalud.gob.cl  se restablece su contraseña     Usuario : 15294303  Clave :   Luego, se aconseja modificar su contraseña a través del menú ubicado en la esquina superior derecha, seleccionando la alternativa “modificar contraseña”.      Saludos|\",\"start_date\":\"2026-04-17\",\"due_date\":\"2026-04-17\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"claudio pozo\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"+56 9 3523 5182\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"lavandería\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"claudio.pozo@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-17T19:17:29Z\",\"updated_on\":\"2026-04-17T19:17:29Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "cambio contraseña usuario CORE  \/ whatsapp",
+            "description": "|_. Tipo solicitud|_. Solicitante|_. Categoria|_. Unidad|_. Descripcion|\n|Soporte|claudio pozo|AyudaCore WhatsApp|lavandería|Estimado   actualmente se encuentra registrado el correo indicado claudio.pozo@redsalud.gob.cl  se restablece su contraseña     Usuario : 15294303  Clave :   Luego, se aconseja modificar su contraseña a través del menú ubicado en la esquina superior derecha, seleccionando la alternativa “modificar contraseña”.      Saludos|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "is_private": false,
+            "start_date": "2026-04-17",
+            "due_date": "2026-04-17",
+            "assigned_to_id": "42",
+            "category_id": 262,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "claudio pozo"
+                },
+                {
+                    "id": 5,
+                    "value": "lavandería"
+                },
+                {
+                    "id": 4,
+                    "value": "+56 9 3523 5182"
+                },
+                {
+                    "id": 8,
+                    "value": "claudio.pozo@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "manual-69e28741859748.42043723"
+}
+{
+    "ts": "2026-04-17T21:30:33+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120560,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":262,\"name\":\"AyudaCore WhatsApp\"},\"subject\":\"reactivar usuario CORE \/ atencion por whatsapp\",\"description\":\"[12:54, 17\/4\/2026] +56 9 4040 2650: Hola, me bloquearon mi usuario\\r\\n[12:54, 17\/4\/2026] +56 9 4040 2650: 18775610-3\\r\\n[13:04, 17\/4\/2026] AyudaCore: Estimado\/a,\\r\\nFavor actualizar la página he intente nuevamente con su clave actual\\r\\n[13:25, 17\/4\/2026] +56 9 4040 2650: Gracias\",\"start_date\":\"2026-04-17\",\"due_date\":\"2026-04-17\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"FRANCISCA CAMILA VARAS VARAS\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"SERVICIO PEDIÁTRICO QUIRÚRGICO INDIFERENCIADO\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-17T19:30:34Z\",\"updated_on\":\"2026-04-17T19:30:34Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "reactivar usuario CORE \/ atencion por whatsapp",
+            "description": "[12:54, 17\/4\/2026] +56 9 4040 2650: Hola, me bloquearon mi usuario\r\n[12:54, 17\/4\/2026] +56 9 4040 2650: 18775610-3\r\n[13:04, 17\/4\/2026] AyudaCore: Estimado\/a,\r\nFavor actualizar la página he intente nuevamente con su clave actual\r\n[13:25, 17\/4\/2026] +56 9 4040 2650: Gracias",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "is_private": false,
+            "start_date": "2026-04-17",
+            "due_date": "2026-04-17",
+            "assigned_to_id": "42",
+            "category_id": 262,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "FRANCISCA CAMILA VARAS VARAS"
+                },
+                {
+                    "id": 5,
+                    "value": "SERVICIO PEDIÁTRICO QUIRÚRGICO INDIFERENCIADO"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "manual-69e28a495f1c27.56978005"
+}
+{
+    "ts": "2026-04-17T22:22:38+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120568,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":669,\"name\":\"Cita RCA\"},\"subject\":\"reabrir cita \/ atención whatsapp\",\"description\":\"[15:48, 17\/4\/2026] +56 9 8839 5515: Me podría reabrir una ficha\\r\\n[15:49, 17\/4\/2026] +56 9 8839 5515: 23.064.148-k\\r\\n[15:49, 17\/4\/2026] +56 9 8839 5515: Citada hoy 17 de Abril\\r\\n[16:00, 17\/4\/2026] AyudaCore: Buenas tardes\\r\\n[16:05, 17\/4\/2026] AyudaCore: a que hora era la cita?\\r\\n[16:06, 17\/4\/2026] +56 9 8839 5515: 13.30\\r\\n[16:08, 17\/4\/2026] AyudaCore: listo, favor revisar\\r\\n[16:08, 17\/4\/2026] +56 9 8839 5515: Está ok\\r\\n[16:08, 17\/4\/2026] +56 9 8839 5515: Gracias\",\"start_date\":\"2026-04-17\",\"due_date\":\"2026-04-17\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"23.064.148-k\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"HBV\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-17T20:22:39Z\",\"updated_on\":\"2026-04-17T20:22:39Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "reabrir cita \/ atención whatsapp",
+            "description": "[15:48, 17\/4\/2026] +56 9 8839 5515: Me podría reabrir una ficha\r\n[15:49, 17\/4\/2026] +56 9 8839 5515: 23.064.148-k\r\n[15:49, 17\/4\/2026] +56 9 8839 5515: Citada hoy 17 de Abril\r\n[16:00, 17\/4\/2026] AyudaCore: Buenas tardes\r\n[16:05, 17\/4\/2026] AyudaCore: a que hora era la cita?\r\n[16:06, 17\/4\/2026] +56 9 8839 5515: 13.30\r\n[16:08, 17\/4\/2026] AyudaCore: listo, favor revisar\r\n[16:08, 17\/4\/2026] +56 9 8839 5515: Está ok\r\n[16:08, 17\/4\/2026] +56 9 8839 5515: Gracias",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "is_private": false,
+            "start_date": "2026-04-17",
+            "due_date": "2026-04-17",
+            "assigned_to_id": "42",
+            "category_id": 669,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "23.064.148-k"
+                },
+                {
+                    "id": 5,
+                    "value": "HBV"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "manual-69e2961f60e9e6.78564361"
+}
+{
+    "ts": "2026-04-17T22:22:39+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120569,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Depto. Abastecimiento\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|16463813-8|Patricio Gomez Gomez|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|\\r\\n|Modificar Perfil|19552633-8|Francisca Javiera Munoz Navarro|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|\\r\\n|Modificar Perfil|15548855-7|Roxana Jarpa Jaramillo|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|\\r\\n|Modificar Perfil|16805342-8|Evelin Ortega Palma|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|\\r\\n|Modificar Perfil|15294403-9|Monica Fuentealba Soto|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|\\r\\n|Modificar Perfil|20787480-9|Siria Belen Acuña Holtheuer|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|\\r\\n|Modificar Perfil|17359142-K|Bárbara Martínez Kesternich|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|\\r\\n|Modificar Perfil|11703443-7|Rita Agüero Velasquez|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|\\r\\n|Modificar Perfil|17360425-4|Solange Del Pilar Charpentier Navarro|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|\",\"start_date\":\"2026-04-17\",\"due_date\":\"2026-04-17\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Sandra Galilea Hermosilla\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Depto. Abastecimiento\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"sandragalilea@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-17T20:22:39Z\",\"updated_on\":\"2026-04-17T20:22:39Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Depto. Abastecimiento",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|16463813-8|Patricio Gomez Gomez|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|\n|Modificar Perfil|19552633-8|Francisca Javiera Munoz Navarro|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|\n|Modificar Perfil|15548855-7|Roxana Jarpa Jaramillo|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|\n|Modificar Perfil|16805342-8|Evelin Ortega Palma|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|\n|Modificar Perfil|15294403-9|Monica Fuentealba Soto|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|\n|Modificar Perfil|20787480-9|Siria Belen Acuña Holtheuer|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|\n|Modificar Perfil|17359142-K|Bárbara Martínez Kesternich|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|\n|Modificar Perfil|11703443-7|Rita Agüero Velasquez|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|\n|Modificar Perfil|17360425-4|Solange Del Pilar Charpentier Navarro|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|Solicito se añada a su cuenta perfil  Modulo Abastecimiento , todos los módulos y submodulos a todos los funcionarios dependientes del Departamento de Abastecimiento tales como: Solicitudes, Contratos; Adquisiciones Factura;  Mantenedores. Dentro de modulo Bodega, cargar Recepción y consulta. Modulo Indicadores: Inversiones; Analissi de Recepción y Stock valorizado.|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-17",
+            "due_date": "2026-04-17",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Sandra Galilea Hermosilla"
+                },
+                {
+                    "id": 5,
+                    "value": "Depto. Abastecimiento"
+                },
+                {
+                    "id": 8,
+                    "value": "sandragalilea@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-a2c8f8ea9bc1667408b5"
+}
+{
+    "ts": "2026-04-17T22:22:39+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120570,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Farmacia\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|20945563-3|Constanza Belen Campos Obando|necesita validar medicamentos para recetas oncologicas|dar acceso a modulo ficha clinica|\",\"start_date\":\"2026-04-17\",\"due_date\":\"2026-04-17\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Francisca Alarcon Vera\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Subdepto. Farmacia\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"fran.alarcon.v@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-17T20:22:40Z\",\"updated_on\":\"2026-04-17T20:22:40Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Farmacia",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|20945563-3|Constanza Belen Campos Obando|necesita validar medicamentos para recetas oncologicas|dar acceso a modulo ficha clinica|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-17",
+            "due_date": "2026-04-17",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Francisca Alarcon Vera"
+                },
+                {
+                    "id": 5,
+                    "value": "Subdepto. Farmacia"
+                },
+                {
+                    "id": 8,
+                    "value": "fran.alarcon.v@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-70a6a9ef5c2b7fcee78f"
+}
+{
+    "ts": "2026-04-17T22:22:40+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120571,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Urgencia Gineco-Obstétrica\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|13587666-6|Maria Alejandra Nuñez Luengo|MATRONA JEFE SUBROGANTE DE PARTOS DEBE CONFIRMAR TABLA OPERATORIA|AGREGAR EN EL MODULO DE PABELLON LA OPCION PARA CONFIRMAR LA TABLA OPERATORIA|\",\"start_date\":\"2026-04-17\",\"due_date\":\"2026-04-17\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Maria Alejandra Nuñez Luengo\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad De Urgencia Gineco-Obstétrica\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"anunezluengo@hotmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-17T20:22:41Z\",\"updated_on\":\"2026-04-17T20:22:41Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Urgencia Gineco-Obstétrica",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|13587666-6|Maria Alejandra Nuñez Luengo|MATRONA JEFE SUBROGANTE DE PARTOS DEBE CONFIRMAR TABLA OPERATORIA|AGREGAR EN EL MODULO DE PABELLON LA OPCION PARA CONFIRMAR LA TABLA OPERATORIA|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-17",
+            "due_date": "2026-04-17",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Maria Alejandra Nuñez Luengo"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad De Urgencia Gineco-Obstétrica"
+                },
+                {
+                    "id": 8,
+                    "value": "anunezluengo@hotmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-a79e5e808e18db5cf1ce"
+}
+{
+    "ts": "2026-04-17T22:22:40+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120572,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Urgencia Gineco-Obstétrica\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|19554633-9|Pablo Alejandro Fierro Ide|MATRÓN DE URGENCIA TURNANTE NO TIENE ACTIVA ESTA OPCIÓN EN SU PERFIL|agregar en modulo de URGENCIA GO la opción de DOCUMENTOS para imprimir consentimiento de hospitalización en atención finalizada|\",\"start_date\":\"2026-04-17\",\"due_date\":\"2026-04-17\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Maria Alejandra Nuñez Luengo\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad De Urgencia Gineco-Obstétrica\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"anunezluengo@hotmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-17T20:22:41Z\",\"updated_on\":\"2026-04-17T20:22:41Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Urgencia Gineco-Obstétrica",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|19554633-9|Pablo Alejandro Fierro Ide|MATRÓN DE URGENCIA TURNANTE NO TIENE ACTIVA ESTA OPCIÓN EN SU PERFIL|agregar en modulo de URGENCIA GO la opción de DOCUMENTOS para imprimir consentimiento de hospitalización en atención finalizada|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-17",
+            "due_date": "2026-04-17",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Maria Alejandra Nuñez Luengo"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad De Urgencia Gineco-Obstétrica"
+                },
+                {
+                    "id": 8,
+                    "value": "anunezluengo@hotmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-15fb2616592745ef9d86"
+}
+{
+    "ts": "2026-04-20T13:55:01+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120608,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":262,\"name\":\"AyudaCore WhatsApp\"},\"subject\":\"desbloquear usuario CORE \/ atención pro whatsapp\",\"description\":\"[18:01, 19\/4\/2026] +56 9 9711 6767: Necesito desbloquear mi core\\r\\n19553733-k\\r\\n[18:01, 19\/4\/2026] AyudaCore: Gracias por tu mensaje. En este momento no podemos responder, pero lo haremos lo antes posible.\\r\\nHorarios de atención: \\r\\nLunes a Jueves de 8:00 a 17:00 hrs, Viernes de 8:00 a 16:00 hrs.\\r\\n◇Feriados no tenemos atencion\\r\\n[7:51, 20\/4\/2026] AyudaCore: Estimado\/a,\\r\\nFavor actualizar la página he intente nuevamente con su clave actual\",\"start_date\":\"2026-04-20\",\"due_date\":\"2026-04-20\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"YERSON MATIAS ACEVEDO TAPIA\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"+56 9 9711 6767\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"SUBDEPTO. MEDICINA\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-20T11:55:01Z\",\"updated_on\":\"2026-04-20T11:55:01Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "desbloquear usuario CORE \/ atención pro whatsapp",
+            "description": "[18:01, 19\/4\/2026] +56 9 9711 6767: Necesito desbloquear mi core\r\n19553733-k\r\n[18:01, 19\/4\/2026] AyudaCore: Gracias por tu mensaje. En este momento no podemos responder, pero lo haremos lo antes posible.\r\nHorarios de atención: \r\nLunes a Jueves de 8:00 a 17:00 hrs, Viernes de 8:00 a 16:00 hrs.\r\n◇Feriados no tenemos atencion\r\n[7:51, 20\/4\/2026] AyudaCore: Estimado\/a,\r\nFavor actualizar la página he intente nuevamente con su clave actual",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "is_private": false,
+            "start_date": "2026-04-20",
+            "due_date": "2026-04-20",
+            "assigned_to_id": "42",
+            "category_id": 262,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "YERSON MATIAS ACEVEDO TAPIA"
+                },
+                {
+                    "id": 5,
+                    "value": "SUBDEPTO. MEDICINA"
+                },
+                {
+                    "id": 4,
+                    "value": "+56 9 9711 6767"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "manual-69e6140e9d1937.84844553"
+}
