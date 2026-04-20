@@ -15,6 +15,7 @@ $csrf = csrf_token();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link href="/redmine-mantencion/assets/theme.css" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/redmine-mantencion/assets/favicon.svg">
   <style>
     body { background: #f6f8fb; }
     body { margin: 0; padding-top: 0 !important; }

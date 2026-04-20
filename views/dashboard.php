@@ -216,6 +216,7 @@ $csrf = csrf_token();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link href="/redmine-mantencion/assets/theme.css" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/redmine-mantencion/assets/favicon.svg">
 
 </head>
 
@@ -539,13 +540,13 @@ $csrf = csrf_token();
               </select>
             </div>
 
-            <div class="col-md-3"><label class="form-label">Fecha Inicio</label><input name="fecha_inicio" id="md-fecha_inicio" class="form-control"></div>
+            <div class="col-md-3"><label class="form-label">Fecha Inicio</label><input type="date" name="fecha_inicio" id="md-fecha_inicio" class="form-control"></div>
 
-            <div class="col-md-3"><label class="form-label">Fecha Fin</label><input name="fecha_fin" id="md-fecha_fin" class="form-control"></div>
+            <div class="col-md-3"><label class="form-label">Fecha Fin</label><input type="date" name="fecha_fin" id="md-fecha_fin" class="form-control"></div>
 
             <div class="col-md-3"><label class="form-label">Tiempo Estimado</label><input name="tiempo_estimado" id="md-tiempo_estimado" class="form-control"></div>
 
-            <div class="col-md-3"><label class="form-label">Fecha</label><input name="fecha" id="md-fecha" class="form-control"></div>
+            <div class="col-md-3"><label class="form-label">Fecha</label><input type="date" name="fecha" id="md-fecha" class="form-control"></div>
 
             <div class="col-md-3"><label class="form-label">Hora</label><input name="hora" id="md-hora" class="form-control"></div>
 
@@ -602,12 +603,27 @@ $csrf = csrf_token();
 
   const btn = event.relatedTarget;
 
+  const normalizeDateForInput = value => {
+    const raw = (value || '').trim();
+    if (!raw) return '';
+    if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw;
+    const match = raw.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+    if (match) return `${match[3]}-${match[2]}-${match[1]}`;
+    return '';
+  };
+
   const set = (id, key) => {
 
     const el = document.getElementById(id);
 
     if (el) el.value = btn.getAttribute(key) || '';
 
+  };
+
+  const setDate = (id, key) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.value = normalizeDateForInput(btn.getAttribute(key) || '');
   };
 
   set('md-id', 'data-id');
@@ -659,13 +675,13 @@ $csrf = csrf_token();
     horaSel.value = (hv === 'si' || hv === 's\\u00ed' || hv === '1' || hv === 'true') ? '1' : '0';
   }
 
-  set('md-fecha_inicio', 'data-fecha_inicio');
+  setDate('md-fecha_inicio', 'data-fecha_inicio');
 
-  set('md-fecha_fin', 'data-fecha_fin');
+  setDate('md-fecha_fin', 'data-fecha_fin');
 
   set('md-tiempo_estimado', 'data-tiempo_estimado');
 
-  set('md-fecha', 'data-fecha');
+  setDate('md-fecha', 'data-fecha');
 
   set('md-hora', 'data-hora');
 
@@ -892,8 +908,6 @@ if (logModal) {
 </body>
 
 </html>
-
-
 
 
 
