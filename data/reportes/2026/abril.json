@@ -387,6 +387,7 @@
         "_archivado_en": "2026-04-15T14:53:37+02:00"
     },
     {
+<<<<<<< Updated upstream
         "id": "core-8cb5910e91b01ac5db6b",
         "fuente": "core",
         "fuente_id": "8cb5910e91b01ac5db6bce94f44b4dfbed407bf5",
@@ -430,6 +431,8 @@
         "_archivado_en": "2026-04-15T14:54:31+02:00"
     },
     {
+=======
+>>>>>>> Stashed changes
         "id": "core-d63c651ed64cb0bfe95f",
         "fuente": "core",
         "fuente_id": "d63c651ed64cb0bfe95f2bc6fce019a0adba37d6",
@@ -473,6 +476,52 @@
         "_archivado_en": "2026-04-15T14:54:10+02:00"
     },
     {
+<<<<<<< Updated upstream
+=======
+        "id": "core-8cb5910e91b01ac5db6b",
+        "fuente": "core",
+        "fuente_id": "8cb5910e91b01ac5db6bce94f44b4dfbed407bf5",
+        "estado": "procesado",
+        "redmine_id": "120161",
+        "procesado_ts": "2026-04-15T14:54:31+02:00",
+        "hora_extra": "0",
+        "tiempo_estimado": "",
+        "fecha_inicio": "14-04-2026",
+        "fecha_fin": "14-04-2026",
+        "asignado_a": "",
+        "solicitante": "Claudio Andres Pozo Valenzuela",
+        "core_fecha_creacion": "14-04-2026 15:48",
+        "core_tipo_solicitud": "Modificar Usuario",
+        "core_establecimiento": "Hospital Clinico Regional (Valdivia)",
+        "core_departamento": "Unidad Lavanderia",
+        "core_estado": "Gestionada",
+        "core_usuario_asignado": "Jean Carlos Cortes Lorca",
+        "core_email": "claudio.pozo@redsalud.gob.cl",
+        "core_telefono": "935235182",
+        "core_celular": "",
+        "core_detalle_tipo_solicitud": "",
+        "core_detalle_run": "15294303-2",
+        "core_detalle_nombre": "Claudio Andres Pozo Valenzuela",
+        "core_detalle_motivo": "PARA MANTENER INFORMACION ACTUALIZADA Y SEGUIMIENTOS A MIS CONVENIOS DE SUMINISTRO QUE TENGO EN EL SERVICIO (FACTURAS, OC)",
+        "core_detalle_establecimientos": "",
+        "core_detalle_otros_permisos": "MODULO LICITACIONES",
+        "numero": "+56935235182",
+        "mensaje": "Modificar Usuario",
+        "descripcion": "Tipo de solicitud: Modificar Usuario\nRUN: 15294303-2\nNombre: Claudio Andres Pozo Valenzuela\nMotivo: PARA MANTENER INFORMACION ACTUALIZADA Y SEGUIMIENTOS A MIS CONVENIOS DE SUMINISTRO QUE TENGO EN EL SERVICIO (FACTURAS, OC)\nOtros permisos: MODULO LICITACIONES\nEstablecimiento: Hospital Clinico Regional (Valdivia)\nDepartamento: Unidad Lavanderia\nTelefono: 935235182\nEstado CORE: Gestionada\nUsuario asignado CORE: Jean Carlos Cortes Lorca",
+        "fecha": "14-04-2026",
+        "hora": "15:48:00",
+        "tipo": "Soporte",
+        "prioridad": "NORMAL",
+        "categoria": "Modificar Perfil CORE",
+        "unidad": "Unidad Lavanderia",
+        "unidad_solicitante": "Hospital Clinico Regional (Valdivia)",
+        "asunto": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Lavanderia",
+        "asignado_nombre": "Jean Carlos Cortes Lorca",
+        "_archivado_por": "retencion",
+        "_archivado_en": "2026-04-15T14:54:31+02:00"
+    },
+    {
+>>>>>>> Stashed changes
         "id": "core-a23e3a38be7ba9152b58",
         "fuente": "core",
         "fuente_id": "a23e3a38be7ba9152b58afc472e8dfc292c78918",
@@ -602,6 +651,7 @@
         "_archivado_en": "2026-04-15T14:54:31+02:00"
     },
     {
+<<<<<<< Updated upstream
         "id": "core-5daaed6d50538230cfd7",
         "fuente": "core",
         "fuente_id": "5daaed6d50538230cfd7a044ca6faae76ed2ea2e",
@@ -645,6 +695,8 @@
         "_archivado_en": "2026-04-15T14:58:07+02:00"
     },
     {
+=======
+>>>>>>> Stashed changes
         "id": "core-ffba528d97b1a1465922",
         "fuente": "core",
         "fuente_id": "ffba528d97b1a1465922f9abef6ce2a48957c14e",
@@ -731,6 +783,7 @@
         "_archivado_en": "2026-04-15T14:54:32+02:00"
     },
     {
+<<<<<<< Updated upstream
         "id": "core-9cb9a03cef084044c9a7",
         "fuente": "core",
         "fuente_id": "9cb9a03cef084044c9a7981dba923f6c96ac4fbb",
@@ -3405,5 +3458,48 @@
         "core_detalle_otros_permisos": "",
         "_archivado_por": "retencion",
         "_archivado_en": "2026-04-20T13:55:01+02:00"
+=======
+        "id": "core-5daaed6d50538230cfd7",
+        "fuente": "core",
+        "fuente_id": "5daaed6d50538230cfd7a044ca6faae76ed2ea2e",
+        "estado": "procesado",
+        "redmine_id": "120168",
+        "procesado_ts": "2026-04-15T14:58:07+02:00",
+        "hora_extra": "0",
+        "tiempo_estimado": "",
+        "fecha_inicio": "14-04-2026",
+        "fecha_fin": "14-04-2026",
+        "asignado_a": "",
+        "solicitante": "Maribel Yenny Molina Perez",
+        "core_fecha_creacion": "14-04-2026 09:04",
+        "core_tipo_solicitud": "Modificar Usuario",
+        "core_establecimiento": "Hospital Clinico Regional (Valdivia)",
+        "core_departamento": "Unidad De Esterilización",
+        "core_estado": "Gestionada",
+        "core_usuario_asignado": "Jean Carlos Cortes Lorca",
+        "core_email": "MARIBEL.MOLINA@redsalud.gob.cl",
+        "core_telefono": "932144567",
+        "core_celular": "",
+        "core_detalle_tipo_solicitud": "",
+        "core_detalle_run": "18590801-1",
+        "core_detalle_nombre": "Constanza Salinas Nonque",
+        "core_detalle_motivo": "PARA SUBROGANCIA EN CASO DE AUCENCIA DE JEFATURA DE UNIDAD MARIBEL MOLINA",
+        "core_detalle_establecimientos": "",
+        "core_detalle_otros_permisos": "AÑADIR RECURSOS HUMANOS UNIDAD DE ESTERILIZACION",
+        "numero": "+56932144567",
+        "mensaje": "Modificar Usuario",
+        "descripcion": "Tipo de solicitud: Modificar Usuario\nRUN: 18590801-1\nNombre: Constanza Salinas Nonque\nMotivo: PARA SUBROGANCIA EN CASO DE AUCENCIA DE JEFATURA DE UNIDAD MARIBEL MOLINA\nOtros permisos: AÑADIR RECURSOS HUMANOS UNIDAD DE ESTERILIZACION\nEstablecimiento: Hospital Clinico Regional (Valdivia)\nDepartamento: Unidad De Esterilización\nTelefono: 932144567\nEstado CORE: Gestionada\nUsuario asignado CORE: Jean Carlos Cortes Lorca",
+        "fecha": "14-04-2026",
+        "hora": "09:04:00",
+        "tipo": "Soporte",
+        "prioridad": "NORMAL",
+        "categoria": "Modificar Perfil CORE",
+        "unidad": "Unidad De Esterilización",
+        "unidad_solicitante": "Hospital Clinico Regional (Valdivia)",
+        "asunto": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Esterilización",
+        "asignado_nombre": "Jean Carlos Cortes Lorca",
+        "_archivado_por": "retencion",
+        "_archivado_en": "2026-04-15T14:58:07+02:00"
+>>>>>>> Stashed changes
     }
 ]
