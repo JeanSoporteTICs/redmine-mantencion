@@ -93,10 +93,10 @@ $csrf = csrf_token();
           </div>
 
           <div class="field-row single">
-            <div class="field-label">Descripción *</div>
+            <div class="field-label">Descripción</div>
             <div>
               <div class="toolbar">Modificar | Previsualizar</div>
-              <textarea name="descripcion" class="form-control editor" required><?= $h($form['descripcion'] ?? '') ?></textarea>
+              <textarea name="descripcion" class="form-control editor"><?= $h($form['descripcion'] ?? '') ?></textarea>
             </div>
           </div>
 
@@ -113,7 +113,7 @@ $csrf = csrf_token();
             </div>
             <div class="field-label">Fecha de inicio</div>
             <div>
-              <input type="text" name="fecha_inicio" class="form-control" value="<?= $h($form['fecha_inicio'] ?? '') ?>" placeholder="dd-mm-aaaa" pattern="\d{2}-\d{2}-\d{4}" inputmode="numeric">
+              <input type="date" name="fecha_inicio" class="form-control" value="<?= $h(manual_pending_date_for_input($form['fecha_inicio'] ?? '')) ?>">
             </div>
           </div>
 
@@ -130,7 +130,7 @@ $csrf = csrf_token();
             </div>
             <div class="field-label">Fecha fin</div>
             <div>
-              <input type="text" name="fecha_fin" class="form-control" value="<?= $h($form['fecha_fin'] ?? '') ?>" placeholder="dd-mm-aaaa" pattern="\d{2}-\d{2}-\d{4}" inputmode="numeric">
+              <input type="date" name="fecha_fin" class="form-control" value="<?= $h(manual_pending_date_for_input($form['fecha_fin'] ?? '')) ?>">
             </div>
           </div>
 

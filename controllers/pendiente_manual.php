@@ -132,6 +132,20 @@ function manual_pending_parse_display_date($value): ?DateTimeImmutable {
     if ($candidate === '') {
         return null;
     }
+    if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $candidate)) {
+        $dt = DateTimeImmutable::createFromFormat('Y-m-d', $candidate);
+        if (!($dt instanceof DateTimeImmutable)) {
+            return null;
+        }
+        $errors = DateTimeImmutable::getLastErrors();
+        if (($errors['warning_count'] ?? 0) > 0 || ($errors['error_count'] ?? 0) > 0) {
+            return null;
+        }
+        if ($dt->format('Y-m-d') !== $candidate) {
+            return null;
+        }
+        return $dt;
+    }
     if (!preg_match('/^\d{2}-\d{2}-\d{4}$/', $candidate)) {
         return null;
     }
@@ -152,6 +166,28 @@ function manual_pending_parse_display_date($value): ?DateTimeImmutable {
 function manual_pending_normalize_date($value): string {
     $dt = manual_pending_parse_display_date($value);
     return $dt ? $dt->format('d-m-Y') : '';
+}
+
+function manual_pending_date_for_input($value): string {
+    $candidate = trim((string)$value);
+    if ($candidate === '') {
+        return '';
+    }
+    $formats = ['Y-m-d', 'd-m-Y', 'd/m/Y', 'Y/m/d'];
+    foreach ($formats as $format) {
+        $dt = DateTimeImmutable::createFromFormat($format, $candidate);
+        if ($dt instanceof DateTimeImmutable) {
+            $errors = DateTimeImmutable::getLastErrors();
+            if (($errors['warning_count'] ?? 0) === 0 && ($errors['error_count'] ?? 0) === 0) {
+                return $dt->format('Y-m-d');
+            }
+        }
+    }
+    $ts = strtotime($candidate);
+    if ($ts === false || $ts <= 0) {
+        return '';
+    }
+    return (new DateTimeImmutable())->setTimestamp($ts)->format('Y-m-d');
 }
 
 function manual_pending_normalize_hours($value): string {
@@ -190,7 +226,7 @@ function manual_pending_category_options(): array {
 function manual_pending_default_form(array $cfg, array $users): array {
     $currentUserId = (string)(auth_get_user_id() ?? '');
     $currentUserName = $currentUserId !== '' ? manual_pending_find_user_name($currentUserId, $users) : '';
-    $today = (new DateTimeImmutable('now'))->format('d-m-Y');
+    $today = (new DateTimeImmutable('now'))->format('Y-m-d');
     return [
         'project_id' => (string)($cfg['project_id'] ?? 48),
         'tracker_id' => (string)($cfg['tracker_id'] ?? 3),
@@ -323,12 +359,12 @@ function handle_manual_pending(): array {
         $form['core_departamento'] = trim((string)($form['categoria'] ?? ''));
         $form['core_telefono'] = trim((string)($form['anexo'] ?? ''));
 
-        if ($form['asunto'] === '' || $form['descripcion'] === '' || $form['solicitante'] === '') {
-            $error = 'Asunto, descripción y solicitante son obligatorios.';
+        if ($form['asunto'] === '' || $form['solicitante'] === '') {
+            $error = 'Asunto y solicitante son obligatorios.';
         } elseif (trim((string)($_POST['fecha_inicio'] ?? '')) !== '' && $form['fecha_inicio'] === '') {
-            $error = 'La fecha de inicio debe estar en formato dd-mm-aaaa.';
+            $error = 'La fecha de inicio no es válida.';
         } elseif (trim((string)($_POST['fecha_fin'] ?? '')) !== '' && $form['fecha_fin'] === '') {
-            $error = 'La fecha fin debe estar en formato dd-mm-aaaa.';
+            $error = 'La fecha fin no es válida.';
         } else {
             $messages = load_messages();
             $messages[] = manual_pending_build_record($form, $cfg, $users);
