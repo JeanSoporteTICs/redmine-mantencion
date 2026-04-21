@@ -186,7 +186,7 @@ if (!$showActions && $roleName === 'gestor' && !array_key_exists('historico_acci
   // compatibilidad con roles antiguos sin la clave
   $showActions = true;
 }
-$tableColspan = $showActions ? 10 : 9;
+$tableColspan = $showActions ? 9 : 8;
 $f_scope = $_GET['mensajes_scope'] ?? ($scopePermitido === 'todos' ? 'todos' : 'asignados');
 if (!in_array($f_scope, ['todos','asignados'], true)) $f_scope = 'asignados';
 if ($scopePermitido === 'asignados') {
@@ -348,7 +348,6 @@ asort($tiposSel);
               <th scope="col" class="text-truncate" style="max-width: 140px;">Departamento</th>
               <th scope="col" class="text-truncate" style="max-width: 140px;">Asignado CORE</th>
               <th scope="col">Estado CORE</th>
-              <th scope="col">Estado local</th>
               <th scope="col">Fuente</th>
               <th scope="col">Detalle</th>
               <?php if ($showActions): ?>
@@ -377,7 +376,6 @@ asort($tiposSel);
                   <td class="text-truncate" style="max-width: 140px;" title="<?= $h($row['core_departamento'] ?? ($row['unidad'] ?? '')) ?>"><?= $h($row['core_departamento'] ?? ($row['unidad'] ?? '')) ?></td>
                   <td class="text-truncate" style="max-width: 140px;" title="<?= $h($row['core_usuario_asignado'] ?? ($row['asignado_nombre'] ?? ($row['asignado_a'] ?? ''))) ?>"><?= $h($row['core_usuario_asignado'] ?? ($row['asignado_nombre'] ?? ($row['asignado_a'] ?? ''))) ?></td>
                   <td><?= $h($row['core_estado'] ?? '') ?></td>
-                  <td><?= $h($row['estado'] ?? '') ?></td>
                   <?php $fuenteLabel = $row['_fuente'] ?? ''; ?>
                   <td><span class="badge bg-secondary"><?= $h($fuenteLabel) ?></span></td>
                   <td>

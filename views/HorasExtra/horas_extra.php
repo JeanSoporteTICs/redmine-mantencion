@@ -17,7 +17,14 @@ function load_hours_extra_all(): array {
         if (!is_array($groups)) {
             continue;
         }
-        if (!empty($groups) && is_array($groups) && is_array($groups[0]) && !isset($groups[0]['reports'])) {
+        $firstGroup = [];
+        if (!empty($groups)) {
+            $firstCandidate = reset($groups);
+            if (is_array($firstCandidate)) {
+                $firstGroup = $firstCandidate;
+            }
+        }
+        if (!empty($firstGroup) && !isset($firstGroup['reports'])) {
             $tmp = [];
             foreach ($groups as $msg) {
                 if (!is_array($msg)) {

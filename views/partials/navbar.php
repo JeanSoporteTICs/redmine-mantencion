@@ -143,50 +143,111 @@ window.addEventListener('load', () => {
   })();
 
   // Temporizador de Sesión;n
+  const extendBtn = document.getElementById('btn-extend-session');
+  const extendPwd = document.getElementById('session-password');
+  const extendMsg = document.getElementById('session-msg');
+  const closeBtn = document.getElementById('btn-logout-session');
   const el = document.getElementById('session-timer');
   const textEl = document.getElementById('session-timer-text') || el;
   const baseTimeout = el ? (parseInt(el.getAttribute('data-timeout'), 10) || 300) : 300;
   let remaining = el ? (parseInt(el.getAttribute('data-remaining'), 10) || baseTimeout) : baseTimeout;
+  let expiresAt = Date.now() + (remaining * 1000);
   const logoutUrl = '/redmine-mantencion/logout.php';
   const modalEl = document.getElementById('sessionModal');
   const modal = (window.bootstrap && modalEl) ? new bootstrap.Modal(modalEl) : null;
+  const modalTitleEl = modalEl ? modalEl.querySelector('.modal-title') : null;
+  const modalBodyTextEl = modalEl ? modalEl.querySelector('.modal-body > p') : null;
   let modalShown = false;
+  let sessionExpired = false;
 
   let tickHandle = null;
+  function setTimerAppearance(secondsLeft) {
+    if (!el) return;
+    if (secondsLeft <= 20) {
+      el.className = 'badge bg-danger text-light d-inline-flex align-items-center gap-1';
+    } else if (secondsLeft <= 60) {
+      el.className = 'badge bg-warning text-dark d-inline-flex align-items-center gap-1';
+    } else {
+      el.className = 'badge bg-light text-dark d-inline-flex align-items-center gap-1';
+    }
+  }
+
+  function setModalState(expired) {
+    sessionExpired = expired;
+    if (modalTitleEl) modalTitleEl.textContent = expired ? 'Sesion expirada' : 'Sesion por expirar';
+    if (modalBodyTextEl) {
+      modalBodyTextEl.textContent = expired
+        ? 'Tu sesion ya expiro. Debes iniciar sesion nuevamente.'
+        : 'Tu sesion expira pronto. Deseas continuar?';
+    }
+    if (extendPwd) {
+      extendPwd.disabled = expired;
+      if (expired) extendPwd.value = '';
+    }
+    if (extendBtn) {
+      extendBtn.disabled = expired;
+      extendBtn.textContent = expired ? 'Ir al login' : 'Continuar sesion';
+    }
+    if (closeBtn) {
+      closeBtn.textContent = expired ? 'Ir al login' : 'Cerrar sesion';
+    }
+  }
+
+  function getRemainingSeconds() {
+    return Math.max(0, Math.ceil((expiresAt - Date.now()) / 1000));
+  }
   function tick() {
     if (!el) return;
+    remaining = getRemainingSeconds();
     if (remaining <= 0) {
       textEl.textContent = '00:00';
-      el.className = 'badge bg-danger text-light d-inline-flex align-items-center gap-1';
+      setTimerAppearance(0);
+      setModalState(true);
       if (modal && !modalShown) {
         modal.show();
         modalShown = true;
       }
+      window.setTimeout(() => {
+        if (getRemainingSeconds() <= 0) {
+          window.location.href = logoutUrl;
+        }
+      }, 1200);
       return;
     }
     if (modal && !modalShown && remaining <= 60) {
+      setModalState(false);
       modal.show();
       modalShown = true;
     }
     const m = Math.floor(remaining / 60).toString().padStart(2, '0');
     const s = (remaining % 60).toString().padStart(2, '0');
     textEl.textContent = `${m}:${s}`;
-    if (remaining <= 20) {
-      el.className = 'badge bg-danger text-light d-inline-flex align-items-center gap-1';
-    } else if (remaining <= 60) {
-      el.className = 'badge bg-warning text-dark d-inline-flex align-items-center gap-1';
-    } else {
-      el.className = 'badge bg-light text-dark d-inline-flex align-items-center gap-1';
-    }
-    remaining -= 1;
+    setTimerAppearance(remaining);
     tickHandle = setTimeout(tick, 1000);
   }
-  tick();
+  function restartTick() {
+    if (tickHandle) clearTimeout(tickHandle);
+    tick();
+  }
 
-  const extendBtn = document.getElementById('btn-extend-session');
-  const extendPwd = document.getElementById('session-password');
-  const extendMsg = document.getElementById('session-msg');
-  const closeBtn = document.getElementById('btn-logout-session');
+  function syncTimerState() {
+    remaining = getRemainingSeconds();
+    if (remaining <= 0) {
+      restartTick();
+      return;
+    }
+    if (modalShown && remaining > 60 && modal) {
+      modal.hide();
+      modalShown = false;
+      setModalState(false);
+      if (extendMsg) extendMsg.textContent = '';
+    }
+    restartTick();
+  }
+
+  restartTick();
+  document.addEventListener('visibilitychange', syncTimerState);
+  window.addEventListener('focus', syncTimerState);
   if (closeBtn) {
     closeBtn.addEventListener('click', () => {
       window.location.href = logoutUrl;
@@ -194,6 +255,10 @@ window.addEventListener('load', () => {
   }
   if (extendBtn && extendPwd) {
     extendBtn.addEventListener('click', async () => {
+      if (sessionExpired) {
+        window.location.href = logoutUrl;
+        return;
+      }
       if (extendMsg) extendMsg.textContent = '';
       const pwd = extendPwd.value.trim();
       if (!pwd) {
@@ -209,11 +274,12 @@ window.addEventListener('load', () => {
         const data = await resp.json();
         if (data.ok) {
           remaining = parseInt(data.remaining ?? data.timeout ?? baseTimeout, 10) || baseTimeout;
+          expiresAt = Date.now() + (remaining * 1000);
           modalShown = false;
+          setModalState(false);
           extendPwd.value = '';
           if (extendMsg) extendMsg.textContent = 'Sesión extendida.';
-          if (tickHandle) clearTimeout(tickHandle);
-          tick();
+          restartTick();
           if (modal) setTimeout(() => modal.hide(), 400);
         } else {
           if (extendMsg) extendMsg.textContent = data.msg || 'Contraseña incorrecta.';
@@ -223,6 +289,7 @@ window.addEventListener('load', () => {
       }
     });
   }
+  setModalState(false);
 });
 </script>
 
