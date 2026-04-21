@@ -3,12 +3,11 @@
 [20-04-2026 13:03:40] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
 [20-04-2026 15:18:43] CSRF_ALERT - Token=NULL session=NULL
 [20-04-2026 15:18:47] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
-[20-04-2026 15:33:10] CSRF_ALERT - Token=NULL session=NULL
-[20-04-2026 17:17:24] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
-[21-04-2026 08:32:46] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
-[21-04-2026 08:38:55] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
-[21-04-2026 08:40:26] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
-[21-04-2026 08:55:00] CSRF_ALERT - Token=NULL session=NULL
-[21-04-2026 08:55:03] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
-[21-04-2026 09:06:34] CSRF_ALERT - Token=NULL session=NULL
-[21-04-2026 09:06:38] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
+[20-04-2026 15:43:54] CSRF_ALERT - Token=NULL session=NULL
+[20-04-2026 15:43:58] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
+[20-04-2026 15:58:05] CSRF_ALERT - Token=NULL session=NULL
+[20-04-2026 16:16:15] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
+[20-04-2026 17:11:19] CSRF_ALERT - Token=NULL session=NULL
+[20-04-2026 17:11:22] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
+[21-04-2026 08:30:56] CSRF_ALERT - Token=NULL session=NULL
+[21-04-2026 08:31:03] LOGIN_SUCCESS - User Jean Cortes Lorca (42)

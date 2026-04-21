@@ -6588,3 +6588,462 @@
     },
     "message_id": "manual-69e662d322d0e3.50481364"
 }
+{
+    "ts": "2026-04-20T22:22:00+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120696,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":667,\"name\":\"RCA Reabrir Atención\"},\"subject\":\"reabrir atención \/ atención por whatsapp\",\"description\":\"[15:59, 20\/4\/2026] +56 9 8839 5515: Buenas tardes\\r\\n[15:59, 20\/4\/2026] +56 9 8839 5515: Solicito repertorio de ficha\\r\\n[15:59, 20\/4\/2026] +56 9 8839 5515: 22.435.985-3\\r\\n[15:59, 20\/4\/2026] +56 9 8839 5515: Citado hoy 20 abril a las 15.10\\r\\n[16:00, 20\/4\/2026] AyudaCore: hola buenas tardes\\r\\n[16:10, 20\/4\/2026] AyudaCore: esta listo, favor revisar\",\"start_date\":\"2026-04-20\",\"due_date\":\"2026-04-20\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"+56 9 8839 5515\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"+56 9 8839 5515\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-20T20:22:00Z\",\"updated_on\":\"2026-04-20T20:22:00Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "reabrir atención \/ atención por whatsapp",
+            "description": "[15:59, 20\/4\/2026] +56 9 8839 5515: Buenas tardes\r\n[15:59, 20\/4\/2026] +56 9 8839 5515: Solicito repertorio de ficha\r\n[15:59, 20\/4\/2026] +56 9 8839 5515: 22.435.985-3\r\n[15:59, 20\/4\/2026] +56 9 8839 5515: Citado hoy 20 abril a las 15.10\r\n[16:00, 20\/4\/2026] AyudaCore: hola buenas tardes\r\n[16:10, 20\/4\/2026] AyudaCore: esta listo, favor revisar",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "is_private": false,
+            "start_date": "2026-04-20",
+            "due_date": "2026-04-20",
+            "assigned_to_id": "42",
+            "category_id": 667,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "+56 9 8839 5515"
+                },
+                {
+                    "id": 4,
+                    "value": "+56 9 8839 5515"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "manual-69e689fb6e5be2.21725677"
+}
+{
+    "ts": "2026-04-20T22:22:00+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120697,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":492,\"name\":\"Solicitud de Credencial CORE\"},\"subject\":\"restablecer contraseña usuario CORE \/  atención por whatsapp\",\"description\":\"[16:10, 20\/4\/2026] +56 9 8247 1448: Hola, buenas tardes\\r\\n[16:10, 20\/4\/2026] +56 9 8247 1448: Soy la Dra. Patricia Lobos \\r\\nUsf\\r\\n17171920-8\\r\\n[16:10, 20\/4\/2026] +56 9 8247 1448: Y olvidé mi clave, necesito recuperarla por favor\\r\\n[16:13, 20\/4\/2026] AyudaCore: hola buenas tardes\\r\\n[16:15, 20\/4\/2026] AyudaCore:  Se reestablece Clave! \\r\\n\\r\\n Ingrese con su RUT sin el dígito verificador en el campo de usuario, en la contraseña debe colocar la que es sugerida por nosotros. \\r\\n\\r\\n Nuevo Acceso\\r\\n\\r\\nUsuario : 17171920\\r\\nClave :etGrN93#%!04\\r\\n\\r\\n Luego, se aconseja modificar su contraseña a través del menú ubicado en la esquina superior derecha, seleccionando la alternativa “modificar contraseña”. \",\"start_date\":\"2026-04-20\",\"due_date\":\"2026-04-20\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Dra. Patricia Lobos\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"USF\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-20T20:22:01Z\",\"updated_on\":\"2026-04-20T20:22:01Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "restablecer contraseña usuario CORE \/  atención por whatsapp",
+            "description": "[16:10, 20\/4\/2026] +56 9 8247 1448: Hola, buenas tardes\r\n[16:10, 20\/4\/2026] +56 9 8247 1448: Soy la Dra. Patricia Lobos \r\nUsf\r\n17171920-8\r\n[16:10, 20\/4\/2026] +56 9 8247 1448: Y olvidé mi clave, necesito recuperarla por favor\r\n[16:13, 20\/4\/2026] AyudaCore: hola buenas tardes\r\n[16:15, 20\/4\/2026] AyudaCore:  Se reestablece Clave! \r\n\r\n Ingrese con su RUT sin el dígito verificador en el campo de usuario, en la contraseña debe colocar la que es sugerida por nosotros. \r\n\r\n Nuevo Acceso\r\n\r\nUsuario : 17171920\r\nClave :etGrN93#%!04\r\n\r\n Luego, se aconseja modificar su contraseña a través del menú ubicado en la esquina superior derecha, seleccionando la alternativa “modificar contraseña”. ",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "is_private": false,
+            "start_date": "2026-04-20",
+            "due_date": "2026-04-20",
+            "assigned_to_id": "42",
+            "category_id": 492,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Dra. Patricia Lobos"
+                },
+                {
+                    "id": 5,
+                    "value": "USF"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "manual-69e68a618d0d17.70582976"
+}
+{
+    "ts": "2026-04-20T23:12:01+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120715,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":627,\"name\":\"Reactivación Usuario CORE\"},\"subject\":\"usuario CORE bloqueado\/ atención por whatsapp\",\"description\":\"[16:22, 20\/4\/2026] +56 9 8441 1033: Hola buenas !\\r\\nClave de CORE bloqueada.\\r\\nMe ayudan a recuperarla?\\r\\n[16:22, 20\/4\/2026] AyudaCore: Indíquenos su RUT Sin punto y con guion \\r\\nEj: 12345678-5\\r\\n[16:22, 20\/4\/2026] +56 9 8441 1033: 19248809-5\\r\\n[16:22, 20\/4\/2026] AyudaCore: hola buenas tardes\\r\\n[16:24, 20\/4\/2026] AyudaCore: Estimado\/a,\\r\\nFavor actualizar la página he intente nuevamente con su clave actual\",\"start_date\":\"2026-04-20\",\"due_date\":\"2026-04-20\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"DARWIN ALONSO SERRANO MORALES\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"SUBDEPTO. MEDICINA\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-20T21:12:01Z\",\"updated_on\":\"2026-04-20T21:12:01Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "usuario CORE bloqueado\/ atención por whatsapp",
+            "description": "[16:22, 20\/4\/2026] +56 9 8441 1033: Hola buenas !\r\nClave de CORE bloqueada.\r\nMe ayudan a recuperarla?\r\n[16:22, 20\/4\/2026] AyudaCore: Indíquenos su RUT Sin punto y con guion \r\nEj: 12345678-5\r\n[16:22, 20\/4\/2026] +56 9 8441 1033: 19248809-5\r\n[16:22, 20\/4\/2026] AyudaCore: hola buenas tardes\r\n[16:24, 20\/4\/2026] AyudaCore: Estimado\/a,\r\nFavor actualizar la página he intente nuevamente con su clave actual",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "is_private": false,
+            "start_date": "2026-04-20",
+            "due_date": "2026-04-20",
+            "assigned_to_id": "42",
+            "category_id": 627,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "DARWIN ALONSO SERRANO MORALES"
+                },
+                {
+                    "id": 5,
+                    "value": "SUBDEPTO. MEDICINA"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "manual-69e68bdce1cc23.04506092"
+}
+{
+    "ts": "2026-04-20T23:12:02+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120716,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Consultas Médicas Y No Médicas\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|12200268-3|Ana Aguirre Sepulveda|Gestión de citas|Agregar opción \\\"anular cita\\\" en RCA.|\",\"start_date\":\"2026-04-20\",\"due_date\":\"2026-04-20\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Susana  Quiñones  Mancilla\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Subdepto. Consultas Médicas Y No Médicas\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"susana.quinones@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-20T21:12:02Z\",\"updated_on\":\"2026-04-20T21:12:02Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Consultas Médicas Y No Médicas",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|12200268-3|Ana Aguirre Sepulveda|Gestión de citas|Agregar opción \"anular cita\" en RCA.|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-20",
+            "due_date": "2026-04-20",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Susana  Quiñones  Mancilla"
+                },
+                {
+                    "id": 5,
+                    "value": "Subdepto. Consultas Médicas Y No Médicas"
+                },
+                {
+                    "id": 8,
+                    "value": "susana.quinones@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-7cbf293b2f2ddc7ad71b"
+}
+{
+    "ts": "2026-04-20T23:12:02+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120717,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Uti Adulto\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|11591928-8|Yéssica López Nuñez|Corresponde a Jefatura de UCI. Al revisar contratos del personal que rota por UPC adulto debe poder disponer de la información de ambas unidades (UCI y UTI)|Favor cargar contratos de UTI en Modulo Recurso Humano.|\",\"start_date\":\"2026-04-20\",\"due_date\":\"2026-04-20\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Elizabeth Navarro Araneda\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Subdepto. Uti Adulto\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"elizabeth.navarro.a@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-20T21:12:02Z\",\"updated_on\":\"2026-04-20T21:12:02Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Uti Adulto",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|11591928-8|Yéssica López Nuñez|Corresponde a Jefatura de UCI. Al revisar contratos del personal que rota por UPC adulto debe poder disponer de la información de ambas unidades (UCI y UTI)|Favor cargar contratos de UTI en Modulo Recurso Humano.|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-20",
+            "due_date": "2026-04-20",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Elizabeth Navarro Araneda"
+                },
+                {
+                    "id": 5,
+                    "value": "Subdepto. Uti Adulto"
+                },
+                {
+                    "id": 8,
+                    "value": "elizabeth.navarro.a@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-c2ddc5722791fa5a459d"
+}
+{
+    "ts": "2026-04-20T23:12:03+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120718,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Psiquiatría Infanto Juvenil\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|26886867-4|Mariegni Josselin Lopez Lopez|Elaborar y visualizar certificados previos de la atención Clínica. Becada de Psiquiatría Infantil|Habilitar en RCA la emisión de certificado|\",\"start_date\":\"2026-04-20\",\"due_date\":\"2026-04-20\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Ruben David Zuniga Zuniga\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad Psiquiatría Infanto Juvenil\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"rubenzuniga10@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-20T21:12:03Z\",\"updated_on\":\"2026-04-20T21:12:03Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Psiquiatría Infanto Juvenil",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|26886867-4|Mariegni Josselin Lopez Lopez|Elaborar y visualizar certificados previos de la atención Clínica. Becada de Psiquiatría Infantil|Habilitar en RCA la emisión de certificado|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-20",
+            "due_date": "2026-04-20",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Ruben David Zuniga Zuniga"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad Psiquiatría Infanto Juvenil"
+                },
+                {
+                    "id": 8,
+                    "value": "rubenzuniga10@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-c7221145844a81215f89"
+}
+{
+    "ts": "2026-04-20T23:12:04+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120719,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro De Salud Familiar Dr Jorge Sabat Gozalo\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|18555354-K|Paula Loreto Toro Vidal|Se solicita reactivar cuenta de CORE y restablecer contraseña||\",\"start_date\":\"2026-04-20\",\"due_date\":\"2026-04-20\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Juan Matías Andrés Catalán Melo\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro De Salud Familiar Dr Jorge Sabat Gozalo\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"mcatalaninformatica@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-20T21:12:04Z\",\"updated_on\":\"2026-04-20T21:12:04Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro De Salud Familiar Dr Jorge Sabat Gozalo",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|18555354-K|Paula Loreto Toro Vidal|Se solicita reactivar cuenta de CORE y restablecer contraseña||",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-20",
+            "due_date": "2026-04-20",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Juan Matías Andrés Catalán Melo"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro De Salud Familiar Dr Jorge Sabat Gozalo"
+                },
+                {
+                    "id": 8,
+                    "value": "mcatalaninformatica@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-9c90930c2dc6e9e29b96"
+}
+{
+    "ts": "2026-04-20T23:12:04+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120720,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Farmacia\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|20314716-3|Shachary Jacquelin Danae Paredes Soto|SE SOLICITA SU ACTIVACION DE CORE POR REEMPLAZO POR LICENCIA|SE SOLICITA ACTIVACION DE USUARIO CORE HASTA VIERNES 24-04-2026|\",\"start_date\":\"2026-04-20\",\"due_date\":\"2026-04-20\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Erick Zott Meza\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Subdepto. Farmacia\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"erick.zott@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-20T21:12:04Z\",\"updated_on\":\"2026-04-20T21:12:04Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Farmacia",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|20314716-3|Shachary Jacquelin Danae Paredes Soto|SE SOLICITA SU ACTIVACION DE CORE POR REEMPLAZO POR LICENCIA|SE SOLICITA ACTIVACION DE USUARIO CORE HASTA VIERNES 24-04-2026|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-20",
+            "due_date": "2026-04-20",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Erick Zott Meza"
+                },
+                {
+                    "id": 5,
+                    "value": "Subdepto. Farmacia"
+                },
+                {
+                    "id": 8,
+                    "value": "erick.zott@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-1621c8ac47a3ad7d2779"
+}
+{
+    "ts": "2026-04-20T23:12:05+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120721,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":627,\"name\":\"Reactivación Usuario CORE\"},\"subject\":\"Creación de Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Hospitalización Gineco-Obstétrica\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Creación de Usuario|||||\",\"start_date\":\"2026-04-20\",\"due_date\":\"2026-04-20\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Maryann Roberts Jimenez\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad Hospitalización Gineco-Obstétrica\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"maryann.roberts@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-20T21:12:05Z\",\"updated_on\":\"2026-04-20T21:12:05Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Creación de Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Hospitalización Gineco-Obstétrica",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Creación de Usuario|||||",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-20",
+            "due_date": "2026-04-20",
+            "assigned_to_id": "42",
+            "category_id": 627,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Maryann Roberts Jimenez"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad Hospitalización Gineco-Obstétrica"
+                },
+                {
+                    "id": 8,
+                    "value": "maryann.roberts@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-3dcec81ff7dc7baa9a4c"
+}
+{
+    "ts": "2026-04-20T23:12:06+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120722,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":627,\"name\":\"Reactivación Usuario CORE\"},\"subject\":\"Creación de Usuario \/ Centro De Salud Familiar Dr Jorge Sabat Gozalo\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Creación de Usuario|||||\",\"start_date\":\"2026-04-20\",\"due_date\":\"2026-04-20\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"José Patricio Carrasco Carrasco\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro De Salud Familiar Dr Jorge Sabat Gozalo\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"josepatrik@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-20T21:12:06Z\",\"updated_on\":\"2026-04-20T21:12:06Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Creación de Usuario \/ Centro De Salud Familiar Dr Jorge Sabat Gozalo",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Creación de Usuario|||||",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-20",
+            "due_date": "2026-04-20",
+            "assigned_to_id": "42",
+            "category_id": 627,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "José Patricio Carrasco Carrasco"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro De Salud Familiar Dr Jorge Sabat Gozalo"
+                },
+                {
+                    "id": 8,
+                    "value": "josepatrik@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-322bb686bedca0356af0"
+}
+{
+    "ts": "2026-04-20T23:12:06+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120723,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Depto. Control De Gestión E Información Clínica\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|16262827-5|Carola Rojas Vasquez|DOCENTE DE EU DE LA UST ROTANDO POR ONCOLOGÍA. SE SOLICITA CADUCAR EL 26-07-2026.|SE SOLICITA ACCESO AL MÓDULO FICHA CLÍNICA, MÓDULO HOSPITALIZADO (Resultado exámenes, Resultado Imagenología). MÓDULO DOCUMENTOS. Visualizar Interconsultas (FC).|\",\"start_date\":\"2026-04-20\",\"due_date\":\"2026-04-20\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Miriam Obando Salas\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Depto. Control De Gestión E Información Clínica\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"miriam.obando@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-20T21:12:06Z\",\"updated_on\":\"2026-04-20T21:12:06Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Depto. Control De Gestión E Información Clínica",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|16262827-5|Carola Rojas Vasquez|DOCENTE DE EU DE LA UST ROTANDO POR ONCOLOGÍA. SE SOLICITA CADUCAR EL 26-07-2026.|SE SOLICITA ACCESO AL MÓDULO FICHA CLÍNICA, MÓDULO HOSPITALIZADO (Resultado exámenes, Resultado Imagenología). MÓDULO DOCUMENTOS. Visualizar Interconsultas (FC).|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-20",
+            "due_date": "2026-04-20",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Miriam Obando Salas"
+                },
+                {
+                    "id": 5,
+                    "value": "Depto. Control De Gestión E Información Clínica"
+                },
+                {
+                    "id": 8,
+                    "value": "miriam.obando@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-88049832d83d6bb05685"
+}
+{
+    "ts": "2026-04-20T23:12:07+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120724,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":627,\"name\":\"Reactivación Usuario CORE\"},\"subject\":\"Creación de Usuario \/ Hospital Clinico Regional (Valdivia) \/ Depto. Control De Gestión E Información Clínica\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Creación de Usuario|||||\",\"start_date\":\"2026-04-20\",\"due_date\":\"2026-04-20\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Miriam Obando Salas\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Depto. Control De Gestión E Información Clínica\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"miriam.obando@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-20T21:12:07Z\",\"updated_on\":\"2026-04-20T21:12:07Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Creación de Usuario \/ Hospital Clinico Regional (Valdivia) \/ Depto. Control De Gestión E Información Clínica",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Creación de Usuario|||||",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-20",
+            "due_date": "2026-04-20",
+            "assigned_to_id": "42",
+            "category_id": 627,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Miriam Obando Salas"
+                },
+                {
+                    "id": 5,
+                    "value": "Depto. Control De Gestión E Información Clínica"
+                },
+                {
+                    "id": 8,
+                    "value": "miriam.obando@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-a39779a3ca3753bc4afa"
+}
