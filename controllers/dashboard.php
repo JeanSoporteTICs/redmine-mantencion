@@ -147,15 +147,25 @@ function dashboard_normalize_email(?string $value): string {
 
 function dashboard_core_normalize_detail_row(array $item, array $message = []): array {
     $tipo = trim((string)($item['detalle_tipo_solicitud'] ?? $item['tipo solicitud'] ?? $item['tipo_solicitud'] ?? $item['tipo de solicitud'] ?? ''));
-    $run = trim((string)($item['detalle_run'] ?? $item['run'] ?? $item['rut'] ?? ''));
-    $nombre = trim((string)($item['detalle_nombre'] ?? $item['nombre'] ?? ''));
-    $motivo = trim((string)($item['detalle_motivo'] ?? $item['motivo'] ?? ''));
+    $run = trim((string)($item['detalle_run'] ?? $item['run'] ?? $item['rut'] ?? $item['run usuario'] ?? $item['run_usuario'] ?? ''));
+    $nombre = trim((string)($item['detalle_nombre'] ?? $item['nombre'] ?? $item['nombre completo'] ?? $item['nombre_completo'] ?? ''));
+    if ($nombre === '') {
+        $nombrePartes = array_filter([
+            trim((string)($item['nombres_ins'] ?? '')),
+            trim((string)($item['apepat_ins'] ?? '')),
+            trim((string)($item['apemat_ins'] ?? '')),
+        ], fn($value) => $value !== '');
+        if (!empty($nombrePartes)) {
+            $nombre = implode(' ', $nombrePartes);
+        }
+    }
+    $motivo = trim((string)($item['detalle_motivo'] ?? $item['motivo'] ?? $item['motivo solicitud'] ?? $item['motivo_solicitud'] ?? ''));
     $establecimientos = trim((string)($item['detalle_establecimientos'] ?? $item['establecimientos'] ?? $item['establecimiento'] ?? ''));
-    $otrosPermisos = trim((string)($item['detalle_otros_permisos'] ?? $item['otros permisos'] ?? $item['otros_permisos'] ?? ''));
-    $fechaNacimiento = trim((string)($item['detalle_fecha_nacimiento'] ?? $item['fecha de nacimiento'] ?? $item['fecha_nacimiento'] ?? $item['fec_nacimiento'] ?? ''));
+    $otrosPermisos = trim((string)($item['detalle_otros_permisos'] ?? $item['otros permisos'] ?? $item['otros_permisos'] ?? $item['permisos'] ?? ''));
+    $fechaNacimiento = trim((string)($item['detalle_fecha_nacimiento'] ?? $item['fecha de nacimiento'] ?? $item['fecha_nacimiento'] ?? $item['fec_nacimiento'] ?? $item['fecha_nac'] ?? ''));
     $email = dashboard_normalize_email($item['detalle_email'] ?? $item['email'] ?? $item['correo'] ?? '');
-    $departamento = trim((string)($item['detalle_departamento'] ?? $item['departamento'] ?? ''));
-    $cargo = trim((string)($item['detalle_cargo'] ?? $item['cargo'] ?? ''));
+    $departamento = trim((string)($item['detalle_departamento'] ?? $item['departamento'] ?? $item['depto'] ?? ''));
+    $cargo = trim((string)($item['detalle_cargo'] ?? $item['cargo'] ?? $item['id_cargo'] ?? ''));
     $rol = trim((string)($item['detalle_rol'] ?? $item['rol'] ?? ''));
     $estado = trim((string)($item['detalle_estado'] ?? $item['estado'] ?? ''));
     if ($tipo === '') {
@@ -185,6 +195,7 @@ function dashboard_core_is_creation_request(array $message): bool {
     $normalized = dashboard_normalize_text($tipo);
     return $normalized === 'creacion de usuario'
         || $normalized === 'creacion usuario'
+        || (str_contains($normalized, 'creaci') && str_contains($normalized, 'usuario'))
         || (str_contains($normalized, 'creacion') && str_contains($normalized, 'usuario'));
 }
 
@@ -205,7 +216,7 @@ function dashboard_core_detail_table_schema(array $message): array {
     }
     if (dashboard_core_is_creation_request($message)) {
         return [
-            ['label' => 'Tipo Solicitud', 'key' => 'detalle_tipo_solicitud'],
+            ['label' => 'Tipo solicitud', 'key' => 'detalle_tipo_solicitud'],
             ['label' => 'RUN', 'key' => 'detalle_run'],
             ['label' => 'Nombre', 'key' => 'detalle_nombre'],
             ['label' => 'Fecha de nacimiento', 'key' => 'detalle_fecha_nacimiento'],
@@ -213,7 +224,6 @@ function dashboard_core_detail_table_schema(array $message): array {
             ['label' => 'Departamento', 'key' => 'detalle_departamento'],
             ['label' => 'Cargo', 'key' => 'detalle_cargo'],
             ['label' => 'Rol', 'key' => 'detalle_rol'],
-            ['label' => 'Estado', 'key' => 'detalle_estado'],
         ];
     }
     if (dashboard_core_is_add_establishment_request($message)) {
@@ -434,6 +444,28 @@ function dashboard_normalize_text(string $value): string {
     $value = trim($value);
     if ($value === '') {
         return '';
+    }
+    if (preg_match('/[ÃÂâ]/u', $value)) {
+        $candidates = [$value];
+        foreach (['ISO-8859-1', 'Windows-1252'] as $encoding) {
+            $decoded = @iconv($encoding, 'UTF-8//IGNORE', $value);
+            if (is_string($decoded) && trim($decoded) !== '') {
+                $candidates[] = $decoded;
+            }
+        }
+        $bestValue = $value;
+        $bestScore = PHP_INT_MAX;
+        foreach ($candidates as $candidate) {
+            $score = preg_match_all('/[ÃÂâ]/u', $candidate, $matches);
+            if ($score === false) {
+                $score = PHP_INT_MAX - 1;
+            }
+            if ($score < $bestScore) {
+                $bestScore = $score;
+                $bestValue = $candidate;
+            }
+        }
+        $value = $bestValue;
     }
     $ascii = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $value);
     if ($ascii !== false) {
@@ -745,6 +777,12 @@ function dashboard_core_extract_rows(string $html): array {
                 $key = dashboard_normalize_text((string)$headerText);
                 $row[$key] = trim(html_entity_decode(strip_tags($cells[$index] ?? ''), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
             }
+            $candidateRequestIds = dashboard_core_extract_candidate_request_ids($rowHtml);
+            $row['_candidate_request_ids'] = $candidateRequestIds;
+            if (!empty($candidateRequestIds)) {
+                $row['id_solicitud_core'] = $row['id_solicitud_core'] ?? $candidateRequestIds[0];
+                $row['id'] = $row['id'] ?? $candidateRequestIds[0];
+            }
             if (($row['solicitante'] ?? '') === '') {
                 continue;
             }
@@ -774,12 +812,18 @@ function dashboard_core_extract_detail_table_rows(string $html): array {
     }
     foreach ($tables as $tableMatch) {
         $tableHtml = $tableMatch[1] ?? '';
-        if (!preg_match_all('/<th\b[^>]*>(.*?)<\/th>/is', $tableHtml, $headerMatches)) {
-            continue;
-        }
         $headers = [];
-        foreach (($headerMatches[1] ?? []) as $headerHtml) {
-            $headers[] = dashboard_normalize_text(trim(html_entity_decode(strip_tags($headerHtml), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
+        if (preg_match_all('/<th\b[^>]*>(.*?)<\/th>/is', $tableHtml, $headerMatches)) {
+            foreach (($headerMatches[1] ?? []) as $headerHtml) {
+                $headers[] = dashboard_normalize_text(trim(html_entity_decode(strip_tags($headerHtml), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
+            }
+        }
+        if (empty($headers) && preg_match('/<tr\b[^>]*>(.*?)<\/tr>/is', $tableHtml, $firstRowMatch)) {
+            if (preg_match_all('/<td\b[^>]*>(.*?)<\/td>/is', $firstRowMatch[1] ?? '', $headerCellMatches)) {
+                foreach (($headerCellMatches[1] ?? []) as $headerHtml) {
+                    $headers[] = dashboard_normalize_text(trim(html_entity_decode(strip_tags($headerHtml), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
+                }
+            }
         }
         if (empty($headers)) {
             continue;
@@ -911,18 +955,28 @@ function dashboard_core_collect_recursive_strings(mixed $value): array {
 function dashboard_core_extract_detail_fields(array $item): array {
     $details = [
         'detalle_tipo_solicitud' => dashboard_core_pick_first_recursive($item, ['detalle_tipo_solicitud', 'tipo_solicitud_detalle', 'detalle_tipo', 'detalle_tipo_sol']),
-        'detalle_run' => dashboard_core_pick_first_recursive($item, ['run', 'rut', 'detalle_run', 'detalle_rut']),
-        'detalle_nombre' => dashboard_core_pick_first_recursive($item, ['nombre', 'detalle_nombre', 'nombre_usuario', 'usuario_nombre']),
-        'detalle_motivo' => dashboard_core_pick_first_recursive($item, ['motivo', 'detalle_motivo']),
+        'detalle_run' => dashboard_core_pick_first_recursive($item, ['run', 'rut', 'detalle_run', 'detalle_rut', 'run_usuario']),
+        'detalle_nombre' => dashboard_core_pick_first_recursive($item, ['nombre', 'detalle_nombre', 'nombre_usuario', 'usuario_nombre', 'nombre_completo']),
+        'detalle_motivo' => dashboard_core_pick_first_recursive($item, ['motivo', 'detalle_motivo', 'motivo_solicitud']),
         'detalle_establecimientos' => dashboard_core_pick_first_recursive($item, ['establecimientos', 'detalle_establecimientos', 'detalle_estab']),
         'detalle_otros_permisos' => dashboard_core_pick_first_recursive($item, ['otros_permisos', 'detalle_otros_permisos', 'permisos_adicionales']),
-        'detalle_fecha_nacimiento' => dashboard_core_pick_first_recursive($item, ['fecha_nacimiento', 'fec_nacimiento', 'detalle_fecha_nacimiento']),
+        'detalle_fecha_nacimiento' => dashboard_core_pick_first_recursive($item, ['fecha_nacimiento', 'fec_nacimiento', 'fecha_nac', 'detalle_fecha_nacimiento']),
         'detalle_email' => dashboard_normalize_email(dashboard_core_pick_first_recursive($item, ['email', 'correo', 'detalle_email'])),
-        'detalle_departamento' => dashboard_core_pick_first_recursive($item, ['departamento', 'detalle_departamento']),
-        'detalle_cargo' => dashboard_core_pick_first_recursive($item, ['cargo', 'detalle_cargo']),
+        'detalle_departamento' => dashboard_core_pick_first_recursive($item, ['departamento', 'depto', 'detalle_departamento']),
+        'detalle_cargo' => dashboard_core_pick_first_recursive($item, ['cargo', 'detalle_cargo', 'id_cargo']),
         'detalle_rol' => dashboard_core_pick_first_recursive($item, ['rol', 'detalle_rol']),
         'detalle_estado' => dashboard_core_pick_first_recursive($item, ['estado', 'detalle_estado']),
     ];
+    if ($details['detalle_nombre'] === '') {
+        $nombrePartes = array_filter([
+            dashboard_core_pick_first_recursive($item, ['nombres_ins']),
+            dashboard_core_pick_first_recursive($item, ['apepat_ins']),
+            dashboard_core_pick_first_recursive($item, ['apemat_ins']),
+        ], fn($value) => trim((string)$value) !== '');
+        if (!empty($nombrePartes)) {
+            $details['detalle_nombre'] = implode(' ', $nombrePartes);
+        }
+    }
     $blob = dashboard_core_pick_first_recursive($item, ['detalle', 'detalle_solicitud', 'descripcion', 'observacion', 'observaciones']);
     if ($blob !== '') {
         $normalizedBlob = preg_replace("/\r\n?/", "\n", html_entity_decode(strip_tags($blob), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
@@ -1009,18 +1063,89 @@ function dashboard_core_detail_slug(string $tipoSolicitud): string {
     return implode('_', $tokens);
 }
 
-function dashboard_core_detail_url(string $baseUrl, array $row): string {
-    $solicitudId = trim((string)($row['id_solicitud_core'] ?? $row['id'] ?? ''));
+function dashboard_core_extract_candidate_request_ids(string $html): array {
+    if ($html === '') {
+        return [];
+    }
+    $ids = [];
+    if (preg_match_all('/data-(?:id|solicitud|solicitud-id|solicitud_id)\s*=\s*["\']?(\d{2,})["\']?/i', $html, $matches)) {
+        foreach (($matches[1] ?? []) as $id) {
+            $ids[] = trim((string)$id);
+        }
+    }
+    if (preg_match_all('#/obtener_detalle_[^/]+/(\d+)#i', $html, $matches)) {
+        foreach (($matches[1] ?? []) as $id) {
+            $ids[] = trim((string)$id);
+        }
+    }
+    if (preg_match_all('/(?:ver|detalle|editar|modificar|obtener)[^0-9]{0,25}["\']?(\d{2,})["\']?/i', $html, $matches)) {
+        foreach (($matches[1] ?? []) as $id) {
+            $ids[] = trim((string)$id);
+        }
+    }
+    if (preg_match_all('/\b(?:id_solicitud_core|id_solicitud|solicitud_id|id)\b[^0-9]{0,12}(\d{2,})/i', $html, $matches)) {
+        foreach (($matches[1] ?? []) as $id) {
+            $ids[] = trim((string)$id);
+        }
+    }
+    if (preg_match('/peticiones relacionadas|subtareas/i', $html) && preg_match_all('/>(\d{2,})</', $html, $matches)) {
+        foreach (($matches[1] ?? []) as $id) {
+            $ids[] = trim((string)$id);
+        }
+    }
+    return array_values(array_unique(array_filter($ids, fn($id) => $id !== '')));
+}
+
+function dashboard_core_extract_related_request_ids_from_body(string $body): array {
+    $segments = [];
+    if (preg_match_all('/(?:peticiones relacionadas|subtareas)(.{0,6000})/isu', $body, $matches)) {
+        $segments = array_merge($segments, $matches[0] ?? []);
+    }
+    if (empty($segments)) {
+        $segments[] = $body;
+    }
+    $ids = [];
+    foreach ($segments as $segment) {
+        foreach (dashboard_core_extract_candidate_request_ids((string)$segment) as $id) {
+            $ids[] = $id;
+        }
+    }
+    return array_values(array_unique(array_filter($ids, fn($id) => $id !== '')));
+}
+
+function dashboard_core_detail_url_candidates(string $baseUrl, array $row, ?string $solicitudIdOverride = null): array {
+    $solicitudId = trim((string)($solicitudIdOverride ?? $row['id_solicitud_core'] ?? $row['id'] ?? ''));
     $tipoSolicitud = trim((string)($row['tipo de solicitud'] ?? ''));
-    $slug = dashboard_core_detail_slug($tipoSolicitud);
-    if ($solicitudId === '' || $slug === '') {
-        return '';
+    $normalizedType = dashboard_normalize_text($tipoSolicitud);
+    if ($solicitudId === '' || $tipoSolicitud === '') {
+        return [];
     }
     $baseUrl = rtrim($baseUrl, '/');
     if ($baseUrl === '') {
-        return '';
+        return [];
     }
-    return $baseUrl . '/obtener_detalle_' . $slug . '/' . rawurlencode($solicitudId);
+    $slugs = [];
+    $slugWithoutDe = dashboard_core_detail_slug($tipoSolicitud);
+    $slugFull = str_replace(' ', '_', $normalizedType);
+    foreach ([$slugWithoutDe, $slugFull] as $slug) {
+        if ($slug !== '') {
+            $slugs[] = $slug;
+        }
+    }
+    if (
+        $normalizedType === 'creacion de usuario'
+        || $normalizedType === 'creacion usuario'
+        || (str_contains($normalizedType, 'creaci') && str_contains($normalizedType, 'usuario'))
+    ) {
+        $slugs[] = 'credencial_core';
+        $slugs[] = 'creacion_de_usuario';
+        $slugs[] = 'creacion_usuario';
+    }
+    $slugs = array_values(array_unique(array_filter($slugs)));
+    return array_map(
+        fn($slug) => $baseUrl . '/obtener_detalle_' . $slug . '/' . rawurlencode($solicitudId),
+        $slugs
+    );
 }
 
 function dashboard_core_extract_detail_from_body(string $body): array {
@@ -1104,22 +1229,51 @@ function dashboard_core_enrich_rows_with_detail(array $rows, string $baseUrl, st
         if ((microtime(true) - $startedAt) >= 45) {
             break;
         }
-        $detailUrl = dashboard_core_detail_url($baseUrl, $row);
-        if ($detailUrl === '') {
+        $candidateIds = [];
+        foreach ((array)($row['_candidate_request_ids'] ?? []) as $candidateId) {
+            $candidateIds[] = trim((string)$candidateId);
+        }
+        $candidateIds[] = trim((string)($row['id_solicitud_core'] ?? $row['id'] ?? ''));
+        $candidateIds = array_values(array_unique(array_filter($candidateIds, fn($id) => $id !== '')));
+        if (empty($candidateIds)) {
             continue;
         }
-        $detailResponse = dashboard_core_curl($detailUrl, [
-            CURLOPT_COOKIEJAR => $cookieJar,
-            CURLOPT_COOKIEFILE => $cookieJar,
-            CURLOPT_HTTPHEADER => $requestHeaders,
-            CURLOPT_CONNECTTIMEOUT => 5,
-            CURLOPT_TIMEOUT => 5,
-        ]);
-        if (($detailResponse['error'] ?? '') !== '' || (int)($detailResponse['http_code'] ?? 0) >= 400) {
-            continue;
+        $visitedIds = [];
+        $requests = 0;
+        while (!empty($candidateIds) && $requests < 12) {
+            $currentId = array_shift($candidateIds);
+            if ($currentId === '' || isset($visitedIds[$currentId])) {
+                continue;
+            }
+            $visitedIds[$currentId] = true;
+            $detailUrls = dashboard_core_detail_url_candidates($baseUrl, $row, $currentId);
+            foreach ($detailUrls as $detailUrl) {
+                $requests++;
+                $detailResponse = dashboard_core_curl($detailUrl, [
+                    CURLOPT_COOKIEJAR => $cookieJar,
+                    CURLOPT_COOKIEFILE => $cookieJar,
+                    CURLOPT_HTTPHEADER => $requestHeaders,
+                    CURLOPT_CONNECTTIMEOUT => 5,
+                    CURLOPT_TIMEOUT => 5,
+                ]);
+                if (($detailResponse['error'] ?? '') !== '' || (int)($detailResponse['http_code'] ?? 0) >= 400) {
+                    continue;
+                }
+                $detailBody = (string)($detailResponse['body'] ?? '');
+                $detailFields = dashboard_core_extract_detail_from_body($detailBody);
+                $row = dashboard_core_merge_detail_fields($row, $detailFields);
+                foreach (dashboard_core_extract_related_request_ids_from_body($detailBody) as $relatedId) {
+                    if (!isset($visitedIds[$relatedId])) {
+                        $candidateIds[] = $relatedId;
+                    }
+                }
+                if (!empty($detailFields['detalle_items']) || trim((string)($detailFields['detalle_run'] ?? '')) !== '' || trim((string)($detailFields['detalle_nombre'] ?? '')) !== '') {
+                    $rows[$index] = $row;
+                    break 2;
+                }
+            }
         }
-        $detailFields = dashboard_core_extract_detail_from_body((string)($detailResponse['body'] ?? ''));
-        $rows[$index] = dashboard_core_merge_detail_fields($row, $detailFields);
+        $rows[$index] = $row;
     }
     return $rows;
 }
@@ -1362,6 +1516,25 @@ function dashboard_core_candidate_urls(string $sourceUrl): array {
     return array_values(array_unique(array_filter($candidates)));
 }
 
+function dashboard_core_base_admin_url(string $url): string {
+    $url = trim($url);
+    if ($url === '') {
+        return '';
+    }
+    $parts = parse_url($url);
+    if ($parts === false || empty($parts['scheme']) || empty($parts['host'])) {
+        return rtrim(preg_replace('#/obtener_[^/?#]+$#', '', $url) ?? $url, '/');
+    }
+    $base = $parts['scheme'] . '://' . $parts['host'];
+    if (!empty($parts['port'])) {
+        $base .= ':' . $parts['port'];
+    }
+    $path = (string)($parts['path'] ?? '');
+    $path = preg_replace('#/obtener_[^/?#]+$#', '', $path) ?? $path;
+    $path = rtrim($path, '/');
+    return $base . $path;
+}
+
 function dashboard_archived_source_ids(string $baseDir): array {
     $sourceIds = [];
     if (!is_dir($baseDir)) {
@@ -1484,7 +1657,7 @@ function dashboard_sync_core_source(array &$messages, string $sourceUrl, array $
             }
         }
         if (!empty($rowsForDetail)) {
-            $detailBaseUrl = rtrim((string)($loginUrl !== '' ? $loginUrl : $sourceUrl), '/');
+            $detailBaseUrl = dashboard_core_base_admin_url((string)($loginUrl !== '' ? $loginUrl : $sourceUrl));
             $detailRows = dashboard_core_enrich_rows_with_detail($rowsForDetail, $detailBaseUrl, $cookieJar, $requestHeaders);
             foreach ($detailRows as $detailIndex => $detailRow) {
                 $rows[$detailIndex] = $detailRow;

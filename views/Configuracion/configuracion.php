@@ -384,13 +384,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>configuracion</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="/redmine-mantencion/assets/theme.css" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="/redmine-mantencion/assets/favicon.svg">
+  <?php $pageTitle = 'Configuracion'; $includeTheme = true; include __DIR__ . '/../partials/bootstrap-head.php'; ?>
   <style>
     /* Fallback modal styles si Bootstrap no carga */
     .modal {
@@ -1329,7 +1323,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 <?php endif; ?>
 <?php endif; ?>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<?php include __DIR__ . '/../partials/bootstrap-scripts.php'; ?>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const getModal = (id) => {

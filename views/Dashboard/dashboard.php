@@ -201,16 +201,7 @@ $csrf = csrf_token();
 
 <head>
 
-  <meta charset="utf-8">
-
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Reportes</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="/redmine-mantencion/assets/theme.css" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="/redmine-mantencion/assets/favicon.svg">
+  <?php $pageTitle = 'Reportes'; $includeTheme = true; include __DIR__ . '/../partials/bootstrap-head.php'; ?>
 
 </head>
 
@@ -871,16 +862,12 @@ $csrf = csrf_token();
           <table class="table table-sm mb-0 align-middle">
             <thead class="table-light" id="md-preview-head">
               <tr>
-                <th>Tipo solicitud</th>
-                <th>RUN</th>
-                <th>Nombre</th>
-                <th>Motivo</th>
-                <th>Otros permisos</th>
+                <th>Detalle</th>
               </tr>
             </thead>
             <tbody id="md-preview-body">
               <tr>
-                <td colspan="5" class="text-muted text-center">Sin detalle para previsualizar.</td>
+                <td colspan="1" class="text-muted text-center">Sin detalle para previsualizar.</td>
               </tr>
             </tbody>
           </table>
@@ -953,7 +940,7 @@ $csrf = csrf_token();
   <i class="bi bi-arrow-up"></i>
 </button>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<?php include __DIR__ . '/../partials/bootstrap-scripts.php'; ?>
 
 <script>
 
@@ -963,6 +950,9 @@ $csrf = csrf_token();
 
   const detalleModal = document.getElementById('detalleModal');
   const detallePreviewModal = document.getElementById('detallePreviewModal');
+  let currentPreviewRows = [];
+  let currentPreviewColumns = [];
+  const openPreviewModalBtn = document.getElementById('open-preview-modal-btn');
   const descripcionModal = document.getElementById('descripcionModal');
   const descripcionEditor = document.getElementById('md-descripcion-editor');
   const descripcionHidden = document.getElementById('md-descripcion');
@@ -1089,15 +1079,73 @@ $csrf = csrf_token();
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#039;');
-    const columns = Array.isArray(previewColumns) && previewColumns.length
-      ? previewColumns
-      : [
+    const normalizeText = value => String(value ?? '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim();
+    const resolveDefaultColumns = currentBtn => {
+      const fuente = (currentBtn?.getAttribute('data-fuente') || '').trim().toLowerCase();
+      if (fuente === 'manual') {
+        return [
+          { label: 'Tipo solicitud', key: 'detalle_tipo_solicitud' },
+          { label: 'Solicitante', key: 'detalle_solicitante' },
+          { label: 'Categoria', key: 'detalle_categoria' },
+          { label: 'Unidad', key: 'detalle_unidad' },
+          { label: 'Descripcion', key: 'detalle_descripcion' }
+        ];
+      }
+      const tipoCore = normalizeText(currentBtn?.getAttribute('data-core_tipo_solicitud') || currentBtn?.getAttribute('data-asunto') || '');
+      if (tipoCore === 'creacion de usuario' || tipoCore === 'creacion usuario' || (tipoCore.includes('creacion') && tipoCore.includes('usuario'))) {
+        return [
+          { label: 'Tipo solicitud', key: 'detalle_tipo_solicitud' },
+          { label: 'RUN', key: 'detalle_run' },
+          { label: 'Nombre', key: 'detalle_nombre' },
+          { label: 'Fecha de nacimiento', key: 'detalle_fecha_nacimiento' },
+          { label: 'Email', key: 'detalle_email' },
+          { label: 'Departamento', key: 'detalle_departamento' },
+          { label: 'Cargo', key: 'detalle_cargo' },
+          { label: 'Rol', key: 'detalle_rol' }
+        ];
+      }
+      if (tipoCore === 'agregar establecimiento') {
+        return [
           { label: 'Tipo solicitud', key: 'detalle_tipo_solicitud' },
           { label: 'RUN', key: 'detalle_run' },
           { label: 'Nombre', key: 'detalle_nombre' },
           { label: 'Motivo', key: 'detalle_motivo' },
+          { label: 'Establecimientos', key: 'detalle_establecimientos' },
           { label: 'Otros permisos', key: 'detalle_otros_permisos' }
         ];
+      }
+      return [
+        { label: 'Tipo solicitud', key: 'detalle_tipo_solicitud' },
+        { label: 'RUN', key: 'detalle_run' },
+        { label: 'Nombre', key: 'detalle_nombre' },
+        { label: 'Motivo', key: 'detalle_motivo' },
+        { label: 'Otros permisos', key: 'detalle_otros_permisos' }
+      ];
+    };
+    const forcedColumns = resolveDefaultColumns(btn);
+    const forcedType = normalizeText(btn?.getAttribute('data-core_tipo_solicitud') || btn?.getAttribute('data-asunto') || '');
+    const shouldForceColumns =
+      forcedType === 'creacion de usuario' ||
+      forcedType === 'creacion usuario' ||
+      forcedType === 'modificar usuario' ||
+      forcedType === 'agregar establecimiento';
+    const columns = shouldForceColumns
+      ? forcedColumns
+      : (Array.isArray(previewColumns) && previewColumns.length ? previewColumns : forcedColumns);
+    currentPreviewRows = Array.isArray(previewRows) ? previewRows : [];
+    currentPreviewColumns = Array.isArray(columns) ? columns : [];
+    if (openPreviewModalBtn) {
+      openPreviewModalBtn.setAttribute('data-preview_rows', JSON.stringify(currentPreviewRows));
+      openPreviewModalBtn.setAttribute('data-preview_columns', JSON.stringify(currentPreviewColumns));
+      openPreviewModalBtn.setAttribute('data-core_tipo_solicitud', btn.getAttribute('data-core_tipo_solicitud') || '');
+      openPreviewModalBtn.setAttribute('data-fuente', btn.getAttribute('data-fuente') || '');
+      openPreviewModalBtn.setAttribute('data-asunto', btn.getAttribute('data-asunto') || '');
+    }
     previewHead.innerHTML = `<tr>${columns.map(col => `<th>${escapeHtml(col.label || '')}</th>`).join('')}</tr>`;
     if (!Array.isArray(previewRows) || previewRows.length === 0) {
       previewBody.innerHTML = `<tr><td colspan="${columns.length}" class="text-muted text-center">Sin detalle para previsualizar.</td></tr>`;
@@ -1142,7 +1190,74 @@ $csrf = csrf_token();
 });
 
   if (detallePreviewModal) {
-    detallePreviewModal.addEventListener('show.bs.modal', () => {
+    detallePreviewModal.addEventListener('show.bs.modal', event => {
+      const triggerBtn = event.relatedTarget || openPreviewModalBtn;
+      if (triggerBtn && previewBody && previewHead) {
+        const escapeHtml = value => String(value ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+        let rows = currentPreviewRows;
+        let columns = currentPreviewColumns;
+        try {
+          rows = JSON.parse(triggerBtn.getAttribute('data-preview_rows') || '[]');
+        } catch (error) {
+          rows = currentPreviewRows;
+        }
+        try {
+          columns = JSON.parse(triggerBtn.getAttribute('data-preview_columns') || '[]');
+        } catch (error) {
+          columns = currentPreviewColumns;
+        }
+        const normalizeText = value => String(value ?? '')
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, ' ')
+          .trim();
+        const tipoCore = normalizeText(triggerBtn.getAttribute('data-core_tipo_solicitud') || triggerBtn.getAttribute('data-asunto') || '');
+        if (tipoCore === 'creacion de usuario' || tipoCore === 'creacion usuario') {
+          columns = [
+            { label: 'Tipo solicitud', key: 'detalle_tipo_solicitud' },
+            { label: 'RUN', key: 'detalle_run' },
+            { label: 'Nombre', key: 'detalle_nombre' },
+            { label: 'Fecha de nacimiento', key: 'detalle_fecha_nacimiento' },
+            { label: 'Email', key: 'detalle_email' },
+            { label: 'Departamento', key: 'detalle_departamento' },
+            { label: 'Cargo', key: 'detalle_cargo' },
+            { label: 'Rol', key: 'detalle_rol' }
+          ];
+        } else if (tipoCore === 'modificar usuario') {
+          columns = [
+            { label: 'Tipo solicitud', key: 'detalle_tipo_solicitud' },
+            { label: 'RUN', key: 'detalle_run' },
+            { label: 'Nombre', key: 'detalle_nombre' },
+            { label: 'Motivo', key: 'detalle_motivo' },
+            { label: 'Otros permisos', key: 'detalle_otros_permisos' }
+          ];
+        } else if (tipoCore === 'agregar establecimiento') {
+          columns = [
+            { label: 'Tipo solicitud', key: 'detalle_tipo_solicitud' },
+            { label: 'RUN', key: 'detalle_run' },
+            { label: 'Nombre', key: 'detalle_nombre' },
+            { label: 'Motivo', key: 'detalle_motivo' },
+            { label: 'Establecimientos', key: 'detalle_establecimientos' },
+            { label: 'Otros permisos', key: 'detalle_otros_permisos' }
+          ];
+        }
+        previewHead.innerHTML = `<tr>${columns.map(col => `<th>${escapeHtml(col.label || '')}</th>`).join('')}</tr>`;
+        if (!Array.isArray(rows) || rows.length === 0) {
+          previewBody.innerHTML = `<tr><td colspan="${columns.length}" class="text-muted text-center">Sin detalle para previsualizar.</td></tr>`;
+        } else {
+          previewBody.innerHTML = rows.map(row => `
+            <tr>
+              ${columns.map(col => `<td>${escapeHtml(row[col.key] || '')}</td>`).join('')}
+            </tr>
+          `).join('');
+        }
+      }
       reopenDetalleModalAfterPreview = true;
     });
     detallePreviewModal.addEventListener('hidden.bs.modal', () => {

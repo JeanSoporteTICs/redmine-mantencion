@@ -127,13 +127,7 @@ $total = is_array($unidades) ? count($unidades) : 0;
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Unidades solicitantes</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="/redmine-mantencion/assets/theme.css" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="/redmine-mantencion/assets/favicon.svg">
+  <?php $pageTitle = 'Unidades solicitantes'; $includeTheme = true; include __DIR__ . '/../partials/bootstrap-head.php'; ?>
 </head>
 <body class="bg-light">
 <?php $activeNav = 'configuracion'; include __DIR__ . '/../partials/navbar.php'; ?>
@@ -200,7 +194,7 @@ $total = is_array($unidades) ? count($unidades) : 0;
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<?php include __DIR__ . '/../partials/bootstrap-scripts.php'; ?>
 <script>
   const f = document.getElementById('filter');
   const tbl = document.getElementById('tbl');
