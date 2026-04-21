@@ -11,3 +11,9 @@
 [20-04-2026 17:11:22] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
 [21-04-2026 08:30:56] CSRF_ALERT - Token=NULL session=NULL
 [21-04-2026 08:31:03] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
+[21-04-2026 09:51:23] CSRF_ALERT - Token=NULL session=NULL
+[21-04-2026 09:51:26] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
+[21-04-2026 10:10:02] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
+[21-04-2026 10:33:28] CSRF_ALERT - Token=NULL session=NULL
+[21-04-2026 10:33:33] LOGIN_FAILURE - Intento con "42"
+[21-04-2026 10:33:37] LOGIN_SUCCESS - User Jean Cortes Lorca (42)

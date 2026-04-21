@@ -82,6 +82,36 @@ function norm_date(string $str): string {
   return '';
 }
 
+function historico_matches_search(array $row, string $needle): bool {
+  $needle = dashboard_normalize_text($needle);
+  if ($needle === '') {
+    return true;
+  }
+
+  $haystacks = [
+    trim((string)($row['solicitante'] ?? '')),
+    trim((string)($row['core_detalle_nombre'] ?? '')),
+    trim((string)($row['core_detalle_run'] ?? '')),
+  ];
+
+  foreach ((array)($row['core_detalle_items'] ?? []) as $item) {
+    if (!is_array($item)) {
+      continue;
+    }
+    $haystacks[] = trim((string)($item['detalle_nombre'] ?? ''));
+    $haystacks[] = trim((string)($item['detalle_run'] ?? ''));
+  }
+
+  foreach ($haystacks as $candidate) {
+    $normalized = dashboard_normalize_text($candidate);
+    if ($normalized !== '' && str_contains($normalized, $needle)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 function load_reportes(string $base): array {
   $out = [];
   if (!is_dir($base)) return $out;
@@ -144,6 +174,8 @@ $f_hasta     = norm_date($_GET['hasta'] ?? '');
 $f_usuario   = trim($_GET['usuario'] ?? '');
 $f_categoria = strtolower(trim($_GET['categoria'] ?? ''));
 $f_fuente    = $_GET['fuente'] ?? '';
+$f_tipo      = dashboard_normalize_text(trim($_GET['tipo_solicitud'] ?? ''));
+$f_busqueda  = trim($_GET['buscar'] ?? '');
 $roles       = auth_load_roles();
 $roleName    = auth_get_user_role();
 $roleCfg     = $roles[$roleName] ?? [];
@@ -154,7 +186,7 @@ if (!$showActions && $roleName === 'gestor' && !array_key_exists('historico_acci
   // compatibilidad con roles antiguos sin la clave
   $showActions = true;
 }
-$tableColspan = $showActions ? 9 : 8;
+$tableColspan = $showActions ? 10 : 9;
 $f_scope = $_GET['mensajes_scope'] ?? ($scopePermitido === 'todos' ? 'todos' : 'asignados');
 if (!in_array($f_scope, ['todos','asignados'], true)) $f_scope = 'asignados';
 if ($scopePermitido === 'asignados') {
@@ -181,10 +213,13 @@ foreach ($items as $row) {
   if ($f_fuente && ($row['_fuente'] ?? '') !== $f_fuente) {
     continue;
   }
+  $tipoSolicitud = dashboard_normalize_text((string)($row['core_tipo_solicitud'] ?? ($row['asunto'] ?? '')));
+  if ($f_tipo !== '' && $tipoSolicitud !== $f_tipo) continue;
   if ($f_usuario !== '' && (string)($row['asignado_a'] ?? '') !== (string)$f_usuario) continue;
   if ($f_scope === 'asignados' && !historico_record_matches_current_user($row, $userId, $userNames)) continue;
   $cat = strtolower($row['categoria'] ?? '');
   if ($f_categoria !== '' && $cat !== $f_categoria) continue;
+  if (!historico_matches_search($row, $f_busqueda)) continue;
   $row['_fecha_norm'] = $fecha;
   $filtered[] = $row;
 }
@@ -195,13 +230,20 @@ usort($filtered, function ($a, $b) {
 
 $usuariosSel = [];
 $catsSel     = [];
+$tiposSel    = [];
 foreach ($items as $r) {
   if (!is_array($r)) continue;
   $usuariosSel[(string)($r['asignado_a'] ?? '')] = $r['asignado_nombre'] ?? ($r['asignado_a'] ?? '');
   $catsSel[strtolower($r['categoria'] ?? '')]    = $r['categoria'] ?? '';
+  $tipoLabel = trim((string)($r['core_tipo_solicitud'] ?? ($r['asunto'] ?? '')));
+  $tipoKey = dashboard_normalize_text($tipoLabel);
+  if ($tipoKey !== '' && $tipoLabel !== '') {
+    $tiposSel[$tipoKey] = $tipoLabel;
+  }
 }
 ksort($usuariosSel);
 ksort($catsSel);
+asort($tiposSel);
 ?>
 <!doctype html>
 <html lang="es">
@@ -231,9 +273,11 @@ ksort($catsSel);
     <div class="row g-3 align-items-end">
       <?php
         $filterFields = [
-          ['label' => 'Desde', 'name' => 'desde', 'type' => 'date', 'value' => $f_desde, 'col' => 3, 'aria_label' => 'Fecha desde'],
-          ['label' => 'Hasta', 'name' => 'hasta', 'type' => 'date', 'value' => $f_hasta, 'col' => 3, 'aria_label' => 'Fecha hasta'],
+          ['label' => 'Desde', 'name' => 'desde', 'type' => 'date', 'value' => $f_desde, 'col' => 2, 'aria_label' => 'Fecha desde'],
+          ['label' => 'Hasta', 'name' => 'hasta', 'type' => 'date', 'value' => $f_hasta, 'col' => 2, 'aria_label' => 'Fecha hasta'],
           ['label' => 'Fuente', 'name' => 'fuente', 'type' => 'select', 'options' => ['' => 'Todas', 'reportes' => 'Reportes', 'horas_extra' => 'Horas extra'], 'value' => $f_fuente, 'col' => 2],
+          ['label' => 'Tipo solicitud', 'name' => 'tipo_solicitud', 'type' => 'select', 'options' => ['' => 'Todos'] + $tiposSel, 'value' => $f_tipo, 'col' => 3],
+          ['label' => 'Buscar solicitante / nombre / rut', 'name' => 'buscar', 'type' => 'text', 'value' => $f_busqueda, 'col' => 3, 'aria_label' => 'Buscar por solicitante, nombre o rut'],
         ];
         if (!$scopeBloqueado) {
           $filterFields[] = [
@@ -306,6 +350,7 @@ ksort($catsSel);
               <th scope="col">Estado CORE</th>
               <th scope="col">Estado local</th>
               <th scope="col">Fuente</th>
+              <th scope="col">Detalle</th>
               <?php if ($showActions): ?>
                 <th scope="col">Acciones</th>
               <?php endif; ?>
@@ -316,6 +361,14 @@ ksort($catsSel);
               <tr><td colspan="<?= $tableColspan ?>" class="text-center text-muted py-4">Sin registros para el criterio seleccionado.</td></tr>
             <?php else: ?>
               <?php foreach ($filtered as $row): ?>
+                <?php
+                  $previewRows = dashboard_detail_preview_rows($row);
+                  $previewRowsJson = $h((string)json_encode(array_values($previewRows), JSON_UNESCAPED_UNICODE));
+                  $previewColumnsJson = $h((string)json_encode(dashboard_core_detail_table_schema($row), JSON_UNESCAPED_UNICODE));
+                  $detalleDescripcion = ($row['fuente'] ?? '') === 'manual'
+                    ? trim((string)($row['descripcion'] ?? ''))
+                    : '';
+                ?>
                 <tr>
                   <td><?= $h($row['_fecha_norm'] ?? '') ?></td>
                   <td class="text-truncate" style="max-width: 160px;" title="<?= $h($row['solicitante'] ?? '') ?>"><?= $h($row['solicitante'] ?? '') ?></td>
@@ -327,6 +380,23 @@ ksort($catsSel);
                   <td><?= $h($row['estado'] ?? '') ?></td>
                   <?php $fuenteLabel = $row['_fuente'] ?? ''; ?>
                   <td><span class="badge bg-secondary"><?= $h($fuenteLabel) ?></span></td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-primary historico-detail-btn"
+                      data-bs-toggle="modal"
+                      data-bs-target="#historicoDetalleModal"
+                      data-preview_rows="<?= $previewRowsJson ?>"
+                      data-preview_columns="<?= $previewColumnsJson ?>"
+                      data-fuente="<?= $h($row['fuente'] ?? '') ?>"
+                      data-core_tipo_solicitud="<?= $h($row['core_tipo_solicitud'] ?? '') ?>"
+                      data-asunto="<?= $h($row['asunto'] ?? '') ?>"
+                      data-solicitante="<?= $h($row['solicitante'] ?? '') ?>"
+                      data-descripcion="<?= $h($detalleDescripcion) ?>"
+                    >
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </td>
                   <?php if ($showActions): ?>
                     <td>
                       <form method="post" class="m-0">
@@ -348,6 +418,36 @@ ksort($catsSel);
     </div>
   </div>
 
+
+  <div class="modal fade" id="historicoDetalleModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Detalle histórico</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <div class="fw-semibold" id="historico-detalle-titulo"></div>
+            <div class="text-muted small" id="historico-detalle-solicitante"></div>
+          </div>
+          <div id="historico-detalle-tabla-wrap" class="table-responsive border rounded">
+            <table class="table table-sm mb-0 align-middle">
+              <thead class="table-light" id="historico-detalle-head"></thead>
+              <tbody id="historico-detalle-body"></tbody>
+            </table>
+          </div>
+          <div id="historico-detalle-descripcion-wrap" class="d-none">
+            <label for="historico-detalle-descripcion" class="form-label fw-semibold">Descripción</label>
+            <textarea id="historico-detalle-descripcion" class="form-control" rows="10" readonly></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -383,8 +483,82 @@ ksort($catsSel);
       }
 
       setLoading(false);
+
+      const historicoDetalleModal = document.getElementById('historicoDetalleModal');
+      if (historicoDetalleModal) {
+        historicoDetalleModal.addEventListener('show.bs.modal', function (event) {
+          const triggerBtn = event.relatedTarget;
+          if (!triggerBtn) return;
+
+          const titleEl = document.getElementById('historico-detalle-titulo');
+          const subtitleEl = document.getElementById('historico-detalle-solicitante');
+          const tableWrap = document.getElementById('historico-detalle-tabla-wrap');
+          const tableHead = document.getElementById('historico-detalle-head');
+          const tableBody = document.getElementById('historico-detalle-body');
+          const descriptionWrap = document.getElementById('historico-detalle-descripcion-wrap');
+          const descriptionField = document.getElementById('historico-detalle-descripcion');
+
+          const escapeHtml = value => String(value ?? '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+
+          let rows = [];
+          let columns = [];
+          try {
+            rows = JSON.parse(triggerBtn.getAttribute('data-preview_rows') || '[]');
+          } catch (error) {
+            rows = [];
+          }
+          try {
+            columns = JSON.parse(triggerBtn.getAttribute('data-preview_columns') || '[]');
+          } catch (error) {
+            columns = [];
+          }
+
+          const fuente = (triggerBtn.getAttribute('data-fuente') || '').trim().toLowerCase();
+          const asunto = triggerBtn.getAttribute('data-asunto') || triggerBtn.getAttribute('data-core_tipo_solicitud') || 'Detalle histórico';
+          const solicitante = triggerBtn.getAttribute('data-solicitante') || '';
+          const descripcion = triggerBtn.getAttribute('data-descripcion') || '';
+
+          if (titleEl) titleEl.textContent = asunto;
+          if (subtitleEl) subtitleEl.textContent = solicitante ? `Solicitante: ${solicitante}` : '';
+
+          if (fuente === 'manual') {
+            if (tableWrap) tableWrap.classList.add('d-none');
+            if (descriptionWrap) descriptionWrap.classList.remove('d-none');
+            if (descriptionField) descriptionField.value = descripcion;
+            return;
+          }
+
+          if (descriptionWrap) descriptionWrap.classList.add('d-none');
+          if (tableWrap) tableWrap.classList.remove('d-none');
+          if (descriptionField) descriptionField.value = '';
+
+          if (!Array.isArray(columns) || columns.length === 0) {
+            columns = [{ label: 'Detalle', key: 'detalle_nombre' }];
+          }
+          if (tableHead) {
+            tableHead.innerHTML = `<tr>${columns.map(col => `<th>${escapeHtml(col.label || '')}</th>`).join('')}</tr>`;
+          }
+          if (tableBody) {
+            if (!Array.isArray(rows) || rows.length === 0) {
+              tableBody.innerHTML = `<tr><td colspan="${columns.length}" class="text-center text-muted py-4">Sin detalle para mostrar.</td></tr>`;
+            } else {
+              tableBody.innerHTML = rows.map(row => `
+                <tr>
+                  ${columns.map(col => `<td>${escapeHtml(row[col.key] || '')}</td>`).join('')}
+                </tr>
+              `).join('');
+            }
+          }
+        });
+      }
     });
   </script>
+<?php include __DIR__ . '/../partials/bootstrap-scripts.php'; ?>
 </div> <!-- #page-content -->
 </body>
 </html>

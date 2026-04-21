@@ -145,6 +145,133 @@ function dashboard_normalize_email(?string $value): string {
     return strtolower($email);
 }
 
+function dashboard_fix_text_encoding(?string $value): string {
+    $text = trim((string)$value);
+    if ($text === '') {
+        return '';
+    }
+
+    $replacementMap = [
+        'Ãƒâ€šÃ‚Â¿' => '¿',
+        'Ãƒâ€šÃ‚Â¡' => '¡',
+        'Ãƒâ€šÃ‚Âº' => 'º',
+        'Ãƒâ€šÃ‚Âª' => 'ª',
+        'Ãƒâ€šÃ‚Â°' => '°',
+        'Ãƒâ€šÃ‚Â' => '',
+        'ÃƒÂ¡' => 'á',
+        'ÃƒÂ©' => 'é',
+        'ÃƒÂ­' => 'í',
+        'ÃƒÂ³' => 'ó',
+        'ÃƒÂº' => 'ú',
+        'ÃƒÂ' => 'Á',
+        'Ãƒâ€°' => 'É',
+        'ÃƒÂ' => 'Í',
+        'Ãƒâ€œ' => 'Ó',
+        'ÃƒÅ¡' => 'Ú',
+        'ÃƒÂ±' => 'ñ',
+        'Ãƒâ€˜' => 'Ñ',
+        'ÃƒÂ¼' => 'ü',
+        'ÃƒÅ“' => 'Ü',
+        'Ã‚Â¿' => '¿',
+        'Ã‚Â¡' => '¡',
+        'Ã‚Âº' => 'º',
+        'Ã‚Âª' => 'ª',
+        'Ã‚Â°' => '°',
+        'Ã‚Â' => '',
+        'Ã¡' => 'á',
+        'Ã©' => 'é',
+        'Ã­' => 'í',
+        'Ã³' => 'ó',
+        'Ãº' => 'ú',
+        'Ã' => 'Á',
+        'Ã‰' => 'É',
+        'Ã' => 'Í',
+        'Ã“' => 'Ó',
+        'Ãš' => 'Ú',
+        'Ã±' => 'ñ',
+        'Ã‘' => 'Ñ',
+        'Ã¼' => 'ü',
+        'Ãœ' => 'Ü',
+        'â€œ' => '"',
+        'â€' => '"',
+        'â€˜' => "'",
+        'â€™' => "'",
+        'â€“' => '-',
+        'â€”' => '-',
+        'â€¦' => '...',
+        'Â ' => ' ',
+    ];
+
+    for ($i = 0; $i < 3; $i++) {
+        $updated = strtr($text, $replacementMap);
+        if ($updated === $text) {
+            break;
+        }
+        $text = $updated;
+    }
+
+    $scoreText = static function (string $candidate): int {
+        $score = 0;
+        if (preg_match_all('/(?:Ã.|Â.|â.|ð|Ð|�)/u', $candidate, $matches) !== false) {
+            $score += count($matches[0] ?? []) * 10;
+        } else {
+            $score += 1000;
+        }
+        if (preg_match_all('/(?:Ãƒ|Ã‚|Â|â€|â€œ|â€|â€¦|ðŸ|Ã±|Ã¡|Ã©|Ã­|Ã³|Ãº)/u', $candidate, $matches) !== false) {
+            $score += count($matches[0] ?? []) * 20;
+        }
+        if (preg_match('/[A-Za-z][ÃÂâðÐ]/u', $candidate)) {
+            $score += 25;
+        }
+        return $score;
+    };
+
+    $best = $text;
+    $bestScore = $scoreText($best);
+
+    for ($pass = 0; $pass < 3; $pass++) {
+        $candidates = [$best];
+        foreach (['Windows-1252', 'ISO-8859-1'] as $encoding) {
+            $decoded = @iconv($encoding, 'UTF-8//IGNORE', $best);
+            if (is_string($decoded) && trim($decoded) !== '') {
+                $candidates[] = trim($decoded);
+            }
+        }
+
+        $passBest = $best;
+        $passBestScore = $bestScore;
+        foreach ($candidates as $candidate) {
+            $score = $scoreText($candidate);
+            if ($score < $passBestScore) {
+                $passBestScore = $score;
+                $passBest = $candidate;
+            }
+        }
+
+        if ($passBest === $best || $passBestScore >= $bestScore) {
+            break;
+        }
+
+        $best = $passBest;
+        $bestScore = $passBestScore;
+    }
+
+    return $best;
+}
+
+function dashboard_repair_structure_encoding(mixed $value): mixed {
+    if (is_array($value)) {
+        foreach ($value as $key => $item) {
+            $value[$key] = dashboard_repair_structure_encoding($item);
+        }
+        return $value;
+    }
+    if (is_string($value)) {
+        return dashboard_fix_text_encoding($value);
+    }
+    return $value;
+}
+
 function dashboard_core_normalize_detail_row(array $item, array $message = []): array {
     $tipo = trim((string)($item['detalle_tipo_solicitud'] ?? $item['tipo solicitud'] ?? $item['tipo_solicitud'] ?? $item['tipo de solicitud'] ?? ''));
     $run = trim((string)($item['detalle_run'] ?? $item['run'] ?? $item['rut'] ?? $item['run usuario'] ?? $item['run_usuario'] ?? ''));
@@ -175,18 +302,18 @@ function dashboard_core_normalize_detail_row(array $item, array $message = []): 
         $nombre = trim((string)($message['core_detalle_nombre'] ?? $message['solicitante'] ?? ''));
     }
     return [
-        'detalle_tipo_solicitud' => $tipo,
+        'detalle_tipo_solicitud' => dashboard_fix_text_encoding($tipo),
         'detalle_run' => $run,
-        'detalle_nombre' => $nombre,
-        'detalle_motivo' => $motivo,
-        'detalle_establecimientos' => $establecimientos,
-        'detalle_otros_permisos' => $otrosPermisos,
+        'detalle_nombre' => dashboard_fix_text_encoding($nombre),
+        'detalle_motivo' => dashboard_fix_text_encoding($motivo),
+        'detalle_establecimientos' => dashboard_fix_text_encoding($establecimientos),
+        'detalle_otros_permisos' => dashboard_fix_text_encoding($otrosPermisos),
         'detalle_fecha_nacimiento' => $fechaNacimiento,
         'detalle_email' => $email,
-        'detalle_departamento' => $departamento,
-        'detalle_cargo' => $cargo,
-        'detalle_rol' => $rol,
-        'detalle_estado' => $estado,
+        'detalle_departamento' => dashboard_fix_text_encoding($departamento),
+        'detalle_cargo' => dashboard_fix_text_encoding($cargo),
+        'detalle_rol' => dashboard_fix_text_encoding($rol),
+        'detalle_estado' => dashboard_fix_text_encoding($estado),
     ];
 }
 
@@ -276,7 +403,7 @@ function dashboard_filter_detail_rows(array $rows): array {
 }
 
 function dashboard_sanitize_redmine_text($value): string {
-    $text = trim((string)$value);
+    $text = dashboard_fix_text_encoding((string)$value);
     if ($text === '') {
         return '';
     }
@@ -341,6 +468,7 @@ function dashboard_build_redmine_manual_description(array $message): string {
 }
 
 function dashboard_expand_message(array $message): array {
+    $message = dashboard_repair_structure_encoding($message);
     if (($message['fuente'] ?? '') === 'manual') {
         return dashboard_expand_manual_message($message);
     }
