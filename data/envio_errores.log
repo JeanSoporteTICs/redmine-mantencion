@@ -7047,3 +7047,425 @@
     },
     "message_id": "core-a39779a3ca3753bc4afa"
 }
+{
+    "ts": "2026-04-22T14:05:22+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120862,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":627,\"name\":\"Reactivación Usuario CORE\"},\"subject\":\"activar usuario baneado \/atención por whatsapp\",\"description\":\"[8:41, 21\/4\/2026] +56 9 5648 1432: Hola\\r\\n[8:41, 21\/4\/2026] +56 9 5648 1432: Soy Matrona docente uach\\r\\n[8:41, 21\/4\/2026] +56 9 5648 1432: Y necesito si me pudieran habilitar Core\\r\\n[8:41, 21\/4\/2026] AyudaCore: Indíquenos su RUT Sin punto y con guion \\r\\nEj: 12345678-5\\r\\n[8:41, 21\/4\/2026] +56 9 5648 1432: Ya fue enviado el correo solicitándolo desde coldas\\r\\n[8:41, 21\/4\/2026] +56 9 5648 1432: 16794384-5\\r\\n[8:45, 21\/4\/2026] AyudaCore: Favor actualizar la página he intente nuevamente con su clave actual\\r\\n[8:45, 21\/4\/2026] +56 9 5648 1432: Y si ya olvidé la clave?\\r\\n\\r\\n[8:46, 21\/4\/2026] +56 9 5648 1432: No...las q recordaba no son\\r\\n[8:49, 21\/4\/2026] AyudaCore: cual es su correo?\\r\\n[8:49, 21\/4\/2026] +56 9 5648 1432: Carla.sandoval@uach.cl\\r\\n[8:50, 21\/4\/2026] +56 9 5648 1432: O puede estar con cjsandoval212@gmail.com\\r\\n[8:54, 21\/4\/2026] +56 9 5648 1432: Ahi si!\\r\\n[8:54, 21\/4\/2026] +56 9 5648 1432: Lo logré\\r\\n[8:54, 21\/4\/2026] +56 9 5648 1432: Gracias\",\"start_date\":\"2026-04-21\",\"due_date\":\"2026-04-21\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"16794384-5\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-22T12:05:22Z\",\"updated_on\":\"2026-04-22T12:05:22Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "activar usuario baneado \/atención por whatsapp",
+            "description": "[8:41, 21\/4\/2026] +56 9 5648 1432: Hola\r\n[8:41, 21\/4\/2026] +56 9 5648 1432: Soy Matrona docente uach\r\n[8:41, 21\/4\/2026] +56 9 5648 1432: Y necesito si me pudieran habilitar Core\r\n[8:41, 21\/4\/2026] AyudaCore: Indíquenos su RUT Sin punto y con guion \r\nEj: 12345678-5\r\n[8:41, 21\/4\/2026] +56 9 5648 1432: Ya fue enviado el correo solicitándolo desde coldas\r\n[8:41, 21\/4\/2026] +56 9 5648 1432: 16794384-5\r\n[8:45, 21\/4\/2026] AyudaCore: Favor actualizar la página he intente nuevamente con su clave actual\r\n[8:45, 21\/4\/2026] +56 9 5648 1432: Y si ya olvidé la clave?\r\n\r\n[8:46, 21\/4\/2026] +56 9 5648 1432: No...las q recordaba no son\r\n[8:49, 21\/4\/2026] AyudaCore: cual es su correo?\r\n[8:49, 21\/4\/2026] +56 9 5648 1432: Carla.sandoval@uach.cl\r\n[8:50, 21\/4\/2026] +56 9 5648 1432: O puede estar con cjsandoval212@gmail.com\r\n[8:54, 21\/4\/2026] +56 9 5648 1432: Ahi si!\r\n[8:54, 21\/4\/2026] +56 9 5648 1432: Lo logré\r\n[8:54, 21\/4\/2026] +56 9 5648 1432: Gracias",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "is_private": false,
+            "start_date": "2026-04-21",
+            "due_date": "2026-04-21",
+            "assigned_to_id": "42",
+            "category_id": 627,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "16794384-5"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "manual-69e7ba261ffac6.38864467"
+}
+{
+    "ts": "2026-04-22T14:05:23+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120863,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Consultas Médicas Y No Médicas\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|13818263-0|Alejandra Antonieta Mella Alvarez|revisar interconsultas|agregar en RCA en opciones  Historial de cambios|\",\"start_date\":\"2026-04-21\",\"due_date\":\"2026-04-21\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Alejandra Antonieta Mella Alvarez\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Subdepto. Consultas Médicas Y No Médicas\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"alejandra.mella@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-22T12:05:23Z\",\"updated_on\":\"2026-04-22T12:05:23Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Consultas Médicas Y No Médicas",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|13818263-0|Alejandra Antonieta Mella Alvarez|revisar interconsultas|agregar en RCA en opciones  Historial de cambios|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-21",
+            "due_date": "2026-04-21",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Alejandra Antonieta Mella Alvarez"
+                },
+                {
+                    "id": 5,
+                    "value": "Subdepto. Consultas Médicas Y No Médicas"
+                },
+                {
+                    "id": 8,
+                    "value": "alejandra.mella@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-e68e036ccd45299100b5"
+}
+{
+    "ts": "2026-04-22T14:05:24+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120864,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Urgencia Gineco-Obstétrica\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|20962733-7|Josefa Florencia Saldías Valdebenito|Matrona que realiza reemplazo en el Bloque Urgencia GO.|Habilitar Módulos: Gestión Documental, Archivo, Farmacia, Ficha Clínica, Hospitalización, Solicitud Examen (Incluir Laboratorio), Urgencia. Incorporar en Módulo Pabellón: Sección solicitud pabellón, trazabilidad, tabla quirúrgica, protocolo operatorio.|\",\"start_date\":\"2026-04-21\",\"due_date\":\"2026-04-21\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Evelyn Cardenas Picticar\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad De Urgencia Gineco-Obstétrica\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"evelyn.gyp@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-22T12:05:23Z\",\"updated_on\":\"2026-04-22T12:05:23Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Urgencia Gineco-Obstétrica",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|20962733-7|Josefa Florencia Saldías Valdebenito|Matrona que realiza reemplazo en el Bloque Urgencia GO.|Habilitar Módulos: Gestión Documental, Archivo, Farmacia, Ficha Clínica, Hospitalización, Solicitud Examen (Incluir Laboratorio), Urgencia. Incorporar en Módulo Pabellón: Sección solicitud pabellón, trazabilidad, tabla quirúrgica, protocolo operatorio.|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-21",
+            "due_date": "2026-04-21",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Evelyn Cardenas Picticar"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad De Urgencia Gineco-Obstétrica"
+                },
+                {
+                    "id": 8,
+                    "value": "evelyn.gyp@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-132fdf6f4bb00b7e23b2"
+}
+{
+    "ts": "2026-04-22T14:05:24+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120865,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Calidad Y Seguridad Del Paciente\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|19970254-8|Javiera Salazar Barria|Enfermera de unidad de calidad , que realiza reemplazos de turnos en servicio de traumatologia y neurologia y no tiene habilitado el modulo de examenes , el cual requiere para edsa funcion|Favor añadir modulo de examenes de laboratorio, para enfermera clinica que efectua reemplazos en traumatologia y neurologia|\",\"start_date\":\"2026-04-21\",\"due_date\":\"2026-04-21\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Alicia Valeska Fernandez Gadicke\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad Calidad Y Seguridad Del Paciente\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"alicia.fernandezg@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-22T12:05:24Z\",\"updated_on\":\"2026-04-22T12:05:24Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Calidad Y Seguridad Del Paciente",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|19970254-8|Javiera Salazar Barria|Enfermera de unidad de calidad , que realiza reemplazos de turnos en servicio de traumatologia y neurologia y no tiene habilitado el modulo de examenes , el cual requiere para edsa funcion|Favor añadir modulo de examenes de laboratorio, para enfermera clinica que efectua reemplazos en traumatologia y neurologia|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-21",
+            "due_date": "2026-04-21",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Alicia Valeska Fernandez Gadicke"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad Calidad Y Seguridad Del Paciente"
+                },
+                {
+                    "id": 8,
+                    "value": "alicia.fernandezg@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-aa087d6ff255f786e1c6"
+}
+{
+    "ts": "2026-04-22T14:05:25+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120866,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro Comunitario De Salud Familiar Neltume\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|18885740-K|Karina Rogel Seguel|Solicito reactivar usuario por favor, desde ya muchas gracias|Solicito reactivar usuario por favor, desde ya muchas gracias|\",\"start_date\":\"2026-04-21\",\"due_date\":\"2026-04-21\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Barbara Analia Mariqueo Manriquez\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro Comunitario De Salud Familiar Neltume\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"bmariqueo@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-22T12:05:25Z\",\"updated_on\":\"2026-04-22T12:05:25Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro Comunitario De Salud Familiar Neltume",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|18885740-K|Karina Rogel Seguel|Solicito reactivar usuario por favor, desde ya muchas gracias|Solicito reactivar usuario por favor, desde ya muchas gracias|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-21",
+            "due_date": "2026-04-21",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Barbara Analia Mariqueo Manriquez"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro Comunitario De Salud Familiar Neltume"
+                },
+                {
+                    "id": 8,
+                    "value": "bmariqueo@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-c10f1f3f51589e6e072e"
+}
+{
+    "ts": "2026-04-22T14:05:25+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120867,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Psiquiatría Infanto Juvenil\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|18485284-5|Christian Adrián Vásquez Beecher|Becado de Psiquiatría.|Agregar a RCA la posibilidad de visualizar y emitir certificados|\",\"start_date\":\"2026-04-21\",\"due_date\":\"2026-04-21\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Ruben David Zuniga Zuniga\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad Psiquiatría Infanto Juvenil\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"rubenzuniga10@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-22T12:05:25Z\",\"updated_on\":\"2026-04-22T12:05:25Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Psiquiatría Infanto Juvenil",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|18485284-5|Christian Adrián Vásquez Beecher|Becado de Psiquiatría.|Agregar a RCA la posibilidad de visualizar y emitir certificados|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-21",
+            "due_date": "2026-04-21",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Ruben David Zuniga Zuniga"
+                },
+                {
+                    "id": 5,
+                    "value": "Unidad Psiquiatría Infanto Juvenil"
+                },
+                {
+                    "id": 8,
+                    "value": "rubenzuniga10@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-a00437690ab76e6536d5"
+}
+{
+    "ts": "2026-04-22T14:05:26+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120868,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Consultas Médicas Y No Médicas\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|16319761-8|Modesta Noemi Matus Montecinos|anular citas|agregar en RCA la opción anular citas|\",\"start_date\":\"2026-04-21\",\"due_date\":\"2026-04-21\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Alejandra Antonieta Mella Alvarez\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Subdepto. Consultas Médicas Y No Médicas\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"alejandra.mella@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-22T12:05:26Z\",\"updated_on\":\"2026-04-22T12:05:26Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Consultas Médicas Y No Médicas",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|16319761-8|Modesta Noemi Matus Montecinos|anular citas|agregar en RCA la opción anular citas|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-21",
+            "due_date": "2026-04-21",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Alejandra Antonieta Mella Alvarez"
+                },
+                {
+                    "id": 5,
+                    "value": "Subdepto. Consultas Médicas Y No Médicas"
+                },
+                {
+                    "id": 8,
+                    "value": "alejandra.mella@redsalud.gob.cl"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-e2f99a5a10ce7e05bd2b"
+}
+{
+    "ts": "2026-04-22T14:05:27+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120869,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro Comunitario De Salud Familiar Neltume\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|16490690-6|Katherinne Lorena Robles Contreras|solicito reactivar usuario de funcionaria por favor, desde ya muchas gracias|solicito reactivar usuario de funcionaria por favor, desde ya muchas gracias|\",\"start_date\":\"2026-04-21\",\"due_date\":\"2026-04-21\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Barbara Analia Mariqueo Manriquez\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro Comunitario De Salud Familiar Neltume\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"bmariqueo@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-22T12:05:26Z\",\"updated_on\":\"2026-04-22T12:05:26Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro Comunitario De Salud Familiar Neltume",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|16490690-6|Katherinne Lorena Robles Contreras|solicito reactivar usuario de funcionaria por favor, desde ya muchas gracias|solicito reactivar usuario de funcionaria por favor, desde ya muchas gracias|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-21",
+            "due_date": "2026-04-21",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Barbara Analia Mariqueo Manriquez"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro Comunitario De Salud Familiar Neltume"
+                },
+                {
+                    "id": 8,
+                    "value": "bmariqueo@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-e89e35b74ccadc9a2d92"
+}
+{
+    "ts": "2026-04-22T14:05:27+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120870,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Depto. Trabajo Social\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|19029196-0|Constanza Paz Cabrini Vegas|Término de reemplazo como profesional asistente social|Solicita desactivar módulos de acceso a core: - Hospitalizados. - RCA. - Urgencia Adulto. - Visitas. - Ficha.|\",\"start_date\":\"2026-04-21\",\"due_date\":\"2026-04-21\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Ana Myriam Córdova Riquelme\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Depto. Trabajo Social\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"anitacordovar@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-22T12:05:27Z\",\"updated_on\":\"2026-04-22T12:05:27Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Depto. Trabajo Social",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|19029196-0|Constanza Paz Cabrini Vegas|Término de reemplazo como profesional asistente social|Solicita desactivar módulos de acceso a core: - Hospitalizados. - RCA. - Urgencia Adulto. - Visitas. - Ficha.|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-21",
+            "due_date": "2026-04-21",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Ana Myriam Córdova Riquelme"
+                },
+                {
+                    "id": 5,
+                    "value": "Depto. Trabajo Social"
+                },
+                {
+                    "id": 8,
+                    "value": "anitacordovar@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-0130b03a9f4e725a09e3"
+}
+{
+    "ts": "2026-04-22T14:05:28+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120871,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Depto. Trabajo Social\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|12938930-3|Katherine Plaza Henriquez|Profesional Asistente Social que se intregra a partir del 20 de abril 2026 al 20 octubre 2026 como dotación del Dpto. Trabajo Social del HBV. Atención directa de pacientes hospitalizados y ambulatorios.|Solicita habilitar los siguientes módulos CORE: - Hospitalizados. - Ficha Clínica. - RCA - Urgencia Infantil - Visitas|\",\"start_date\":\"2026-04-21\",\"due_date\":\"2026-04-21\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Ana Myriam Córdova Riquelme\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Depto. Trabajo Social\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"anitacordovar@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-22T12:05:28Z\",\"updated_on\":\"2026-04-22T12:05:28Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Depto. Trabajo Social",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|12938930-3|Katherine Plaza Henriquez|Profesional Asistente Social que se intregra a partir del 20 de abril 2026 al 20 octubre 2026 como dotación del Dpto. Trabajo Social del HBV. Atención directa de pacientes hospitalizados y ambulatorios.|Solicita habilitar los siguientes módulos CORE: - Hospitalizados. - Ficha Clínica. - RCA - Urgencia Infantil - Visitas|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-21",
+            "due_date": "2026-04-21",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Ana Myriam Córdova Riquelme"
+                },
+                {
+                    "id": 5,
+                    "value": "Depto. Trabajo Social"
+                },
+                {
+                    "id": 8,
+                    "value": "anitacordovar@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-aa7715c5016245f6a18e"
+}
+{
+    "ts": "2026-04-22T14:05:28+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":120872,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Centro Comunitario De Salud Familiar Neltume\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|16863543-5|Eduardo Antonio Bravo Sepulveda|Solicito reactivar usuario por favor, desde ya muchas gracias|Solicito reactivar usuario por favor, desde ya muchas gracias|\",\"start_date\":\"2026-04-21\",\"due_date\":\"2026-04-21\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Barbara Analia Mariqueo Manriquez\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Centro Comunitario De Salud Familiar Neltume\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"bmariqueo@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-04-22T12:05:28Z\",\"updated_on\":\"2026-04-22T12:05:28Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Centro Comunitario De Salud Familiar Neltume",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|16863543-5|Eduardo Antonio Bravo Sepulveda|Solicito reactivar usuario por favor, desde ya muchas gracias|Solicito reactivar usuario por favor, desde ya muchas gracias|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-04-21",
+            "due_date": "2026-04-21",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": 3,
+                    "value": "Barbara Analia Mariqueo Manriquez"
+                },
+                {
+                    "id": 5,
+                    "value": "Centro Comunitario De Salud Familiar Neltume"
+                },
+                {
+                    "id": 8,
+                    "value": "bmariqueo@gmail.com"
+                },
+                {
+                    "id": 12,
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-375f29fc45a7aac00153"
+}
