@@ -98,17 +98,16 @@ function dashboard_core_build_description(array $message): string {
 }
 
 function dashboard_resolve_department_value(array $message): string {
-    $departamento = trim((string)($message['core_departamento'] ?? $message['unidad'] ?? ''));
-    $establecimiento = trim((string)($message['core_establecimiento'] ?? $message['unidad_solicitante'] ?? ''));
+    $departamento = trim((string)($message['core_departamento'] ?? $message['departamento'] ?? $message['unidad'] ?? ''));
     if ($departamento === '' || strtoupper($departamento) === 'N/A') {
-        return $establecimiento !== '' ? $establecimiento : '';
+        return '';
     }
     return $departamento;
 }
 
 function dashboard_expand_manual_message(array $message): array {
-    $unidad = trim((string)($message['unidad'] ?? ''));
-    $unidadSolicitante = trim((string)($message['unidad_solicitante'] ?? ''));
+    $unidad = trim((string)($message['departamento'] ?? $message['unidad'] ?? ''));
+    $unidadSolicitante = trim((string)($message['establecimiento'] ?? $message['unidad_solicitante'] ?? ''));
     if ($unidadSolicitante === '') {
         $unidadSolicitante = $unidad;
     }
@@ -123,12 +122,14 @@ function dashboard_expand_manual_message(array $message): array {
     $hora = trim((string)($message['hora'] ?? ''));
     $message['unidad'] = $unidad;
     $message['unidad_solicitante'] = $unidadSolicitante;
+    $message['establecimiento'] = $unidadSolicitante;
+    $message['departamento'] = $unidad;
     $message['categoria'] = $categoria;
     $message['tipo'] = $tipo !== '' ? $tipo : 'Soporte';
     $message['asignado_nombre'] = $asignadoNombre;
-    $message['core_tipo_solicitud'] = $message['tipo'];
+    $message['core_tipo_solicitud'] = $categoria !== '' ? $categoria : $message['tipo'];
     $message['core_establecimiento'] = $unidadSolicitante !== '' ? $unidadSolicitante : $unidad;
-    $message['core_departamento'] = $categoria;
+    $message['core_departamento'] = $unidad !== '' ? $unidad : $message['core_establecimiento'];
     $message['core_usuario_asignado'] = $asignadoNombre;
     $message['core_estado'] = trim((string)($message['core_estado'] ?? '')) !== '' ? trim((string)$message['core_estado']) : 'Manual';
     if (trim((string)($message['core_fecha_creacion'] ?? '')) === '') {
@@ -1969,7 +1970,7 @@ function build_redmine_issue_payload(array $message, array $cfg, array $catMap, 
                     $value = trim((string)($message['solicitante'] ?? ''));
                     break;
                 case 'cf_unidad':
-                    $value = trim((string)($message['unidad'] ?? $message['unidad_solicitante'] ?? ''));
+                    $value = dashboard_resolve_department_value($message);
                     break;
                 case 'cf_unidad_solicitante':
                     $value = strtoupper(trim((string)($message['unidad_solicitante'] ?? $message['unidad'] ?? '')));
@@ -2058,7 +2059,7 @@ function build_redmine_issue_payload(array $message, array $cfg, array $catMap, 
                 $value = $message['solicitante'] ?? '';
                 break;
             case 'cf_unidad':
-                $value = dashboard_resolve_unit_value($message);
+                $value = dashboard_resolve_department_value($message);
                 break;
             case 'cf_unidad_solicitante':
                 $value = strtoupper(trim($message['unidad_solicitante'] ?? $message['unidad'] ?? ''));
@@ -2125,7 +2126,7 @@ function append_hours_extra_record(array $message): void {
     if (file_exists($filePath)) {
         $parsed = json_decode(@file_get_contents($filePath), true);
         if (is_array($parsed)) {
-            $groups = $parsed;
+            $groups = array_values($parsed);
         }
     }
     foreach ($groups as $idx => $group) {
@@ -2149,13 +2150,13 @@ function append_hours_extra_record(array $message): void {
         }
     }
     if ($groupIndex === null) {
-        $groupIndex = count($groups);
         $groups[] = [
             'fecha' => $targetDate,
             'hora_inicio' => $horaIni,
             'hora_fin' => $horaFin,
             'reports' => [],
         ];
+        $groupIndex = array_key_last($groups);
     } else {
         if ($horaIni !== '') {
             $groups[$groupIndex]['hora_inicio'] = $horaIni;
@@ -2164,7 +2165,10 @@ function append_hours_extra_record(array $message): void {
             $groups[$groupIndex]['hora_fin'] = $horaFin;
         }
     }
-    $reports = $groups[$groupIndex]['reports'];
+    $reports = $groups[$groupIndex]['reports'] ?? [];
+    if (!is_array($reports)) {
+        $reports = [];
+    }
     $messageId = $message['id'] ?? '';
     $reports = array_values(array_filter($reports, fn($row) => !is_array($row) || ($row['id'] ?? '') !== $messageId));
     $message['hora_extra'] = 'SI';
@@ -2390,10 +2394,29 @@ function send_selected_messages(array &$messages, array $ids, array $cfg, string
             if ($message['redmine_id']) {
                 $created[] = (string)$message['redmine_id'];
             }
+            log_security_event(
+                'REDMINE_SEND',
+                sprintf(
+                    'Ticket enviado a Redmine. Mensaje=%s Ticket=%s Usuario=%s',
+                    (string)($message['id'] ?? 'sin-id'),
+                    (string)($message['redmine_id'] ?? 'sin-id'),
+                    (string)($_SESSION['user']['nombre'] ?? 'usuario')
+                )
+            );
         } else {
             $message['estado'] = 'error';
             $message['procesado_ts'] = (new DateTimeImmutable())->format(DateTime::ATOM);
             $errors[] = sprintf('No se pudo enviar %s: %s', $message['id'] ?? 'sin-id', $result['error'] ?: $result['body']);
+            log_security_event(
+                'REDMINE_SEND_FAIL',
+                sprintf(
+                    'Fallo envio a Redmine. Mensaje=%s HTTP=%s Error=%s Usuario=%s',
+                    (string)($message['id'] ?? 'sin-id'),
+                    (string)($result['http_code'] ?? ''),
+                    substr((string)($result['error'] ?: $result['body']), 0, 180),
+                    (string)($_SESSION['user']['nombre'] ?? 'usuario')
+                )
+            );
         }
         append_hours_extra_record($message);
     }
@@ -2608,7 +2631,7 @@ function handle_request(): array {
                 $updated = false;
                 $fields = [
                     'tipo','estado','asunto','prioridad','categoria',
-                    'asignado_a','solicitante','unidad','unidad_solicitante',
+                    'asignado_a','solicitante','unidad','unidad_solicitante','establecimiento','departamento',
                     'hora_extra','fecha_inicio','fecha_fin','tiempo_estimado',
                     'fecha','hora','numero','descripcion','core_email'
                 ];
@@ -2626,6 +2649,14 @@ function handle_request(): array {
                             $message[$field] = $value;
                         }
                     }
+                    $establecimiento = trim((string)($_POST['establecimiento'] ?? $message['core_establecimiento'] ?? $message['unidad_solicitante'] ?? ''));
+                    $departamento = trim((string)($_POST['departamento'] ?? $message['core_departamento'] ?? $message['unidad'] ?? ''));
+                    $message['establecimiento'] = $establecimiento;
+                    $message['departamento'] = $departamento;
+                    $message['core_establecimiento'] = $establecimiento;
+                    $message['core_departamento'] = $departamento !== '' ? $departamento : $establecimiento;
+                    $message['unidad_solicitante'] = $establecimiento;
+                    $message['unidad'] = $departamento !== '' ? $departamento : $establecimiento;
                     if (($message['fuente'] ?? '') === 'manual') {
                         $message = dashboard_expand_manual_message($message);
                     }

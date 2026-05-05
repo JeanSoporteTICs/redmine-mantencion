@@ -99,6 +99,14 @@ class AuthController extends Controller
         if ($ok) {
             auth_touch_activity();
             $timeout = auth_config_timeout();
+            log_security_event(
+                'SESSION_EXTEND',
+                sprintf(
+                    'Sesion extendida por %s (ID %s)',
+                    (string) ($_SESSION['user']['nombre'] ?? 'usuario'),
+                    (string) ($_SESSION['user']['id'] ?? '')
+                )
+            );
             echo json_encode([
                 'ok' => true,
                 'msg' => 'Sesion extendida',
@@ -108,6 +116,14 @@ class AuthController extends Controller
             return;
         }
 
+        log_security_event(
+            'SESSION_EXTEND_FAIL',
+            sprintf(
+                'Intento fallido de extension de sesion para %s (ID %s)',
+                (string) ($_SESSION['user']['nombre'] ?? 'usuario'),
+                (string) ($_SESSION['user']['id'] ?? '')
+            )
+        );
         http_response_code(401);
         echo json_encode(['ok' => false, 'msg' => 'Contrasena incorrecta']);
     }

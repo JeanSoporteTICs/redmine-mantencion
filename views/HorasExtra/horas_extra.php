@@ -64,9 +64,10 @@ $h = fn($v) => htmlspecialchars($v ?? '', ENT_QUOTES, 'UTF-8');
 $csrf = csrf_token();
 setlocale(LC_TIME, 'es_CL.UTF-8', 'es_ES.UTF-8', 'es_ES', 'Spanish');
 
-$mesActual = (new DateTime())->format('n');
+$today = new DateTimeImmutable('now', new DateTimeZone('America/Santiago'));
+$mesActual = $today->format('n');
 $selMes = array_key_exists('mes', $_GET) ? trim($_GET['mes']) : $mesActual;
-$anioActual = (new DateTime())->format('Y');
+$anioActual = $today->format('Y');
 $selAnio = array_key_exists('anio', $_GET) ? trim($_GET['anio']) : $anioActual;
 $flash = null;
 $meses = [
@@ -265,7 +266,12 @@ foreach ($grupos as $g) {
     }
 }
 $aniosDisponibles = array_keys($aniosDisponibles);
-$aniosDisponibles ? sort($aniosDisponibles) : [];
+$aniosDisponibles[] = $anioActual;
+if ($selAnio !== '') {
+    $aniosDisponibles[] = $selAnio;
+}
+$aniosDisponibles = array_values(array_unique(array_map('strval', $aniosDisponibles)));
+$aniosDisponibles ? sort($aniosDisponibles, SORT_NUMERIC) : [];
 
 $grupos = array_values(array_filter($grupos, function ($g) use ($selMes, $selAnio) {
     $fechaBase = $g['fecha'] ?? '';
@@ -293,7 +299,7 @@ usort($grupos, function ($a, $b) {
     if ($fb === '') {
         return -1;
     }
-    return $fb <=> $fa; // mostrar primero las fechas más recientes
+    return $fa <=> $fb; // mostrar primero las fechas más antiguas
 });
 
 function fmt_fecha($fecha) {
@@ -354,9 +360,9 @@ function hhmm($mins) {
       <div class="col-md-4 col-lg-3">
         <label class="form-label">A&ntilde;o</label>
         <select name="anio" class="form-select">
-          <option value="">Todos</option>
+          <option value="" <?= $selAnio === '' ? 'selected' : '' ?>>Todos</option>
           <?php foreach ($aniosDisponibles as $an): ?>
-            <option value="<?= $h($an) ?>" <?= ($selAnio !== '' && $selAnio === $an) ? 'selected' : '' ?>><?= $h($an) ?></option>
+            <option value="<?= $h($an) ?>" <?= ($selAnio !== '' && (string)$selAnio === (string)$an) ? 'selected' : '' ?>><?= $h($an) ?></option>
           <?php endforeach; ?>
         </select>
       </div>
@@ -545,7 +551,11 @@ if (copyBtn) {
     if (!table) return;
     const groupRows = Array.from(table.querySelectorAll('tbody tr.group-row'));
     if (!groupRows.length) {
-      alert('No hay datos para copiar.');
+      window.appModal?.show({
+        title: 'Sin datos',
+        message: 'No hay datos para copiar.',
+        tone: 'warning'
+      });
       return;
     }
 
@@ -618,17 +628,21 @@ if (copyBtn) {
         'text/plain': new Blob([finalPlain], { type: 'text/plain' })
       });
       navigator.clipboard.write([item]).then(
-        () => alert('Tabla copiada al portapapeles.'),
-        () => { fallbackCopyHtml(htmlString, finalPlain); alert('Tabla copiada al portapapeles.'); }
+        () => window.appModal?.show({ title: 'Tabla copiada', message: 'Tabla copiada al portapapeles.', tone: 'success' }),
+        () => { fallbackCopyHtml(htmlString, finalPlain); window.appModal?.show({ title: 'Tabla copiada', message: 'Tabla copiada al portapapeles.', tone: 'success' }); }
       );
     } else if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(finalPlain).then(
-        () => alert('Tabla copiada al portapapeles.'),
-        () => { fallbackCopyHtml(htmlString, finalPlain); alert('Tabla copiada al portapapeles.'); }
+        () => window.appModal?.show({ title: 'Tabla copiada', message: 'Tabla copiada al portapapeles.', tone: 'success' }),
+        () => { fallbackCopyHtml(htmlString, finalPlain); window.appModal?.show({ title: 'Tabla copiada', message: 'Tabla copiada al portapapeles.', tone: 'success' }); }
       );
     } else {
       fallbackCopyHtml(htmlString, finalPlain);
-      alert('Tabla copiada al portapapeles.');
+      window.appModal?.show({
+        title: 'Tabla copiada',
+        message: 'Tabla copiada al portapapeles.',
+        tone: 'success'
+      });
     }
   });
 }

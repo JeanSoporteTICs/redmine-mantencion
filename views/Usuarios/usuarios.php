@@ -85,7 +85,7 @@ $csrf = csrf_token();
                   aria-label="Editar usuario">
                   <i class="bi bi-pencil-square"></i> Editar
                 </button>
-                <form method="post" onsubmit="return confirm('&iquest;Eliminar este usuario?')" class="m-0">
+                <form method="post" data-app-confirm="¿Eliminar este usuario?" class="m-0">
                   <input type="hidden" name="id" value="<?= $h($u['id'] ?? '') ?>">
                   <input type="hidden" name="action" value="delete">
                   <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">

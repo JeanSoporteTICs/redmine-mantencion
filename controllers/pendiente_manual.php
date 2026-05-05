@@ -246,7 +246,7 @@ function manual_pending_default_form(array $cfg, array $users): array {
         'hora_extra' => '0',
         'core_usuario_asignado' => $currentUserName,
         'core_estado' => 'Manual',
-        'core_tipo_solicitud' => manual_pending_option_name($cfg['trackers'] ?? [], $cfg['tracker_id'] ?? 3),
+        'core_tipo_solicitud' => '',
         'core_establecimiento' => '',
         'core_departamento' => '',
         'core_telefono' => '',
@@ -306,9 +306,9 @@ function manual_pending_build_record(array $input, array $cfg, array $users): ar
         'redmine_id' => '',
         'procesado_ts' => '',
         'core_fecha_creacion' => $now->format('d-m-Y H:i'),
-        'core_tipo_solicitud' => $trackerName,
+        'core_tipo_solicitud' => $categoria !== '' ? $categoria : ($trackerName !== '' ? $trackerName : 'Soporte'),
         'core_establecimiento' => $unidad,
-        'core_departamento' => $categoria,
+        'core_departamento' => $unidad,
         'core_estado' => 'Manual',
         'core_usuario_asignado' => $assignedName,
         'core_email' => $correo,
@@ -354,9 +354,10 @@ function handle_manual_pending(): array {
         $form['core_email'] = manual_pending_normalize_email($form['core_email'] ?? '');
         $form['hora_extra'] = ($form['hora_extra'] ?? '0') === '1' ? '1' : '0';
         $form['core_usuario_asignado'] = manual_pending_find_user_name((string)($form['asignado_a'] ?? ''), $users);
-        $form['core_tipo_solicitud'] = manual_pending_option_name($cfg['trackers'] ?? [], $form['tracker_id'] ?? '');
+        $trackerName = manual_pending_option_name($cfg['trackers'] ?? [], $form['tracker_id'] ?? '');
+        $form['core_tipo_solicitud'] = trim((string)($form['categoria'] ?? '')) !== '' ? trim((string)$form['categoria']) : $trackerName;
         $form['core_establecimiento'] = trim((string)($form['unidad'] ?? ''));
-        $form['core_departamento'] = trim((string)($form['categoria'] ?? ''));
+        $form['core_departamento'] = trim((string)($form['unidad'] ?? ''));
         $form['core_telefono'] = trim((string)($form['anexo'] ?? ''));
 
         if ($form['asunto'] === '' || $form['solicitante'] === '') {

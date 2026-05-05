@@ -82,6 +82,13 @@ function norm_date(string $str): string {
   return '';
 }
 
+function historico_format_date(string $str): string {
+  $date = norm_date($str);
+  if ($date === '') return $str;
+  $dt = DateTimeImmutable::createFromFormat('Y-m-d', $date);
+  return $dt ? $dt->format('d-m-Y') : $str;
+}
+
 function historico_matches_search(array $row, string $needle): bool {
   $needle = dashboard_normalize_text($needle);
   if ($needle === '') {
@@ -174,7 +181,6 @@ $f_hasta     = norm_date($_GET['hasta'] ?? '');
 $f_usuario   = trim($_GET['usuario'] ?? '');
 $f_categoria = strtolower(trim($_GET['categoria'] ?? ''));
 $f_fuente    = $_GET['fuente'] ?? '';
-$f_tipo      = dashboard_normalize_text(trim($_GET['tipo_solicitud'] ?? ''));
 $f_busqueda  = trim($_GET['buscar'] ?? '');
 $roles       = auth_load_roles();
 $roleName    = auth_get_user_role();
@@ -186,7 +192,7 @@ if (!$showActions && $roleName === 'gestor' && !array_key_exists('historico_acci
   // compatibilidad con roles antiguos sin la clave
   $showActions = true;
 }
-$tableColspan = $showActions ? 9 : 8;
+$tableColspan = $showActions ? 10 : 9;
 $f_scope = $_GET['mensajes_scope'] ?? ($scopePermitido === 'todos' ? 'todos' : 'asignados');
 if (!in_array($f_scope, ['todos','asignados'], true)) $f_scope = 'asignados';
 if ($scopePermitido === 'asignados') {
@@ -213,8 +219,6 @@ foreach ($items as $row) {
   if ($f_fuente && ($row['_fuente'] ?? '') !== $f_fuente) {
     continue;
   }
-  $tipoSolicitud = dashboard_normalize_text((string)($row['core_tipo_solicitud'] ?? ($row['asunto'] ?? '')));
-  if ($f_tipo !== '' && $tipoSolicitud !== $f_tipo) continue;
   if ($f_usuario !== '' && (string)($row['asignado_a'] ?? '') !== (string)$f_usuario) continue;
   if ($f_scope === 'asignados' && !historico_record_matches_current_user($row, $userId, $userNames)) continue;
   $cat = strtolower($row['categoria'] ?? '');
@@ -230,25 +234,84 @@ usort($filtered, function ($a, $b) {
 
 $usuariosSel = [];
 $catsSel     = [];
-$tiposSel    = [];
 foreach ($items as $r) {
   if (!is_array($r)) continue;
   $usuariosSel[(string)($r['asignado_a'] ?? '')] = $r['asignado_nombre'] ?? ($r['asignado_a'] ?? '');
   $catsSel[strtolower($r['categoria'] ?? '')]    = $r['categoria'] ?? '';
-  $tipoLabel = trim((string)($r['core_tipo_solicitud'] ?? ($r['asunto'] ?? '')));
-  $tipoKey = dashboard_normalize_text($tipoLabel);
-  if ($tipoKey !== '' && $tipoLabel !== '') {
-    $tiposSel[$tipoKey] = $tipoLabel;
-  }
 }
 ksort($usuariosSel);
 ksort($catsSel);
-asort($tiposSel);
 ?>
 <!doctype html>
 <html lang="es">
 <head>
   <?php $pageTitle = 'Historico'; $includeTheme = true; include __DIR__ . '/../partials/bootstrap-head.php'; ?>
+  <style>
+    .historico-filter-card {
+      border: 1px solid rgba(15, 23, 42, .08);
+      background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(248,250,255,.9));
+    }
+    .historico-filter-card .form-floating > label {
+      max-width: calc(100% - 1.5rem);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .historico-filter-card .btn {
+      min-height: 48px;
+      white-space: nowrap;
+    }
+    .historico-summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.15rem;
+      border-bottom: 1px solid rgba(15, 23, 42, .08);
+      background: rgba(248, 250, 255, .86);
+    }
+    .historico-count {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      color: #0f172a;
+      font-weight: 700;
+    }
+    .historico-table th {
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+    .historico-table td {
+      vertical-align: middle;
+    }
+    .historico-date {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      min-width: 108px;
+      color: #1e3a8a;
+      font-weight: 700;
+    }
+    .historico-source-badge {
+      border-radius: 999px;
+      padding: .4rem .7rem;
+      background: rgba(56, 189, 248, .14);
+      color: #075985;
+      border: 1px solid rgba(56, 189, 248, .22);
+      font-weight: 700;
+    }
+    .historico-status {
+      display: inline-flex;
+      max-width: 130px;
+      border-radius: 999px;
+      padding: .35rem .65rem;
+      background: rgba(52, 211, 153, .15);
+      color: #047857;
+      font-size: .78rem;
+      font-weight: 700;
+    }
+  </style>
 </head>
 <body class="bg-light">
 <?php $activeNav = 'historico'; include __DIR__ . '/../partials/navbar.php'; ?>
@@ -269,15 +332,14 @@ asort($tiposSel);
     </div>
   <?php endif; ?>
 
-  <form id="filter-form" class="card card-body shadow-sm mb-3" method="get" aria-live="polite">
+  <form id="filter-form" class="card card-body shadow-sm mb-3 historico-filter-card" method="get" aria-live="polite">
     <div class="row g-3 align-items-end">
       <?php
         $filterFields = [
           ['label' => 'Desde', 'name' => 'desde', 'type' => 'date', 'value' => $f_desde, 'col' => 2, 'aria_label' => 'Fecha desde'],
           ['label' => 'Hasta', 'name' => 'hasta', 'type' => 'date', 'value' => $f_hasta, 'col' => 2, 'aria_label' => 'Fecha hasta'],
           ['label' => 'Fuente', 'name' => 'fuente', 'type' => 'select', 'options' => ['' => 'Todas', 'reportes' => 'Reportes', 'horas_extra' => 'Horas extra'], 'value' => $f_fuente, 'col' => 2],
-          ['label' => 'Tipo solicitud', 'name' => 'tipo_solicitud', 'type' => 'select', 'options' => ['' => 'Todos'] + $tiposSel, 'value' => $f_tipo, 'col' => 3],
-          ['label' => 'Buscar solicitante / nombre / rut', 'name' => 'buscar', 'type' => 'text', 'value' => $f_busqueda, 'col' => 3, 'aria_label' => 'Buscar por solicitante, nombre o rut'],
+          ['label' => 'Buscar solicitante / nombre / rut', 'name' => 'buscar', 'type' => 'text', 'value' => $f_busqueda, 'col' => 4, 'aria_label' => 'Buscar por solicitante, nombre o rut'],
         ];
         if (!$scopeBloqueado) {
           $filterFields[] = [
@@ -295,7 +357,7 @@ asort($tiposSel);
           'type' => 'select',
           'options' => ['' => 'Todas'] + $catsSel,
           'value' => $f_categoria,
-          'col' => 2,
+          'col' => 3,
         ];
       ?>
       <?php foreach ($filterFields as $field): ?>
@@ -330,6 +392,12 @@ asort($tiposSel);
   </form>
 
   <div class="card shadow-sm">
+    <div class="historico-summary">
+      <div>
+        <span class="historico-count"><i class="bi bi-clock-history text-primary"></i> <?= count($filtered) ?> registros</span>
+        <span class="text-muted ms-2">Histórico procesado</span>
+      </div>
+    </div>
     <div class="card-body p-0 position-relative">
       <div class="table-responsive position-relative">
         <div id="table-loader" class="loader-overlay d-none" role="status" aria-live="polite">
@@ -338,12 +406,12 @@ asort($tiposSel);
             <strong>Cargando registros…</strong>
           </div>
         </div>
-        <table class="table table-striped align-middle mb-0" role="grid" aria-label="Histórico de reportes" aria-busy="false">
+        <table class="table table-hover historico-table align-middle mb-0" role="grid" aria-label="Histórico de reportes" aria-busy="false">
           <thead class="table-light">
             <tr class="position-sticky top-0 bg-light">
               <th scope="col">Fecha</th>
               <th scope="col" class="text-truncate" style="max-width: 160px;">Solicitante</th>
-              <th scope="col" class="text-truncate" style="max-width: 220px;">Tipo solicitud</th>
+              <th scope="col" class="text-truncate" style="max-width: 220px;">Categoría</th>
               <th scope="col" class="text-truncate" style="max-width: 140px;">Establecimiento</th>
               <th scope="col" class="text-truncate" style="max-width: 140px;">Departamento</th>
               <th scope="col" class="text-truncate" style="max-width: 140px;">Asignado CORE</th>
@@ -369,15 +437,15 @@ asort($tiposSel);
                     : '';
                 ?>
                 <tr>
-                  <td><?= $h($row['_fecha_norm'] ?? '') ?></td>
+                  <td><span class="historico-date"><i class="bi bi-calendar3"></i><?= $h(historico_format_date($row['_fecha_norm'] ?? '')) ?></span></td>
                   <td class="text-truncate" style="max-width: 160px;" title="<?= $h($row['solicitante'] ?? '') ?>"><?= $h($row['solicitante'] ?? '') ?></td>
-                  <td class="text-truncate" style="max-width: 220px;" title="<?= $h($row['core_tipo_solicitud'] ?? ($row['asunto'] ?? '')) ?>"><?= $h($row['core_tipo_solicitud'] ?? ($row['asunto'] ?? '')) ?></td>
+                  <td class="text-truncate" style="max-width: 220px;" title="<?= $h($row['categoria'] ?? '') ?>"><?= $h($row['categoria'] ?? '') ?></td>
                   <td class="text-truncate" style="max-width: 140px;" title="<?= $h($row['core_establecimiento'] ?? ($row['unidad_solicitante'] ?? '')) ?>"><?= $h($row['core_establecimiento'] ?? ($row['unidad_solicitante'] ?? '')) ?></td>
                   <td class="text-truncate" style="max-width: 140px;" title="<?= $h($row['core_departamento'] ?? ($row['unidad'] ?? '')) ?>"><?= $h($row['core_departamento'] ?? ($row['unidad'] ?? '')) ?></td>
                   <td class="text-truncate" style="max-width: 140px;" title="<?= $h($row['core_usuario_asignado'] ?? ($row['asignado_nombre'] ?? ($row['asignado_a'] ?? ''))) ?>"><?= $h($row['core_usuario_asignado'] ?? ($row['asignado_nombre'] ?? ($row['asignado_a'] ?? ''))) ?></td>
-                  <td><?= $h($row['core_estado'] ?? '') ?></td>
+                  <td><span class="historico-status text-truncate" title="<?= $h($row['core_estado'] ?? '') ?>"><?= $h($row['core_estado'] ?? '') ?></span></td>
                   <?php $fuenteLabel = $row['_fuente'] ?? ''; ?>
-                  <td><span class="badge bg-secondary"><?= $h($fuenteLabel) ?></span></td>
+                  <td><span class="historico-source-badge"><?= $h($fuenteLabel) ?></span></td>
                   <td>
                     <button
                       type="button"
@@ -397,11 +465,11 @@ asort($tiposSel);
                   </td>
                   <?php if ($showActions): ?>
                     <td>
-                      <form method="post" class="m-0">
+                      <form method="post" class="m-0" data-app-confirm="Eliminar este registro del histórico?">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="<?= $h($row['id'] ?? '') ?>">
                         <input type="hidden" name="fuente" value="<?= $h($row['_fuente'] ?? '') ?>">
-                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Eliminar este registro del hist&oacute;rico?')">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">
                           <i class="bi bi-trash"></i>
                         </button>
                       </form>

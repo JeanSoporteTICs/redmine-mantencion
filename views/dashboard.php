@@ -379,7 +379,7 @@ $csrf = csrf_token();
                   <button type="button" class="btn btn-sm btn-outline-danger log-btn" data-log="<?= $h($logText) ?>" data-bs-toggle="modal" data-bs-target="#logModal">Log</button>
                 <?php endif; ?>
 
-                <form method="post" onsubmit="return confirm('Eliminar este mensaje?')">
+                <form method="post" data-app-confirm="Eliminar este mensaje?">
                   <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
                   <input type="hidden" name="id" value="<?= $h($m['id'] ?? '') ?>">
                   <input type="hidden" name="action" value="delete">
@@ -777,7 +777,11 @@ if (processForm && processIds) {
 
       e.preventDefault();
 
-      alert('Selecciona al menos un mensaje para procesar.');
+      window.appModal?.show({
+        title: 'Seleccion requerida',
+        message: 'Selecciona al menos un mensaje para procesar.',
+        tone: 'warning'
+      });
 
     }
 

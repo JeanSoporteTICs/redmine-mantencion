@@ -624,6 +624,14 @@
         "nombre": "Problemas Labstats"
     },
     {
+        "id": "686",
+        "nombre": "RCA Añadir adendum"
+    },
+    {
+        "id": "680",
+        "nombre": "RCA Anular Atención"
+    },
+    {
         "id": "608",
         "nombre": "RCA Borrar adendum"
     },
@@ -782,5 +790,9 @@
     {
         "id": "636",
         "nombre": "Video Tutorial"
+    },
+    {
+        "id": "682",
+        "nombre": "Vpn"
     }
 ]

@@ -11,8 +11,21 @@ function normalize_date($str) {
     if (preg_match('/^(\d{2})-(\d{2})-(\d{4})$/', $str, $m)) {
         return sprintf('%s-%s-%s', $m[3], $m[2], $m[1]);
     }
+    // dd-mm-yyyy con hora
+    if (preg_match('/^(\d{2})-(\d{2})-(\d{4})\s+\d{1,2}:\d{2}(?::\d{2})?$/', $str, $m)) {
+        return sprintf('%s-%s-%s', $m[3], $m[2], $m[1]);
+    }
     // yyyy-mm-dd
     if (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $str)) return $str;
+    // yyyy-mm-dd con hora o timestamp ISO
+    if (preg_match('/^(\d{4})-(\d{2})-(\d{2})[T\s]/', $str, $m)) {
+        return sprintf('%s-%s-%s', $m[1], $m[2], $m[3]);
+    }
+    try {
+        $dt = new DateTimeImmutable($str);
+        return $dt->setTimezone(new DateTimeZone('America/Santiago'))->format('Y-m-d');
+    } catch (Throwable $_) {
+    }
     return '';
 }
 
@@ -37,7 +50,7 @@ function estadisticas_normalize_message(array $row): array {
     }
     $row['unidad_solicitante'] = trim((string)($row['unidad_solicitante'] ?? ($row['core_establecimiento'] ?? '')));
     $row['usuario_stats'] = trim((string)($row['core_usuario_asignado'] ?? $row['asignado_nombre'] ?? $row['asignado_a'] ?? ''));
-    $row['fecha_stats'] = trim((string)($row['procesado_ts'] ?? $row['core_fecha_creacion'] ?? $row['fecha'] ?? $row['fecha_inicio'] ?? ''));
+    $row['fecha_stats'] = trim((string)($row['fecha'] ?? $row['fecha_inicio'] ?? $row['core_fecha_creacion'] ?? $row['procesado_ts'] ?? ''));
     return $row;
 }
 
@@ -83,9 +96,19 @@ function load_extra_messages($baseDir) {
             $groups = estadisticas_read_json_file($file);
             if (!is_array($groups)) continue;
             foreach ($groups as $group) {
-                if (!isset($group['reports']) || !is_array($group['reports'])) continue;
+                if (!is_array($group)) continue;
                 $fechaGrupo = $group['fecha'] ?? '';
-                foreach ($group['reports'] as $rep) {
+                $reports = [];
+                if (isset($group['reports']) && is_array($group['reports'])) {
+                    $reports = $group['reports'];
+                }
+                foreach ($group as $key => $value) {
+                    if ($key === 'reports' || !is_array($value)) continue;
+                    if (isset($value['id']) || isset($value['fecha']) || isset($value['fecha_inicio'])) {
+                        $reports[] = $value;
+                    }
+                }
+                foreach ($reports as $rep) {
                     if (!is_array($rep)) continue;
                     $rep['fecha'] = $rep['fecha'] ?? $fechaGrupo;
                     $rep['_fuente'] = 'horas_extra';

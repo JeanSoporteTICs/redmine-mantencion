@@ -607,7 +607,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                       <input type="hidden" name="opt_id_original" value="<?= $h($o['id']) ?>">
                       <button class="btn btn-success btn-sm" type="submit">Guardar</button>
                     </form>
-                    <form method="post" id="<?= $h($deleteFormId) ?>" onsubmit="return confirm('Eliminar?')" class="m-0">
+                    <form method="post" id="<?= $h($deleteFormId) ?>" data-app-confirm="Eliminar?" class="m-0">
                       <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
                       <input type="hidden" name="opt_type" value="<?= $h($type) ?>">
                       <input type="hidden" name="opt_action" value="delete">

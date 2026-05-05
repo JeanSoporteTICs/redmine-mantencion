@@ -581,9 +581,9 @@ $csrf = csrf_token();
 
                   data-solicitante="<?= $h($m['solicitante'] ?? '') ?>"
 
-                  data-unidad="<?= $h($m['unidad'] ?? '') ?>"
+                  data-establecimiento="<?= $h($m['core_establecimiento'] ?? ($m['unidad_solicitante'] ?? '')) ?>"
 
-                  data-unidad_solicitante="<?= $h($m['unidad_solicitante'] ?? '') ?>"
+                  data-departamento="<?= $h($displayDepartamento) ?>"
 
                   data-hora_extra="<?= $h($m['hora_extra'] ?? '') ?>"
 
@@ -622,7 +622,7 @@ $csrf = csrf_token();
                   <button type="button" class="btn btn-sm btn-outline-danger log-btn action-tooltip" data-log="<?= $h($logText) ?>" data-bs-toggle="modal" data-bs-target="#logModal" data-bs-placement="top" title="Log"><i class="bi bi-journal-text"></i></button>
                 <?php endif; ?>
 
-                <form method="post" onsubmit="return confirm('Eliminar este mensaje?')">
+                <form method="post" data-app-confirm="Eliminar este mensaje?">
                   <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
                   <input type="hidden" name="id" value="<?= $h($m['id'] ?? '') ?>">
                   <input type="hidden" name="action" value="delete">
@@ -782,9 +782,9 @@ $csrf = csrf_token();
 
             <div class="col-md-3"><label class="form-label">Solicitante</label><input name="solicitante" id="md-solicitante" class="form-control"></div>
 
-            <div class="col-md-3"><label class="form-label">Unidad</label><input name="unidad" id="md-unidad" class="form-control" list="unit-list"></div>
-
-            <div class="col-md-3"><label class="form-label">Unidad Solicitante</label><input name="unidad_solicitante" id="md-unidad_solicitante" class="form-control" list="unit-list"></div>
+            <div class="col-md-3"><label class="form-label">Establecimiento</label><input name="establecimiento" id="md-establecimiento" class="form-control"></div>
+ 
+            <div class="col-md-3"><label class="form-label">Departamento</label><input name="departamento" id="md-departamento" class="form-control"></div>
 
             <?php if ($estadoRedmineId): ?>
             <div class="col-md-3">
@@ -1027,9 +1027,9 @@ $csrf = csrf_token();
 
   set('md-solicitante', 'data-solicitante');
 
-  set('md-unidad', 'data-unidad');
-
-  set('md-unidad_solicitante', 'data-unidad_solicitante');
+  set('md-establecimiento', 'data-establecimiento');
+ 
+  set('md-departamento', 'data-departamento');
 
   const horaSel = document.getElementById('md-hora_extra');
   if (horaSel) {
@@ -1393,7 +1393,11 @@ if (processForm && processIds) {
 
       e.preventDefault();
 
-      alert('Selecciona al menos un mensaje para procesar.');
+      window.appModal?.show({
+        title: 'Seleccion requerida',
+        message: 'Selecciona al menos un mensaje para procesar.',
+        tone: 'warning'
+      });
 
     }
 
@@ -1494,7 +1498,11 @@ if (deleteSelectedBtn && processForm && processAction) {
   deleteSelectedBtn.addEventListener('click', () => {
     const selected = getSelectedVisibleChecks();
     if (selected.length === 0) {
-      alert('Selecciona al menos un mensaje para eliminar.');
+      window.appModal?.show({
+        title: 'Seleccion requerida',
+        message: 'Selecciona al menos un mensaje para eliminar.',
+        tone: 'warning'
+      });
       return;
     }
     if (deleteSelectedCount) {
@@ -1565,7 +1573,11 @@ if (coreImportForm) {
     if (coreRuntimePassHidden) coreRuntimePassHidden.value = coreRuntimePassInput?.value || '';
     if (!coreRuntimeUserHidden?.value.trim() || !coreRuntimePassHidden?.value.trim()) {
       event.preventDefault();
-      alert('Debes ingresar usuario y contraseña de CORE.');
+      window.appModal?.show({
+        title: 'Credenciales requeridas',
+        message: 'Debes ingresar usuario y contraseña de CORE.',
+        tone: 'warning'
+      });
     }
   });
 }

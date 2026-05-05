@@ -26,6 +26,7 @@ $role = auth_get_user_role();
         <?php if (auth_can('historico')): ?>
           <li class="nav-item"><a class="nav-link <?= $activeNav === 'historico' ? 'active' : '' ?>" href="../Historico/historico.php">Hist&oacute;rico</a></li>
         <?php endif; ?>
+        <li class="nav-item"><a class="nav-link <?= $activeNav === 'procedimientos' ? 'active' : '' ?>" href="../Procedimientos/procedimientos.php">Procedimientos</a></li>
         <?php if (auth_can('usuarios')): ?>
           <li class="nav-item"><a class="nav-link <?= $activeNav === 'usuarios' ? 'active' : '' ?>" href="../Usuarios/usuarios.php">Usuarios</a></li>
         <?php endif; ?>
@@ -181,15 +182,15 @@ window.addEventListener('load', () => {
         : 'Tu sesion expira pronto. Deseas continuar?';
     }
     if (extendPwd) {
-      extendPwd.disabled = expired;
-      if (expired) extendPwd.value = '';
+      extendPwd.disabled = false;
+      if (expired && extendMsg) extendMsg.textContent = '';
     }
     if (extendBtn) {
-      extendBtn.disabled = expired;
-      extendBtn.textContent = expired ? 'Ir al login' : 'Continuar sesion';
+      extendBtn.disabled = false;
+      extendBtn.textContent = expired ? 'Continuar sesion' : 'Continuar sesion';
     }
     if (closeBtn) {
-      closeBtn.textContent = expired ? 'Ir al login' : 'Cerrar sesion';
+      closeBtn.textContent = expired ? 'Cancelar' : 'Cerrar sesion';
     }
   }
 
@@ -206,18 +207,15 @@ window.addEventListener('load', () => {
       if (modal && !modalShown) {
         modal.show();
         modalShown = true;
+        if (extendPwd) setTimeout(() => extendPwd.focus(), 120);
       }
-      window.setTimeout(() => {
-        if (getRemainingSeconds() <= 0) {
-          window.location.href = logoutUrl;
-        }
-      }, 1200);
       return;
     }
     if (modal && !modalShown && remaining <= 60) {
       setModalState(false);
       modal.show();
       modalShown = true;
+      if (extendPwd) setTimeout(() => extendPwd.focus(), 120);
     }
     const m = Math.floor(remaining / 60).toString().padStart(2, '0');
     const s = (remaining % 60).toString().padStart(2, '0');
@@ -250,15 +248,16 @@ window.addEventListener('load', () => {
   window.addEventListener('focus', syncTimerState);
   if (closeBtn) {
     closeBtn.addEventListener('click', () => {
+      if (sessionExpired) {
+        if (modal) modal.hide();
+        modalShown = false;
+        return;
+      }
       window.location.href = logoutUrl;
     });
   }
   if (extendBtn && extendPwd) {
     extendBtn.addEventListener('click', async () => {
-      if (sessionExpired) {
-        window.location.href = logoutUrl;
-        return;
-      }
       if (extendMsg) extendMsg.textContent = '';
       const pwd = extendPwd.value.trim();
       if (!pwd) {
