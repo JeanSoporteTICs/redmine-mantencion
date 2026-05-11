@@ -1,5 +1,8 @@
 <?php
 // CRUD para prioridades usando solo data/configuracion.json
+require_once __DIR__ . '/storage.php';
+require_once __DIR__ . '/maintenance.php';
+
 $CONFIG_FILE = __DIR__ . '/../data/configuracion.json';
 
 function prio_load_cfg() {
@@ -11,7 +14,7 @@ function prio_load_cfg() {
 }
 
 function prio_save_cfg($cfg) {
-    file_put_contents($GLOBALS['CONFIG_FILE'], json_encode($cfg, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    storage_write_json($GLOBALS['CONFIG_FILE'], $cfg, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 }
 
 function handle_prioridades() {
@@ -20,6 +23,7 @@ function handle_prioridades() {
     $flash = null;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (function_exists('maintenance_mode_block_if_enabled')) maintenance_mode_block_if_enabled();
         $action = $_POST['action'] ?? '';
         if ($action === 'create') {
             $id = trim($_POST['id'] ?? '');

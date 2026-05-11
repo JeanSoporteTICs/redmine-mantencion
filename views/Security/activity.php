@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../controllers/auth.php';
 require_once __DIR__ . '/../../controllers/security.php';
+require_once __DIR__ . '/../../controllers/maintenance.php';
 auth_require_role(['root', 'administrador', 'gestor'], '/redmine-mantencion/login.php');
 if (!auth_can('actividad')) {
   header('Location: /redmine-mantencion/views/Dashboard/dashboard.php');
@@ -15,6 +16,7 @@ unset($_SESSION['security_flash']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_validate();
+    if (function_exists('maintenance_mode_block_if_enabled')) maintenance_mode_block_if_enabled();
     if (($_POST['action'] ?? '') === 'clear_activity') {
         security_clear_events();
         $_SESSION['security_flash'] = 'Actividad reciente borrada.';

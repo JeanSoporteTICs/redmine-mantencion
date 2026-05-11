@@ -2,10 +2,18 @@
 
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/security.php';
+require_once __DIR__ . '/storage.php';
+require_once __DIR__ . '/core_credentials.php';
+require_once __DIR__ . '/maintenance.php';
 
 function dashboard_set_flash(string $message): void {
     auth_start_session();
     $_SESSION['flash'] = $message;
+}
+
+function dashboard_set_toast(string $message): void {
+    auth_start_session();
+    $_SESSION['dashboard_toast'] = $message;
 }
 
 function dashboard_consume_flash(): ?string {
@@ -99,8 +107,9 @@ function dashboard_core_build_description(array $message): string {
 
 function dashboard_resolve_department_value(array $message): string {
     $departamento = trim((string)($message['core_departamento'] ?? $message['departamento'] ?? $message['unidad'] ?? ''));
+    $establecimiento = trim((string)($message['core_establecimiento'] ?? $message['establecimiento'] ?? $message['unidad_solicitante'] ?? ''));
     if ($departamento === '' || strtoupper($departamento) === 'N/A') {
-        return '';
+        return $establecimiento;
     }
     return $departamento;
 }
@@ -293,6 +302,9 @@ function dashboard_core_normalize_detail_row(array $item, array $message = []): 
     $fechaNacimiento = trim((string)($item['detalle_fecha_nacimiento'] ?? $item['fecha de nacimiento'] ?? $item['fecha_nacimiento'] ?? $item['fec_nacimiento'] ?? $item['fecha_nac'] ?? ''));
     $email = dashboard_normalize_email($item['detalle_email'] ?? $item['email'] ?? $item['correo'] ?? '');
     $departamento = trim((string)($item['detalle_departamento'] ?? $item['departamento'] ?? $item['depto'] ?? ''));
+    if (($departamento === '' || strtoupper($departamento) === 'N/A') && $establecimientos !== '') {
+        $departamento = $establecimientos;
+    }
     $cargo = trim((string)($item['detalle_cargo'] ?? $item['cargo'] ?? $item['id_cargo'] ?? ''));
     $rol = trim((string)($item['detalle_rol'] ?? $item['rol'] ?? ''));
     $estado = trim((string)($item['detalle_estado'] ?? $item['estado'] ?? ''));
@@ -552,7 +564,7 @@ function load_messages(): array {
 function save_messages(array $messages): void {
     $file = dashboard_messages_file();
     $compact = array_values(array_map(fn($message) => is_array($message) ? dashboard_compact_message($message) : [], $messages));
-    file_put_contents($file, json_encode($compact, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
+    storage_write_json($file, $compact, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 }
 
 function load_platform_config(): array {
@@ -566,7 +578,7 @@ function load_platform_config(): array {
 
 function save_platform_config(array $cfg): void {
     $path = __DIR__ . '/../data/configuracion.json';
-    file_put_contents($path, json_encode($cfg, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    storage_write_json($path, $cfg, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 }
 
 function dashboard_normalize_text(string $value): string {
@@ -758,6 +770,16 @@ function dashboard_core_runtime_credentials(array $input = []): array {
         'user' => trim((string)($input['user'] ?? '')),
         'pass' => trim((string)($input['pass'] ?? '')),
     ];
+}
+
+function dashboard_core_credentials_for_current_user(): array {
+    $userId = function_exists('auth_get_user_id') ? (string)auth_get_user_id() : '';
+    return core_credentials_for_user($userId);
+}
+
+function dashboard_core_has_saved_credentials(): bool {
+    $userId = function_exists('auth_get_user_id') ? (string)auth_get_user_id() : '';
+    return core_credentials_has_saved($userId);
 }
 
 function dashboard_core_has_runtime_credentials(array $credentials): bool {
@@ -1489,6 +1511,10 @@ function dashboard_core_build_message(array $row, array $catalogs, array $users)
     $tipoSolicitud = trim((string)($row['tipo de solicitud'] ?? ''));
     $establecimiento = trim((string)($row['establecimiento'] ?? ''));
     $departamento = trim((string)($row['departamento'] ?? ''));
+    $sourceDepartamento = $departamento;
+    if (($departamento === '' || strtoupper($departamento) === 'N/A') && $establecimiento !== '') {
+        $departamento = $establecimiento;
+    }
     $telefono = trim((string)($row['telefono'] ?? ''));
     $celular = trim((string)($row['celular'] ?? ''));
     $email = trim((string)($row['email'] ?? ''));
@@ -1503,6 +1529,9 @@ function dashboard_core_build_message(array $row, array $catalogs, array $users)
     $detalleFechaNacimiento = trim((string)($row['detalle_fecha_nacimiento'] ?? ''));
     $detalleEmail = dashboard_normalize_email($row['detalle_email'] ?? '');
     $detalleDepartamento = trim((string)($row['detalle_departamento'] ?? ''));
+    if (($detalleDepartamento === '' || strtoupper($detalleDepartamento) === 'N/A') && $departamento !== '') {
+        $detalleDepartamento = $departamento;
+    }
     $detalleCargo = trim((string)($row['detalle_cargo'] ?? ''));
     $detalleRol = trim((string)($row['detalle_rol'] ?? ''));
     $detalleEstado = trim((string)($row['detalle_estado'] ?? ''));
@@ -1542,7 +1571,7 @@ function dashboard_core_build_message(array $row, array $catalogs, array $users)
         $hora,
         $tipoSolicitud,
         $establecimiento,
-        $departamento,
+        $sourceDepartamento,
         $telefono,
         $celular,
         $email,
@@ -1877,6 +1906,12 @@ function get_retencion_horas(int $default = 24): int {
     return max(1, $value);
 }
 
+function dashboard_hora_extra_default_time(string $default = '1'): string {
+    $cfg = load_platform_config();
+    $value = trim((string)($cfg['hora_extra_tiempo_estimado'] ?? $default));
+    return $value !== '' ? $value : $default;
+}
+
 function redmine_log_path(): string {
     return __DIR__ . '/../data/envio_errores.log';
 }
@@ -2174,12 +2209,58 @@ function append_hours_extra_record(array $message): void {
     $message['hora_extra'] = 'SI';
     $reports[] = $message;
     $groups[$groupIndex]['reports'] = $reports;
-    file_put_contents($filePath, json_encode($groups, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    storage_write_json($filePath, $groups, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+}
+
+function remove_hours_extra_record_by_id(string $messageId): void {
+    $messageId = trim($messageId);
+    if ($messageId === '') {
+        return;
+    }
+    $baseDir = horas_extra_base_path();
+    if (!is_dir($baseDir)) {
+        return;
+    }
+    $iterator = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($baseDir, FilesystemIterator::SKIP_DOTS)
+    );
+    foreach ($iterator as $file) {
+        if (!$file->isFile() || strtolower($file->getExtension()) !== 'json') {
+            continue;
+        }
+        $path = $file->getPathname();
+        $groups = json_decode((string)@file_get_contents($path), true);
+        if (!is_array($groups)) {
+            continue;
+        }
+        $changed = false;
+        foreach ($groups as &$group) {
+            if (!is_array($group) || !isset($group['reports']) || !is_array($group['reports'])) {
+                continue;
+            }
+            $before = count($group['reports']);
+            $group['reports'] = array_values(array_filter(
+                $group['reports'],
+                static fn($row) => !is_array($row) || (string)($row['id'] ?? '') !== $messageId
+            ));
+            if ($before !== count($group['reports'])) {
+                $changed = true;
+            }
+        }
+        unset($group);
+        if ($changed) {
+            $groups = array_values(array_filter(
+                $groups,
+                static fn($group) => is_array($group) && !empty($group['reports'])
+            ));
+            storage_write_json($path, $groups, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        }
+    }
 }
 
 function append_redmine_log(array $entry): void {
     $path = redmine_log_path();
-    file_put_contents($path, json_encode($entry, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . PHP_EOL, FILE_APPEND | LOCK_EX);
+    storage_append_line($path, json_encode($entry, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 }
 
 function parse_redmine_log_entries(): array {
@@ -2271,10 +2352,10 @@ function remove_redmine_logs_for_messages(array $ids): void {
     }
     $path = redmine_log_path();
     if (empty($kept)) {
-        file_put_contents($path, '');
+        storage_truncate_file($path);
         return;
     }
-    file_put_contents($path, implode(PHP_EOL, $kept) . PHP_EOL, LOCK_EX);
+    storage_write_file_locked($path, implode(PHP_EOL, $kept) . PHP_EOL, 0, true);
 }
 
 function load_user_api_token(?string $userId): string {
@@ -2494,7 +2575,7 @@ function archive_message_record(array $message): void {
     $message['_archivado_por'] = 'retencion';
     $message['_archivado_en'] = $dt->format('c');
     $payload[] = $message;
-    file_put_contents($destFile, json_encode(array_values($payload), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    storage_write_json($destFile, array_values($payload), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 }
 
 function apply_retention_archive(array &$messages): bool {
@@ -2613,13 +2694,16 @@ function handle_request(): array {
     $messages = load_messages();
     $userId = auth_get_user_id();
     $userToken = load_user_api_token($userId);
-    if (apply_retention_archive($messages)) {
+    if (!maintenance_mode_enabled() && apply_retention_archive($messages)) {
         save_messages($messages);
     }
     $flash = dashboard_consume_flash();
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         csrf_validate();
         $action = $_POST['action'] ?? '';
+        if (function_exists('maintenance_mode_block_if_enabled')) {
+            maintenance_mode_block_if_enabled();
+        }
         $flashMsg = null;
         switch ($action) {
             case 'update':
@@ -2675,6 +2759,44 @@ function handle_request(): array {
                     $flashMsg = 'No se encontró el mensaje.';
                 }
                 break;
+            case 'toggle_hora_extra':
+                $id = trim((string)($_POST['id'] ?? ''));
+                if ($id === '') {
+                    $flashMsg = 'Identificador no valido.';
+                    break;
+                }
+                $updated = false;
+                $isEnabled = false;
+                $updatedMessage = null;
+                foreach ($messages as &$message) {
+                    if (($message['id'] ?? '') !== $id) {
+                        continue;
+                    }
+                    $current = normalize_hour_extra_value($message['hora_extra'] ?? '');
+                    $isEnabled = $current !== '1';
+                    $message['hora_extra'] = $isEnabled ? '1' : '0';
+                    if ($isEnabled) {
+                        $message['tiempo_estimado'] = dashboard_hora_extra_default_time('1');
+                        $updatedMessage = $message;
+                    } else {
+                        $message['tiempo_estimado'] = '';
+                    }
+                    $updated = true;
+                    break;
+                }
+                unset($message);
+                if ($updated) {
+                    save_messages($messages);
+                    if ($isEnabled && is_array($updatedMessage)) {
+                        append_hours_extra_record($updatedMessage);
+                    } else {
+                        remove_hours_extra_record_by_id($id);
+                    }
+                    $flashMsg = $isEnabled ? 'Hora extra activada.' : 'Hora extra desactivada.';
+                } else {
+                    $flashMsg = 'No se encontro el mensaje.';
+                }
+                break;
             case 'delete':
                 $id = $_POST['id'] ?? '';
                 if ($id === '') {
@@ -2694,11 +2816,24 @@ function handle_request(): array {
                 // se resuelve después del switch para incluir resultados del envío.
                 break;
             case 'import_core_history':
+                if (function_exists('maintenance_mode_block_if_enabled')) {
+                    maintenance_mode_block_if_enabled();
+                }
                 $desde = trim((string)($_POST['core_desde'] ?? ''));
                 $hasta = trim((string)($_POST['core_hasta'] ?? ''));
                 $assigned = trim((string)($_POST['core_assigned_name'] ?? ''));
                 $coreUser = trim((string)($_POST['core_runtime_user'] ?? ''));
                 $corePass = trim((string)($_POST['core_runtime_pass'] ?? ''));
+                $rememberCore = !empty($_POST['core_remember_credentials']);
+                if ($coreUser === '' || $corePass === '') {
+                    $savedCoreCredentials = dashboard_core_credentials_for_current_user();
+                    if ($coreUser === '') {
+                        $coreUser = trim((string)($savedCoreCredentials['user'] ?? ''));
+                    }
+                    if ($corePass === '') {
+                        $corePass = trim((string)($savedCoreCredentials['pass'] ?? ''));
+                    }
+                }
                 if ($assigned === '') {
                     $assigned = dashboard_default_core_assigned_name();
                 }
@@ -2710,6 +2845,9 @@ function handle_request(): array {
                     'user' => $coreUser,
                     'pass' => $corePass,
                 ]);
+                if (empty($result['error']) && $rememberCore && $coreUser !== '' && $corePass !== '') {
+                    core_credentials_save_for_user((string)$userId, $coreUser, $corePass);
+                }
                 if (!empty($result['error'])) {
                     $flashMsg = $result['error'];
                 } else {
@@ -2792,7 +2930,11 @@ function handle_request(): array {
             }
             $flashMsg = implode(' ', $flashParts);
         }
-        dashboard_set_flash($flashMsg ?? '');
+        if ($action === 'toggle_hora_extra') {
+            dashboard_set_toast($flashMsg ?? '');
+        } else {
+            dashboard_set_flash($flashMsg ?? '');
+        }
         dashboard_redirect_back();
     }
     $rawLog = security_load_events();

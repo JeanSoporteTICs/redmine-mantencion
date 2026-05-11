@@ -10,6 +10,7 @@ require_once __DIR__ . '/../../controllers/pendiente_manual.php';
 $h = fn($v) => htmlspecialchars((string)($v ?? ''), ENT_QUOTES, 'UTF-8');
 $csrf = csrf_token();
 [$cfg, $users, $categorias, $form, $flash, $error] = handle_manual_pending();
+$maintenanceMode = function_exists('maintenance_mode_enabled') && maintenance_mode_enabled();
 ?>
 <!doctype html>
 <html lang="es">
@@ -195,7 +196,7 @@ $csrf = csrf_token();
 
           <div class="d-flex justify-content-end gap-2 pt-2">
             <a class="btn btn-outline-secondary" href="/redmine-mantencion/views/Dashboard/dashboard.php">Volver a Reportes</a>
-            <button class="btn btn-primary" type="submit">Crear pendiente</button>
+            <button class="btn btn-primary" type="submit" <?= $maintenanceMode ? 'disabled title="Plataforma en mantencion"' : '' ?>>Crear pendiente</button>
           </div>
         </form>
       </div>

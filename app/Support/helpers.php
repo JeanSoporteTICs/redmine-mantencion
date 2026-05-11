@@ -2,6 +2,8 @@
 
 namespace App\Support;
 
+require_once APP_BASE_PATH . '/controllers/storage.php';
+
 function app_config(?string $key = null, $default = null) {
     static $config;
 
@@ -46,7 +48,7 @@ function ensure_path(string $path, bool $isDir = false): void
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);
         }
-        file_put_contents($path, json_encode([], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        \storage_write_json($path, [], null, false);
     }
 }
 
@@ -64,6 +66,7 @@ function bootstrap_app(): void
     ini_set('log_errors', '1');
     ini_set('error_log', $logFile);
     if (!file_exists($logFile)) {
-        @file_put_contents($logFile, '');
+        @\storage_write_file_locked($logFile, '', 0, false);
     }
+    \storage_run_auto_backup();
 }

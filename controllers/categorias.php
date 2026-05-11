@@ -1,12 +1,15 @@
 <?php
 // Sincroniza categorías usando data/categorias.json y la API de Redmine
+require_once __DIR__ . '/storage.php';
+require_once __DIR__ . '/maintenance.php';
+
 $DATA_FILE = __DIR__ . '/../data/categorias.json';
 $CONFIG_FILE = __DIR__ . '/../data/configuracion.json';
 $USERS_FILE = __DIR__ . '/../data/usuarios.json';
 
 function ensure_cat_file($path) {
     if (!file_exists($path)) {
-        file_put_contents($path, json_encode([], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        storage_write_json($path, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE, false);
     }
 }
 function load_categorias($path) {
@@ -20,7 +23,7 @@ function load_categorias($path) {
     return $data;
 }
 function save_categorias($path, $data) {
-    file_put_contents($path, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    storage_write_json($path, $data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 }
 
 function categorias_api_url($platformUrl) {
@@ -151,6 +154,7 @@ function handle_categorias() {
     $error = null;
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (function_exists('csrf_validate')) csrf_validate();
+        if (function_exists('maintenance_mode_block_if_enabled')) maintenance_mode_block_if_enabled();
         $action = $_POST['action'] ?? '';
         if ($action === 'sync_remote') {
             $res = sync_categorias_desde_api($CONFIG_FILE, $DATA_FILE);

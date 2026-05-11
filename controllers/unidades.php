@@ -1,10 +1,13 @@
-﻿<?php
+<?php
 // CRUD básico para unidades usando data/unidades.json
+require_once __DIR__ . '/storage.php';
+require_once __DIR__ . '/maintenance.php';
+
 $DATA_FILE = __DIR__ . '/../data/unidades.json';
 
 function ensure_uni_file($path) {
     if (!file_exists($path)) {
-        file_put_contents($path, json_encode([], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        storage_write_json($path, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE, false);
     }
 }
 function load_unidades($path) {
@@ -20,7 +23,7 @@ function load_unidades($path) {
     return $data;
 }
 function save_unidades($path, $data) {
-    file_put_contents($path, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    storage_write_json($path, $data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 }
 function handle_unidades() {
     global $DATA_FILE;
@@ -28,6 +31,7 @@ function handle_unidades() {
     $flash = null;
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (function_exists('csrf_validate')) csrf_validate();
+        if (function_exists('maintenance_mode_block_if_enabled')) maintenance_mode_block_if_enabled();
         $action = $_POST['action'] ?? '';
         if ($action === 'create') {
             $rows[] = [
@@ -56,4 +60,3 @@ function handle_unidades() {
     return [$rows, $flash];
 }
 ?>
-

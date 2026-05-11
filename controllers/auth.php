@@ -1,6 +1,9 @@
-﻿<?php
+<?php
 // Autenticacion simple usando data/usuarios.json
+require_once __DIR__ . '/storage.php';
 require_once __DIR__ . '/logger.php';
+
+storage_run_auto_backup();
 
 function auth_start_session() {
     if (session_status() === PHP_SESSION_NONE) {
@@ -89,6 +92,10 @@ function auth_find_user_by_id($id) {
 function auth_login($username, $password) {
     auth_start_session();
     $user = auth_find_user($username);
+    if ($user && strtolower(trim((string)($user['estado'] ?? 'activo'))) === 'baneado') {
+        log_security_event('LOGIN_BLOCKED', sprintf('Usuario baneado "%s"', $username));
+        return false;
+    }
     // usamos campo api como contrasena; si existe 'password' tambien lo aceptamos
     $apiField = $user['api'] ?? null;
     $passField = $user['password'] ?? null;
@@ -142,6 +149,16 @@ function auth_require_login($redirect = '/redmine-mantencion/login.php') {
         header('Location: ' . $redirect);
         exit;
     }
+    $sessionUserId = (string)($_SESSION['user']['id'] ?? '');
+    if ($sessionUserId !== '') {
+        $sessionUser = auth_find_user_by_id($sessionUserId);
+        if ($sessionUser && strtolower(trim((string)($sessionUser['estado'] ?? 'activo'))) === 'baneado') {
+            log_security_event('LOGIN_BLOCKED', sprintf('Sesion cerrada por usuario baneado ID %s', $sessionUserId));
+            auth_logout();
+            header('Location: ' . $redirect);
+            exit;
+        }
+    }
     auth_touch_activity();
 }
 
@@ -155,6 +172,22 @@ function auth_roles_file() {
     return __DIR__ . '/../data/roles.json';
 }
 
+function auth_apply_role_permission_defaults(array $roles): array {
+    foreach ($roles as $name => &$cfg) {
+        if (!is_array($cfg)) {
+            $cfg = [];
+        }
+        if (!array_key_exists('procedimientos', $cfg)) {
+            $cfg['procedimientos'] = true;
+        }
+        if (!array_key_exists('procedimientos_editar', $cfg)) {
+            $cfg['procedimientos_editar'] = in_array((string)$name, ['root', 'gestor', 'administrador'], true);
+        }
+    }
+    unset($cfg);
+    return $roles;
+}
+
 function auth_load_roles() {
     static $cache = null;
     if ($cache !== null) return $cache;
@@ -163,7 +196,7 @@ function auth_load_roles() {
         return $cache = [];
     }
     $data = json_decode(file_get_contents($file), true);
-    return $cache = is_array($data) ? $data : [];
+    return $cache = is_array($data) ? auth_apply_role_permission_defaults($data) : [];
 }
 
 function auth_get_role_config(): array {

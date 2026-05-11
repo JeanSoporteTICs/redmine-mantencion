@@ -9,6 +9,8 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 $flashSession = $_SESSION['flash'] ?? null;
 unset($_SESSION['flash']);
+$toastSession = $_SESSION['dashboard_toast'] ?? null;
+unset($_SESSION['dashboard_toast']);
 
 list($messages, $flash, $securityLog) = handle_request();
 if ($flashSession) {
@@ -26,6 +28,8 @@ $coreDesde = $_GET['core_desde'] ?? date('Y-m-d');
 $coreHasta = $_GET['core_hasta'] ?? date('Y-m-d');
 $coreAssignedName = $_GET['core_assigned_name'] ?? dashboard_default_core_assigned_name();
 $currentRole = auth_get_user_role();
+$hasSavedCoreCredentials = dashboard_core_has_saved_credentials();
+$maintenanceMode = function_exists('maintenance_mode_enabled') && maintenance_mode_enabled();
 
 function normalize_phone_key($value) {
     $digits = preg_replace('/\D/', '', $value ?? '');
@@ -303,6 +307,33 @@ $csrf = csrf_token();
   .dashboard-row-actions form { margin: 0; display: inline-flex; }
   .dashboard-row-actions .btn { min-height: 30px; width: 30px; padding: 0; border-radius: 10px; font-size: .9rem; line-height: 1; display: inline-flex; align-items: center; justify-content: center; }
   .dashboard-row-actions .btn i { margin-right: 0; }
+  .dashboard-row-actions .btn-hora-extra--on { color: #fff; background: linear-gradient(135deg, #16a34a, #22c55e); border-color: transparent; }
+  .dashboard-row-actions .btn-hora-extra--off { color: #64748b; background: #f8fafc; border-color: #cbd5e1; }
+  .dashboard-row-actions .btn-hora-extra--off:hover { color: #0f172a; background: #e0f2fe; border-color: #7dd3fc; }
+  .dashboard-toast {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 1080;
+    min-width: 260px;
+    max-width: min(360px, calc(100vw - 32px));
+    padding: .9rem 1rem;
+    border-radius: 16px;
+    color: #fff;
+    background: linear-gradient(135deg, #0f172a, #2563eb);
+    box-shadow: 0 18px 45px rgba(15, 23, 42, .28);
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    font-weight: 700;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity .22s ease, transform .22s ease;
+  }
+  .dashboard-toast.is-hiding {
+    opacity: 0;
+    transform: translateY(10px);
+  }
   .dashboard-scroll-top {
     position: fixed;
     right: 22px;
@@ -333,6 +364,73 @@ $csrf = csrf_token();
   #detalleModal .modal-body { overflow-y: auto; }
   #detalleModal .modal-footer { position: sticky; bottom: 0; background: #fff; border-top: 1px solid rgba(15, 23, 42, .08); z-index: 2; }
   #detallePreviewModal .detail-preview-wrap { max-height: 70vh; overflow: auto; }
+  .core-import-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2050;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    background: rgba(15, 23, 42, .48);
+    backdrop-filter: blur(7px);
+  }
+  .core-import-overlay.is-visible { display: flex; }
+  .core-import-card {
+    width: min(520px, 100%);
+    border-radius: 24px;
+    padding: 1.35rem;
+    background: rgba(255,255,255,.96);
+    border: 1px solid rgba(255,255,255,.78);
+    box-shadow: 0 28px 70px rgba(15, 23, 42, .28);
+  }
+  .core-import-card__media {
+    display: flex;
+    justify-content: center;
+    margin-bottom: .95rem;
+  }
+  .core-import-card__gif {
+    width: min(220px, 70vw);
+    max-height: 150px;
+    object-fit: contain;
+  }
+  .core-import-card__header { display: flex; gap: .9rem; align-items: center; margin-bottom: 1rem; }
+  .core-import-card__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.25rem;
+    background: linear-gradient(135deg, #38bdf8, #8b5cf6);
+    box-shadow: 0 16px 30px rgba(59, 130, 246, .28);
+  }
+  .core-import-card__title { margin: 0; font-size: 1.1rem; font-weight: 800; color: #0f172a; }
+  .core-import-card__text { margin: .15rem 0 0; color: #64748b; font-size: .92rem; }
+  .core-import-progress {
+    height: 12px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: #e5edf7;
+  }
+  .core-import-progress__bar {
+    width: 0%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #38bdf8, #2563eb, #8b5cf6);
+    transition: width .35s ease;
+  }
+  .core-import-card__meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: .7rem;
+    color: #475569;
+    font-size: .85rem;
+    font-weight: 700;
+  }
   @media (max-width: 1200px) { .dashboard-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   @media (max-width: 991px) {
     .dashboard-import-grid { grid-template-columns: 1fr; }
@@ -360,12 +458,19 @@ $csrf = csrf_token();
   <?php if ($flash): ?>
     <div class="alert alert-success" id="flash-msg"><?= $h($flash) ?></div>
   <?php endif; ?>
+  <?php if ($toastSession): ?>
+    <div class="dashboard-toast" id="dashboard-toast" role="status" aria-live="polite">
+      <i class="bi bi-check2-circle"></i>
+      <span><?= $h($toastSession) ?></span>
+    </div>
+  <?php endif; ?>
 
   <form method="post" class="dashboard-panel" id="core-import-form">
     <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
     <input type="hidden" name="action" value="import_core_history">
     <input type="hidden" name="core_runtime_user" id="core-runtime-user-hidden" value="">
     <input type="hidden" name="core_runtime_pass" id="core-runtime-pass-hidden" value="">
+    <input type="hidden" name="core_remember_credentials" id="core-remember-hidden" value="0">
     <div class="dashboard-panel__header">
       <div>
         <h3 class="dashboard-panel__title">Consulta rápida a CORE</h3>
@@ -400,7 +505,7 @@ $csrf = csrf_token();
         <?php endif; ?>
       </div>
       </div>
-      <button type="button" class="btn btn-primary dashboard-import-button" data-bs-toggle="modal" data-bs-target="#coreCredentialsModal">
+      <button type="<?= $hasSavedCoreCredentials ? 'submit' : 'button' ?>" class="btn btn-primary dashboard-import-button" <?= $hasSavedCoreCredentials ? '' : 'data-bs-toggle="modal" data-bs-target="#coreCredentialsModal"' ?> <?= $maintenanceMode ? 'disabled title="Plataforma en mantencion"' : '' ?>>
         <i class="bi bi-cloud-download"></i> Importar desde CORE
       </button>
     </div>
@@ -452,16 +557,16 @@ $csrf = csrf_token();
       <div class="dashboard-toolbar px-3 pt-3">
         <div class="dashboard-toolbar__actions">
           <span class="dashboard-selection"><i class="bi bi-check2-square"></i> Seleccionados: <strong id="selection-count">0</strong></span>
-          <button type="button" id="process-btn" class="btn btn-success btn-icon d-none" disabled>
+          <button type="button" id="process-btn" class="btn btn-success btn-icon d-none" disabled <?= $maintenanceMode ? 'title="Plataforma en mantencion"' : '' ?>>
             <i class="bi bi-check2-circle"></i> Enviar reportes a Redmine
           </button>
-          <button type="button" id="archive-btn" class="btn btn-warning btn-icon d-none" disabled>
+          <button type="button" id="archive-btn" class="btn btn-warning btn-icon d-none" disabled <?= $maintenanceMode ? 'title="Plataforma en mantencion"' : '' ?>>
             <i class="bi bi-archive"></i> Archivar
           </button>
-          <button type="button" id="delete-selected-btn" class="btn btn-danger btn-icon" disabled>
+          <button type="button" id="delete-selected-btn" class="btn btn-danger btn-icon" disabled <?= $maintenanceMode ? 'title="Plataforma en mantencion"' : '' ?>>
             <i class="bi bi-trash3"></i> Eliminar seleccionados
           </button>
-          <button type="button" id="reset-errors-btn" class="btn btn-secondary btn-icon d-none" disabled>
+          <button type="button" id="reset-errors-btn" class="btn btn-secondary btn-icon d-none" disabled <?= $maintenanceMode ? 'title="Plataforma en mantencion"' : '' ?>>
             <i class="bi bi-arrow-counterclockwise"></i> Reintentar errores (marcar pendientes)
           </button>
         </div>
@@ -494,7 +599,7 @@ $csrf = csrf_token();
 
               <th>Estado local</th>
 
-              <th style="width:130px;">Acciones</th>
+              <th style="width:170px;">Acciones</th>
 
             </tr>
 
@@ -612,6 +717,23 @@ $csrf = csrf_token();
                   data-preview_columns="<?= $previewColumnsJson ?>"
 
                 ><i class="bi bi-pencil-square"></i></button>
+                <?php
+                  $hasHoraExtra = function_exists('normalize_hour_extra_value') && normalize_hour_extra_value($m['hora_extra'] ?? '') === '1';
+                ?>
+                <form method="post">
+                  <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
+                  <input type="hidden" name="id" value="<?= $h($m['id'] ?? '') ?>">
+                  <input type="hidden" name="action" value="toggle_hora_extra">
+                  <button
+                    class="btn btn-sm action-tooltip <?= $hasHoraExtra ? 'btn-hora-extra--on' : 'btn-hora-extra--off' ?>"
+                    type="submit"
+                    data-bs-placement="top"
+                    title="<?= $maintenanceMode ? 'Plataforma en mantencion' : ($hasHoraExtra ? 'Hora extra: Si. Cambiar a No' : 'Hora extra: No. Cambiar a Si') ?>"
+                    <?= $maintenanceMode ? 'disabled' : '' ?>
+                  >
+                    <i class="bi <?= $hasHoraExtra ? 'bi-clock-fill' : 'bi-clock' ?>"></i>
+                  </button>
+                </form>
                 <?php if (strtolower($m['estado'] ?? '') === 'error'): ?>
                   <?php
                     $logText = '';
@@ -626,7 +748,7 @@ $csrf = csrf_token();
                   <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
                   <input type="hidden" name="id" value="<?= $h($m['id'] ?? '') ?>">
                   <input type="hidden" name="action" value="delete">
-                  <button class="btn btn-sm btn-danger action-tooltip" type="submit" data-bs-placement="top" title="Eliminar"><i class="bi bi-trash3"></i></button>
+                  <button class="btn btn-sm btn-danger action-tooltip" type="submit" data-bs-placement="top" title="<?= $maintenanceMode ? 'Plataforma en mantencion' : 'Eliminar' ?>" <?= $maintenanceMode ? 'disabled' : '' ?>><i class="bi bi-trash3"></i></button>
                 </form>
                 </div>
               </td>
@@ -648,6 +770,30 @@ $csrf = csrf_token();
 </div>
 
 
+
+<div class="core-import-overlay" id="core-import-overlay" role="status" aria-live="polite" aria-hidden="true">
+  <div class="core-import-card">
+    <div class="core-import-card__media">
+      <img class="core-import-card__gif" src="/redmine-mantencion/assets/img/animacion-carga.gif" alt="">
+    </div>
+    <div class="core-import-card__header">
+      <div class="core-import-card__icon">
+        <i class="bi bi-cloud-download"></i>
+      </div>
+      <div>
+        <h3 class="core-import-card__title">Importando desde CORE</h3>
+        <p class="core-import-card__text" id="core-import-progress-text">Conectando con CORE...</p>
+      </div>
+    </div>
+    <div class="core-import-progress" aria-label="Progreso de importacion">
+      <div class="core-import-progress__bar" id="core-import-progress-bar"></div>
+    </div>
+    <div class="core-import-card__meta">
+      <span id="core-import-progress-step">Preparando consulta</span>
+      <span id="core-import-progress-percent">0%</span>
+    </div>
+  </div>
+</div>
 
   <form id="process-form" method="post" class="d-none">
     <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
@@ -722,6 +868,13 @@ $csrf = csrf_token();
           <div class="col-12">
             <label class="form-label">Contraseña CORE</label>
             <input type="password" class="form-control" id="core-runtime-pass-input" placeholder="Solo se usa para esta consulta" autocomplete="current-password">
+          </div>
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="core-remember-input">
+              <label class="form-check-label" for="core-remember-input">Recordar credenciales CORE para mi usuario</label>
+            </div>
+            <div class="form-text">La contraseña se guarda cifrada y no se volverá a mostrar en pantalla.</div>
           </div>
         </div>
       </div>
@@ -838,7 +991,7 @@ $csrf = csrf_token();
 
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
 
-          <button type="submit" class="btn btn-success">Guardar cambios</button>
+          <button type="submit" class="btn btn-success" <?= $maintenanceMode ? 'disabled title="Plataforma en mantencion"' : '' ?>>Guardar cambios</button>
 
         </div>
 
@@ -893,7 +1046,7 @@ $csrf = csrf_token();
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-success" id="save-descripcion-btn">Guardar descripcion</button>
+        <button type="button" class="btn btn-success" id="save-descripcion-btn" <?= $maintenanceMode ? 'disabled title="Plataforma en mantencion"' : '' ?>>Guardar descripcion</button>
       </div>
     </div>
   </div>
@@ -943,6 +1096,8 @@ $csrf = csrf_token();
 <?php include __DIR__ . '/../partials/bootstrap-scripts.php'; ?>
 
 <script>
+
+  const dashboardMaintenanceMode = <?= $maintenanceMode ? 'true' : 'false' ?>;
 
   document.querySelectorAll('.action-tooltip').forEach(el => {
     new bootstrap.Tooltip(el);
@@ -1330,10 +1485,10 @@ function refreshDashboardCounters() {
   const archiveBtn = document.getElementById('archive-btn');
   const deleteSelectedBtn = document.getElementById('delete-selected-btn');
   const resetErrorsBtn = document.getElementById('reset-errors-btn');
-  if (processBtn) processBtn.disabled = selectedChecks.length === 0;
-  if (archiveBtn) archiveBtn.disabled = selectedChecks.length === 0;
-  if (deleteSelectedBtn) deleteSelectedBtn.disabled = selectedChecks.length === 0;
-  if (resetErrorsBtn) resetErrorsBtn.disabled = selectedChecks.length === 0;
+  if (processBtn) processBtn.disabled = dashboardMaintenanceMode || selectedChecks.length === 0;
+  if (archiveBtn) archiveBtn.disabled = dashboardMaintenanceMode || selectedChecks.length === 0;
+  if (deleteSelectedBtn) deleteSelectedBtn.disabled = dashboardMaintenanceMode || selectedChecks.length === 0;
+  if (resetErrorsBtn) resetErrorsBtn.disabled = dashboardMaintenanceMode || selectedChecks.length === 0;
 }
 
 const selAllTop = document.getElementById('sel-all-top');
@@ -1370,6 +1525,7 @@ const processForm = document.getElementById('process-form');
 
 const processAction = document.getElementById('process-action');
 const processIds = document.getElementById('process-ids');
+let redmineSubmitDelayDone = false;
 
 if (processForm && processIds) {
 
@@ -1399,6 +1555,14 @@ if (processForm && processIds) {
         tone: 'warning'
       });
 
+    }
+    if (!e.defaultPrevented && (processAction?.value || '') === 'process_selected' && !redmineSubmitDelayDone) {
+      e.preventDefault();
+      showDashboardProgress('redmine');
+      redmineSubmitDelayDone = true;
+      window.setTimeout(() => {
+        processForm.requestSubmit();
+      }, 3000);
     }
 
     refreshDashboardCounters();
@@ -1538,6 +1702,14 @@ if (flash) {
   }, 5000);
 }
 
+const dashboardToast = document.getElementById('dashboard-toast');
+if (dashboardToast) {
+  setTimeout(() => {
+    dashboardToast.classList.add('is-hiding');
+    setTimeout(() => dashboardToast.remove(), 260);
+  }, 2000);
+}
+
 const logModal = document.getElementById('logModal');
 
 if (logModal) {
@@ -1565,20 +1737,90 @@ const coreRuntimeUserInput = document.getElementById('core-runtime-user-input');
 const coreRuntimePassInput = document.getElementById('core-runtime-pass-input');
 const coreRuntimeUserHidden = document.getElementById('core-runtime-user-hidden');
 const coreRuntimePassHidden = document.getElementById('core-runtime-pass-hidden');
+const coreRememberInput = document.getElementById('core-remember-input');
+const coreRememberHidden = document.getElementById('core-remember-hidden');
 const coreCredentialsModal = document.getElementById('coreCredentialsModal');
+const coreImportOverlay = document.getElementById('core-import-overlay');
+const coreImportProgressBar = document.getElementById('core-import-progress-bar');
+const coreImportProgressPercent = document.getElementById('core-import-progress-percent');
+const coreImportProgressText = document.getElementById('core-import-progress-text');
+const coreImportProgressStep = document.getElementById('core-import-progress-step');
+const hasSavedCoreCredentials = <?= $hasSavedCoreCredentials ? 'true' : 'false' ?>;
+let coreImportProgressTimer = null;
+
+function showDashboardProgress(mode = 'core') {
+  if (!coreImportOverlay || !coreImportProgressBar) return;
+  const stepSets = {
+    core: [
+      { at: 8, text: 'Conectando con CORE...', step: 'Abriendo sesion' },
+      { at: 24, text: 'Autenticando credenciales...', step: 'Validando acceso' },
+      { at: 42, text: 'Consultando solicitudes...', step: 'Leyendo datos' },
+      { at: 64, text: 'Procesando registros...', step: 'Normalizando solicitudes' },
+      { at: 82, text: 'Guardando importacion...', step: 'Actualizando panel' },
+      { at: 94, text: 'Finalizando...', step: 'Esperando respuesta' }
+    ],
+    redmine: [
+      { at: 8, text: 'Preparando reportes...', step: 'Validando seleccion' },
+      { at: 24, text: 'Conectando con Redmine...', step: 'Abriendo conexion' },
+      { at: 46, text: 'Enviando reportes...', step: 'Creando tickets' },
+      { at: 68, text: 'Confirmando respuestas...', step: 'Registrando resultados' },
+      { at: 84, text: 'Actualizando estados locales...', step: 'Guardando cambios' },
+      { at: 94, text: 'Finalizando...', step: 'Esperando respuesta' }
+    ]
+  };
+  const titles = {
+    core: 'Importando desde CORE',
+    redmine: 'Enviando reportes a Redmine'
+  };
+  const steps = stepSets[mode] || stepSets.core;
+  const title = coreImportOverlay.querySelector('.core-import-card__title');
+  if (title) title.textContent = titles[mode] || titles.core;
+  let progress = 0;
+  let stepIndex = 0;
+  const setProgress = value => {
+    progress = Math.min(94, Math.max(progress, value));
+    coreImportProgressBar.style.width = `${progress}%`;
+    if (coreImportProgressPercent) coreImportProgressPercent.textContent = `${Math.round(progress)}%`;
+  };
+  const setStep = item => {
+    if (coreImportProgressText) coreImportProgressText.textContent = item.text;
+    if (coreImportProgressStep) coreImportProgressStep.textContent = item.step;
+  };
+  coreImportOverlay.classList.add('is-visible');
+  coreImportOverlay.setAttribute('aria-hidden', 'false');
+  setStep(steps[0]);
+  setProgress(6);
+  window.clearInterval(coreImportProgressTimer);
+  coreImportProgressTimer = window.setInterval(() => {
+    const target = steps[Math.min(stepIndex, steps.length - 1)];
+    if (progress < target.at) {
+      setProgress(progress + Math.max(1, (target.at - progress) * 0.18));
+      return;
+    }
+    if (stepIndex < steps.length - 1) {
+      stepIndex += 1;
+      setStep(steps[stepIndex]);
+      return;
+    }
+    setProgress(progress + 0.35);
+  }, 420);
+}
 
 if (coreImportForm) {
   coreImportForm.addEventListener('submit', event => {
     if (coreRuntimeUserHidden) coreRuntimeUserHidden.value = coreRuntimeUserInput?.value || '';
     if (coreRuntimePassHidden) coreRuntimePassHidden.value = coreRuntimePassInput?.value || '';
-    if (!coreRuntimeUserHidden?.value.trim() || !coreRuntimePassHidden?.value.trim()) {
+    if (coreRememberHidden) coreRememberHidden.value = coreRememberInput?.checked ? '1' : '0';
+    if (!hasSavedCoreCredentials && (!coreRuntimeUserHidden?.value.trim() || !coreRuntimePassHidden?.value.trim())) {
       event.preventDefault();
       window.appModal?.show({
         title: 'Credenciales requeridas',
         message: 'Debes ingresar usuario y contraseña de CORE.',
         tone: 'warning'
       });
+      return;
     }
+    showDashboardProgress('core');
   });
 }
 

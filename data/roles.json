@@ -21,7 +21,9 @@
         "cfg_prioridades": true,
         "cfg_estados": true,
         "cfg_roles": true,
-        "actividad": true
+        "actividad": true,
+        "procedimientos": true,
+        "procedimientos_editar": true
     },
     "gestor": {
         "mensajes": "asignados",
@@ -30,6 +32,8 @@
         "historico": true,
         "historico_scope": "asignados",
         "historico_acciones": true,
+        "procedimientos": true,
+        "procedimientos_editar": true,
         "configuracion": true,
         "estadisticas": true,
         "usuarios": true,
@@ -67,7 +71,9 @@
         "cfg_trackers": false,
         "cfg_prioridades": false,
         "cfg_estados": false,
-        "cfg_roles": false
+        "cfg_roles": false,
+        "procedimientos": true,
+        "procedimientos_editar": true
     },
     "usuario": {
         "mensajes": "asignados",
@@ -91,6 +97,8 @@
         "cfg_estados": false,
         "cfg_roles": false,
         "cfg_usuarios": false,
-        "actividad": false
+        "actividad": false,
+        "procedimientos": true,
+        "procedimientos_editar": false
     }
 }

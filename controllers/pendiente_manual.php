@@ -335,6 +335,9 @@ function handle_manual_pending(): array {
         if (function_exists('csrf_validate')) {
             csrf_validate();
         }
+        if (function_exists('maintenance_mode_block_if_enabled')) {
+            maintenance_mode_block_if_enabled();
+        }
         foreach ($form as $key => $value) {
             if ($key === 'hora_extra') {
                 $form[$key] = trim((string)($_POST[$key] ?? '0'));

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/../../controllers/auth.php';
 auth_require_login('/redmine-mantencion/login.php');
 if (!auth_can('estadisticas')) {

@@ -4,9 +4,9 @@
     "project_id": 48,
     "tracker_id": 3,
     "priority_id": 2,
-    "cf_solicitante": 3,
-    "cf_unidad": 5,
-    "cf_hora_extra": 12,
+    "cf_solicitante": "3",
+    "cf_unidad": "5",
+    "cf_hora_extra": "12",
     "status_id": 1,
     "category_id": null,
     "retencion_horas": 1,
@@ -76,6 +76,11 @@
     "core_admin_url": "https:\/\/www.hbvaldivia.cl\/core\/solicitudes\/administrador",
     "core_historico_url": "https:\/\/www.hbvaldivia.cl\/core\/solicitudes\/administrador\/obtener_solicitudes_historicas",
     "core_sync_minutes": 2,
-    "core_last_sync": "2026-05-05T00:38:07+02:00",
-    "core_last_error": ""
+    "core_last_sync": "2026-05-11T15:33:39+02:00",
+    "core_last_error": "",
+    "maintenance_mode": false,
+    "maintenance_until": "",
+    "onlyoffice_url": "http:\/\/10.63.123.249:8080",
+    "onlyoffice_app_url": "http:\/\/10.63.123.250\/redmine-mantencion",
+    "onlyoffice_jwt_secret": "Qwer8434"
 }

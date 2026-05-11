@@ -5,18 +5,18 @@ require_once __DIR__ . '/../../controllers/usuarios.php';
 list($usuarios, $flash) = handle_usuarios();
 $h = fn($v) => htmlspecialchars($v ?? '', ENT_QUOTES, 'UTF-8');
 $csrf = csrf_token();
+$maintenanceMode = function_exists('maintenance_mode_enabled') && maintenance_mode_enabled();
 ?>
 <!doctype html>
 <html lang="es">
 <head>
   <?php $pageTitle = 'Usuarios'; $includeTheme = true; include __DIR__ . '/../partials/bootstrap-head.php'; ?>
   <style>
-    body { background: #f6f8fb; }
-    body { margin: 0; padding-top: 0 !important; }
+    body { margin: 0; }
     .navbar { margin-top: 0 !important; margin-bottom: 0; }
-    .card { border: none; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
     .btn-icon { display: inline-flex; align-items: center; gap: .35rem; }
     .table thead th { font-weight: 600; text-transform: uppercase; font-size: .78rem; letter-spacing: .02em; }
+    .user-status-badge { min-width: 78px; justify-content: center; }
   </style>
 </head>
 <body class="bg-light">
@@ -49,11 +49,11 @@ $csrf = csrf_token();
           <form method="post" class="m-0">
             <input type="hidden" name="action" value="sync_remote">
             <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
-            <button class="btn btn-outline-primary btn-icon" type="submit">
+            <button class="btn btn-outline-primary btn-icon" type="submit" <?= $maintenanceMode ? 'disabled title="Plataforma en mantencion"' : '' ?>>
               <i class="bi bi-cloud-download"></i> Importar desde Redmine
             </button>
           </form>
-          <button class="btn btn-primary btn-icon" data-bs-toggle="modal" data-bs-target="#createUserModal">
+          <button class="btn btn-primary btn-icon" data-bs-toggle="modal" data-bs-target="#createUserModal" <?= $maintenanceMode ? 'disabled title="Plataforma en mantencion"' : '' ?>>
             <i class="bi bi-person-plus"></i> Nuevo usuario
           </button>
         </div>
@@ -65,6 +65,7 @@ $csrf = csrf_token();
               <th scope="col" style="width:90px;">ID</th>
               <th scope="col">Nombre</th>
               <th scope="col">Rol</th>
+              <th scope="col">Estado</th>
               <th scope="col">API</th>
               <th scope="col" style="width:240px;">Acciones</th>
             </tr>
@@ -75,13 +76,29 @@ $csrf = csrf_token();
               <td data-col="id"><?= $h($u['id'] ?? '') ?></td>
               <td data-col="nombre"><?= $h($u['nombre'] ?? '') ?></td>
               <td data-col="rol"><?= $h($u['rol'] ?? 'usuario') ?></td>
-              <td data-col="api"><?= $h($u['api'] ?? '') ?></td>
+              <td data-col="estado">
+                <?php $userEstado = strtolower(trim((string)($u['estado'] ?? 'activo'))); ?>
+                <span class="badge user-status-badge <?= $userEstado === 'baneado' ? 'text-bg-danger' : 'text-bg-success' ?>">
+                  <?= $userEstado === 'baneado' ? 'Baneado' : 'Activo' ?>
+                </span>
+              </td>
+              <td data-col="api">
+                <?php if (trim((string)($u['api'] ?? '')) !== ''): ?>
+                  <span class="badge text-bg-success">Configurada</span>
+                <?php else: ?>
+                  <span class="badge text-bg-light border text-muted">Sin token</span>
+                <?php endif; ?>
+                <?php if (trim((string)($u['core_user'] ?? '')) !== '' && trim((string)($u['core_pass_enc'] ?? '')) !== ''): ?>
+                  <span class="badge text-bg-info ms-1">CORE guardado</span>
+                <?php endif; ?>
+              </td>
               <td class="d-flex gap-2 flex-wrap">
-                <button type="button" class="btn btn-sm btn-outline-primary btn-icon" data-bs-toggle="modal" data-bs-target="#editModal"
+                <button type="button" class="btn btn-sm btn-outline-primary btn-icon" data-bs-toggle="modal" data-bs-target="#editModal" <?= $maintenanceMode ? 'disabled title="Plataforma en mantencion"' : '' ?>
                   data-id="<?= $h($u['id'] ?? '') ?>"
                   data-nombre="<?= $h($u['nombre'] ?? '') ?>"
                   data-rol="<?= $h($u['rol'] ?? 'usuario') ?>"
-                  data-api="<?= $h($u['api'] ?? '') ?>"
+                  data-estado="<?= $h($u['estado'] ?? 'activo') ?>"
+                  data-core_user="<?= $h($u['core_user'] ?? '') ?>"
                   aria-label="Editar usuario">
                   <i class="bi bi-pencil-square"></i> Editar
                 </button>
@@ -89,7 +106,7 @@ $csrf = csrf_token();
                   <input type="hidden" name="id" value="<?= $h($u['id'] ?? '') ?>">
                   <input type="hidden" name="action" value="delete">
                   <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
-                  <button class="btn btn-sm btn-outline-danger btn-icon" aria-label="Eliminar usuario"><i class="bi bi-trash"></i> Eliminar</button>
+                  <button class="btn btn-sm btn-outline-danger btn-icon" aria-label="Eliminar usuario" <?= $maintenanceMode ? 'disabled title="Plataforma en mantencion"' : '' ?>><i class="bi bi-trash"></i> Eliminar</button>
                 </form>
               </td>
             </tr>
@@ -125,14 +142,41 @@ $csrf = csrf_token();
                 <option value="root">Root</option>
               </select>
             </div>
-            <div class="col-md-8"><label class="form-label">API</label><input name="api" id="em-api" class="form-control" placeholder="API"></div>
+            <div class="col-md-4">
+              <label class="form-label">Estado</label>
+              <select name="estado" id="em-estado" class="form-select">
+                <option value="activo">Activo</option>
+                <option value="baneado">Baneado</option>
+              </select>
+              <div class="form-text">Los usuarios baneados no pueden iniciar sesion.</div>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">API</label>
+              <input name="api" id="em-api" class="form-control" autocomplete="off" placeholder="Escribe un nuevo token para reemplazar el actual">
+              <div class="form-text">Por seguridad no se muestra el token guardado. Deja este campo vacio para conservarlo.</div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Usuario CORE</label>
+              <input name="core_user" id="em-core-user" class="form-control" autocomplete="off" placeholder="RUT sin DV o email">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Contraseña CORE</label>
+              <input type="password" name="core_pass" id="em-core-pass" class="form-control" autocomplete="new-password" placeholder="Nuevo valor para reemplazar">
+              <div class="form-text">No se muestra la contraseña guardada.</div>
+            </div>
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="core_clear_credentials" value="1" id="em-core-clear">
+                <label class="form-check-label" for="em-core-clear">Eliminar credenciales CORE guardadas</label>
+              </div>
+            </div>
             <div class="col-md-6"><label class="form-label">Nueva contrasena</label><input type="password" name="password" id="em-password" class="form-control" placeholder="Opcional"></div>
             <div class="col-md-6"><label class="form-label">Repetir contrasena</label><input type="password" name="password_confirm" id="em-password_confirm" class="form-control" placeholder="Opcional"></div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button class="btn btn-primary">Guardar cambios</button>
+          <button class="btn btn-primary" <?= $maintenanceMode ? 'disabled title="Plataforma en mantencion"' : '' ?>>Guardar cambios</button>
         </div>
       </form>
     </div>
@@ -162,12 +206,21 @@ $csrf = csrf_token();
                 <option value="root">Root</option>
               </select>
             </div>
-            <div class="col-md-8"><label class="form-label">API</label><input name="api" class="form-control" placeholder="API"></div>
+            <div class="col-md-4">
+              <label class="form-label">Estado</label>
+              <select name="estado" class="form-select">
+                <option value="activo" selected>Activo</option>
+                <option value="baneado">Baneado</option>
+              </select>
+            </div>
+            <div class="col-md-4"><label class="form-label">API</label><input name="api" class="form-control" placeholder="API"></div>
+            <div class="col-md-6"><label class="form-label">Usuario CORE</label><input name="core_user" class="form-control" autocomplete="off" placeholder="RUT sin DV o email"></div>
+            <div class="col-md-6"><label class="form-label">Contraseña CORE</label><input type="password" name="core_pass" class="form-control" autocomplete="new-password" placeholder="Opcional"></div>
             <div class="col-md-6"><label class="form-label">Contrasena</label><input type="password" name="password" class="form-control" placeholder="Contrasena"></div>
             <div class="col-md-6"><label class="form-label">Repetir contrasena</label><input type="password" name="password_confirm" class="form-control" placeholder="Repetir contrasena"></div>
           </div>
           <div class="text-end mt-3">
-            <button class="btn btn-primary btn-icon"><i class="bi bi-check-lg"></i> Guardar</button>
+            <button class="btn btn-primary btn-icon" <?= $maintenanceMode ? 'disabled title="Plataforma en mantencion"' : '' ?>><i class="bi bi-check-lg"></i> Guardar</button>
           </div>
         </form>
       </div>
@@ -207,7 +260,14 @@ function setupEditModal() {
     set('em-id-display', 'data-id');
     set('em-nombre', 'data-nombre');
     set('em-rol', 'data-rol');
-    set('em-api', 'data-api');
+    set('em-estado', 'data-estado');
+    set('em-core-user', 'data-core_user');
+    const apiInput = document.getElementById('em-api');
+    if (apiInput) apiInput.value = '';
+    const corePassInput = document.getElementById('em-core-pass');
+    if (corePassInput) corePassInput.value = '';
+    const coreClearInput = document.getElementById('em-core-clear');
+    if (coreClearInput) coreClearInput.checked = false;
     document.getElementById('em-password').value = '';
     document.getElementById('em-password_confirm').value = '';
   });

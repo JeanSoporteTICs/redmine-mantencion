@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../controllers/auth.php';
+require_once __DIR__ . '/../../controllers/maintenance.php';
 auth_start_session();
 $h = $h ?? fn($v) => htmlspecialchars($v ?? '', ENT_QUOTES, 'UTF-8');
 $activeNav = $activeNav ?? '';
@@ -7,48 +8,61 @@ $sessionTimeout = auth_config_timeout();
 $lastActivity = $_SESSION['last_activity'] ?? time();
 $remaining = max(0, $sessionTimeout - (time() - $lastActivity));
 $role = auth_get_user_role();
+$maintenanceSettings = maintenance_mode_settings();
+$maintenanceMode = !empty($maintenanceSettings['enabled']);
+$maintenanceUntil = maintenance_mode_until_text();
+$maintenanceNoticeKey = sha1(($maintenanceSettings['started_at'] ?? '') . '|' . ($maintenanceSettings['until'] ?? '') . '|' . ($maintenanceMode ? '1' : '0'));
+$navItems = [
+    ['key' => 'mensajes', 'label' => 'Reportes', 'href' => '../Dashboard/dashboard.php', 'icon' => 'bi-inboxes', 'can' => true],
+    ['key' => 'manual', 'label' => 'Pendiente manual', 'href' => '../Pendientes/manual.php', 'icon' => 'bi-pencil-square', 'can' => auth_can('simulador')],
+    ['key' => 'horas', 'label' => 'Horas extra', 'href' => '../HorasExtra/horas_extra.php', 'icon' => 'bi-clock-history', 'can' => auth_can('horas_extra')],
+    ['key' => 'historico', 'label' => 'Hist&oacute;rico', 'href' => '../Historico/historico.php', 'icon' => 'bi-archive', 'can' => auth_can('historico')],
+    ['key' => 'procedimientos', 'label' => 'Procedimientos', 'href' => '../Procedimientos/procedimientos.php', 'icon' => 'bi-journal-richtext', 'can' => auth_can('procedimientos')],
+    ['key' => 'usuarios', 'label' => 'Usuarios', 'href' => '../Usuarios/usuarios.php', 'icon' => 'bi-people', 'can' => auth_can('usuarios')],
+    ['key' => 'configuracion', 'label' => 'Configuraci&oacute;n', 'href' => '../Configuracion/configuracion.php', 'icon' => 'bi-sliders', 'can' => auth_can('configuracion') || auth_can('categorias')],
+    ['key' => 'estadisticas', 'label' => 'Estad&iacute;sticas', 'href' => '../Estadisticas/estadisticas.php', 'icon' => 'bi-bar-chart-line', 'can' => auth_can('estadisticas')],
+    ['key' => 'security', 'label' => 'Actividad reciente', 'href' => '../Security/activity.php', 'icon' => 'bi-activity', 'can' => auth_can('actividad')],
+];
 ?>
-<nav class="navbar navbar-expand-lg sb-navbar navbar-dark sticky-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Panel</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navMenu">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link <?= $activeNav === 'mensajes' ? 'active' : '' ?>" href="../Dashboard/dashboard.php">Reportes</a></li>
-        <?php if (auth_can('simulador')): ?>
-          <li class="nav-item"><a class="nav-link <?= $activeNav === 'manual' ? 'active' : '' ?>" href="../Pendientes/manual.php">Pendiente manual</a></li>
-        <?php endif; ?>
-        <?php if (auth_can('horas_extra')): ?>
-          <li class="nav-item"><a class="nav-link <?= $activeNav === 'horas' ? 'active' : '' ?>" href="../HorasExtra/horas_extra.php">Horas extra</a></li>
-        <?php endif; ?>
-        <?php if (auth_can('historico')): ?>
-          <li class="nav-item"><a class="nav-link <?= $activeNav === 'historico' ? 'active' : '' ?>" href="../Historico/historico.php">Hist&oacute;rico</a></li>
-        <?php endif; ?>
-        <li class="nav-item"><a class="nav-link <?= $activeNav === 'procedimientos' ? 'active' : '' ?>" href="../Procedimientos/procedimientos.php">Procedimientos</a></li>
-        <?php if (auth_can('usuarios')): ?>
-          <li class="nav-item"><a class="nav-link <?= $activeNav === 'usuarios' ? 'active' : '' ?>" href="../Usuarios/usuarios.php">Usuarios</a></li>
-        <?php endif; ?>
-        <?php if (auth_can('configuracion') || auth_can('categorias') || auth_can('unidades')): ?>
-          <li class="nav-item"><a class="nav-link <?= $activeNav === 'configuracion' ? 'active' : '' ?>" href="../Configuracion/configuracion.php">Configuraci&oacute;n</a></li>
-        <?php endif; ?>
-        <?php if (auth_can('estadisticas')): ?>
-          <li class="nav-item"><a class="nav-link <?= $activeNav === 'estadisticas' ? 'active' : '' ?>" href="../Estadisticas/estadisticas.php">Estad&iacute;sticas</a></li>
-        <?php endif; ?>
-        <?php if (auth_can('actividad')): ?>
-          <li class="nav-item"><a class="nav-link <?= $activeNav === 'security' ? 'active' : '' ?>" href="../Security/activity.php">Actividad reciente</a></li>
-        <?php endif; ?>
-      </ul>
-      <div class="d-flex align-items-center gap-2">
-        <span class="badge bg-light text-dark d-inline-flex align-items-center gap-1" id="session-timer" data-remaining="<?= $h($remaining) ?>" data-timeout="<?= $h($sessionTimeout) ?>">
+<nav class="navbar navbar-expand-xl sb-navbar navbar-dark sticky-top">
+  <div class="container-fluid sb-navbar-shell">
+    <div class="sb-navbar-top">
+      <a class="navbar-brand sb-navbar-brand" href="../Dashboard/dashboard.php">
+        <span class="sb-brand-mark"><i class="bi bi-grid-1x2-fill"></i></span>
+        <span>Panel</span>
+      </a>
+      <div class="sb-nav-actions d-flex align-items-center gap-2">
+        <span class="sb-session-badge badge bg-light text-dark d-inline-flex align-items-center gap-1" id="session-timer" data-remaining="<?= $h($remaining) ?>" data-timeout="<?= $h($sessionTimeout) ?>">
           <i class="bi bi-clock"></i><span id="session-timer-text">--:--</span>
         </span>
-        <?php if (!empty($_SESSION['user']['nombre'])): ?>
-          <span class="text-white-50 small d-none d-sm-inline">Hola, <strong><?= $h($_SESSION['user']['nombre']) ?></strong></span>
+        <?php if ($maintenanceMode): ?>
+          <span class="sb-maintenance-badge d-none d-md-inline-flex" title="Mantenci&oacute;n activa<?= $maintenanceUntil !== '' ? ' hasta ' . $h($maintenanceUntil) : '' ?>">
+            <i class="bi bi-tools"></i>
+            <span>Mantenci&oacute;n activa<?= $maintenanceUntil !== '' ? ' hasta ' . $h($maintenanceUntil) : '' ?></span>
+          </span>
         <?php endif; ?>
-        <a class="btn btn-outline-light btn-sm" href="/redmine-mantencion/logout.php"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a>
+        <?php if (!empty($_SESSION['user']['nombre'])): ?>
+          <span class="sb-user-pill text-white-50 small d-none d-sm-inline"><i class="bi bi-person-circle"></i> Hola, <strong><?= $h($_SESSION['user']['nombre']) ?></strong></span>
+        <?php endif; ?>
+        <a class="btn btn-outline-light btn-sm sb-logout-btn" href="/redmine-mantencion/logout.php"><i class="bi bi-box-arrow-right"></i> <span>Cerrar Sesi&oacute;n</span></a>
+        <button class="navbar-toggler sb-navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Abrir navegaci&oacute;n">
+          <span class="navbar-toggler-icon"></span>
+        </button>
       </div>
+    </div>
+    <div class="collapse navbar-collapse sb-navbar-menu" id="navMenu">
+      <ul class="navbar-nav sb-nav-list me-auto mb-0">
+        <?php foreach ($navItems as $item): ?>
+          <?php if (!$item['can']) { continue; } ?>
+          <?php $isActive = $activeNav === $item['key']; ?>
+          <li class="nav-item">
+            <a class="nav-link sb-nav-link <?= $isActive ? 'active' : '' ?>" href="<?= $h($item['href']) ?>" <?= $isActive ? 'aria-current="page"' : '' ?>>
+              <i class="bi <?= $h($item['icon']) ?>"></i>
+              <span><?= $item['label'] ?></span>
+            </a>
+          </li>
+        <?php endforeach; ?>
+      </ul>
     </div>
   </div>
 </nav>
@@ -63,7 +77,9 @@ window.addEventListener('load', () => {
       'dashboard/dashboard.php',
       'dashboard.php',
       'horasextra/horas_extra.php',
-      'horas_extra.php'
+      'horas_extra.php',
+      'procedimientos/procedimientos.php',
+      'procedimientos.php'
     ];
     const navLinks = document.querySelectorAll('.navbar-nav a.nav-link');
     const setActive = (urlStr) => {
@@ -165,11 +181,11 @@ window.addEventListener('load', () => {
   function setTimerAppearance(secondsLeft) {
     if (!el) return;
     if (secondsLeft <= 20) {
-      el.className = 'badge bg-danger text-light d-inline-flex align-items-center gap-1';
+      el.className = 'sb-session-badge badge bg-danger text-light d-inline-flex align-items-center gap-1';
     } else if (secondsLeft <= 60) {
-      el.className = 'badge bg-warning text-dark d-inline-flex align-items-center gap-1';
+      el.className = 'sb-session-badge badge bg-warning text-dark d-inline-flex align-items-center gap-1';
     } else {
-      el.className = 'badge bg-light text-dark d-inline-flex align-items-center gap-1';
+      el.className = 'sb-session-badge badge bg-light text-dark d-inline-flex align-items-center gap-1';
     }
   }
 
@@ -243,6 +259,33 @@ window.addEventListener('load', () => {
     restartTick();
   }
 
+  function applySessionRefresh(data) {
+    if (!data || !data.ok) return false;
+    remaining = parseInt(data.remaining ?? data.timeout ?? baseTimeout, 10) || baseTimeout;
+    expiresAt = Date.now() + (remaining * 1000);
+    modalShown = false;
+    setModalState(false);
+    if (extendMsg) extendMsg.textContent = '';
+    if (modal) modal.hide();
+    restartTick();
+    return true;
+  }
+
+  window.redmineSessionTouch = async function redmineSessionTouch() {
+    try {
+      const resp = await fetch('/redmine-mantencion/session_touch.php', {
+        method: 'POST',
+        headers: {'X-Requested-With': 'session-touch'},
+        credentials: 'same-origin'
+      });
+      const data = await resp.json();
+      applySessionRefresh(data);
+      return data;
+    } catch (error) {
+      return {ok: false};
+    }
+  };
+
   restartTick();
   document.addEventListener('visibilitychange', syncTimerState);
   window.addEventListener('focus', syncTimerState);
@@ -291,6 +334,48 @@ window.addEventListener('load', () => {
   setModalState(false);
 });
 </script>
+
+<?php if ($maintenanceMode): ?>
+<div class="modal fade" id="maintenanceNoticeModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-warning-subtle">
+        <h5 class="modal-title"><i class="bi bi-tools"></i> Plataforma en mantenci&oacute;n</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-2">La plataforma se encuentra en mantenci&oacute;n. Mientras est&eacute; activa, no se podr&aacute;n ingresar ni importar datos nuevos.</p>
+        <?php if ($maintenanceUntil !== ''): ?>
+          <div class="alert alert-warning mb-0"><i class="bi bi-clock"></i> Hora estimada: <?= $h($maintenanceUntil) ?></div>
+        <?php endif; ?>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Entendido</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+window.addEventListener('load', () => {
+  const el = document.getElementById('maintenanceNoticeModal');
+  const noticeKey = 'redmine-maintenance-notice:<?= $h($maintenanceNoticeKey) ?>';
+  let alreadySeen = false;
+  try {
+    alreadySeen = window.localStorage.getItem(noticeKey) === '1';
+  } catch (error) {
+    alreadySeen = false;
+  }
+  if (el && window.bootstrap && !alreadySeen) {
+    window.bootstrap.Modal.getOrCreateInstance(el).show();
+    el.addEventListener('hidden.bs.modal', () => {
+      try {
+        window.localStorage.setItem(noticeKey, '1');
+      } catch (error) {}
+    }, { once: true });
+  }
+});
+</script>
+<?php endif; ?>
 
 <!-- Modal sesion -->
 <div class="modal fade" id="sessionModal" tabindex="-1" aria-hidden="true">

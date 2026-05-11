@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/../../controllers/auth.php';
 auth_require_login('/redmine-mantencion/login.php');
+require_once __DIR__ . '/../../controllers/storage.php';
+require_once __DIR__ . '/../../controllers/maintenance.php';
 if (!auth_can('configuracion')) {
   header('Location: /redmine-mantencion/views/Dashboard/dashboard.php');
   exit;
@@ -34,7 +36,7 @@ function load_unidades_local($path) {
   return is_array($data) ? $data : [];
 }
 function save_unidades_local($path, $arr) {
-  file_put_contents($path, json_encode($arr, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+  storage_write_json($path, $arr, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 }
 
 $cfg = file_exists($cfgPath) ? json_decode(file_get_contents($cfgPath), true) : [];
@@ -66,6 +68,7 @@ $unidades = load_unidades_local($dataPath);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (function_exists('csrf_validate')) csrf_validate();
+  if (function_exists('maintenance_mode_block_if_enabled')) maintenance_mode_block_if_enabled();
 if (!$apiKey) {
   $error = 'Falta token de API (usuario o plataforma).';
 } elseif (!$cfUrl) {

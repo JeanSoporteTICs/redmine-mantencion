@@ -208,5 +208,61 @@
                 "redmine_id": 121956
             }
         ]
+    },
+    {
+        "fecha": "2026-05-09",
+        "hora_inicio": "18:22",
+        "hora_fin": "18:22",
+        "reports": [
+            {
+                "id": "manual-69ff59d018d240.33889784",
+                "fuente": "manual",
+                "fuente_id": "c0de844ece894b89a9eb53174cc89ee8525d8f59",
+                "numero": "",
+                "mensaje": "finalizar atención RCA",
+                "descripcion": "Estimada\r\nJunto con saludar, informo que finalizo atención saludos \r\n\r\n \r\nSaludos \r\n \r\n\r\n \r\n\r\nDe: Susana Quiñones Mancilla <susana.quinones@redsalud.gob.cl> \r\nEnviado el: viernes, 8 de mayo de 2026 14:53\r\nPara: Mesa Ayuda Core <ayudacore@redsalud.gob.cl>\r\nCC: Ana Maria Aguirre Sepulveda HBV <ana.aguirrehbv@redsalud.gob.cl>; PATRICIA BOLD VELOSO <patricia.bold@redsalud.gob.cl>; Alejandra Mella Alvarez <alejandra.mella@redsalud.gob.cl>\r\nAsunto: Atención enlazada (finalizada e iniciada)\r\n\r\nEstimados\r\n\r\nJunto con saludar, les consulto por una atención enlazada, donde una quedó finalizada, pero la otra quedó iniciada. Sin embargo en la atención que quedó iniciada, no da la opción para que el médico la pueda cerrar ya que dice que fue enlazada. El paciente se duplicó por un cambio en la agenda.\r\n\r\n \r\n\r\nQuedo atenta",
+                "fecha": "09-05-2026",
+                "hora": "17:59",
+                "fecha_inicio": "09-05-2026",
+                "fecha_fin": "09-05-2026",
+                "tipo": "Soporte",
+                "tipo_id": "3",
+                "prioridad": "Normal",
+                "priority_id": "2",
+                "status_id": "1",
+                "project_id": "48",
+                "estado": "pendiente",
+                "estado_redmine": "Nueva",
+                "hora_extra": "SI",
+                "tiempo_estimado": "1",
+                "categoria": "RCA cerrar atención",
+                "unidad": "CAE",
+                "unidad_solicitante": "CAE",
+                "solicitante": "Susana",
+                "asunto": "finalizar atención RCA",
+                "asignado_a": "42",
+                "asignado_nombre": "Jean Cortes Lorca",
+                "anexo": "",
+                "redmine_id": "",
+                "procesado_ts": "",
+                "core_fecha_creacion": "09-05-2026 17:59",
+                "core_tipo_solicitud": "RCA cerrar atención",
+                "core_establecimiento": "CAE",
+                "core_departamento": "CAE",
+                "core_estado": "Manual",
+                "core_usuario_asignado": "Jean Cortes Lorca",
+                "core_email": "susana.quinones@redsalud.gob.cl",
+                "core_telefono": "",
+                "core_celular": "",
+                "core_detalle_tipo_solicitud": "",
+                "core_detalle_run": "",
+                "core_detalle_nombre": "",
+                "core_detalle_motivo": "",
+                "core_detalle_establecimientos": "",
+                "core_detalle_otros_permisos": "",
+                "establecimiento": "CAE",
+                "departamento": "CAE"
+            }
+        ]
     }
 ]

@@ -1,5 +1,7 @@
 <?php
 require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/storage.php';
+require_once __DIR__ . '/maintenance.php';
 // Mantenedor de configuración de envío a Redmine (incluye opciones de tracker/prioridad/estado)
 $CONFIG_FILE = __DIR__ . '/../data/configuracion.json';
 
@@ -15,6 +17,9 @@ function ensure_config_file($path) {
             'core_sync_minutes' => 2,
             'core_last_sync' => '',
             'core_last_error' => '',
+            'onlyoffice_url' => '',
+            'onlyoffice_app_url' => '',
+            'onlyoffice_jwt_secret' => '',
             'project_id' => 48,
             'project_name' => 'Backlog Mantencion TI',
             'tracker_id' => 1,
@@ -23,6 +28,7 @@ function ensure_config_file($path) {
             'cf_unidad' => 5,
             'cf_unidad_solicitante' => 11,
             'cf_hora_extra' => 12,
+            'hora_extra_tiempo_estimado' => '1',
             'categories_url' => 'https://coresalud.cl/gp/projects/backlog-mantencion-ti/settings/categories',
             'unidades_url' => null,
             'status_id' => 1,
@@ -48,7 +54,7 @@ function ensure_config_file($path) {
                 ['id' => 6, 'nombre' => 'Rechazada', 'default' => false],
             ],
         ];
-        file_put_contents($path, json_encode($default, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        storage_write_json($path, $default, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE, false);
     }
 }
 
@@ -71,6 +77,9 @@ function load_config($path) {
     if (!array_key_exists('cf_hora_extra', $data)) {
         $data['cf_hora_extra'] = 12;
     }
+    if (!array_key_exists('hora_extra_tiempo_estimado', $data)) {
+        $data['hora_extra_tiempo_estimado'] = '1';
+    }
     if (!array_key_exists('source_mode', $data)) $data['source_mode'] = 'core';
     if (!array_key_exists('core_enabled', $data)) $data['core_enabled'] = true;
     if (!array_key_exists('core_admin_url', $data)) $data['core_admin_url'] = 'https://www.hbvaldivia.cl/core/solicitudes/administrador';
@@ -78,6 +87,9 @@ function load_config($path) {
     if (!array_key_exists('core_sync_minutes', $data)) $data['core_sync_minutes'] = 2;
     if (!array_key_exists('core_last_sync', $data)) $data['core_last_sync'] = '';
     if (!array_key_exists('core_last_error', $data)) $data['core_last_error'] = '';
+    if (!array_key_exists('onlyoffice_url', $data)) $data['onlyoffice_url'] = '';
+    if (!array_key_exists('onlyoffice_app_url', $data)) $data['onlyoffice_app_url'] = '';
+    if (!array_key_exists('onlyoffice_jwt_secret', $data)) $data['onlyoffice_jwt_secret'] = '';
     foreach (['trackers','prioridades','estados'] as $k) {
         if (!isset($data[$k]) || !is_array($data[$k])) $data[$k] = [];
     }
@@ -86,7 +98,7 @@ function load_config($path) {
 }
 
 function save_config($path, $cfg) {
-    file_put_contents($path, json_encode($cfg, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    storage_write_json($path, $cfg, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 }
 
 function config_set_flash(string $message): void {
@@ -114,13 +126,23 @@ function handle_configuracion() {
     $action = $_POST['action'] ?? '';
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action === '') {
         if (function_exists('csrf_validate')) csrf_validate();
+        if (function_exists('maintenance_mode_block_if_enabled')) maintenance_mode_block_if_enabled();
         $cfg['platform_url'] = trim($_POST['platform_url'] ?? $cfg['platform_url'] ?? '');
-        $cfg['platform_token'] = trim($_POST['platform_token'] ?? $cfg['platform_token'] ?? '');
+        $postedToken = trim($_POST['platform_token'] ?? '');
+        if ($postedToken !== '') {
+            $cfg['platform_token'] = $postedToken;
+        }
         $cfg['source_mode'] = 'core';
         $cfg['core_enabled'] = true;
         $cfg['core_admin_url'] = trim($_POST['core_admin_url'] ?? ($cfg['core_admin_url'] ?? ''));
         $cfg['core_historico_url'] = trim($_POST['core_historico_url'] ?? ($cfg['core_historico_url'] ?? ($cfg['core_admin_url'] ?? '')));
         $cfg['core_sync_minutes'] = max(1, (int)($_POST['core_sync_minutes'] ?? ($cfg['core_sync_minutes'] ?? 2)));
+        $cfg['onlyoffice_url'] = rtrim(trim((string)($_POST['onlyoffice_url'] ?? ($cfg['onlyoffice_url'] ?? ''))), '/');
+        $cfg['onlyoffice_app_url'] = rtrim(trim((string)($_POST['onlyoffice_app_url'] ?? ($cfg['onlyoffice_app_url'] ?? ''))), '/');
+        $postedOnlyOfficeSecret = trim((string)($_POST['onlyoffice_jwt_secret'] ?? ''));
+        if ($postedOnlyOfficeSecret !== '') {
+            $cfg['onlyoffice_jwt_secret'] = $postedOnlyOfficeSecret;
+        }
         unset($cfg['core_login_user'], $cfg['core_login_pass']);
         $cfg['categories_url'] = trim($_POST['categories_url'] ?? ($cfg['categories_url'] ?? ''));
         $cfg['unidades_url'] = trim($_POST['unidades_url'] ?? ($cfg['unidades_url'] ?? ''));
@@ -132,6 +154,7 @@ function handle_configuracion() {
         $cfg['cf_unidad'] = ($_POST['cf_unidad'] ?? '') === '' ? null : $_POST['cf_unidad'];
         $cfg['cf_unidad_solicitante'] = ($_POST['cf_unidad_solicitante'] ?? '') === '' ? null : $_POST['cf_unidad_solicitante'];
         $cfg['cf_hora_extra'] = ($_POST['cf_hora_extra'] ?? '') === '' ? null : $_POST['cf_hora_extra'];
+        $cfg['hora_extra_tiempo_estimado'] = trim((string)($_POST['hora_extra_tiempo_estimado'] ?? ($cfg['hora_extra_tiempo_estimado'] ?? '1')));
         $cfg['status_id'] = is_numeric($_POST['status_id'] ?? '') ? (int)$_POST['status_id'] : ($cfg['status_id'] ?? 1);
         $cfg['retencion_horas'] = max(1, (int)($_POST['retencion_horas'] ?? ($cfg['retencion_horas'] ?? 24)));
         $cfg['session_timeout'] = max(60, (int)($_POST['session_timeout'] ?? ($cfg['session_timeout'] ?? 300)));

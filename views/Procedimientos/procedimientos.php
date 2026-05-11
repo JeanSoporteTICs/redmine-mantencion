@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/../../controllers/auth.php';
 require_once __DIR__ . '/../../controllers/procedimientos.php';
 
@@ -7,7 +7,13 @@ $shareToken = trim((string)($_GET['share'] ?? ''));
 $isPublicShare = $shareToken !== '';
 if (!$isPublicShare) {
   auth_require_login('/redmine-mantencion/login.php');
+  if (!auth_can('procedimientos')) {
+    header('Location: /redmine-mantencion/views/Dashboard/dashboard.php');
+    exit;
+  }
 }
+$maintenanceMode = !$isPublicShare && function_exists('maintenance_mode_enabled') && maintenance_mode_enabled();
+$canEditProcedures = !$isPublicShare && !$maintenanceMode && auth_can('procedimientos_editar');
 $csrf = $isPublicShare ? '' : csrf_token();
 if ($isPublicShare) {
   $procedures = procedures_read_all();
@@ -22,7 +28,7 @@ if ($isPublicShare) {
 }
 $isPdfExport = (string)($_GET['export'] ?? '') === 'pdf';
 $activeNav = 'procedimientos';
-$isEditingProcedure = !$isPublicShare && (isset($_GET['new']) || ($selectedId !== '' && (string)($_GET['edit'] ?? '') === '1'));
+$isEditingProcedure = $canEditProcedures && isset($_GET['new']);
 $showDetail = $selectedId !== '' && !$isEditingProcedure;
 $showEditor = $isEditingProcedure;
 $pageSizeCssMap = [
@@ -34,6 +40,20 @@ $selectedPageSize = strtolower(trim((string)($selectedProcedure['page_size'] ?? 
 if (!isset($pageSizeCssMap[$selectedPageSize])) {
   $selectedPageSize = 'letter';
 }
+$requestFolderId = !$isPublicShare ? trim((string)($_GET['folder'] ?? '')) : '';
+$currentFolderId = (!$isPublicShare && !$showDetail && !$showEditor) ? $requestFolderId : '';
+$allFolders = function_exists('procedures_folders') ? procedures_folders($procedures) : [];
+$currentFolder = $currentFolderId !== '' && function_exists('procedures_find_folder_by_id') ? procedures_find_folder_by_id($procedures, $currentFolderId) : null;
+if ($currentFolderId !== '' && !$currentFolder) {
+  $currentFolderId = '';
+}
+$targetFolderId = $requestFolderId !== '' && function_exists('procedures_find_folder_by_id') && procedures_find_folder_by_id($procedures, $requestFolderId) ? $requestFolderId : '';
+$visibleFolders = array_values(array_filter($allFolders, static fn(array $folder): bool => $currentFolderId === ''));
+$visibleProcedures = array_values(array_filter($procedures, static function (array $procedure) use ($currentFolderId): bool {
+  return empty($procedure['draft_pending'])
+    && (string)($procedure['record_type'] ?? 'document') !== 'folder'
+    && (string)($procedure['folder_id'] ?? '') === $currentFolderId;
+}));
 $shareUrl = '';
 if ($selectedProcedure && !empty($selectedProcedure['share_token'])) {
   $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
@@ -393,6 +413,60 @@ if ($isPdfExport) {
         float: none;
         margin: 1rem 0;
       }
+      .pdf-content {
+        background: #fff !important;
+        background-image: none !important;
+        line-height: 1.55;
+      }
+      .pdf-content .proc-side-layout,
+      .pdf-content .proc-side-layout[data-position="free"] {
+        display: block !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        float: none !important;
+        clear: both !important;
+        position: static !important;
+        left: auto !important;
+        top: auto !important;
+        margin: 1rem 0 !important;
+      }
+      .pdf-content .proc-side-text { display: none !important; }
+      .pdf-content .proc-image-wrap,
+      .pdf-content .proc-table-wrap,
+      .pdf-content pre.proc-code-block,
+      .pdf-content .proc-callout {
+        display: block !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        float: none !important;
+        clear: both !important;
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        margin: 1rem 0 !important;
+      }
+      .pdf-content img {
+        max-width: 100% !important;
+        height: auto !important;
+      }
+      .pdf-content .proc-table-scroll {
+        width: 100% !important;
+        min-width: 0 !important;
+        overflow-x: auto;
+      }
+      .pdf-content .proc-table-wrap table {
+        width: 100% !important;
+        min-width: 0 !important;
+      }
+      .pdf-content .proc-table-wrap td,
+      .pdf-content .proc-table-wrap th {
+        min-width: 0 !important;
+        height: auto !important;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
       .pdf-empty { color: #64748b; font-size: 1rem; }
       .proc-page-break { display: none !important; }
       @media print {
@@ -491,13 +565,39 @@ if ($isPdfExport) {
             codeEl.innerHTML = highlightCode(raw, lang);
           });
 
-          let maxBottom = 260;
-          container.querySelectorAll('.proc-side-layout[data-position="free"], .proc-callout[data-position="free"]').forEach((node) => {
-            const top = parseFloat(node.style.top || '0') || 0;
-            const height = Math.max(0, Math.round(node.getBoundingClientRect().height || node.offsetHeight || 0));
-            maxBottom = Math.max(maxBottom, Math.ceil(top + height + 32));
+          container.querySelectorAll('.proc-side-layout').forEach((layout) => {
+            const parent = layout.parentNode;
+            if (!parent) return;
+            const leftText = layout.querySelector('.proc-side-text-left');
+            const rightText = layout.querySelector('.proc-side-text-right');
+            const flowChildren = [];
+            [leftText].forEach((region) => {
+              if (!region || region.textContent.replace(/\u00a0/g, ' ').trim() === '') return;
+              const paragraph = document.createElement('p');
+              paragraph.innerHTML = region.innerHTML;
+              flowChildren.push(paragraph);
+            });
+            flowChildren.push(...Array.from(layout.children).filter((child) => !child.classList.contains('proc-side-text')));
+            [rightText].forEach((region) => {
+              if (!region || region.textContent.replace(/\u00a0/g, ' ').trim() === '') return;
+              const paragraph = document.createElement('p');
+              paragraph.innerHTML = region.innerHTML;
+              flowChildren.push(paragraph);
+            });
+            flowChildren.forEach((child) => {
+                child.removeAttribute('data-position');
+                if (child.dataset?.align === 'free') child.dataset.align = 'left';
+                ['position', 'left', 'top', 'z-index', 'transform', 'margin-left', 'margin-right', 'max-width', 'min-width'].forEach((property) => child.style.removeProperty(property));
+                parent.insertBefore(child, layout);
+            });
+            layout.remove();
           });
-          container.style.minHeight = `${maxBottom}px`;
+          container.querySelectorAll('[data-position="free"], [data-align="free"], .proc-image-wrap, .proc-table-wrap, pre.proc-code-block, .proc-callout').forEach((node) => {
+            node.removeAttribute('data-position');
+            if (node.dataset?.align === 'free') node.dataset.align = 'left';
+            ['position', 'left', 'top', 'z-index', 'transform', 'margin-left', 'margin-right', 'max-width', 'min-width'].forEach((property) => node.style.removeProperty(property));
+          });
+          container.style.removeProperty('min-height');
         })();
 
       </script>
@@ -1185,6 +1285,212 @@ if ($isPdfExport) {
       .proc-shell { grid-template-columns: 1fr; }
       .proc-editor { min-height: 320px; }
     }
+    .proc-document-stage,
+    .proc-editor-wrap {
+      border: 1px solid #d7deea;
+      border-radius: 1.15rem;
+      background: linear-gradient(180deg, #eef3f9, #e5edf7);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.75);
+      overflow: auto;
+      padding: 1.25rem;
+    }
+    .proc-editor,
+    .proc-detail-content {
+      width: min(100%, 8.5in);
+      max-width: 8.5in;
+      min-height: 11in;
+      margin: 0 auto;
+      padding: .75in;
+      background: #fff !important;
+      background-image: none !important;
+      border-radius: .15rem !important;
+      box-shadow: 0 20px 52px rgba(15, 23, 42, .14);
+      box-sizing: border-box;
+      color: #111827;
+      line-height: 1.55;
+      overflow: visible;
+    }
+    body[data-proc-page-size="a4"] .proc-editor,
+    body[data-proc-page-size="a4"] .proc-detail-content {
+      max-width: 210mm;
+      min-height: 297mm;
+    }
+    body[data-proc-page-size="oficio"] .proc-editor,
+    body[data-proc-page-size="oficio"] .proc-detail-content {
+      max-width: 216mm;
+      min-height: 330mm;
+    }
+    .proc-editor .proc-side-layout,
+    .proc-detail-content .proc-side-layout,
+    .pdf-content .proc-side-layout,
+    .proc-editor .proc-side-layout[data-position="free"],
+    .proc-detail-content .proc-side-layout[data-position="free"],
+    .pdf-content .proc-side-layout[data-position="free"] {
+      display: block !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+      margin: 1rem 0 !important;
+      float: none !important;
+      clear: both !important;
+      position: static !important;
+      left: auto !important;
+      top: auto !important;
+      transform: none !important;
+    }
+    .proc-editor .proc-side-text,
+    .proc-detail-content .proc-side-text,
+    .pdf-content .proc-side-text {
+      display: none !important;
+    }
+    .proc-editor .proc-image-wrap,
+    .proc-detail-content .proc-image-wrap,
+    .pdf-content .proc-image-wrap,
+    .proc-editor .proc-table-wrap,
+    .proc-detail-content .proc-table-wrap,
+    .pdf-content .proc-table-wrap,
+    .proc-editor pre.proc-code-block,
+    .proc-detail-content pre.proc-code-block,
+    .pdf-content pre.proc-code-block,
+    .proc-editor .proc-callout,
+    .proc-detail-content .proc-callout,
+    .pdf-content .proc-callout {
+      display: block !important;
+      float: none !important;
+      clear: both !important;
+      position: relative !important;
+      left: auto !important;
+      top: auto !important;
+      transform: none !important;
+      min-width: 0 !important;
+      max-width: 100% !important;
+      margin: 1rem 0 !important;
+      box-sizing: border-box;
+    }
+    .proc-editor img,
+    .proc-detail-content img,
+    .pdf-content img {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+    .proc-editor .proc-table-wrap,
+    .proc-detail-content .proc-table-wrap,
+    .pdf-content .proc-table-wrap {
+      width: 100% !important;
+      overflow-x: auto;
+      border-radius: .65rem;
+    }
+    .proc-editor .proc-table-scroll,
+    .proc-detail-content .proc-table-scroll,
+    .pdf-content .proc-table-scroll {
+      width: 100% !important;
+      min-width: 0 !important;
+      overflow-x: auto;
+    }
+    .proc-editor table,
+    .proc-detail-content table,
+    .pdf-content table {
+      width: 100% !important;
+      min-width: 0 !important;
+      table-layout: fixed;
+    }
+    .proc-editor th,
+    .proc-editor td,
+    .proc-detail-content th,
+    .proc-detail-content td,
+    .pdf-content th,
+    .pdf-content td {
+      height: auto;
+      min-height: 0;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+    .proc-editor .proc-callout,
+    .proc-detail-content .proc-callout,
+    .pdf-content .proc-callout {
+      border-left: 5px solid #38bdf8;
+      border-radius: .65rem;
+      background: #f8fbff;
+    }
+    .proc-editor .proc-callout[data-tone="warning"],
+    .proc-detail-content .proc-callout[data-tone="warning"],
+    .pdf-content .proc-callout[data-tone="warning"] {
+      border-left-color: #f59e0b;
+      background: #fff9e8;
+    }
+    .proc-editor p,
+    .proc-detail-content p,
+    .pdf-content p,
+    .proc-editor li,
+    .proc-detail-content li,
+    .pdf-content li,
+    .proc-editor .proc-callout,
+    .proc-detail-content .proc-callout,
+    .pdf-content .proc-callout {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    .proc-editor .proc-image-wrap,
+    .proc-editor .proc-table-wrap,
+    .proc-editor pre.proc-code-block,
+    .proc-editor .proc-callout {
+      transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        outline-color .18s ease,
+        opacity .15s ease;
+    }
+    .proc-editor .proc-image-wrap:hover,
+    .proc-editor .proc-table-wrap:hover,
+    .proc-editor pre.proc-code-block:hover,
+    .proc-editor .proc-callout:hover {
+      transform: translateY(-1px);
+    }
+    .proc-editor .proc-image-drag,
+    .proc-editor .proc-table-drag,
+    .proc-editor .proc-code-drag,
+    .proc-editor .proc-callout-drag {
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      touch-action: none;
+      cursor: grab;
+    }
+    .proc-editor .proc-image-drag:active,
+    .proc-editor .proc-table-drag:active,
+    .proc-editor .proc-code-drag:active,
+    .proc-editor .proc-callout-drag:active {
+      cursor: grabbing;
+    }
+    .proc-editor.is-sorting {
+      cursor: grabbing;
+      user-select: none;
+    }
+    .proc-editor .proc-drop-placeholder {
+      width: 100% !important;
+      min-height: 42px;
+      border: 2px dashed rgba(37, 99, 235, .38);
+      border-radius: .75rem;
+      background: linear-gradient(180deg, rgba(219, 234, 254, .82), rgba(239, 246, 255, .72));
+      transition: height .16s ease, margin .16s ease, background .16s ease;
+    }
+    .is-drag-ghost {
+      opacity: .9 !important;
+      transform: scale(.985);
+      transition: none !important;
+      cursor: grabbing !important;
+      border-radius: .85rem;
+    }
+    @media (max-width: 768px) {
+      .proc-document-stage,
+      .proc-editor-wrap { padding: .75rem; }
+      .proc-editor,
+      .proc-detail-content {
+        width: 100%;
+        min-height: 75vh;
+        padding: 1rem;
+      }
+    }
     body.proc-public-share { padding-top: 0; }
   </style>
 </head>
@@ -1218,8 +1524,8 @@ if ($isPdfExport) {
           <div class="proc-board-title">
             <span class="proc-board-icon badge-soft badge-soft-primary"><i class="bi bi-folder2-open"></i></span>
             <div>
-              <h2>Documentos creados</h2>
-              <p><?= count($procedures) ?> registrados</p>
+              <h2><?= $currentFolder ? $h($currentFolder['title'] ?? 'Carpeta') : 'Documentos creados' ?></h2>
+              <p><?= count($visibleFolders) ?> carpetas · <?= count($visibleProcedures) ?> documentos</p>
             </div>
           </div>
           <div class="proc-board-actions">
@@ -1227,16 +1533,53 @@ if ($isPdfExport) {
               <i class="bi bi-search"></i>
               <input type="search" id="procedure-search" class="form-control" placeholder="Buscar por título">
             </label>
-            <a class="proc-new-btn btn btn-primary" href="/redmine-mantencion/views/Procedimientos/procedimientos.php?new=1">
-              <i class="bi bi-plus-lg"></i> Nuevo
-            </a>
+            <?php if ($canEditProcedures): ?>
+              <?php if (!$currentFolder): ?>
+                <button class="proc-new-btn btn btn-outline-primary" type="button" data-bs-toggle="modal" data-bs-target="#createFolderModal">
+                  <i class="bi bi-folder-plus"></i> Nueva carpeta
+                </button>
+              <?php endif; ?>
+              <button class="proc-new-btn btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#createOfficeModal">
+                <i class="bi bi-file-earmark-plus"></i> Crear documento
+              </button>
+              <a class="proc-new-btn btn btn-primary" href="/redmine-mantencion/views/Procedimientos/procedimientos.php?new=1<?= $currentFolderId !== '' ? '&folder=' . urlencode($currentFolderId) : '' ?>">
+                <i class="bi bi-upload"></i> Subir documento
+              </a>
+            <?php endif; ?>
           </div>
         </div>
-          <?php if (empty($procedures)): ?>
+          <?php if ($currentFolder): ?>
+            <div class="proc-folder-crumb">
+              <a href="/redmine-mantencion/views/Procedimientos/procedimientos.php"><i class="bi bi-house"></i> Raiz</a>
+              <i class="bi bi-chevron-right"></i>
+              <span><i class="bi bi-folder2-open"></i> <?= $h($currentFolder['title'] ?? '') ?></span>
+            </div>
+          <?php endif; ?>
+          <?php if (empty($visibleFolders) && empty($visibleProcedures)): ?>
             <div class="proc-empty-state">Aún no hay procedimientos guardados.</div>
           <?php else: ?>
             <div class="proc-grid" id="procedure-list">
-              <?php foreach ($procedures as $procedure): ?>
+              <?php foreach ($visibleFolders as $folder): ?>
+                <?php
+                  $folderId = (string)($folder['id'] ?? '');
+                  $folderTitle = trim((string)($folder['title'] ?? 'Carpeta'));
+                  $folderCount = count(array_filter($procedures, static fn(array $procedure): bool => (string)($procedure['folder_id'] ?? '') === $folderId && (string)($procedure['record_type'] ?? 'document') !== 'folder' && empty($procedure['draft_pending'])));
+                ?>
+                <a
+                  href="/redmine-mantencion/views/Procedimientos/procedimientos.php?folder=<?= urlencode($folderId) ?>"
+                  class="proc-grid-card proc-grid-card-folder card"
+                  data-search="<?= $h(strtolower($folderTitle)) ?>"
+                >
+                  <div class="proc-card-top">
+                    <span class="proc-card-icon"><i class="bi bi-folder-fill"></i></span>
+                    <div class="proc-card-body">
+                      <div class="proc-title"><?= $h($folderTitle) ?></div>
+                      <div class="proc-card-meta"><?= $folderCount ?> documentos</div>
+                    </div>
+                  </div>
+                </a>
+              <?php endforeach; ?>
+              <?php foreach ($visibleProcedures as $procedure): ?>
                 <?php
                   $itemId = (string)($procedure['id'] ?? '');
                   $itemTitle = trim((string)($procedure['title'] ?? 'Sin título'));
@@ -1248,9 +1591,13 @@ if ($isPdfExport) {
                   data-search="<?= $h(strtolower($itemTitle)) ?>"
                 >
                   <div class="proc-card-top">
-                    <span class="proc-card-icon"><i class="bi bi-file-earmark-text"></i></span>
+                    <?php $itemKind = function_exists('procedures_file_kind') ? procedures_file_kind($procedure) : 'html'; ?>
+                    <span class="proc-card-icon"><i class="bi <?= $itemKind === 'pdf' ? 'bi-file-earmark-pdf' : ($itemKind === 'word' ? 'bi-file-earmark-word' : ($itemKind === 'cell' ? 'bi-file-earmark-spreadsheet' : ($itemKind === 'slide' ? 'bi-file-earmark-slides' : 'bi-file-earmark-text'))) ?>"></i></span>
                     <div class="proc-card-body">
                       <div class="proc-title"><?= $h($itemTitle) ?></div>
+                      <?php if (!empty($procedure['file_original_name'])): ?>
+                        <div class="proc-card-meta"><?= $h($procedure['file_original_name']) ?></div>
+                      <?php endif; ?>
                       <?php if ($itemUpdated !== ''): ?>
                         <div class="proc-card-meta"><?= $h(date('d-m-Y', strtotime($itemUpdated))) ?></div>
                       <?php endif; ?>
@@ -1264,7 +1611,7 @@ if ($isPdfExport) {
     <?php elseif ($showDetail && $selectedProcedure): ?>
       <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
         <?php if (!$isPublicShare): ?>
-        <a class="btn btn-outline-secondary" href="/redmine-mantencion/views/Procedimientos/procedimientos.php">
+        <a class="btn btn-outline-secondary" href="/redmine-mantencion/views/Procedimientos/procedimientos.php<?= !empty($selectedProcedure['folder_id']) ? '?folder=' . urlencode((string)$selectedProcedure['folder_id']) : '' ?>">
           <i class="bi bi-arrow-left"></i> Volver
         </a>
         <?php else: ?>
@@ -1289,25 +1636,52 @@ if ($isPdfExport) {
                 <span class="proc-detail-meta-value"><?= $h(date('d-m-Y H:i', strtotime((string)$selectedProcedure['updated_at']))) ?></span>
               </span>
             <?php endif; ?>
+            <?php if (!empty($selectedProcedure['file_size']) && function_exists('procedures_format_file_size')): ?>
+              <span class="proc-detail-meta-item">
+                <span class="proc-detail-meta-label">Tamaño</span>
+                <span class="proc-detail-meta-value"><?= $h(procedures_format_file_size((int)$selectedProcedure['file_size'])) ?></span>
+              </span>
+            <?php endif; ?>
           </div>
         </header>
         <div class="proc-detail-actions">
           <div class="proc-detail-actions-group">
-            <?php if (!$isPublicShare): ?>
-            <a class="btn btn-primary" href="/redmine-mantencion/views/Procedimientos/procedimientos.php?id=<?= urlencode((string)$selectedProcedure['id']) ?>&edit=1">
-              <i class="bi bi-pencil-square"></i> Editar
-            </a>
+            <?php
+              $fileUrl = (string)($selectedProcedure['file_url'] ?? '');
+              $fileKind = function_exists('procedures_file_kind') ? procedures_file_kind($selectedProcedure) : 'html';
+              $officeEditorUrl = '/redmine-mantencion/views/Procedimientos/onlyoffice.php?id=' . urlencode((string)($selectedProcedure['id'] ?? '')) . '&mode=edit';
+              $officeViewerUrl = $isPublicShare
+                ? '/redmine-mantencion/views/Procedimientos/onlyoffice.php?share=' . urlencode($shareToken) . '&mode=view'
+                : '/redmine-mantencion/views/Procedimientos/onlyoffice.php?id=' . urlencode((string)($selectedProcedure['id'] ?? '')) . '&mode=view';
+              $isOfficeSupported = $fileUrl !== '' && function_exists('procedures_onlyoffice_supported') && procedures_onlyoffice_supported($selectedProcedure);
+            ?>
+            <?php if ($fileUrl !== ''): ?>
+              <?php if ($canEditProcedures && $isOfficeSupported): ?>
+                <a class="btn btn-success" href="<?= $h($officeEditorUrl) ?>">
+                  <i class="bi bi-pencil-square"></i> Editar Office
+                </a>
+              <?php endif; ?>
+              <a class="btn btn-primary" href="<?= $h($fileKind === 'pdf' ? $fileUrl : $officeViewerUrl) ?>" <?= $fileKind === 'pdf' ? 'target="_blank" rel="noopener"' : '' ?>>
+                <i class="bi bi-box-arrow-up-right"></i> Visualizar
+              </a>
+              <a class="btn btn-outline-primary" href="<?= $h($fileUrl) ?>" download>
+                <i class="bi bi-download"></i> Descargar
+              </a>
             <?php endif; ?>
-            <button
-              type="button"
-              class="btn btn-outline-primary"
-              data-procedure-print
-              data-pdf-title="<?= $h($selectedProcedure['title'] ?? 'Procedimiento') ?>"
-              data-page-size="<?= $h($selectedPageSize) ?>"
-            >
-              <i class="bi bi-printer"></i> Imprimir
-            </button>
-            <?php if ($shareUrl !== ''): ?>
+            <?php if ($canEditProcedures): ?>
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                data-proc-move-id="<?= $h($selectedProcedure['id'] ?? '') ?>"
+                data-proc-move-title="<?= $h($selectedProcedure['title'] ?? '') ?>"
+                data-bs-toggle="modal"
+                data-bs-target="#moveProcedureModal"
+              >
+                <i class="bi bi-folder-symlink"></i> Mover
+              </button>
+              <button class="btn btn-outline-danger" type="submit" form="procedure-delete-form"><i class="bi bi-trash"></i> Eliminar</button>
+            <?php endif; ?>
+            <?php if (!$isPublicShare && $shareUrl !== ''): ?>
               <button
                 type="button"
                 class="btn btn-outline-primary"
@@ -1318,31 +1692,67 @@ if ($isPdfExport) {
             <?php endif; ?>
           </div>
         </div>
-        <div class="proc-detail-content" id="procedureReadContent"><?= $selectedProcedure['content_html'] ?? '' ?></div>
+        <div class="proc-document-stage">
+          <?php if ($fileUrl !== '' && $fileKind === 'pdf'): ?>
+            <iframe class="w-100 bg-white border-0 rounded" id="procedureFileFrame" src="<?= $h($fileUrl) ?>" style="min-height: 78vh;" title="<?= $h($selectedProcedure['title'] ?? 'Procedimiento') ?>"></iframe>
+          <?php elseif ($fileUrl !== ''): ?>
+            <?php
+              $officeIcon = $fileKind === 'cell' ? 'bi-file-earmark-spreadsheet' : ($fileKind === 'slide' ? 'bi-file-earmark-slides' : 'bi-file-earmark-word');
+              $officeLabel = $fileKind === 'cell' ? 'Excel' : ($fileKind === 'slide' ? 'PowerPoint' : 'Word');
+            ?>
+            <div class="proc-detail-content text-center" id="procedureReadContent">
+              <i class="bi <?= $officeIcon ?> text-primary" style="font-size: 4rem;"></i>
+              <h2 class="mt-3"><?= $h($selectedProcedure['file_original_name'] ?? $selectedProcedure['title'] ?? 'Documento Office') ?></h2>
+              <p class="text-muted mb-4">
+                <?= $isPublicShare
+                  ? 'Documento disponible para visualizar y descargar.'
+                  : 'Los documentos ' . $officeLabel . ' se pueden editar en OnlyOffice o descargar desde las acciones superiores.' ?>
+              </p>
+              <a class="btn btn-primary" href="<?= $h($officeViewerUrl ?? ('/redmine-mantencion/views/Procedimientos/onlyoffice.php?id=' . urlencode((string)($selectedProcedure['id'] ?? '')) . '&mode=view')) ?>"><i class="bi bi-box-arrow-up-right"></i> Visualizar</a>
+              <a class="btn btn-outline-primary" href="<?= $h($fileUrl) ?>" download><i class="bi bi-download"></i> Descargar</a>
+            </div>
+          <?php else: ?>
+            <div class="proc-detail-content" id="procedureReadContent"><?= $selectedProcedure['content_html'] ?? '' ?></div>
+          <?php endif; ?>
+        </div>
+        <?php if ($canEditProcedures): ?>
+          <form method="post" id="procedure-delete-form" class="d-none" data-app-confirm="¿Eliminar este procedimiento?">
+            <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
+            <input type="hidden" name="action" value="delete">
+            <input type="hidden" name="id" value="<?= $h($selectedProcedure['id'] ?? '') ?>">
+          </form>
+        <?php endif; ?>
       </section>
     <?php else: ?>
       <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
-        <a class="btn btn-outline-secondary" href="/redmine-mantencion/views/Procedimientos/procedimientos.php">
+        <a class="btn btn-outline-secondary" href="/redmine-mantencion/views/Procedimientos/procedimientos.php<?= $targetFolderId !== '' ? '?folder=' . urlencode($targetFolderId) : '' ?>">
           <i class="bi bi-arrow-left"></i> Volver
         </a>
-        <div class="text-muted small"><?= !empty($form['id']) ? 'Editando procedimiento' : 'Nuevo procedimiento' ?></div>
+        <div class="text-muted small">Subir documento</div>
       </div>
       <section class="card proc-panel">
         <div class="card-body">
-          <form method="post" id="procedure-form" class="d-flex flex-column gap-3">
+          <form method="post" id="procedure-form" class="d-flex flex-column gap-3" enctype="multipart/form-data">
             <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
             <input type="hidden" name="action" value="save">
             <input type="hidden" name="id" value="<?= $h($form['id'] ?? '') ?>">
+            <input type="hidden" name="folder_id" value="<?= $h($form['folder_id'] ?? $targetFolderId) ?>">
             <input type="hidden" name="content_html" id="content_html">
 
             <div class="row g-3">
               <div class="col-12">
                 <label class="form-label fw-semibold">Título</label>
-                <input type="text" name="title" class="form-control form-control-lg" value="<?= $h($form['title'] ?? '') ?>" placeholder="Ej. Alta de usuario CORE" required>
+                <input type="text" name="title" class="form-control form-control-lg" value="<?= $h($form['title'] ?? '') ?>" placeholder="Se usará el nombre del archivo si lo dejas vacío">
               </div>
             </div>
 
-            <div class="proc-editor-wrap">
+            <div>
+              <label class="form-label fw-semibold">Documento PDF u Office</label>
+                <input type="file" name="procedure_file" class="form-control form-control-lg" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation" required>
+                <div class="form-text">Formatos permitidos: PDF, Word, Excel y PowerPoint. Los archivos Office se editan con OnlyOffice si está configurado.</div>
+            </div>
+
+            <div class="proc-editor-wrap d-none">
               <div class="proc-toolbar">
                 <button class="btn btn-outline-secondary btn-sm" type="button" data-cmd="bold" title="Negrita"><i class="bi bi-type-bold"></i></button>
                 <button class="btn btn-outline-secondary btn-sm" type="button" data-cmd="italic" title="Cursiva"><i class="bi bi-type-italic"></i></button>
@@ -1404,13 +1814,13 @@ if ($isPdfExport) {
               <div class="proc-editor" id="procedure-editor" contenteditable="true" data-placeholder="Escribe aquí el procedimiento, pega capturas o inserta imágenes."><?= $form['content_html'] ?? '' ?></div>
             </div>
 
-            <div class="proc-dropzone" id="dropzone">
+            <div class="proc-dropzone d-none" id="dropzone">
               Arrastra imágenes aquí, pégalas desde el portapapeles o usa el botón <strong>Imagen</strong>.
             </div>
 
             <div class="d-flex flex-wrap gap-2">
-              <button class="btn btn-success" type="submit"><i class="bi bi-save"></i> Guardar procedimiento</button>
-              <?php if (!empty($form['id'])): ?>
+              <button class="btn btn-success" type="submit"><i class="bi bi-save"></i> Guardar documento</button>
+              <?php if (!empty($form['id']) && $canEditProcedures): ?>
                 <button
                   type="button"
                   class="btn btn-outline-primary"
@@ -1446,6 +1856,107 @@ if ($isPdfExport) {
     <?php endif; ?>
   </div>
 </div>
+<?php if (!$isPublicShare && $canEditProcedures): ?>
+  <div class="modal fade" id="createFolderModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <form method="post" class="modal-content">
+        <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
+        <input type="hidden" name="action" value="create_folder">
+        <div class="modal-header" data-app-modal-tone="info">
+          <div>
+            <h5 class="modal-title">Nueva carpeta</h5>
+            <div class="text-muted small">Organiza los procedimientos por área o tema.</div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <label class="form-label fw-semibold">Nombre</label>
+          <input type="text" name="folder_title" class="form-control form-control-lg" placeholder="Ej: CORE, Farmacia, Manuales" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary"><i class="bi bi-folder-plus"></i> Crear carpeta</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal fade" id="moveProcedureModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <form method="post" class="modal-content">
+        <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
+        <input type="hidden" name="action" value="move">
+        <input type="hidden" name="target_id" id="move-procedure-id" value="">
+        <div class="modal-header" data-app-modal-tone="info">
+          <div>
+            <h5 class="modal-title">Mover documento</h5>
+            <div class="text-muted small" id="move-procedure-title">Selecciona la carpeta de destino.</div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <label class="form-label fw-semibold">Destino</label>
+          <select name="destination_folder_id" class="form-select form-select-lg">
+            <option value="">Raíz / sin carpeta</option>
+            <?php foreach ($allFolders as $folder): ?>
+              <option value="<?= $h($folder['id'] ?? '') ?>"><?= $h($folder['title'] ?? 'Carpeta') ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary"><i class="bi bi-folder-symlink"></i> Mover</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal fade" id="createOfficeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <form method="post" class="modal-content">
+        <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
+        <input type="hidden" name="action" value="create_office">
+        <input type="hidden" name="folder_id" value="<?= $h($currentFolderId) ?>">
+        <div class="modal-header" data-app-modal-tone="info">
+          <div>
+            <h5 class="modal-title">Crear documento</h5>
+            <div class="text-muted small">Se abrir&aacute; en OnlyOffice para editarlo.</div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex flex-column gap-3">
+            <div>
+              <label class="form-label fw-semibold">T&iacute;tulo</label>
+              <input type="text" name="title" class="form-control form-control-lg" placeholder="Nombre del procedimiento">
+            </div>
+            <div>
+              <label class="form-label fw-semibold">Tipo de archivo</label>
+              <div class="row g-2">
+                <div class="col-12 col-sm-6">
+                  <input class="btn-check" type="radio" name="document_type" id="create-docx" value="docx" checked>
+                  <label class="btn btn-outline-primary w-100 text-start p-3" for="create-docx">
+                    <i class="bi bi-file-earmark-word me-2"></i> Documento Word
+                  </label>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <input class="btn-check" type="radio" name="document_type" id="create-xlsx" value="xlsx">
+                  <label class="btn btn-outline-success w-100 text-start p-3" for="create-xlsx">
+                    <i class="bi bi-file-earmark-spreadsheet me-2"></i> Planilla Excel
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success">
+            <i class="bi bi-file-earmark-plus"></i> Crear y editar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+<?php endif; ?>
 <?php include __DIR__ . '/../partials/bootstrap-scripts.php'; ?>
 <?php if ($flash || $error): ?>
   <div class="modal fade" id="procedureMessageModal" tabindex="-1" aria-hidden="true">
@@ -1554,9 +2065,11 @@ if ($isPdfExport) {
   const linkTextInput = document.getElementById('procedureLinkText');
   const linkBlankInput = document.getElementById('procedureLinkBlank');
   const readContent = document.getElementById('procedureReadContent');
+  const PROCEDURE_DOCUMENT_FLOW = true;
 
   const prepareStaticProcedureContent = (container) => {
     if (!container) return;
+    normalizeProcedureDocumentFlow(container);
     container.querySelectorAll('.proc-side-layout').forEach((layout) => {
       layout.classList.remove('is-selected', 'is-dragging');
       layout.removeAttribute('contenteditable');
@@ -1613,9 +2126,13 @@ if ($isPdfExport) {
       codeEl.innerHTML = highlightStaticCode(raw, lang);
     });
     reserveStaticLayoutSpace(container);
+    normalizeProcedureDocumentFlow(container);
+    normalizeDocumentBlockBoundaries(container);
     normalizeFlowAwayFromPageDivisions(container);
     updateFreePositionCanvas(container);
     window.setTimeout(() => {
+      normalizeProcedureDocumentFlow(container);
+      normalizeDocumentBlockBoundaries(container);
       normalizeFlowAwayFromPageDivisions(container);
       updateFreePositionCanvas(container);
     }, 120);
@@ -1648,6 +2165,10 @@ if ($isPdfExport) {
 
   function updateFreePositionCanvas(container = editor) {
     if (!container) return;
+    if (PROCEDURE_DOCUMENT_FLOW) {
+      container.style.removeProperty('min-height');
+      return;
+    }
     const baseMinHeight = container === editor ? 560 : 260;
     let maxBottom = baseMinHeight;
     getFreePositionNodes(container).forEach((node) => {
@@ -1669,6 +2190,128 @@ if ($isPdfExport) {
     node.style.removeProperty('left');
     node.style.removeProperty('top');
     node.style.removeProperty('z-index');
+  };
+
+  const resetDocumentFlowStyles = (node) => {
+    if (!node) return;
+    clearFreePosition(node);
+    node.classList.remove('is-drag-ghost', 'is-dragging');
+    node.removeAttribute('draggable');
+    node.removeAttribute('data-position');
+    if (node.dataset?.align === 'free') {
+      node.dataset.align = 'left';
+    }
+    if (node.dataset) {
+      node.dataset.offset = '0';
+    }
+    [
+      'left',
+      'top',
+      'right',
+      'bottom',
+      'z-index',
+      'transform',
+      'pointer-events',
+      'margin-left',
+      'margin-right',
+      'max-width',
+      'min-width'
+    ].forEach((property) => node.style.removeProperty(property));
+    if (node.matches?.('.proc-side-layout')) {
+      node.style.removeProperty('width');
+      node.style.removeProperty('margin');
+    }
+  };
+
+  const normalizeProcedureDocumentFlow = (container) => {
+    if (!container) return;
+    container.querySelectorAll('.proc-side-layout').forEach((layout) => {
+      const parent = layout.parentNode;
+      if (!parent) return;
+      const leftText = layout.querySelector('.proc-side-text-left');
+      const rightText = layout.querySelector('.proc-side-text-right');
+      const flowChildren = [];
+      [leftText].forEach((region) => {
+        if (!region || region.textContent.replace(/\u00a0/g, ' ').trim() === '') return;
+        const paragraph = document.createElement('p');
+        paragraph.innerHTML = region.innerHTML;
+        flowChildren.push(paragraph);
+      });
+      flowChildren.push(...Array.from(layout.children).filter((child) => !child.classList.contains('proc-side-text')));
+      [rightText].forEach((region) => {
+        if (!region || region.textContent.replace(/\u00a0/g, ' ').trim() === '') return;
+        const paragraph = document.createElement('p');
+        paragraph.innerHTML = region.innerHTML;
+        flowChildren.push(paragraph);
+      });
+      flowChildren.forEach((child) => {
+        resetDocumentFlowStyles(child);
+        parent.insertBefore(child, layout);
+      });
+      layout.remove();
+    });
+    container.querySelectorAll('[data-position="free"], [data-align="free"], .proc-image-wrap, .proc-table-wrap, pre.proc-code-block, .proc-callout').forEach((node) => {
+      resetDocumentFlowStyles(node);
+    });
+  };
+
+  const hasVisibleEditorContent = (node) => {
+    if (!node) return false;
+    if (node.nodeType === Node.TEXT_NODE) {
+      return node.textContent.replace(/\u00a0/g, ' ').trim() !== '';
+    }
+    if (node.nodeType !== Node.ELEMENT_NODE) {
+      return false;
+    }
+    return node.matches('img, table, hr, .proc-image-wrap, .proc-table-wrap, pre.proc-code-block, .proc-callout')
+      || node.textContent.replace(/\u00a0/g, ' ').trim() !== ''
+      || !!node.querySelector?.('img, table, hr, .proc-image-wrap, .proc-table-wrap, pre.proc-code-block, .proc-callout');
+  };
+
+  const normalizeDocumentBlockBoundaries = (container) => {
+    if (!container) return;
+    Array.from(container.childNodes).forEach((node) => {
+      if (node.nodeType !== Node.TEXT_NODE) return;
+      if (node.textContent.replace(/\u00a0/g, ' ').trim() === '') {
+        node.remove();
+        return;
+      }
+      const paragraph = document.createElement('p');
+      paragraph.textContent = node.textContent;
+      container.insertBefore(paragraph, node);
+      node.remove();
+    });
+
+    container.querySelectorAll('.proc-image-wrap, .proc-table-wrap, pre.proc-code-block, .proc-callout, hr.proc-editor-sep').forEach((block) => {
+      const parent = block.parentElement;
+      if (!parent || parent === container) return;
+      if (block.closest('td, th')) return;
+      if (parent.closest('.proc-table-wrap, pre.proc-code-block')) return;
+      if (parent.closest('.proc-callout') && !block.classList.contains('proc-callout')) return;
+      if (parent.matches('ul, ol, li, table, thead, tbody, tfoot, tr, td, th, pre, code')) return;
+
+      const before = document.createElement('p');
+      while (parent.firstChild && parent.firstChild !== block) {
+        before.appendChild(parent.firstChild);
+      }
+
+      const after = document.createElement('p');
+      while (block.nextSibling) {
+        after.appendChild(block.nextSibling);
+      }
+
+      const reference = parent;
+      if (hasVisibleEditorContent(before)) {
+        reference.parentNode.insertBefore(before, reference);
+      }
+      reference.parentNode.insertBefore(block, reference);
+      if (hasVisibleEditorContent(after)) {
+        reference.parentNode.insertBefore(after, reference);
+      }
+      if (!hasVisibleEditorContent(reference)) {
+        reference.remove();
+      }
+    });
   };
 
   let selectedCodeBlock = null;
@@ -2045,18 +2688,39 @@ if ($isPdfExport) {
       const container = document.querySelector('.proc-editor');
       if (!container) return;
       const apply = () => {
-        container.querySelectorAll('.proc-side-layout[data-side-mode="compact"]').forEach((layout) => {
-          const children = Array.from(layout.children).filter((child) => !child.classList.contains('proc-side-text'));
-          const height = Math.max(0, ...children.map((child) => Math.ceil(child.getBoundingClientRect().height || child.offsetHeight || 0)));
-          if (height > 0) layout.style.minHeight = height + 'px';
+        container.querySelectorAll('.proc-side-layout').forEach((layout) => {
+          const parent = layout.parentNode;
+          if (!parent) return;
+          const leftText = layout.querySelector('.proc-side-text-left');
+          const rightText = layout.querySelector('.proc-side-text-right');
+          const flowChildren = [];
+          [leftText].forEach((region) => {
+            if (!region || region.textContent.replace(/\\u00a0/g, ' ').trim() === '') return;
+            const paragraph = document.createElement('p');
+            paragraph.innerHTML = region.innerHTML;
+            flowChildren.push(paragraph);
+          });
+          flowChildren.push(...Array.from(layout.children).filter((child) => !child.classList.contains('proc-side-text')));
+          [rightText].forEach((region) => {
+            if (!region || region.textContent.replace(/\\u00a0/g, ' ').trim() === '') return;
+            const paragraph = document.createElement('p');
+            paragraph.innerHTML = region.innerHTML;
+            flowChildren.push(paragraph);
+          });
+          flowChildren.forEach((child) => {
+            child.removeAttribute('data-position');
+            if (child.dataset?.align === 'free') child.dataset.align = 'left';
+            ['position', 'left', 'top', 'z-index', 'transform', 'margin-left', 'margin-right', 'max-width', 'min-width'].forEach((property) => child.style.removeProperty(property));
+            parent.insertBefore(child, layout);
+          });
+          layout.remove();
         });
-        let maxBottom = 560;
-        container.querySelectorAll('.proc-side-layout[data-position="free"], .proc-callout[data-position="free"]').forEach((node) => {
-          const top = parseFloat(node.style.top || '0') || 0;
-          const height = Math.max(0, Math.round(node.getBoundingClientRect().height || node.offsetHeight || 0));
-          maxBottom = Math.max(maxBottom, Math.ceil(top + height + 32));
+        container.querySelectorAll('[data-position="free"], [data-align="free"], .proc-image-wrap, .proc-table-wrap, pre.proc-code-block, .proc-callout').forEach((node) => {
+          node.removeAttribute('data-position');
+          if (node.dataset?.align === 'free') node.dataset.align = 'left';
+          ['position', 'left', 'top', 'z-index', 'transform', 'margin-left', 'margin-right', 'max-width', 'min-width'].forEach((property) => node.style.removeProperty(property));
         });
-        container.style.minHeight = maxBottom + 'px';
+        container.style.removeProperty('min-height');
       };
       apply();
       setTimeout(apply, 80);
@@ -2078,6 +2742,12 @@ if ($isPdfExport) {
   };
 
   const printProcedurePreview = (title) => {
+    const fileFrame = document.getElementById('procedureFileFrame');
+    if (fileFrame?.contentWindow) {
+      fileFrame.contentWindow.focus();
+      fileFrame.contentWindow.print();
+      return;
+    }
     const html = editor && hiddenContent && document.body.contains(editor)
       ? buildCurrentEditorPreview(title)
       : buildReadContentPreview(title);
@@ -2177,6 +2847,17 @@ if ($isPdfExport) {
     const messageModal = new bootstrap.Modal(messageModalEl);
     messageModal.show();
   }
+
+  const moveProcedureModalEl = document.getElementById('moveProcedureModal');
+  moveProcedureModalEl?.addEventListener('show.bs.modal', (event) => {
+    const button = event.relatedTarget;
+    const idInput = document.getElementById('move-procedure-id');
+    const titleNode = document.getElementById('move-procedure-title');
+    const procedureId = button?.getAttribute('data-proc-move-id') || '';
+    const procedureTitle = button?.getAttribute('data-proc-move-title') || 'Documento';
+    if (idInput) idInput.value = procedureId;
+    if (titleNode) titleNode.textContent = `Mover: ${procedureTitle}`;
+  });
 
   if (!form || !editor) {
     return;
@@ -3210,6 +3891,7 @@ if ($isPdfExport) {
     if (draggingSortCompanion && draggingSortCompanion !== node) {
       draggingSortCompanion.classList.add('is-dragging');
     }
+    editor.classList.add('is-sorting');
     node.dataset.position = 'free';
     node.style.position = 'fixed';
     node.style.left = `${Math.round(dragRect.left)}px`;
@@ -3418,6 +4100,14 @@ if ($isPdfExport) {
 
   const ensureSideLayout = (node, kind) => {
     if (!node) return null;
+    if (PROCEDURE_DOCUMENT_FLOW) {
+      const layout = node.closest('.proc-side-layout');
+      if (layout?.parentNode) {
+        normalizeProcedureDocumentFlow(layout.parentNode);
+      }
+      resetDocumentFlowStyles(node);
+      return null;
+    }
     let layout = node.closest('.proc-side-layout');
     if (!layout) {
       layout = document.createElement('div');
@@ -3620,6 +4310,26 @@ if ($isPdfExport) {
 
   const placeDraggedNodeFreely = (event, fallbackRect) => {
     if (!draggingSortNode || !editor) return;
+    if (PROCEDURE_DOCUMENT_FLOW) {
+      const anchor = dragPlaceholder?.parentNode === editor ? dragPlaceholder : null;
+      if (draggingSortNode.parentNode !== editor) {
+        if (anchor) {
+          editor.insertBefore(draggingSortNode, anchor);
+        } else {
+          editor.appendChild(draggingSortNode);
+        }
+      } else if (anchor) {
+        editor.insertBefore(draggingSortNode, anchor);
+      }
+      if (draggingSortTail?.parentNode === editor) {
+        draggingSortTail.remove();
+      }
+      draggingSortNode.setAttribute('style', draggingSortOriginalCssText || '');
+      resetDocumentFlowStyles(draggingSortNode);
+      resetDocumentFlowStyles(draggingSortCompanion);
+      normalizeProcedureDocumentFlow(editor);
+      return;
+    }
     const bounds = getEditorContentMetrics();
     const visualNode = getSortableVisualNode(draggingSortNode) || draggingSortNode;
     const visualRect = fallbackRect || visualNode.getBoundingClientRect();
@@ -3697,6 +4407,7 @@ if ($isPdfExport) {
       dragPlaceholder = null;
       dragIndicator?.remove();
       dragVerticalIndicator?.remove();
+      editor.classList.remove('is-sorting');
       syncContent();
     }
   };
@@ -3764,8 +4475,12 @@ if ($isPdfExport) {
     prepareTables();
     prepareCodeBlocks();
     prepareCallouts();
+    normalizeProcedureDocumentFlow(editor);
+    normalizeDocumentBlockBoundaries(editor);
     highlightAllCodeBlocks();
     const clone = editor.cloneNode(true);
+    normalizeProcedureDocumentFlow(clone);
+    normalizeDocumentBlockBoundaries(clone);
     clone.querySelectorAll('.proc-code-actions, .proc-code-resize').forEach((node) => node.remove());
     clone.querySelectorAll('.proc-image-tools, .proc-image-resize').forEach((node) => node.remove());
     clone.querySelectorAll('.proc-table-tools, .proc-table-resize, .proc-table-col-resize-handle, .proc-table-row-resize-handle').forEach((node) => node.remove());
@@ -5156,7 +5871,7 @@ if ($isPdfExport) {
 
   document.addEventListener('mousemove', (event) => {
     moveSortableNode(event);
-    if (draggingSortNode && (draggingSortType === 'image' || draggingSortType === 'table' || draggingSortType === 'code' || draggingSortType === 'callout')) {
+    if (!PROCEDURE_DOCUMENT_FLOW && draggingSortNode && (draggingSortType === 'image' || draggingSortType === 'table' || draggingSortType === 'code' || draggingSortType === 'callout')) {
       updateSortableHorizontalIndicator(draggingSortNode, event.clientX);
     }
     if (resizingImageWrap) {
@@ -5277,7 +5992,7 @@ if ($isPdfExport) {
     const wrap = cell.closest('.proc-table-wrap');
     updateSelectedTableCellVisual();
     updateTableResizeHandles(wrap);
-    if (event.key === 'Enter' && event.altKey) {
+    if (event.key === 'Enter' && (event.altKey || event.shiftKey)) {
       event.preventDefault();
       document.execCommand('insertHTML', false, '<br>');
       saveEditorSelection();

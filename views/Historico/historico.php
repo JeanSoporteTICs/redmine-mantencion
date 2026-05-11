@@ -1,13 +1,16 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/../../controllers/auth.php';
 auth_require_login('/redmine-mantencion/login.php');
 require_once __DIR__ . '/../../controllers/dashboard.php';
+require_once __DIR__ . '/../../controllers/storage.php';
+require_once __DIR__ . '/../../controllers/maintenance.php';
 if (!auth_can('historico')) {
   header('Location: /redmine-mantencion/views/Dashboard/dashboard.php');
   exit;
 }
 
 $h = fn($v) => htmlspecialchars($v ?? '', ENT_QUOTES, 'UTF-8');
+$maintenanceMode = maintenance_mode_enabled();
 
 function historico_read_json_file(string $file): array {
   $raw = @file_get_contents($file);
@@ -28,7 +31,7 @@ function delete_reporte(string $base, string $id): bool {
     if (!$data) continue;
     $new = array_values(array_filter($data, fn($r) => !is_array($r) || ($r['id'] ?? '') !== $id));
     if (count($new) !== count($data)) {
-      file_put_contents($file, json_encode($new, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+      storage_write_json($file, $new, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
       $changed = true;
     }
   }
@@ -50,7 +53,7 @@ function delete_horas_extra(string $base, string $id): bool {
       $newGroups[] = $g;
     }
     if ($newGroups !== $groups) {
-      file_put_contents($file, json_encode($newGroups, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+      storage_write_json($file, $newGroups, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
       $changed = true;
     }
   }
@@ -60,6 +63,7 @@ function delete_horas_extra(string $base, string $id): bool {
 // --- Eliminar si se solicito ---
 $alert = '';
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['action'], $_POST['id'], $_POST['fuente']) && $_POST['action'] === 'delete') {
+  if (function_exists('maintenance_mode_block_if_enabled')) maintenance_mode_block_if_enabled();
   $id = trim($_POST['id']);
   $src = $_POST['fuente'];
   $ok = false;
@@ -187,8 +191,8 @@ $roleName    = auth_get_user_role();
 $roleCfg     = $roles[$roleName] ?? [];
 $scopePermitido = $roleCfg['historico_scope'] ?? 'asignados';
 $scopeBloqueado = ($scopePermitido === 'asignados');
-$showActions = auth_can('historico_acciones');
-if (!$showActions && $roleName === 'gestor' && !array_key_exists('historico_acciones', $roleCfg)) {
+$showActions = !$maintenanceMode && auth_can('historico_acciones');
+if (!$maintenanceMode && !$showActions && $roleName === 'gestor' && !array_key_exists('historico_acciones', $roleCfg)) {
   // compatibilidad con roles antiguos sin la clave
   $showActions = true;
 }

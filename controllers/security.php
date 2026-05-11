@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/logger.php';
+require_once __DIR__ . '/storage.php';
 
 function security_load_events(int $limit = 20): array {
     $file = security_log_file();
@@ -26,5 +27,5 @@ function security_clear_events(): bool {
     if (!file_exists($file)) {
         return true;
     }
-    return file_put_contents($file, '') !== false;
+    return storage_truncate_file($file);
 }

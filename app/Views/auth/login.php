@@ -19,7 +19,7 @@
               <i class="bi bi-shield-lock"></i>
             </div>
             <h4 class="mt-2 mb-0">Iniciar sesion</h4>
-            <small class="text-muted">Usa tu ID o RUT y tu contrasena</small>
+            <small class="text-muted">Usa tu ID o RUT y tu Contraseña</small>
           </div>
           <?php if (!empty($error)): ?>
             <div class="alert alert-danger" id="alert-msg"><?= htmlspecialchars((string) $error, ENT_QUOTES, 'UTF-8') ?></div>
@@ -34,7 +34,7 @@
               </div>
             </div>
             <div class="mb-3">
-              <label class="form-label">Contrasena</label>
+              <label class="form-label">Contraseña</label>
               <div class="input-group">
                 <span class="input-group-text"><i class="bi bi-lock"></i></span>
                 <input name="password" type="password" class="form-control" autocomplete="current-password" required>
@@ -42,8 +42,8 @@
               <div class="form-text">Recuerda: diferencia mayusculas/minusculas.</div>
             </div>
             <div class="d-flex justify-content-between align-items-center mb-3">
-              <small class="text-muted"><?= (int) $usersCount ?> usuario(s) cargados</small>
-              <a class="small text-muted" href="#" onclick="alert('Contacta al administrador para restablecer.');return false;">Olvidaste tu contrasena?</a>
+              
+              <a class="small text-muted" href="#" onclick="alert('Contacta al administrador para restablecer.');return false;">Olvidaste tu Contraseña?</a>
             </div>
             <div class="d-grid">
               <button class="btn btn-primary btn-lg" type="submit">

@@ -1,5 +1,8 @@
 <?php
 require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/storage.php';
+require_once __DIR__ . '/core_credentials.php';
+require_once __DIR__ . '/maintenance.php';
 
 function usuarios_set_flash(string $message): void {
     auth_start_session();
@@ -31,7 +34,7 @@ function rut_base($rut) {
 
 function ensure_usr_file($path) {
     if (!file_exists($path)) {
-        file_put_contents($path, json_encode([], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        storage_write_json($path, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE, false);
     }
 }
 
@@ -45,7 +48,10 @@ function ensure_user_fields(array &$item) {
         'numero_celular' => '',
         'estamento' => '',
         'api' => '',
+        'core_user' => '',
+        'core_pass_enc' => '',
         'rol' => 'usuario',
+        'estado' => 'activo',
         'password' => '',
     ];
     foreach ($defaults as $key => $value) {
@@ -80,7 +86,7 @@ function load_usuarios($path) {
 }
 
 function save_usuarios($path, $data) {
-    file_put_contents($path, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    storage_write_json($path, $data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 }
 
 function find_user_index(array $rows, string $id): ?int {
@@ -278,8 +284,11 @@ function usuarios_sync_remote(array &$rows): array {
             'rut' => '',
             'numero_celular' => '',
             'estamento' => '',
-            'api' => '',
-            'rol' => 'usuario',
+                'api' => '',
+                'core_user' => '',
+                'core_pass_enc' => '',
+                'rol' => 'usuario',
+                'estado' => 'baneado',
             'password' => '',
             'permisos' => [],
         ];
@@ -297,6 +306,9 @@ function handle_usuarios() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (function_exists('csrf_validate')) csrf_validate();
         $action = $_POST['action'] ?? '';
+        if (function_exists('maintenance_mode_block_if_enabled')) {
+            maintenance_mode_block_if_enabled();
+        }
         $id_input = sanitize_input($_POST['id_manual'] ?? '');
 
         if ($action === 'create') {
@@ -331,7 +343,10 @@ function handle_usuarios() {
                 'numero_celular' => '',
                 'estamento' => '',
                 'rol' => $assignedRole,
+                'estado' => in_array(($_POST['estado'] ?? 'activo'), ['activo', 'baneado'], true) ? $_POST['estado'] : 'activo',
                 'api' => sanitize_input($_POST['api'] ?? ''),
+                'core_user' => sanitize_input($_POST['core_user'] ?? ''),
+                'core_pass_enc' => core_credentials_encrypt(sanitize_input($_POST['core_pass'] ?? '')),
                 'password' => $hash,
                 'permisos' => $rolePerms,
             ];
@@ -362,7 +377,27 @@ function handle_usuarios() {
             $current['numero_celular'] = '';
             $current['estamento'] = '';
             $current['rol'] = sanitize_input($_POST['rol'] ?? ($current['rol'] ?? 'usuario'));
-            $current['api'] = sanitize_input($_POST['api'] ?? $current['api']);
+            $postedEstado = sanitize_input($_POST['estado'] ?? ($current['estado'] ?? 'activo'));
+            $current['estado'] = in_array($postedEstado, ['activo', 'baneado'], true) ? $postedEstado : 'activo';
+            $postedApi = sanitize_input($_POST['api'] ?? '');
+            if ($postedApi !== '') {
+                $current['api'] = $postedApi;
+            }
+            $postedCoreUser = sanitize_input($_POST['core_user'] ?? '');
+            $postedCorePass = sanitize_input($_POST['core_pass'] ?? '');
+            if (!empty($_POST['core_clear_credentials'])) {
+                $current['core_user'] = '';
+                $current['core_pass_enc'] = '';
+                unset($current['core_pass']);
+            } else {
+                if ($postedCoreUser !== '') {
+                    $current['core_user'] = $postedCoreUser;
+                }
+                if ($postedCorePass !== '') {
+                    $current['core_pass_enc'] = core_credentials_encrypt($postedCorePass);
+                    unset($current['core_pass']);
+                }
+            }
             save_usuarios($DATA_FILE, $rows);
             usuarios_set_flash('Usuario actualizado');
             usuarios_redirect_back();

@@ -1,7 +1,9 @@
-﻿<?php
+<?php
 require_once __DIR__ . '/../../controllers/auth.php';
 auth_require_login('/redmine-mantencion/login.php');
 require_once __DIR__ . '/../../controllers/dashboard.php';
+require_once __DIR__ . '/../../controllers/maintenance.php';
+$maintenanceMode = maintenance_mode_enabled();
 
 if (!defined('HOURS_EXTRA_DIR')) {
     define('HOURS_EXTRA_DIR', __DIR__ . '/../../data/horasExtras');
@@ -211,7 +213,7 @@ function update_hours_by_date($fecha, $horaIni, $horaFin) {
             unset($g);
 
             if ($changed) {
-                file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+                storage_write_json($file, $data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
                 $updated = true;
             }
         }
@@ -237,6 +239,7 @@ if (in_array($role, ['usuario','administrador','gestor'], true) && $uid !== '') 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'update_extra') {
     if (function_exists('csrf_validate')) csrf_validate();
+    if (function_exists('maintenance_mode_block_if_enabled')) maintenance_mode_block_if_enabled();
     $fecha = trim($_POST['fecha'] ?? '');
     $horaIni = trim($_POST['hora_ini'] ?? '');
     $horaFin = trim($_POST['hora_fin'] ?? '');
@@ -483,7 +486,7 @@ function hhmm($mins) {
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Guardar</button>
+          <button type="submit" class="btn btn-primary" <?= $maintenanceMode ? 'disabled title="Plataforma en mantencion"' : '' ?>>Guardar</button>
         </div>
       </form>
     </div>
