@@ -17,12 +17,11 @@
             "historico": true,
             "historico_acciones": true,
             "historico_scope": "asignados",
-            "procedimientos": true,
-            "procedimientos_editar": true,
             "configuracion": true,
             "estadisticas": true,
             "usuarios": true,
             "categorias": true,
+            "unidades": true,
             "simulador": true,
             "cfg_conexion": true,
             "cfg_proyecto": true,
@@ -36,7 +35,7 @@
             "actividad": true
         },
         "core_user": "19006667",
-        "core_pass_enc": "enc:v1:pAOB8xY\/k+XYbgP\/5XJ0\/Q==:jvY5tGxXkbN9mo3f0v6x6A==:QbkLC7iGNzVlT1umMhqNcYyVxg0n8D2iYBvPf2LGLQU=",
+        "core_pass_enc": "enc:v1:Uw5WTqnOpdO\/xc6WaDdsmQ==:Q\/va8dVjYgLC83B+eR\/g2A==:AUN5Ll81\/K5Hy0rjY7LQUFO1C4SGbPv5eIYqtxleDNI=",
         "estado": "activo"
     },
     {

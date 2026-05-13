@@ -13630,3 +13630,313 @@
     },
     "message_id": "manual-69fde9b53380c6.15448704"
 }
+{
+    "ts": "2026-05-13T17:06:46+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":122944,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":602,\"name\":\"RCA cerrar atención\"},\"subject\":\"finalizar atención RCA\",\"description\":\"Estimada\\r\\nJunto con saludar, informo que finalizo atención saludos \\r\\n\\r\\n \\r\\nSaludos \\r\\n \\r\\n\\r\\n \\r\\n\\r\\nDe: Susana Quiñones Mancilla \\u003csusana.quinones@redsalud.gob.cl\\u003e \\r\\nEnviado el: viernes, 8 de mayo de 2026 14:53\\r\\nPara: Mesa Ayuda Core \\u003cayudacore@redsalud.gob.cl\\u003e\\r\\nCC: Ana Maria Aguirre Sepulveda HBV \\u003cana.aguirrehbv@redsalud.gob.cl\\u003e; PATRICIA BOLD VELOSO \\u003cpatricia.bold@redsalud.gob.cl\\u003e; Alejandra Mella Alvarez \\u003calejandra.mella@redsalud.gob.cl\\u003e\\r\\nAsunto: Atención enlazada (finalizada e iniciada)\\r\\n\\r\\nEstimados\\r\\n\\r\\nJunto con saludar, les consulto por una atención enlazada, donde una quedó finalizada, pero la otra quedó iniciada. Sin embargo en la atención que quedó iniciada, no da la opción para que el médico la pueda cerrar ya que dice que fue enlazada. El paciente se duplicó por un cambio en la agenda.\\r\\n\\r\\n \\r\\n\\r\\nQuedo atenta\",\"start_date\":\"2026-05-09\",\"due_date\":\"2026-05-09\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":1.0,\"total_estimated_hours\":1.0,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Susana\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"CAE\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"susana.quinones@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"1\"}],\"created_on\":\"2026-05-13T15:06:44Z\",\"updated_on\":\"2026-05-13T15:06:44Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "finalizar atención RCA",
+            "description": "Estimada\r\nJunto con saludar, informo que finalizo atención saludos \r\n\r\n \r\nSaludos \r\n \r\n\r\n \r\n\r\nDe: Susana Quiñones Mancilla <susana.quinones@redsalud.gob.cl> \r\nEnviado el: viernes, 8 de mayo de 2026 14:53\r\nPara: Mesa Ayuda Core <ayudacore@redsalud.gob.cl>\r\nCC: Ana Maria Aguirre Sepulveda HBV <ana.aguirrehbv@redsalud.gob.cl>; PATRICIA BOLD VELOSO <patricia.bold@redsalud.gob.cl>; Alejandra Mella Alvarez <alejandra.mella@redsalud.gob.cl>\r\nAsunto: Atención enlazada (finalizada e iniciada)\r\n\r\nEstimados\r\n\r\nJunto con saludar, les consulto por una atención enlazada, donde una quedó finalizada, pero la otra quedó iniciada. Sin embargo en la atención que quedó iniciada, no da la opción para que el médico la pueda cerrar ya que dice que fue enlazada. El paciente se duplicó por un cambio en la agenda.\r\n\r\n \r\n\r\nQuedo atenta",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "is_private": false,
+            "start_date": "2026-05-09",
+            "due_date": "2026-05-09",
+            "estimated_hours": 1,
+            "assigned_to_id": "42",
+            "category_id": 602,
+            "custom_fields": [
+                {
+                    "id": "3",
+                    "value": "Susana"
+                },
+                {
+                    "id": "5",
+                    "value": "CAE"
+                },
+                {
+                    "id": 8,
+                    "value": "susana.quinones@redsalud.gob.cl"
+                },
+                {
+                    "id": "12",
+                    "value": "1"
+                }
+            ]
+        }
+    },
+    "message_id": "manual-69ff59d018d240.33889784"
+}
+{
+    "ts": "2026-05-13T17:06:47+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":122945,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":627,\"name\":\"Reactivación Usuario CORE\"},\"subject\":\"usuario CORE baneado\",\"description\":\"[18:13, 8\/5\/2026] +56 9 6661 5851: Hola necesito ayuda con CORE\\r\\n[18:13, 8\/5\/2026] AyudaCore: Gracias por comunicarte con AyudaCore. Indicanos tu RUT\\r\\n ¿Cómo podemos ayudarte?. En unos minutos te atenderemos.\\r\\n\\r\\n*SI LA SITUACIÓN ES POR CREACIÓN DE USUARIOS CORE, PERMISOS O PERFIL. ESTO DEBE SER SOLICITADO POR REFERENTE CORE A TRAVÉS DEL MÓDULO DE SOLICITUD DE USUARIOS DE CORE*\\r\\n\\r\\n*SI TIENE PROBLEMAS CON UN PACIENTE FAVOR MENCIONAR RUT O FICHA.*\\r\\n\\r\\n* MODIFICACIONES O ELIMINACIÓN DE DATOS, DEBEN SER SOLICITADOS AL CORREO AYUDACORE@REDSALUD.GOB.CL DESDE JEFATURA *\\r\\n\\r\\n\\r\\nESTA VÍA SOLO ES PARA WHATSAPP!\\r\\n[18:13, 8\/5\/2026] AyudaCore: Gracias por tu mensaje. En este momento no podemos responder, pero lo haremos lo antes posible.\\r\\nHorarios de atención: \\r\\nLunes a Jueves de 8:00 a 17:00 hrs, Viernes de 8:00 a 16:00 hrs.\\r\\n◇Feriados no tenemos atencion◇\\r\\n[18:14, 8\/5\/2026] +56 9 6661 5851: 20536757-8\\r\\n[8:08, 9\/5\/2026] AyudaCore: hola buenos días\\r\\n[8:19, 9\/5\/2026] +56 9 6661 5851: Hola buen dia\\r\\n[8:21, 9\/5\/2026] +56 9 6661 5851: Sabe que ayer no lo se pq si puse bien mi clave no me acepto entrar y dsp me bloqueo la clave\\r\\n[8:23, 9\/5\/2026] AyudaCore: su cuenta fue baneada porque anteriormente solicitaron activarla hasta el 06-05-2026 que era hasta cuando duraba su contrato anterior\\r\\n[8:24, 9\/5\/2026] +56 9 6661 5851: Aaaa entiendo\\r\\n[8:25, 9\/5\/2026] AyudaCore: ahora quedo activa hasta 22-05-2026 que es lo que me indica su nuevo contrato\\r\\n[8:25, 9\/5\/2026] +56 9 6661 5851: Ok gracias\\r\\n[8:26, 9\/5\/2026] +56 9 6661 5851: Ingreso con la misma clave q le habia creado?\\r\\n[8:26, 9\/5\/2026] AyudaCore: sii, ingrese con su contraseña actual\\r\\n[8:26, 9\/5\/2026] +56 9 6661 5851: sii, ingrese con su contraseña actual\\r\\nOk gracias\",\"start_date\":\"2026-05-09\",\"due_date\":\"2026-05-09\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":1.0,\"total_estimated_hours\":1.0,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"SOFIA ALEJANDRA RIOS NAVARRETE\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"UNIDAD DE URGENCIA GINECO-OBSTÉTRICA\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"1\"}],\"created_on\":\"2026-05-13T15:06:45Z\",\"updated_on\":\"2026-05-13T15:06:45Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "usuario CORE baneado",
+            "description": "[18:13, 8\/5\/2026] +56 9 6661 5851: Hola necesito ayuda con CORE\r\n[18:13, 8\/5\/2026] AyudaCore: Gracias por comunicarte con AyudaCore. Indicanos tu RUT\r\n ¿Cómo podemos ayudarte?. En unos minutos te atenderemos.\r\n\r\n*SI LA SITUACIÓN ES POR CREACIÓN DE USUARIOS CORE, PERMISOS O PERFIL. ESTO DEBE SER SOLICITADO POR REFERENTE CORE A TRAVÉS DEL MÓDULO DE SOLICITUD DE USUARIOS DE CORE*\r\n\r\n*SI TIENE PROBLEMAS CON UN PACIENTE FAVOR MENCIONAR RUT O FICHA.*\r\n\r\n* MODIFICACIONES O ELIMINACIÓN DE DATOS, DEBEN SER SOLICITADOS AL CORREO AYUDACORE@REDSALUD.GOB.CL DESDE JEFATURA *\r\n\r\n\r\nESTA VÍA SOLO ES PARA WHATSAPP!\r\n[18:13, 8\/5\/2026] AyudaCore: Gracias por tu mensaje. En este momento no podemos responder, pero lo haremos lo antes posible.\r\nHorarios de atención: \r\nLunes a Jueves de 8:00 a 17:00 hrs, Viernes de 8:00 a 16:00 hrs.\r\n◇Feriados no tenemos atencion◇\r\n[18:14, 8\/5\/2026] +56 9 6661 5851: 20536757-8\r\n[8:08, 9\/5\/2026] AyudaCore: hola buenos días\r\n[8:19, 9\/5\/2026] +56 9 6661 5851: Hola buen dia\r\n[8:21, 9\/5\/2026] +56 9 6661 5851: Sabe que ayer no lo se pq si puse bien mi clave no me acepto entrar y dsp me bloqueo la clave\r\n[8:23, 9\/5\/2026] AyudaCore: su cuenta fue baneada porque anteriormente solicitaron activarla hasta el 06-05-2026 que era hasta cuando duraba su contrato anterior\r\n[8:24, 9\/5\/2026] +56 9 6661 5851: Aaaa entiendo\r\n[8:25, 9\/5\/2026] AyudaCore: ahora quedo activa hasta 22-05-2026 que es lo que me indica su nuevo contrato\r\n[8:25, 9\/5\/2026] +56 9 6661 5851: Ok gracias\r\n[8:26, 9\/5\/2026] +56 9 6661 5851: Ingreso con la misma clave q le habia creado?\r\n[8:26, 9\/5\/2026] AyudaCore: sii, ingrese con su contraseña actual\r\n[8:26, 9\/5\/2026] +56 9 6661 5851: sii, ingrese con su contraseña actual\r\nOk gracias",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "is_private": false,
+            "start_date": "2026-05-09",
+            "due_date": "2026-05-09",
+            "estimated_hours": 1,
+            "assigned_to_id": "42",
+            "category_id": 627,
+            "custom_fields": [
+                {
+                    "id": "3",
+                    "value": "SOFIA ALEJANDRA RIOS NAVARRETE"
+                },
+                {
+                    "id": "5",
+                    "value": "UNIDAD DE URGENCIA GINECO-OBSTÉTRICA"
+                },
+                {
+                    "id": "12",
+                    "value": "1"
+                }
+            ]
+        }
+    },
+    "message_id": "manual-69ff5a79b74924.82971402"
+}
+{
+    "ts": "2026-05-13T17:06:48+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":122946,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":602,\"name\":\"RCA cerrar atención\"},\"subject\":\"cerrar atención RCA \/ atención por whatsapp\",\"description\":\"[12:02, 9\/5\/2026] +56 9 7778 2382: Hola buenas\\r\\n[12:02, 9\/5\/2026] AyudaCore: Gracias por comunicarte con AyudaCore. Indicanos tu RUT\\r\\n ¿Cómo podemos ayudarte?. En unos minutos te atenderemos.\\r\\n\\r\\n*SI LA SITUACIÓN ES POR CREACIÓN DE USUARIOS CORE, PERMISOS O PERFIL. ESTO DEBE SER SOLICITADO POR REFERENTE CORE A TRAVÉS DEL MÓDULO DE SOLICITUD DE USUARIOS DE CORE*\\r\\n\\r\\n*SI TIENE PROBLEMAS CON UN PACIENTE FAVOR MENCIONAR RUT O FICHA.*\\r\\n\\r\\n* MODIFICACIONES O ELIMINACIÓN DE DATOS, DEBEN SER SOLICITADOS AL CORREO AYUDACORE@REDSALUD.GOB.CL DESDE JEFATURA *\\r\\n\\r\\n\\r\\nESTA VÍA SOLO ES PARA WHATSAPP!\\r\\n[12:02, 9\/5\/2026] AyudaCore: Gracias por tu mensaje. En este momento no podemos responder, pero lo haremos lo antes posible.\\r\\nHorarios de atención: \\r\\nLunes a Jueves de 8:00 a 17:00 hrs, Viernes de 8:00 a 16:00 hrs.\\r\\n◇Feriados no tenemos atencion◇\\r\\n[12:02, 9\/5\/2026] AyudaCore: hola buenos días\\r\\n[12:02, 9\/5\/2026] +56 9 7778 2382: Quiero pedir exámenes a la paciente FC 112600\\r\\n[12:03, 9\/5\/2026] +56 9 7778 2382: No me deja la página, dice que tiene atenciones abiertas\\r\\n[12:03, 9\/5\/2026] +56 9 7778 2382: Hospitalizada\\r\\n[12:10, 9\/5\/2026] AyudaCore: listo, favor revisar\\r\\n[12:12, 9\/5\/2026] +56 9 7778 2382: Si gracias\",\"start_date\":\"2026-05-09\",\"due_date\":\"2026-05-09\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":1.0,\"total_estimated_hours\":1.0,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"20165786-5\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"HBV\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"1\"}],\"created_on\":\"2026-05-13T15:06:46Z\",\"updated_on\":\"2026-05-13T15:06:46Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "cerrar atención RCA \/ atención por whatsapp",
+            "description": "[12:02, 9\/5\/2026] +56 9 7778 2382: Hola buenas\r\n[12:02, 9\/5\/2026] AyudaCore: Gracias por comunicarte con AyudaCore. Indicanos tu RUT\r\n ¿Cómo podemos ayudarte?. En unos minutos te atenderemos.\r\n\r\n*SI LA SITUACIÓN ES POR CREACIÓN DE USUARIOS CORE, PERMISOS O PERFIL. ESTO DEBE SER SOLICITADO POR REFERENTE CORE A TRAVÉS DEL MÓDULO DE SOLICITUD DE USUARIOS DE CORE*\r\n\r\n*SI TIENE PROBLEMAS CON UN PACIENTE FAVOR MENCIONAR RUT O FICHA.*\r\n\r\n* MODIFICACIONES O ELIMINACIÓN DE DATOS, DEBEN SER SOLICITADOS AL CORREO AYUDACORE@REDSALUD.GOB.CL DESDE JEFATURA *\r\n\r\n\r\nESTA VÍA SOLO ES PARA WHATSAPP!\r\n[12:02, 9\/5\/2026] AyudaCore: Gracias por tu mensaje. En este momento no podemos responder, pero lo haremos lo antes posible.\r\nHorarios de atención: \r\nLunes a Jueves de 8:00 a 17:00 hrs, Viernes de 8:00 a 16:00 hrs.\r\n◇Feriados no tenemos atencion◇\r\n[12:02, 9\/5\/2026] AyudaCore: hola buenos días\r\n[12:02, 9\/5\/2026] +56 9 7778 2382: Quiero pedir exámenes a la paciente FC 112600\r\n[12:03, 9\/5\/2026] +56 9 7778 2382: No me deja la página, dice que tiene atenciones abiertas\r\n[12:03, 9\/5\/2026] +56 9 7778 2382: Hospitalizada\r\n[12:10, 9\/5\/2026] AyudaCore: listo, favor revisar\r\n[12:12, 9\/5\/2026] +56 9 7778 2382: Si gracias",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "is_private": false,
+            "start_date": "2026-05-09",
+            "due_date": "2026-05-09",
+            "estimated_hours": 1,
+            "assigned_to_id": "42",
+            "category_id": 602,
+            "custom_fields": [
+                {
+                    "id": "3",
+                    "value": "20165786-5"
+                },
+                {
+                    "id": "5",
+                    "value": "HBV"
+                },
+                {
+                    "id": "12",
+                    "value": "1"
+                }
+            ]
+        }
+    },
+    "message_id": "manual-69ff5f584fa6a1.15532949"
+}
+{
+    "ts": "2026-05-13T17:06:49+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":122947,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Estadística\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|13820441-3|Ana Luisa Mutizabal Adriasola|Información necesaria para Unidad Costos|Modulo de RRH para ver información contractual|\",\"start_date\":\"2026-05-12\",\"due_date\":\"2026-05-12\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Mario Richard Obando Gutierrez\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad Estadística\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"mario.obando@redsalud.gov.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-05-13T15:06:47Z\",\"updated_on\":\"2026-05-13T15:06:47Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Estadística",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|13820441-3|Ana Luisa Mutizabal Adriasola|Información necesaria para Unidad Costos|Modulo de RRH para ver información contractual|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-05-12",
+            "due_date": "2026-05-12",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": "3",
+                    "value": "Mario Richard Obando Gutierrez"
+                },
+                {
+                    "id": "5",
+                    "value": "Unidad Estadística"
+                },
+                {
+                    "id": 8,
+                    "value": "mario.obando@redsalud.gov.cl"
+                },
+                {
+                    "id": "12",
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-a47c792ea84b0dfc1643"
+}
+{
+    "ts": "2026-05-13T17:06:50+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":122948,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Admisión\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|17906764-1|Nataly Andrea Toledo Aguilar|trabajo administrativo|se requiere que se complete perfil de funcionaria.  dejar igual al rut: 17158586-4|\",\"start_date\":\"2026-05-12\",\"due_date\":\"2026-05-12\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Nancy Oyarzo Aguirre\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad De Admisión\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"nancy.oyarzoa@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-05-13T15:06:48Z\",\"updated_on\":\"2026-05-13T15:06:48Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Admisión",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|17906764-1|Nataly Andrea Toledo Aguilar|trabajo administrativo|se requiere que se complete perfil de funcionaria.  dejar igual al rut: 17158586-4|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-05-12",
+            "due_date": "2026-05-12",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": "3",
+                    "value": "Nancy Oyarzo Aguirre"
+                },
+                {
+                    "id": "5",
+                    "value": "Unidad De Admisión"
+                },
+                {
+                    "id": 8,
+                    "value": "nancy.oyarzoa@redsalud.gob.cl"
+                },
+                {
+                    "id": "12",
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-4b31c6314088ccb8be4f"
+}
+{
+    "ts": "2026-05-13T17:06:51+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":122949,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Medicina\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|18173300-4|Vanessa Jacqueline Valdebenito Caamaño|ATENCION DIRECTA DE PACIENTES EN UTI Y MEDICINA QUE NECESITA RECEPCIONAR Y TRASLADAR FICHAS|INCORPORAR MODULO DE ARCHIVO PARA UTI3 Y MEDICINA|\",\"start_date\":\"2026-05-12\",\"due_date\":\"2026-05-12\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Veronica Valencia Camus\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Subdepto. Medicina\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"veronica.valencia@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-05-13T15:06:49Z\",\"updated_on\":\"2026-05-13T15:06:49Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Subdepto. Medicina",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|18173300-4|Vanessa Jacqueline Valdebenito Caamaño|ATENCION DIRECTA DE PACIENTES EN UTI Y MEDICINA QUE NECESITA RECEPCIONAR Y TRASLADAR FICHAS|INCORPORAR MODULO DE ARCHIVO PARA UTI3 Y MEDICINA|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-05-12",
+            "due_date": "2026-05-12",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": "3",
+                    "value": "Veronica Valencia Camus"
+                },
+                {
+                    "id": "5",
+                    "value": "Subdepto. Medicina"
+                },
+                {
+                    "id": 8,
+                    "value": "veronica.valencia@redsalud.gob.cl"
+                },
+                {
+                    "id": "12",
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-eeef5ce2058ea3ea7cd1"
+}
+{
+    "ts": "2026-05-13T17:06:52+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":122950,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Admisión\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|15549378-K|Marcela Salazar Miranda|trabajo administrativo.|se requiere en modulo central telefónica se pueda modificar el registro  dejar idem al Rut: 17158586-4|\",\"start_date\":\"2026-05-12\",\"due_date\":\"2026-05-12\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Nancy Oyarzo Aguirre\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad De Admisión\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"nancy.oyarzoa@redsalud.gob.cl\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-05-13T15:06:50Z\",\"updated_on\":\"2026-05-13T15:06:50Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad De Admisión",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|15549378-K|Marcela Salazar Miranda|trabajo administrativo.|se requiere en modulo central telefónica se pueda modificar el registro  dejar idem al Rut: 17158586-4|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-05-12",
+            "due_date": "2026-05-12",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": "3",
+                    "value": "Nancy Oyarzo Aguirre"
+                },
+                {
+                    "id": "5",
+                    "value": "Unidad De Admisión"
+                },
+                {
+                    "id": 8,
+                    "value": "nancy.oyarzoa@redsalud.gob.cl"
+                },
+                {
+                    "id": "12",
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-770ed031f49000db7858"
+}
+{
+    "ts": "2026-05-13T17:06:53+02:00",
+    "http_code": 201,
+    "error": "",
+    "body": "{\"issue\":{\"id\":122951,\"project\":{\"id\":48,\"name\":\"Backlog Mantención TI\"},\"tracker\":{\"id\":3,\"name\":\"Soporte\"},\"status\":{\"id\":1,\"name\":\"Nueva\",\"is_closed\":false},\"priority\":{\"id\":2,\"name\":\"Normal\"},\"author\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"assigned_to\":{\"id\":42,\"name\":\"Jean  Cortés Lorca\"},\"category\":{\"id\":154,\"name\":\"Modificar Perfil CORE\"},\"subject\":\"Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Medicina Física Y Rehabilitación\",\"description\":\"|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\\r\\n|Modificar Perfil|20710725-5|Felipe Andrés Pereira Ahumada|No dispone de opciones.|Agregar módulo de ficha clínica para atención clínica a nivel de atención cerrada.|\",\"start_date\":\"2026-05-12\",\"due_date\":\"2026-05-12\",\"done_ratio\":0,\"is_private\":false,\"estimated_hours\":null,\"total_estimated_hours\":null,\"spent_hours\":0.0,\"total_spent_hours\":0.0,\"custom_fields\":[{\"id\":3,\"name\":\"Solicitante\",\"value\":\"Marcos Riquelme Barruel\"},{\"id\":4,\"name\":\"Anexo\",\"value\":\"\"},{\"id\":5,\"name\":\"Unidad\",\"value\":\"Unidad Medicina Física Y Rehabilitación\"},{\"id\":7,\"name\":\"Apoyo\",\"multiple\":true,\"value\":[]},{\"id\":8,\"name\":\"Correo\",\"value\":\"marcosriquelmebarruel@gmail.com\"},{\"id\":12,\"name\":\"Hora Extra\",\"value\":\"0\"}],\"created_on\":\"2026-05-13T15:06:51Z\",\"updated_on\":\"2026-05-13T15:06:51Z\",\"closed_on\":null}}",
+    "payload": {
+        "issue": {
+            "project_id": 48,
+            "subject": "Modificar Usuario \/ Hospital Clinico Regional (Valdivia) \/ Unidad Medicina Física Y Rehabilitación",
+            "description": "|_. Tipo solicitud|_. RUN|_. Nombre|_. Motivo|_. Otros permisos|\n|Modificar Perfil|20710725-5|Felipe Andrés Pereira Ahumada|No dispone de opciones.|Agregar módulo de ficha clínica para atención clínica a nivel de atención cerrada.|",
+            "tracker_id": 3,
+            "priority_id": 2,
+            "status_id": 1,
+            "start_date": "2026-05-12",
+            "due_date": "2026-05-12",
+            "assigned_to_id": "42",
+            "category_id": 154,
+            "custom_fields": [
+                {
+                    "id": "3",
+                    "value": "Marcos Riquelme Barruel"
+                },
+                {
+                    "id": "5",
+                    "value": "Unidad Medicina Física Y Rehabilitación"
+                },
+                {
+                    "id": 8,
+                    "value": "marcosriquelmebarruel@gmail.com"
+                },
+                {
+                    "id": "12",
+                    "value": "0"
+                }
+            ]
+        }
+    },
+    "message_id": "core-41765e720475871aef45"
+}
