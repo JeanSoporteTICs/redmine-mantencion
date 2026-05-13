@@ -29,6 +29,34 @@ function dashboard_redirect_back(): void {
     exit;
 }
 
+function dashboard_is_ajax_request(): bool {
+    return strtolower((string)($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '')) === 'xmlhttprequest'
+        || str_contains((string)($_SERVER['HTTP_ACCEPT'] ?? ''), 'application/json')
+        || (string)($_POST['ajax'] ?? '') === '1';
+}
+
+function dashboard_status_counts(array $messages): array {
+    $counts = [
+        'pendiente' => 0,
+        'procesado' => 0,
+        'error' => 0,
+    ];
+    foreach ($messages as $message) {
+        $status = strtolower((string)($message['estado'] ?? ''));
+        if (isset($counts[$status])) {
+            $counts[$status]++;
+        }
+    }
+    return $counts;
+}
+
+function dashboard_json_response(array $payload, int $statusCode = 200): void {
+    http_response_code($statusCode);
+    header('Content-Type: application/json; charset=UTF-8');
+    echo json_encode($payload, JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
 function dashboard_messages_file(): string {
     return __DIR__ . '/../data/mensaje.json';
 }
@@ -2705,6 +2733,13 @@ function handle_request(): array {
             maintenance_mode_block_if_enabled();
         }
         $flashMsg = null;
+        $ajaxAction = dashboard_is_ajax_request();
+        $ajaxPayload = [
+            'ok' => true,
+            'action' => $action,
+            'message' => '',
+            'ids' => [],
+        ];
         switch ($action) {
             case 'update':
                 $id = $_POST['id'] ?? '';
@@ -2793,14 +2828,25 @@ function handle_request(): array {
                         remove_hours_extra_record_by_id($id);
                     }
                     $flashMsg = $isEnabled ? 'Hora extra activada.' : 'Hora extra desactivada.';
+                    $ajaxPayload['ids'] = [$id];
+                    $ajaxPayload['row'] = [
+                        'id' => $id,
+                        'hora_extra' => $isEnabled ? '1' : '0',
+                        'tiempo_estimado' => $isEnabled ? dashboard_hora_extra_default_time('1') : '',
+                        'title' => $isEnabled ? 'Hora extra: Sí. Cambiar a No' : 'Hora extra: No. Cambiar a Sí',
+                        'icon' => $isEnabled ? 'bi-clock-fill' : 'bi-clock',
+                        'buttonClass' => $isEnabled ? 'btn-hora-extra--on' : 'btn-hora-extra--off',
+                    ];
                 } else {
                     $flashMsg = 'No se encontro el mensaje.';
+                    $ajaxPayload['ok'] = false;
                 }
                 break;
             case 'delete':
                 $id = $_POST['id'] ?? '';
                 if ($id === '') {
                     $flashMsg = 'Identificador no válido.';
+                    $ajaxPayload['ok'] = false;
                     break;
                 }
                 $before = count($messages);
@@ -2808,8 +2854,10 @@ function handle_request(): array {
                 if ($before !== count($messages)) {
                     save_messages($messages);
                     $flashMsg = 'Mensaje eliminado.';
+                    $ajaxPayload['ids'] = [$id];
                 } else {
                     $flashMsg = 'No se encontró el mensaje para eliminar.';
+                    $ajaxPayload['ok'] = false;
                 }
                 break;
             case 'process_selected':
@@ -2859,8 +2907,10 @@ function handle_request(): array {
                 $archived = archive_selected_messages($messages, $ids);
                 if ($archived > 0) {
                     $flashMsg = $archived . ' tickets archivados.';
+                    $ajaxPayload['ids'] = array_values(array_filter(array_map('trim', $ids)));
                 } else {
                     $flashMsg = 'No había mensajes seleccionados para archivar.';
+                    $ajaxPayload['ok'] = false;
                 }
                 break;
             case 'delete_selected':
@@ -2868,6 +2918,7 @@ function handle_request(): array {
                 $ids = array_values(array_filter(array_map('trim', $ids)));
                 if (empty($ids)) {
                     $flashMsg = 'No habia mensajes seleccionados para eliminar.';
+                    $ajaxPayload['ok'] = false;
                     break;
                 }
                 $before = count($messages);
@@ -2876,8 +2927,10 @@ function handle_request(): array {
                 if ($deleted > 0) {
                     save_messages($messages);
                     $flashMsg = $deleted . ' mensaje(s) eliminados.';
+                    $ajaxPayload['ids'] = $ids;
                 } else {
                     $flashMsg = 'No se encontraron mensajes seleccionados para eliminar.';
+                    $ajaxPayload['ok'] = false;
                 }
                 break;
             case 'reset_errors':
@@ -2901,8 +2954,11 @@ function handle_request(): array {
                     remove_redmine_logs_for_messages($ids);
                     save_messages($messages);
                     $flashMsg = $updated . ' error(es) marcados como pendientes.';
+                    $ajaxPayload['ids'] = array_values($ids);
+                    $ajaxPayload['status'] = 'pendiente';
                 } else {
                     $flashMsg = 'No se encontraron errores seleccionados.';
+                    $ajaxPayload['ok'] = false;
                 }
                 break;
             default:
@@ -2929,6 +2985,12 @@ function handle_request(): array {
                 $flashParts[] = 'Redmine ID(s): ' . implode(', ', $result['redmine_ids']);
             }
             $flashMsg = implode(' ', $flashParts);
+        }
+        if ($ajaxAction && $action !== 'process_selected' && $action !== 'import_core_history') {
+            $scopedMessages = dashboard_filter_messages_by_scope($messages);
+            $ajaxPayload['message'] = $flashMsg ?? '';
+            $ajaxPayload['counts'] = dashboard_status_counts($scopedMessages);
+            dashboard_json_response($ajaxPayload, !empty($ajaxPayload['ok']) ? 200 : 400);
         }
         if ($action === 'toggle_hora_extra') {
             dashboard_set_toast($flashMsg ?? '');

@@ -153,3 +153,12 @@
 [11-05-2026 12:45:45] SESSION_EXTEND - Sesion extendida por Jean Cortes Lorca (ID 42)
 [11-05-2026 13:46:38] SESSION_EXTEND - Sesion extendida por Jean Cortes Lorca (ID 42)
 [11-05-2026 14:17:35] SESSION_EXTEND - Sesion extendida por Jean Cortés Lorca (ID 42)
+[12-05-2026 10:46:47] CSRF_ALERT - Token=NULL session=NULL
+[12-05-2026 10:46:50] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
+[12-05-2026 10:50:57] LOGIN_SUCCESS - User Jean Cortes Lorca (42)
+[12-05-2026 11:08:37] SESSION_EXTEND - Sesion extendida por Jean Cortes Lorca (ID 42)
+[12-05-2026 14:11:27] SESSION_EXTEND - Sesion extendida por Jean Cortés Lorca (ID 42)
+[12-05-2026 15:21:47] SESSION_EXTEND - Sesion extendida por Jean Cortés Lorca (ID 42)
+[12-05-2026 16:06:34] SESSION_EXTEND - Sesion extendida por Jean Cortés Lorca (ID 42)
+[12-05-2026 17:19:51] SESSION_EXTEND - Sesion extendida por Jean Cortés Lorca (ID 42)
+[13-05-2026 08:40:47] SESSION_EXTEND - Sesion extendida por Jean Cortés Lorca (ID 42)

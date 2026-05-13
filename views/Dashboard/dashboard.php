@@ -310,6 +310,7 @@ $csrf = csrf_token();
   .dashboard-row-actions .btn-hora-extra--on { color: #fff; background: linear-gradient(135deg, #16a34a, #22c55e); border-color: transparent; }
   .dashboard-row-actions .btn-hora-extra--off { color: #64748b; background: #f8fafc; border-color: #cbd5e1; }
   .dashboard-row-actions .btn-hora-extra--off:hover { color: #0f172a; background: #e0f2fe; border-color: #7dd3fc; }
+  .dashboard-table tbody tr.is-row-updating { opacity: .58; pointer-events: none; }
   .dashboard-toast {
     position: fixed;
     right: 22px;
@@ -620,6 +621,7 @@ $csrf = csrf_token();
             ?>
 
             <tr
+              data-id="<?= $h($m['id'] ?? '') ?>"
               data-status="<?= $h($estado) ?>"
               data-cat="<?= $h(strtolower($m['categoria'] ?? '')) ?>"
               data-unit="<?= $h(strtolower($m['unidad'] ?? '')) ?>"
@@ -720,7 +722,7 @@ $csrf = csrf_token();
                 <?php
                   $hasHoraExtra = function_exists('normalize_hour_extra_value') && normalize_hour_extra_value($m['hora_extra'] ?? '') === '1';
                 ?>
-                <form method="post">
+                <form method="post" data-dashboard-ajax="row">
                   <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
                   <input type="hidden" name="id" value="<?= $h($m['id'] ?? '') ?>">
                   <input type="hidden" name="action" value="toggle_hora_extra">
@@ -744,7 +746,7 @@ $csrf = csrf_token();
                   <button type="button" class="btn btn-sm btn-outline-danger log-btn action-tooltip" data-log="<?= $h($logText) ?>" data-bs-toggle="modal" data-bs-target="#logModal" data-bs-placement="top" title="Log"><i class="bi bi-journal-text"></i></button>
                 <?php endif; ?>
 
-                <form method="post" data-app-confirm="Eliminar este mensaje?">
+                <form method="post" data-app-confirm="Eliminar este mensaje?" data-dashboard-ajax="row">
                   <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
                   <input type="hidden" name="id" value="<?= $h($m['id'] ?? '') ?>">
                   <input type="hidden" name="action" value="delete">
@@ -1098,6 +1100,19 @@ $csrf = csrf_token();
 <script>
 
   const dashboardMaintenanceMode = <?= $maintenanceMode ? 'true' : 'false' ?>;
+  const dashboardScrollKey = 'dashboard-scroll-y';
+
+  const savedDashboardScroll = Number(sessionStorage.getItem(dashboardScrollKey) || '');
+  if (Number.isFinite(savedDashboardScroll) && savedDashboardScroll > 0) {
+    sessionStorage.removeItem(dashboardScrollKey);
+    requestAnimationFrame(() => window.scrollTo({ top: savedDashboardScroll, behavior: 'auto' }));
+  }
+
+  document.addEventListener('submit', event => {
+    const form = event.target.closest('form');
+    if (!form || form.matches('[data-dashboard-ajax="row"]')) return;
+    sessionStorage.setItem(dashboardScrollKey, String(window.scrollY || 0));
+  }, true);
 
   document.querySelectorAll('.action-tooltip').forEach(el => {
     new bootstrap.Tooltip(el);
@@ -1474,7 +1489,7 @@ function getSelectedVisibleChecks() {
   });
 }
 
-function refreshDashboardCounters() {
+  function refreshDashboardCounters() {
   const visibleCount = document.getElementById('visible-count');
   const selectionCount = document.getElementById('selection-count');
   const visibleRows = getVisibleRows();
@@ -1556,7 +1571,13 @@ if (processForm && processIds) {
       });
 
     }
-    if (!e.defaultPrevented && (processAction?.value || '') === 'process_selected' && !redmineSubmitDelayDone) {
+    const currentProcessAction = processAction?.value || '';
+    if (!e.defaultPrevented && currentProcessAction !== 'process_selected') {
+      e.preventDefault();
+      submitDashboardBulkAction(processForm);
+      return;
+    }
+    if (!e.defaultPrevented && currentProcessAction === 'process_selected' && !redmineSubmitDelayDone) {
       e.preventDefault();
       showDashboardProgress('redmine');
       redmineSubmitDelayDone = true;
@@ -1586,6 +1607,7 @@ function applyFilterButtons(filter) {
   if (processBtn) {
     processBtn.classList.toggle('d-none', filter !== 'pendiente');
   }
+
   const archiveBtn = document.getElementById('archive-btn');
   if (archiveBtn) {
     const showArchive = (filter === 'procesado' || filter === 'pendiente');
@@ -1597,6 +1619,149 @@ function applyFilterButtons(filter) {
   }
   refreshDashboardCounters();
 }
+
+function escapeDashboardId(value) {
+  const raw = String(value);
+  if (window.CSS && typeof CSS.escape === 'function') {
+    return CSS.escape(raw);
+  }
+  return raw.replace(/["\\]/g, '\\$&');
+}
+
+function showDashboardToast(message, tone = 'success') {
+  if (!message) return;
+  document.querySelectorAll('.dashboard-toast').forEach(toast => toast.remove());
+  const toast = document.createElement('div');
+  toast.className = 'dashboard-toast';
+  toast.setAttribute('role', 'status');
+  toast.setAttribute('aria-live', 'polite');
+  toast.innerHTML = `<i class="bi ${tone === 'danger' ? 'bi-exclamation-triangle' : 'bi-check2-circle'}"></i><span></span>`;
+  toast.querySelector('span').textContent = message;
+  document.body.appendChild(toast);
+  window.setTimeout(() => {
+    toast.classList.add('is-hiding');
+    window.setTimeout(() => toast.remove(), 260);
+  }, 2000);
+}
+
+function updateDashboardStatusCards(counts) {
+  if (!counts || typeof counts !== 'object') return;
+  Object.entries(counts).forEach(([status, count]) => {
+    const value = document.querySelector(`[data-filter="${status}"] .dashboard-stat__value`);
+    if (value) value.textContent = String(count);
+  });
+}
+
+async function submitDashboardAction(form) {
+  const row = form.closest('tr');
+  const data = new FormData(form);
+  data.set('ajax', '1');
+  row?.classList.add('is-row-updating');
+  try {
+    const response = await fetch(form.getAttribute('action') || window.location.href, {
+      method: 'POST',
+      headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
+      body: data
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok || payload.ok === false) {
+      throw new Error(payload.message || 'No se pudo completar la acción.');
+    }
+    applyDashboardActionResult(payload, form, row);
+    showDashboardToast(payload.message || 'Acción completada.');
+  } catch (error) {
+    row?.classList.remove('is-row-updating');
+    showDashboardToast(error.message || 'No se pudo completar la acción.', 'danger');
+  }
+}
+
+async function submitDashboardBulkAction(form) {
+  const data = new FormData(form);
+  data.set('ajax', '1');
+  const ids = String(data.get('ids') || '').split(',').filter(Boolean);
+  ids.forEach(id => document.querySelector(`tr[data-id="${escapeDashboardId(id)}"]`)?.classList.add('is-row-updating'));
+  try {
+    const response = await fetch(form.getAttribute('action') || window.location.href, {
+      method: 'POST',
+      headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
+      body: data
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok || payload.ok === false) {
+      throw new Error(payload.message || 'No se pudo completar la acción.');
+    }
+    applyDashboardActionResult(payload, form, null);
+    showDashboardToast(payload.message || 'Acción completada.');
+  } catch (error) {
+    ids.forEach(id => document.querySelector(`tr[data-id="${escapeDashboardId(id)}"]`)?.classList.remove('is-row-updating'));
+    showDashboardToast(error.message || 'No se pudo completar la acción.', 'danger');
+  }
+}
+
+function applyDashboardActionResult(payload, form, row) {
+  const action = payload.action || form.querySelector('[name="action"]')?.value || '';
+  updateDashboardStatusCards(payload.counts);
+  if (action === 'toggle_hora_extra') {
+    const btn = form.querySelector('button[type="submit"]');
+    const info = payload.row || {};
+    const enabled = String(info.hora_extra || '') === '1';
+    row?.setAttribute('data-horaextra', enabled ? '1' : '0');
+    const detailBtn = row?.querySelector('[data-bs-target="#detalleModal"]');
+    if (detailBtn) {
+      detailBtn.setAttribute('data-hora_extra', enabled ? '1' : '0');
+      detailBtn.setAttribute('data-tiempo_estimado', info.tiempo_estimado || '');
+    }
+    if (btn) {
+      btn.classList.toggle('btn-hora-extra--on', enabled);
+      btn.classList.toggle('btn-hora-extra--off', !enabled);
+      btn.setAttribute('title', info.title || (enabled ? 'Hora extra: Sí. Cambiar a No' : 'Hora extra: No. Cambiar a Sí'));
+      btn.querySelector('i')?.classList.toggle('bi-clock-fill', enabled);
+      btn.querySelector('i')?.classList.toggle('bi-clock', !enabled);
+      bootstrap.Tooltip.getInstance(btn)?.dispose();
+      new bootstrap.Tooltip(btn);
+    }
+    row?.classList.remove('is-row-updating');
+  } else if (['delete', 'archive_selected', 'delete_selected'].includes(action)) {
+    (payload.ids || []).forEach(id => {
+      document.querySelector(`tr[data-id="${escapeDashboardId(id)}"]`)?.remove();
+    });
+    refreshDashboardCounters();
+  } else if (action === 'reset_errors') {
+    (payload.ids || []).forEach(id => {
+      const targetRow = document.querySelector(`tr[data-id="${escapeDashboardId(id)}"]`);
+      if (!targetRow) return;
+      targetRow.setAttribute('data-status', 'pendiente');
+      targetRow.classList.remove('is-row-updating');
+      const detailBtn = targetRow.querySelector('[data-bs-target="#detalleModal"]');
+      detailBtn?.setAttribute('data-estado', 'pendiente');
+      const statusIcon = targetRow.querySelector('.dashboard-status-icon');
+      if (statusIcon) {
+        statusIcon.classList.remove('dashboard-status-icon--processed', 'dashboard-status-icon--error');
+        statusIcon.classList.add('dashboard-status-icon--pending');
+        statusIcon.setAttribute('title', 'Pendiente');
+        const icon = statusIcon.querySelector('i');
+        if (icon) icon.className = 'bi bi-hourglass-split';
+        bootstrap.Tooltip.getInstance(statusIcon)?.dispose();
+        new bootstrap.Tooltip(statusIcon);
+      }
+      const currentFilter = filterNav?.querySelector('[data-filter].is-active')?.getAttribute('data-filter') || 'pendiente';
+      targetRow.style.display = currentFilter === 'pendiente' || currentFilter === 'all' ? '' : 'none';
+    });
+    refreshDashboardCounters();
+  } else {
+    row?.classList.remove('is-row-updating');
+    refreshDashboardCounters();
+  }
+}
+
+document.querySelectorAll('form[data-dashboard-ajax="row"]').forEach(form => {
+  form.addEventListener('submit', event => {
+    if (dashboardMaintenanceMode) return;
+    if (form.matches('[data-app-confirm]') && form.dataset.appConfirmAccepted !== '1') return;
+    event.preventDefault();
+    submitDashboardAction(form);
+  });
+});
 
 if (filterNav) {
 

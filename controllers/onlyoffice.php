@@ -137,7 +137,8 @@ function onlyoffice_editor_config(array $record, array $cfg, string $mode = 'edi
                 'mode' => 'fast',
                 'change' => false,
             ],
-            'lang' => 'es',
+            'lang' => 'es-CL',
+            'region' => 'es-CL',
             'mode' => $canEdit ? 'edit' : 'view',
             'user' => [
                 'id' => $userId !== '' ? $userId : 'public',

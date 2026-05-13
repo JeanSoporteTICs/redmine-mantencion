@@ -971,7 +971,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             </form>
           </div>
           <div class="col-md-6">
-            <form method="post" enctype="multipart/form-data" class="h-100 p-3 border rounded-4 bg-white" data-app-confirm="Importar el respaldo sobrescribira las secciones seleccionadas. Continuar?">
+            <form method="post" enctype="multipart/form-data" class="h-100 p-3 border rounded-4 bg-white" data-app-confirm="Importar el respaldo combinara los datos de las secciones seleccionadas. Continuar?" data-app-confirm-text="Importar">
               <input type="hidden" name="csrf_token" value="<?= $h($csrf) ?>">
               <input type="hidden" name="action" value="maintenance_import">
               <h6 class="fw-bold mb-2"><i class="bi bi-upload text-success"></i> Importar</h6>

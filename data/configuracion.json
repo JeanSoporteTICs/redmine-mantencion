@@ -76,7 +76,7 @@
     "core_admin_url": "https:\/\/www.hbvaldivia.cl\/core\/solicitudes\/administrador",
     "core_historico_url": "https:\/\/www.hbvaldivia.cl\/core\/solicitudes\/administrador\/obtener_solicitudes_historicas",
     "core_sync_minutes": 2,
-    "core_last_sync": "2026-05-11T15:33:39+02:00",
+    "core_last_sync": "2026-05-12T23:30:48+02:00",
     "core_last_error": "",
     "maintenance_mode": false,
     "maintenance_until": "",

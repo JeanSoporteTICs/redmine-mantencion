@@ -520,11 +520,11 @@ function procedures_office_mime(string $type): string {
 
 function procedures_create_blank_office_file(string $recordId, string $title, string $type): array {
     if (!in_array($type, ['docx', 'xlsx'], true)) {
-        return ['ok' => false, 'error' => 'Tipo de documento no vÃ¡lido.'];
+        return ['ok' => false, 'error' => 'Tipo de documento no válido.'];
     }
     $binary = base64_decode(procedures_blank_template_base64($type), true);
     if (!is_string($binary) || $binary === '') {
-        return ['ok' => false, 'error' => 'No se encontrÃ³ la plantilla del documento.'];
+        return ['ok' => false, 'error' => 'No se encontró la plantilla del documento.'];
     }
     $safeName = $recordId . '-' . bin2hex(random_bytes(4)) . '.' . $type;
     $target = procedures_documents_dir() . '/' . $safeName;
@@ -652,7 +652,7 @@ function procedures_handle_request(): array {
                 $destinationFolderId = '';
             }
             if ($targetId === '') {
-                $error = 'No se encontrÃ³ el documento a mover.';
+                $error = 'No se encontró el documento a mover.';
             } else {
                 $moved = false;
                 foreach ($items as $idx => $item) {

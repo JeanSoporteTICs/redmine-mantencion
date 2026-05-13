@@ -295,7 +295,7 @@ if ($isPdfExport) {
       .pdf-content .proc-callout-title { display: block; margin-bottom: .35rem; font-size: .76rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
       .pdf-content .proc-checklist { margin: 1rem 0; padding-left: 1.3rem; }
       .pdf-content .proc-checklist li { margin-bottom: .45rem; list-style: none; position: relative; }
-      .pdf-content .proc-checklist li::before { content: "☐"; position: absolute; left: -1.25rem; top: 0; color: #2563eb; font-weight: 700; }
+      .pdf-content .proc-checklist li::before { content: "\2610"; position: absolute; left: -1.25rem; top: 0; color: #2563eb; font-weight: 700; }
       .pdf-shell {
         width: max-content;
         min-width: 100%;
@@ -718,7 +718,7 @@ if ($isPdfExport) {
     .proc-detail-content .proc-callout-title { display: block; margin-bottom: .35rem; font-size: .76rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
     .proc-detail-content .proc-checklist { margin: 1rem 0; padding-left: 1.3rem; }
     .proc-detail-content .proc-checklist li { margin-bottom: .45rem; list-style: none; position: relative; }
-    .proc-detail-content .proc-checklist li::before { content: "☐"; position: absolute; left: -1.25rem; top: 0; color: #2563eb; font-weight: 700; }
+    .proc-detail-content .proc-checklist li::before { content: "\2610"; position: absolute; left: -1.25rem; top: 0; color: #2563eb; font-weight: 700; }
     .proc-detail-content {
       min-height: 560px;
       background-color: #fff;
@@ -976,7 +976,7 @@ if ($isPdfExport) {
       position: relative;
     }
     .proc-checklist li::before {
-      content: "☐";
+      content: "\2610";
       position: absolute;
       left: -1.25rem;
       top: 0;
@@ -1525,7 +1525,7 @@ if ($isPdfExport) {
             <span class="proc-board-icon badge-soft badge-soft-primary"><i class="bi bi-folder2-open"></i></span>
             <div>
               <h2><?= $currentFolder ? $h($currentFolder['title'] ?? 'Carpeta') : 'Documentos creados' ?></h2>
-              <p><?= count($visibleFolders) ?> carpetas · <?= count($visibleProcedures) ?> documentos</p>
+              <p><?= count($visibleFolders) ?> carpetas | <?= count($visibleProcedures) ?> documentos</p>
             </div>
           </div>
           <div class="proc-board-actions">
@@ -1550,7 +1550,7 @@ if ($isPdfExport) {
         </div>
           <?php if ($currentFolder): ?>
             <div class="proc-folder-crumb">
-              <a href="/redmine-mantencion/views/Procedimientos/procedimientos.php"><i class="bi bi-house"></i> Raiz</a>
+              <a href="/redmine-mantencion/views/Procedimientos/procedimientos.php"><i class="bi bi-house"></i> Raíz</a>
               <i class="bi bi-chevron-right"></i>
               <span><i class="bi bi-folder2-open"></i> <?= $h($currentFolder['title'] ?? '') ?></span>
             </div>
@@ -1563,7 +1563,7 @@ if ($isPdfExport) {
                 <?php
                   $folderId = (string)($folder['id'] ?? '');
                   $folderTitle = trim((string)($folder['title'] ?? 'Carpeta'));
-                  $folderCount = count(array_filter($procedures, static fn(array $procedure): bool => (string)($procedure['folder_id'] ?? '') === $folderId && (string)($procedure['record_type'] ?? 'document') !== 'folder' && empty($procedure['draft_pending'])));
+                  $folderUpdated = trim((string)($folder['updated_at'] ?? $folder['created_at'] ?? ''));
                 ?>
                 <a
                   href="/redmine-mantencion/views/Procedimientos/procedimientos.php?folder=<?= urlencode($folderId) ?>"
@@ -1574,7 +1574,9 @@ if ($isPdfExport) {
                     <span class="proc-card-icon"><i class="bi bi-folder-fill"></i></span>
                     <div class="proc-card-body">
                       <div class="proc-title"><?= $h($folderTitle) ?></div>
-                      <div class="proc-card-meta"><?= $folderCount ?> documentos</div>
+                      <?php if ($folderUpdated !== ''): ?>
+                        <div class="proc-card-meta"><?= $h(date('d-m-Y', strtotime($folderUpdated))) ?></div>
+                      <?php endif; ?>
                     </div>
                   </div>
                 </a>
@@ -1584,23 +1586,20 @@ if ($isPdfExport) {
                   $itemId = (string)($procedure['id'] ?? '');
                   $itemTitle = trim((string)($procedure['title'] ?? 'Sin título'));
                   $itemUpdated = trim((string)($procedure['updated_at'] ?? ''));
+                  $itemKind = function_exists('procedures_file_kind') ? procedures_file_kind($procedure) : 'html';
                 ?>
                 <a
                   href="/redmine-mantencion/views/Procedimientos/procedimientos.php?id=<?= urlencode($itemId) ?>"
-                   class="proc-grid-card card"
+                   class="proc-grid-card proc-file-card proc-file-<?= $h($itemKind) ?> card"
                   data-search="<?= $h(strtolower($itemTitle)) ?>"
                 >
                   <div class="proc-card-top">
-                    <?php $itemKind = function_exists('procedures_file_kind') ? procedures_file_kind($procedure) : 'html'; ?>
-                    <span class="proc-card-icon"><i class="bi <?= $itemKind === 'pdf' ? 'bi-file-earmark-pdf' : ($itemKind === 'word' ? 'bi-file-earmark-word' : ($itemKind === 'cell' ? 'bi-file-earmark-spreadsheet' : ($itemKind === 'slide' ? 'bi-file-earmark-slides' : 'bi-file-earmark-text'))) ?>"></i></span>
+                    <span class="proc-card-icon"><i class="bi <?= $itemKind === 'pdf' ? 'bi-file-earmark-pdf-fill' : ($itemKind === 'word' ? 'bi-file-earmark-word-fill' : ($itemKind === 'cell' ? 'bi-file-earmark-spreadsheet-fill' : ($itemKind === 'slide' ? 'bi-file-earmark-slides-fill' : 'bi-file-earmark-text-fill'))) ?>"></i></span>
                     <div class="proc-card-body">
                       <div class="proc-title"><?= $h($itemTitle) ?></div>
-                      <?php if (!empty($procedure['file_original_name'])): ?>
-                        <div class="proc-card-meta"><?= $h($procedure['file_original_name']) ?></div>
-                      <?php endif; ?>
-                      <?php if ($itemUpdated !== ''): ?>
-                        <div class="proc-card-meta"><?= $h(date('d-m-Y', strtotime($itemUpdated))) ?></div>
-                      <?php endif; ?>
+                        <?php if ($itemUpdated !== ''): ?>
+                          <div class="proc-card-meta"><?= $h(date('d-m-Y', strtotime($itemUpdated))) ?></div>
+                        <?php endif; ?>
                     </div>
                   </div>
                 </a>
@@ -1925,7 +1924,7 @@ if ($isPdfExport) {
         <div class="modal-body">
           <div class="d-flex flex-column gap-3">
             <div>
-              <label class="form-label fw-semibold">T&iacute;tulo</label>
+              <label class="form-label fw-semibold">Título</label>
               <input type="text" name="title" class="form-control form-control-lg" placeholder="Nombre del procedimiento">
             </div>
             <div>

@@ -9,6 +9,10 @@ function maintenance_sections(): array {
             'label' => 'Archivados',
             'paths' => ['reportes'],
         ],
+        'pendientes' => [
+            'label' => 'Mensajes pendientes',
+            'paths' => ['mensaje.json'],
+        ],
         'horas_extras' => [
             'label' => 'Horas extra',
             'paths' => ['horasExtras'],
@@ -308,6 +312,7 @@ function maintenance_should_merge_json(string $relative): bool {
         return false;
     }
     return str_starts_with($relative, 'reportes/')
+        || $relative === 'mensaje.json'
         || str_starts_with($relative, 'horasExtras/')
         || $relative === 'procedimientos/index.json';
 }
